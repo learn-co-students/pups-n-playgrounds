@@ -1,0 +1,444 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		20B6C0C3E3DE18A393DCF2F1 /* Pods_OCR_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1D3F43CF17257A8F680CF3 /* Pods_OCR_Test.framework */; };
+		B513DD871DDCF71500A3B41A /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B513DD861DDCF71500A3B41A /* tessdata */; };
+		B52DB2B31DDC92100067BB17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52DB2B21DDC92100067BB17 /* AppDelegate.swift */; };
+		B52DB2B81DDC92100067BB17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B52DB2B61DDC92100067BB17 /* Main.storyboard */; };
+		B52DB2BB1DDC92100067BB17 /* OCR_Test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B52DB2B91DDC92100067BB17 /* OCR_Test.xcdatamodeld */; };
+		B52DB2BD1DDC92100067BB17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B52DB2BC1DDC92100067BB17 /* Assets.xcassets */; };
+		B52DB2C01DDC92100067BB17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B52DB2BE1DDC92100067BB17 /* LaunchScreen.storyboard */; };
+		B52DB2D01DDC99210067BB17 /* OCRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52DB2CF1DDC99210067BB17 /* OCRViewController.swift */; };
+		B5470AEF1DDCAFE90034F8CD /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B52DB2D11DDC9C3B0067BB17 /* CoreImage.framework */; };
+		B5470AF01DDCB4B40034F8CD /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B52DB2CD1DDC95C90067BB17 /* libstdc++.6.0.9.tbd */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9F8A71C989FC9D25790AD60B /* Pods-OCR-Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OCR-Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-OCR-Test/Pods-OCR-Test.release.xcconfig"; sourceTree = "<group>"; };
+		AE1D3F43CF17257A8F680CF3 /* Pods_OCR_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OCR_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B513DD861DDCF71500A3B41A /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		B52DB2AF1DDC92100067BB17 /* OCR-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OCR-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B52DB2B21DDC92100067BB17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B52DB2B71DDC92100067BB17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B52DB2BA1DDC92100067BB17 /* OCR_Test.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OCR_Test.xcdatamodel; sourceTree = "<group>"; };
+		B52DB2BC1DDC92100067BB17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B52DB2BF1DDC92100067BB17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B52DB2C11DDC92100067BB17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B52DB2C91DDC94AE0067BB17 /* OCR-Test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCR-Test-Bridging-Header.h"; sourceTree = "<group>"; };
+		B52DB2CD1DDC95C90067BB17 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		B52DB2CF1DDC99210067BB17 /* OCRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCRViewController.swift; sourceTree = "<group>"; };
+		B52DB2D11DDC9C3B0067BB17 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		DFD03A58AD5EF626B9A7D2C6 /* Pods-OCR-Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OCR-Test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OCR-Test/Pods-OCR-Test.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B52DB2AC1DDC92100067BB17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5470AF01DDCB4B40034F8CD /* libstdc++.6.0.9.tbd in Frameworks */,
+				B5470AEF1DDCAFE90034F8CD /* CoreImage.framework in Frameworks */,
+				20B6C0C3E3DE18A393DCF2F1 /* Pods_OCR_Test.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B52DB2A61DDC92100067BB17 = {
+			isa = PBXGroup;
+			children = (
+				B52DB2B11DDC92100067BB17 /* OCR-Test */,
+				B52DB2B01DDC92100067BB17 /* Products */,
+				C4174B3522BF0B111FA4544C /* Pods */,
+				BA99BA4CA5AF4B13AC022100 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B52DB2B01DDC92100067BB17 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B52DB2AF1DDC92100067BB17 /* OCR-Test.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B52DB2B11DDC92100067BB17 /* OCR-Test */ = {
+			isa = PBXGroup;
+			children = (
+				B52DB2B21DDC92100067BB17 /* AppDelegate.swift */,
+				B52DB2B61DDC92100067BB17 /* Main.storyboard */,
+				B52DB2CF1DDC99210067BB17 /* OCRViewController.swift */,
+				B52DB2BC1DDC92100067BB17 /* Assets.xcassets */,
+				B52DB2BE1DDC92100067BB17 /* LaunchScreen.storyboard */,
+				B513DD861DDCF71500A3B41A /* tessdata */,
+				B52DB2C11DDC92100067BB17 /* Info.plist */,
+				B52DB2B91DDC92100067BB17 /* OCR_Test.xcdatamodeld */,
+				B52DB2C91DDC94AE0067BB17 /* OCR-Test-Bridging-Header.h */,
+			);
+			path = "OCR-Test";
+			sourceTree = "<group>";
+		};
+		BA99BA4CA5AF4B13AC022100 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B52DB2D11DDC9C3B0067BB17 /* CoreImage.framework */,
+				B52DB2CD1DDC95C90067BB17 /* libstdc++.6.0.9.tbd */,
+				AE1D3F43CF17257A8F680CF3 /* Pods_OCR_Test.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C4174B3522BF0B111FA4544C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DFD03A58AD5EF626B9A7D2C6 /* Pods-OCR-Test.debug.xcconfig */,
+				9F8A71C989FC9D25790AD60B /* Pods-OCR-Test.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B52DB2AE1DDC92100067BB17 /* OCR-Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B52DB2C41DDC92100067BB17 /* Build configuration list for PBXNativeTarget "OCR-Test" */;
+			buildPhases = (
+				0750FDB9A834900953287526 /* [CP] Check Pods Manifest.lock */,
+				B52DB2AB1DDC92100067BB17 /* Sources */,
+				B52DB2AC1DDC92100067BB17 /* Frameworks */,
+				B52DB2AD1DDC92100067BB17 /* Resources */,
+				EFD1E174204836538C79DB6F /* [CP] Embed Pods Frameworks */,
+				C082DC220F23DD93FE7219C9 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OCR-Test";
+			productName = "OCR-Test";
+			productReference = B52DB2AF1DDC92100067BB17 /* OCR-Test.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B52DB2A71DDC92100067BB17 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = FJ;
+				TargetAttributes = {
+					B52DB2AE1DDC92100067BB17 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 2UY7XP5ASH;
+						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = B52DB2AA1DDC92100067BB17 /* Build configuration list for PBXProject "OCR-Test" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B52DB2A61DDC92100067BB17;
+			productRefGroup = B52DB2B01DDC92100067BB17 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B52DB2AE1DDC92100067BB17 /* OCR-Test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B52DB2AD1DDC92100067BB17 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B52DB2C01DDC92100067BB17 /* LaunchScreen.storyboard in Resources */,
+				B513DD871DDCF71500A3B41A /* tessdata in Resources */,
+				B52DB2BD1DDC92100067BB17 /* Assets.xcassets in Resources */,
+				B52DB2B81DDC92100067BB17 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0750FDB9A834900953287526 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C082DC220F23DD93FE7219C9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OCR-Test/Pods-OCR-Test-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EFD1E174204836538C79DB6F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OCR-Test/Pods-OCR-Test-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B52DB2AB1DDC92100067BB17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B52DB2BB1DDC92100067BB17 /* OCR_Test.xcdatamodeld in Sources */,
+				B52DB2D01DDC99210067BB17 /* OCRViewController.swift in Sources */,
+				B52DB2B31DDC92100067BB17 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B52DB2B61DDC92100067BB17 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B52DB2B71DDC92100067BB17 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B52DB2BE1DDC92100067BB17 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B52DB2BF1DDC92100067BB17 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B52DB2C21DDC92100067BB17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B52DB2C31DDC92100067BB17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B52DB2C51DDC92100067BB17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DFD03A58AD5EF626B9A7D2C6 /* Pods-OCR-Test.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 2UY7XP5ASH;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "OCR-Test/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-weak_library",
+					"/usr/lib/libstdc++.6.0.9.dylib",
+					"-l\"stdc++\"",
+					"-framework",
+					"\"TesseractOCR\"",
+					"-lstdc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.FJ.OCR-Test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OCR-Test/OCR-Test-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		B52DB2C61DDC92100067BB17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F8A71C989FC9D25790AD60B /* Pods-OCR-Test.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 2UY7XP5ASH;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "OCR-Test/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-weak_library",
+					"/usr/lib/libstdc++.6.0.9.dylib",
+					"-l\"stdc++\"",
+					"-framework",
+					"\"TesseractOCR\"",
+					"-lstdc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.FJ.OCR-Test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OCR-Test/OCR-Test-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B52DB2AA1DDC92100067BB17 /* Build configuration list for PBXProject "OCR-Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B52DB2C21DDC92100067BB17 /* Debug */,
+				B52DB2C31DDC92100067BB17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B52DB2C41DDC92100067BB17 /* Build configuration list for PBXNativeTarget "OCR-Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B52DB2C51DDC92100067BB17 /* Debug */,
+				B52DB2C61DDC92100067BB17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B52DB2B91DDC92100067BB17 /* OCR_Test.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B52DB2BA1DDC92100067BB17 /* OCR_Test.xcdatamodel */,
+			);
+			currentVersion = B52DB2BA1DDC92100067BB17 /* OCR_Test.xcdatamodel */;
+			path = OCR_Test.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = B52DB2A71DDC92100067BB17 /* Project object */;
+}

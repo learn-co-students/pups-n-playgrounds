@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="ciU-gN-K4I">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="arW-7d-6xs">
+            <objects>
+                <viewController id="ciU-gN-K4I" customClass="OCRViewController" customModule="OCR_Test" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1ao-dD-Vz0"/>
+                        <viewControllerLayoutGuide type="bottom" id="sxN-es-Vq0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yaa-CY-IeB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lw4-y1-vFZ">
+                                <rect key="frame" x="98.5" y="137" width="178" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M42-SF-gd7">
+                                        <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
+                                        <state key="normal" title="Take Picture With Camera">
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="takePictureButton:" destination="ciU-gN-K4I" eventType="touchUpInside" id="3oZ-Ye-jMh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDn-Ck-zVO">
+                                        <rect key="frame" x="47" y="30" width="84" height="30"/>
+                                        <state key="normal" title="Clear Cache">
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DGR-sn-8SE">
+                                <rect key="frame" x="0.0" y="417" width="375" height="167"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DGR-sn-8SE" firstAttribute="height" secondItem="Yaa-CY-IeB" secondAttribute="height" multiplier="0.25" id="35J-mo-pd9"/>
+                            <constraint firstItem="DGR-sn-8SE" firstAttribute="width" secondItem="Yaa-CY-IeB" secondAttribute="width" id="H8d-ht-xWY"/>
+                            <constraint firstItem="DGR-sn-8SE" firstAttribute="centerY" secondItem="Yaa-CY-IeB" secondAttribute="centerY" multiplier="1.5" id="LMd-LD-c9y"/>
+                            <constraint firstItem="lw4-y1-vFZ" firstAttribute="centerY" secondItem="Yaa-CY-IeB" secondAttribute="centerY" multiplier="0.5" id="ZDX-PZ-4Db"/>
+                            <constraint firstItem="lw4-y1-vFZ" firstAttribute="centerX" secondItem="Yaa-CY-IeB" secondAttribute="centerX" id="eFE-QB-kqK"/>
+                            <constraint firstItem="DGR-sn-8SE" firstAttribute="centerX" secondItem="Yaa-CY-IeB" secondAttribute="centerX" id="f5n-Ob-5jg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="DGR-sn-8SE" id="4hs-ud-OYX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XLp-IZ-nXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="331" y="46"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>
