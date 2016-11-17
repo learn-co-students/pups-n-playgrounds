@@ -6,6 +6,7 @@ target 'OCR-Test' do
   use_frameworks!
 
   pod 'TesseractOCRiOS', '4.0.0'
+  pod 'GPUImage'
 
 end
 

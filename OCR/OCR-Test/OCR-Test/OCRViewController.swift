@@ -8,6 +8,7 @@
 
 import UIKit
 import TesseractOCR
+import GPUImage
 
 class OCRViewController: UIViewController, UITextViewDelegate, UINavigationControllerDelegate, G8TesseractDelegate {
     
@@ -39,10 +40,14 @@ class OCRViewController: UIViewController, UITextViewDelegate, UINavigationContr
         tesseract?.maximumRecognitionTime = 60.0
         
         tesseract?.image = image.g8_blackAndWhite()
+        
+        print("tesseract image: \(tesseract?.image)")
+        
         tesseract?.recognize()
        
         textView.text = tesseract?.recognizedText
         textView.isEditable = true
+    
         
         removeActivityIndicator()
     }
@@ -130,11 +135,7 @@ class OCRViewController: UIViewController, UITextViewDelegate, UINavigationContr
         present(imagePickerActionSheet, animated: true,
                               completion: nil)
     
-    
-    
-    
     }
-
     
     
     
@@ -169,10 +170,15 @@ extension OCRViewController: UIImagePickerControllerDelegate {
         let selectedPhoto = info[UIImagePickerControllerOriginalImage] as! UIImage
         let scaledImage = scaleImage(image: selectedPhoto, maxDimension: 640)
         
+        let adaptiveThresholdFilter = GPUImageAdaptiveThresholdFilter()
+        adaptiveThresholdFilter.blurRadiusInPixels = 350
+        
+        let outputImage = adaptiveThresholdFilter.image(byFilteringImage: scaledImage)!
+        print("OUTPUT: \(outputImage)")
         addActivityIndicator()
         
         dismiss(animated: true, completion: {
-            self.performImageRecognition(scaledImage)
+            self.performImageRecognition(outputImage)
         })
     }
 }

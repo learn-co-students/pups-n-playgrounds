@@ -4,25 +4,35 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>GPUImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-OCR-Test.xcscheme</key>
 		<dict>
 			<key>isShown</key>
-			<true/>
+			<false/>
 		</dict>
 		<key>TesseractOCRiOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
-			<true/>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>007B25481DC531BFDA0545FEC91A7C59</key>
+		<key>B05EE049604180D4BB411D021CAD8B67</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>90D92B45EC743785B824FFB6D0316C42</key>
+		<key>BBCF7445922AD98D7BA66C19DE431C36</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EA0DD8ED489933744D70DD4A9719ED01</key>
 		<dict>
 			<key>primary</key>
 			<true/>
