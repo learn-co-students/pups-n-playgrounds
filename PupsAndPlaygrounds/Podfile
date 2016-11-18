@@ -2,7 +2,12 @@
 target 'PupsAndPlaygrounds' do
   use_frameworks!
 
+  # Firebase
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+
   # XML Parser
-  pod 'SWXMLHash', '~> 3.0.0'
+  pod 'SWXMLHash'
 
 end
