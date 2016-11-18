@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6EA3EE3560F8D7CCF450E2B4 /* Pods_PupsAndPlaygrounds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */; };
 		C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */; };
 		C4EAE2D41DDF65E20069C15E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D31DDF65E20069C15E /* ViewController.swift */; };
 		C4EAE2D71DDF65E20069C15E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2D51DDF65E20069C15E /* Main.storyboard */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06127B45D1FA197E42D189AB /* Pods-PupsAndPlaygrounds.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.debug.xcconfig"; sourceTree = "<group>"; };
+		4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PupsAndPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EAE2CE1DDF65E20069C15E /* PupsAndPlaygrounds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PupsAndPlaygrounds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4EAE2D31DDF65E20069C15E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4EAE2DE1DDF65E20069C15E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4EAE2E01DDF65E20069C15E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.release.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EA3EE3560F8D7CCF450E2B4 /* Pods_PupsAndPlaygrounds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3AAC3F68BDE70F5034EFD53D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9BF12558C8182FC9BC2B515A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				06127B45D1FA197E42D189AB /* Pods-PupsAndPlaygrounds.debug.xcconfig */,
+				DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		C4EAE2C51DDF65E20069C15E = {
 			isa = PBXGroup;
 			children = (
 				C4EAE2D01DDF65E20069C15E /* PupsAndPlaygrounds */,
 				C4EAE2CF1DDF65E20069C15E /* Products */,
+				9BF12558C8182FC9BC2B515A /* Pods */,
+				3AAC3F68BDE70F5034EFD53D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +98,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C4EAE2E31DDF65E20069C15E /* Build configuration list for PBXNativeTarget "PupsAndPlaygrounds" */;
 			buildPhases = (
+				EA21A31D217C9634D61596FC /* [CP] Check Pods Manifest.lock */,
 				C4EAE2CA1DDF65E20069C15E /* Sources */,
 				C4EAE2CB1DDF65E20069C15E /* Frameworks */,
 				C4EAE2CC1DDF65E20069C15E /* Resources */,
+				94BA418E71767B692A5E2C7A /* [CP] Embed Pods Frameworks */,
+				02278551F2BF7FC517AEA22E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -133,6 +160,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		02278551F2BF7FC517AEA22E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		94BA418E71767B692A5E2C7A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA21A31D217C9634D61596FC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C4EAE2CA1DDF65E20069C15E /* Sources */ = {
@@ -260,6 +335,7 @@
 		};
 		C4EAE2E41DDF65E20069C15E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06127B45D1FA197E42D189AB /* Pods-PupsAndPlaygrounds.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
@@ -272,6 +348,7 @@
 		};
 		C4EAE2E51DDF65E20069C15E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
@@ -301,6 +378,7 @@
 				C4EAE2E51DDF65E20069C15E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
