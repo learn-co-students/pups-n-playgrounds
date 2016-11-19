@@ -15,6 +15,7 @@
 		C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */; };
 		C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */; };
 		C4EAE2DF1DDF65E20069C15E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DD1DDF65E20069C15E /* LaunchScreen.storyboard */; };
+		E841997A1DE0FA1400522C8A /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199791DE0FA1400522C8A /* Locations.swift */; };
 		E8BAA1701DDFC18D001DFC4D /* dogrunsnyc.json in Resources */ = {isa = PBXBuildFile; fileRef = E8BAA16E1DDFC18D001DFC4D /* dogrunsnyc.json */; };
 		E8BAA1711DDFC18D001DFC4D /* playgroundsnyc.json in Resources */ = {isa = PBXBuildFile; fileRef = E8BAA16F1DDFC18D001DFC4D /* playgroundsnyc.json */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		C4EAE2DE1DDF65E20069C15E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4EAE2E01DDF65E20069C15E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.release.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.release.xcconfig"; sourceTree = "<group>"; };
+		E84199791DE0FA1400522C8A /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		E8BAA16E1DDFC18D001DFC4D /* dogrunsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dogrunsnyc.json; sourceTree = "<group>"; };
 		E8BAA16F1DDFC18D001DFC4D /* playgroundsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = playgroundsnyc.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +93,7 @@
 				C4EAE2D51DDF65E20069C15E /* Main.storyboard */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
 				C4EAE2DD1DDF65E20069C15E /* LaunchScreen.storyboard */,
+				E84199791DE0FA1400522C8A /* Locations.swift */,
 				E8BAA1721DDFC19E001DFC4D /* JSON locations */,
 				C411BBB11DDF706E0090335B /* GoogleService-Info.plist */,
 				C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */,
@@ -236,6 +239,7 @@
 			files = (
 				C4EAE2D41DDF65E20069C15E /* ViewController.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
+				E841997A1DE0FA1400522C8A /* Locations.swift in Sources */,
 				C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
