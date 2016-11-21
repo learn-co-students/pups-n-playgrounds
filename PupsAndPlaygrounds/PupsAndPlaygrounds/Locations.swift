@@ -14,15 +14,15 @@ struct Playground {
     let name: String
     let location: String
     var isHandicap: Bool = false
-    let latitude: Double
-    let longitude: Double
+    let latitude: String
+    let longitude: String
     
     init(citydata: [String : Any]) {
         self.playgroundID = citydata["Playground_ID"] as! String
         self.name = citydata["Name"] as! String
         self.location = citydata["Location"] as! String
-        self.latitude = citydata["lat"] as! Double
-        self.longitude = citydata["lon"] as! Double
+        self.latitude = citydata["lat"] as! String
+        self.longitude = citydata["lon"] as! String
         
         if citydata["Accessible"] as! String == "Y" {
             self.isHandicap = true
@@ -31,7 +31,7 @@ struct Playground {
     
 }
 
-struct Dogruns {
+struct Dogrun {
     
     let dogRunID: String
     let name: String

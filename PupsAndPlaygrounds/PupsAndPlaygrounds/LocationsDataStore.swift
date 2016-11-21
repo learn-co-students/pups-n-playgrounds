@@ -11,7 +11,7 @@ import Foundation
 class DataStore {
     
     var playgrounds: [Playground] = []
-    var dogRuns: [Dogruns] = []
+    var dogRuns: [Dogrun] = []
     
     static let sharedInstance = DataStore()
     
@@ -19,46 +19,44 @@ class DataStore {
         self.playgrounds = []
         
         
-        JsonParse.getPlaygroundsRAY { (rawDictionary) in
+        JsonParse.getPlaygrounds { (rawDictionary) in
             
             print("running json parse")
             
-            if let dictionary2 = rawDictionary["playgrounds"] as? [String:Any] {
-                if let dictionary3 = dictionary2["facility"] {
-                    print("dictionary3 = dictionary2[facility] = \(dictionary3)")
-                    
-                    
-//                    for playgroundData in dictionary3 {
-//                        let playground = Playground(citydata: playgroundData)
-//                        self.playgrounds.append(playground)
-//                    }
+            if let dictionary2 = rawDictionary["playgrounds"]?["facility"] as? [[String : Any]]{
+                print(dictionary2)
+                
+                for playgroundData in dictionary2 {
+                    let playground = Playground(citydata: playgroundData)
+                    self.playgrounds.append(playground)
                 }
+                
             }
+            
         }
     }
     
     func getDogruns() {
         self.dogRuns = []
         
-        
         JsonParse.getDogruns { (rawDictionary) in
             
-            print("running json parse")
-            
-            if let dictionary2 = rawDictionary["playgrounds"] as? [String:Any] {
-                if let dictionary3 = dictionary2["facility"] {
-                    print("dictionary3 = dictionary2[facility] = \(dictionary3)")
-                    
-                    
-                    //                    for dogrunData in dictionary3 {
-                    //                        let dogrun = DogRun(citydata: dogrunData)
-                    //                        self.dogruns.append(dogrun)
-                    //                    }
+            if let dictionary2 = rawDictionary["dogruns"]?["facility"] as? [[String : Any]]{
+                print(dictionary2)
+                
+                for dogrunData in dictionary2 {
+                    let dogrun = Dogrun(citydata: dogrunData)
+                    self.dogRuns.append(dogrun)
                 }
+                
             }
         }
     }
     
+    func getDogrunsAndPlaygrounds() {
+        getDogruns()
+        getPlaygrounds()
+    }
     
 }
 

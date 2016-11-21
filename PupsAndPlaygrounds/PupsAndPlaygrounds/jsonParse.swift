@@ -52,13 +52,13 @@ class JsonParse {
     
     
     
-    class func getPlaygroundsRAY(completion: @escaping (_ data: [String:Any]) -> Void) {
+    class func getPlaygrounds(completion: @escaping (_ data: [String : [String : Any]]) -> Void) {
         
         let filePath = Bundle.main.path(forResource: "playgroundsnyc", ofType:"json")
         let data = try! NSData(contentsOfFile:filePath!, options: NSData.ReadingOptions.uncached)
         
             do {
-                let rawDictionary = try JSONSerialization.jsonObject(with: data as Data, options: []) as! [String:Any]
+                let rawDictionary = try JSONSerialization.jsonObject(with: data as Data, options: []) as! [String : [String : Any]]
                 
                 completion(rawDictionary)
             } catch {
@@ -67,13 +67,13 @@ class JsonParse {
         
     }
     
-    class func getDogruns(completion: @escaping (_ data: [String:Any]) -> Void) {
+    class func getDogruns(completion: @escaping (_ data: [String:[String: Any]]) -> Void) {
         
         let filePath = Bundle.main.path(forResource: "dogrunsnyc", ofType:"json")
         let data = try! NSData(contentsOfFile:filePath!, options: NSData.ReadingOptions.uncached)
         
         do {
-            let rawDictionary = try JSONSerialization.jsonObject(with: data as Data, options: []) as! [String:Any]
+            let rawDictionary = try JSONSerialization.jsonObject(with: data as Data, options: []) as! [String:[String: Any]]
             
             completion(rawDictionary)
         } catch {
