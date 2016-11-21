@@ -8,7 +8,16 @@
 
 import Foundation
 
-struct Playground {
+protocol Location {
+    var name: String { get }
+    var location: String { get }
+    var isHandicap: Bool { get }
+}
+
+struct Playground: Location {
+    
+//    internal var name: String
+
     
     let playgroundID: String
     let name: String
@@ -31,7 +40,7 @@ struct Playground {
     
 }
 
-struct Dogrun {
+struct Dogrun: Location {
     
     let dogRunID: String
     let name: String

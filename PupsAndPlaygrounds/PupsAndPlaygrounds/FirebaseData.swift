@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-class DataSomething {
+class FirebaseData {
     
     var ref: FIRDatabaseReference!
     
@@ -18,30 +18,47 @@ class DataSomething {
         
     }
     
-    var reviewTextBox: String?
     
-    func addReview(with comment: String) {
+    
+    class func createAccountTouched(firstName: String, lastName: String, email:String, password: String, checkedPassword:String) {
+        
+        FIRAuth.auth()?.createUser(withEmail: email, password: password) { user, error in
+            
+            guard error == nil else { print("error creating firebase user; Error: \(error)"); return }
+            guard let user = user else { print("error unwrapping user data"); return }
+            
+            let changeRequest = user.profileChangeRequest()
+            changeRequest.displayName = firstName + lastName
+            
+            changeRequest.commitChanges { error in
+                
+                guard error == nil else { print("error commiting changes for user profile change request"); return }
+                
+            }
+        }
+    }
+    
+    
+    
+    
+    func signIn(email: String, password: String) {
+        
+        FIRAuth.auth()?.signIn(withEmail: email, password: password) { user, error in
+            
+            guard error == nil else { print("error signing user in"); return }
+            
+        }
+    }
+    
+    func addReview(with comment: String, rating: String, locationID: String) {
         let ref = FIRDatabase.database().reference().root
-        //        let key = ref.child("reviews").childByAutoId().key
+        
+        let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId()
+        
         guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
         
-        ref.child("reviews").observeSingleEvent(of: .value, with: { snapshot in
-            
-            var count: String = "0"
-            if let userDict = snapshot.value as? [String:Any] {
-                if let reviewsDict = userDict[userKey] {
-                    
-                    count = String((reviewsDict as AnyObject).count)
-                }
-            }
-            
-            var newReview = [String:String]()
-            
-            if let reviewText = self.reviewTextBox {
-                newReview[count] = "\(reviewText)"
-                ref.child("reviews").child(userKey).updateChildValues(newReview)
-            }
-        })
+        ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "rating": rating, "userID": userKey, "locationID": locationID]])
+        
     }
     
     

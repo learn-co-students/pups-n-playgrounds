@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 import Firebase
 
 final class LoginViewController: UIViewController {
@@ -34,16 +33,9 @@ final class LoginViewController: UIViewController {
   // MARK: Action Methods
   func loginButtonTouched() {
     
-    guard let email = loginView.emailField.text else { print("error unwrapping user email"); return }
-    guard let password = loginView.passwordField.text else { print("error unwrapping user password"); return }
+    let firebaseView = FirebaseTestViewController()
+    self.navigationController?.pushViewController(firebaseView, animated: true)
     
-    FIRAuth.auth()?.signIn(withEmail: email, password: password) { user, error in
-      
-      guard error == nil else { print("error signing user in"); return }
-      
-      let profileVC = ProfileViewController()
-      self.navigationController?.pushViewController(profileVC, animated: true)
-    }
   }
   
   func createAccountButtonTouched() {
