@@ -12,6 +12,9 @@
 		C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C4401DDF9A140020F10F /* LoginViewController.swift */; };
 		C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C4421DDFB69F0020F10F /* CustomColors.swift */; };
 		C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C44B1DDFC4660020F10F /* CustomFonts.swift */; };
+		C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1A1DE36C3A00A652DB /* HomeView.swift */; };
+		C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */; };
+		C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1E1DE36F9E00A652DB /* ProfileView.swift */; };
 		C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */; };
 		C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */; };
 		C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */; };
@@ -30,6 +33,9 @@
 		C413C4401DDF9A140020F10F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C413C4421DDFB69F0020F10F /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		C413C44B1DDFC4660020F10F /* CustomFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
+		C4810D1A1DE36C3A00A652DB /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C4810D1E1DE36F9E00A652DB /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +93,8 @@
 				C4DECFD91DE35667001CE1A2 /* Main.storyboard */,
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
+				C4810D1A1DE36C3A00A652DB /* HomeView.swift */,
+				C4810D1E1DE36F9E00A652DB /* ProfileView.swift */,
 				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
 			);
@@ -100,6 +108,7 @@
 				C413C4401DDF9A140020F10F /* LoginViewController.swift */,
 				C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */,
 				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
+				C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -284,10 +293,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */,
+				C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
+				C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */,
+				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,
 				C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */,
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
 				C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */,

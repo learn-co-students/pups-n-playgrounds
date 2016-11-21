@@ -52,7 +52,9 @@ class CreateAccountViewController: UIViewController {
       changeRequest.commitChanges { error in
         
         guard error == nil else { print("error commiting changes for user profile change request"); return }
-        _ = self.navigationController?.popViewController(animated: true)
+        
+        let createAccountVC = CreateAccountViewController()
+        self.navigationController?.pushViewController(createAccountVC, animated: true)
       }
     }
   }
