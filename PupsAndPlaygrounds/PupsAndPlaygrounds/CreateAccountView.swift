@@ -41,6 +41,8 @@ class CreateAccountView: UIView {
   // MARK: View Configuration
   func configure() {
     
+    backgroundColor = UIColor.themeLightBlue
+    
     firstNameField = CustomTextField()
     firstNameField.placeholder = "First name"
     firstNameField.textColor = UIColor.themeWhite

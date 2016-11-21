@@ -11,9 +11,13 @@ import SnapKit
 import Firebase
 
 final class LoginViewController: UIViewController {
+  
+  // MARK: Properties
   var loginView: LoginView!
   
+  // MARK: Override Methods
   override func viewDidLoad() {
+    
     super.viewDidLoad()
     
     loginView = LoginView()
@@ -23,19 +27,28 @@ final class LoginViewController: UIViewController {
     view = loginView
   }
   
+  deinit {
+    print("deinitialized LoginViewController")
+  }
+  
   // MARK: Action Methods
   func loginButtonTouched() {
+    
     guard let email = loginView.emailField.text else { print("error unwrapping user email"); return }
     guard let password = loginView.passwordField.text else { print("error unwrapping user password"); return }
     
-    FIRAuth.auth()?.createUser(withEmail: email, password: password) { user, error in
-      guard error == nil else { print("error creating new user"); return }
+    FIRAuth.auth()?.signIn(withEmail: email, password: password) { user, error in
       
-      if let user = user { print(user.uid) }
+      guard error == nil else { print("error signing user in"); return }
+      
+      let homeVC = HomeViewController()
+      self.navigationController?.pushViewController(homeVC, animated: true)
     }
   }
   
   func createAccountButtonTouched() {
     
+    let createAccountVC = CreateAccountViewController()
+    navigationController?.pushViewController(createAccountVC, animated: true)
   }
 }

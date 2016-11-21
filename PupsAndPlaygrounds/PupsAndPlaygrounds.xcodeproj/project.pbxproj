@@ -16,6 +16,8 @@
 		C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */; };
 		C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */; };
 		C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */; };
+		C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */; };
+		C4DECFDA1DE35667001CE1A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DECFD91DE35667001CE1A2 /* Main.storyboard */; };
 		C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */; };
 		C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */; };
 		C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */; };
@@ -32,6 +34,8 @@
 		C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		C4DECFD91DE35667001CE1A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C4EAE2CE1DDF65E20069C15E /* PupsAndPlaygrounds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PupsAndPlaygrounds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4EAE2D91DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PupsAndPlaygrounds.xcdatamodel; sourceTree = "<group>"; };
@@ -72,6 +76,7 @@
 		C413C4441DDFB9C40020F10F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -79,10 +84,10 @@
 		C413C4451DDFB9C90020F10F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C4DECFD91DE35667001CE1A2 /* Main.storyboard */,
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
 				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
-				C413C4471DDFB9DC0020F10F /* Extensions */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
 			);
 			name = View;
@@ -94,6 +99,7 @@
 				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
 				C413C4401DDF9A140020F10F /* LoginViewController.swift */,
 				C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */,
+				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -110,11 +116,19 @@
 		C413C4481DDFBA360020F10F /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				C4EAE2E01DDF65E20069C15E /* Info.plist */,
-				C411BBB11DDF706E0090335B /* GoogleService-Info.plist */,
-				C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */,
+				C413C4471DDFB9DC0020F10F /* Extensions */,
+				C4DECFD61DE3474C001CE1A2 /* Preferences */,
 			);
 			name = Other;
+			sourceTree = "<group>";
+		};
+		C4DECFD61DE3474C001CE1A2 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				C4EAE2E01DDF65E20069C15E /* Info.plist */,
+				C411BBB11DDF706E0090335B /* GoogleService-Info.plist */,
+			);
+			name = Preferences;
 			sourceTree = "<group>";
 		};
 		C4EAE2C51DDF65E20069C15E = {
@@ -208,6 +222,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4DECFDA1DE35667001CE1A2 /* Main.storyboard in Resources */,
 				C411BBB21DDF706E0090335B /* GoogleService-Info.plist in Resources */,
 				C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */,
 			);
@@ -273,6 +288,7 @@
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
+				C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */,
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
 				C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */,
 				C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */,

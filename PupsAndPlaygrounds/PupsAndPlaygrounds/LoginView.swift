@@ -76,14 +76,14 @@ class LoginView: UIView {
     titleLabel.textColor = UIColor.themeWhite
     
     emailField = CustomTextField()
-    emailField.placeholder = "Enter your email..."
+    emailField.placeholder = "Email"
     emailField.textColor = UIColor.themeWhite
     emailField.layer.cornerRadius = 10
     emailField.layer.borderWidth = 1
     emailField.layer.borderColor = UIColor.themeWhite.cgColor
     
     passwordField = CustomTextField()
-    passwordField.placeholder = "Enter your password..."
+    passwordField.placeholder = "Password"
     passwordField.textColor = UIColor.themeWhite
     passwordField.layer.cornerRadius = 10
     passwordField.layer.borderWidth = 1
