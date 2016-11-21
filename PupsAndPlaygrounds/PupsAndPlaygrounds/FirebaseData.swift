@@ -53,7 +53,7 @@ class FirebaseData {
     func addReview(with comment: String, rating: String, locationID: String) {
         let ref = FIRDatabase.database().reference().root
         
-        let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId()
+        let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
         
         guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
         

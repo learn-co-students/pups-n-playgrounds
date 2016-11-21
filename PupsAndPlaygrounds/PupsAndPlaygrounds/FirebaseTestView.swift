@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 class FirebaseTestView: UIView {
-
+    
     var reviewTextField: UITextField!
     var ratingTextField: UITextField!
     var submitButton: UIButton!
@@ -40,7 +40,7 @@ class FirebaseTestView: UIView {
         reviewTextField.layer.cornerRadius = 10
         reviewTextField.layer.borderWidth = 1
         reviewTextField.layer.borderColor = UIColor.themeWhite.cgColor
-
+        
         ratingTextField = CustomTextField()
         ratingTextField.placeholder = "Enter rating here"
         ratingTextField.textColor = UIColor.themeWhite
@@ -56,7 +56,7 @@ class FirebaseTestView: UIView {
         submitButton.layer.cornerRadius = 20
         submitButton.layer.borderWidth = 2
         submitButton.layer.borderColor = UIColor.themeWhite.cgColor
-
+        
     }
     
     func constrain() {
@@ -65,21 +65,21 @@ class FirebaseTestView: UIView {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().offset(60)
             $0.width.equalToSuperview().dividedBy(1.3)
-            $0.height.equalToSuperview().dividedBy(1.5)
+            $0.height.equalToSuperview().dividedBy(3)
         }
         
         addSubview(ratingTextField)
         ratingTextField.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(60)
+            $0.top.equalTo(reviewTextField.snp.bottomMargin)
             $0.width.equalToSuperview().dividedBy(1.3)
-            $0.height.equalToSuperview().dividedBy(1.5)
+            $0.height.equalToSuperview().dividedBy(3)
         }
         
         addSubview(submitButton)
         submitButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(reviewTextField.snp.bottom).offset(40)
+            $0.top.equalTo(ratingTextField.snp.bottom).offset(40)
         }
     }
     

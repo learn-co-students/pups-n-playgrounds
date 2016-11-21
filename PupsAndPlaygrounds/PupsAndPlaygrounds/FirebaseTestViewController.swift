@@ -37,10 +37,9 @@ class FirebaseTestViewController: UIViewController {
     }
     
     func submitToFirebaseTouched() {
-
+        print("SUBMIT BUTTON TOUCHED")
         guard let review = reviewsView.reviewTextField.text else { print("error reviews field"); return }
         guard let rating = reviewsView.ratingTextField.text else { print("error ratings field"); return }
-
         
         firebaseData.addReview(with: review, rating: rating, locationID: "0000001 = Location ID")
         
