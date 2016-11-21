@@ -28,23 +28,36 @@ class DataStore {
                     print("dictionary3 = dictionary2[facility] = \(dictionary3)")
                     
                     
-                    for playgroundData in dictionary2 {
-                        let playground = Playground(citydata: playgroundData)
-                        self.playgrounds.append(playground)
-                    }
-                    
+//                    for playgroundData in dictionary3 {
+//                        let playground = Playground(citydata: playgroundData)
+//                        self.playgrounds.append(playground)
+//                    }
                 }
             }
-            
-            
-            
-            
         }
-        
-        print(playgrounds)
     }
     
-    
+    func getDogruns() {
+        self.dogRuns = []
+        
+        
+        JsonParse.getDogruns { (rawDictionary) in
+            
+            print("running json parse")
+            
+            if let dictionary2 = rawDictionary["playgrounds"] as? [String:Any] {
+                if let dictionary3 = dictionary2["facility"] {
+                    print("dictionary3 = dictionary2[facility] = \(dictionary3)")
+                    
+                    
+                    //                    for dogrunData in dictionary3 {
+                    //                        let dogrun = DogRun(citydata: dogrunData)
+                    //                        self.dogruns.append(dogrun)
+                    //                    }
+                }
+            }
+        }
+    }
     
     
 }

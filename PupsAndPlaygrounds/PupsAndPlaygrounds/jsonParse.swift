@@ -32,23 +32,23 @@ class JsonParse {
     }
     */
     
-    class func loadPlaygroundJson() -> NSDictionary? {
-        
-        guard let urlpath = Bundle.main.path(forResource: "playgroundsnyc", ofType: "json") else { return nil }
-        print("urlpath = \(urlpath)")
-        if let url = URL(string: urlpath) {
-            if let data = NSData(contentsOf: url) {
-                do {
-                    let dictionary = try JSONSerialization.jsonObject(with: (data as NSData) as Data, options: .allowFragments) as? NSDictionary
-                    
-                    return dictionary
-                } catch {
-                    print("Error: unable to parse")
-                }
-            }
-        }
-        return nil
-    }
+//    class func loadPlaygroundJson() -> NSDictionary? {
+//        
+//        guard let urlpath = Bundle.main.path(forResource: "playgroundsnyc", ofType: "json") else { return nil }
+//        print("urlpath = \(urlpath)")
+//        if let url = URL(string: urlpath) {
+//            if let data = NSData(contentsOf: url) {
+//                do {
+//                    let dictionary = try JSONSerialization.jsonObject(with: (data as NSData) as Data, options: .allowFragments) as? NSDictionary
+//                    
+//                    return dictionary
+//                } catch {
+//                    print("Error: unable to parse")
+//                }
+//            }
+//        }
+//        return nil
+//    }
     
     
     
@@ -67,23 +67,24 @@ class JsonParse {
         
     }
     
+    class func getDogruns(completion: @escaping (_ data: [String:Any]) -> Void) {
+        
+        let filePath = Bundle.main.path(forResource: "dogrunsnyc", ofType:"json")
+        let data = try! NSData(contentsOfFile:filePath!, options: NSData.ReadingOptions.uncached)
+        
+        do {
+            let rawDictionary = try JSONSerialization.jsonObject(with: data as Data, options: []) as! [String:Any]
+            
+            completion(rawDictionary)
+        } catch {
+            print("JSON Serializaiton didnt work...")
+        }
+        
+    }
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
 }
