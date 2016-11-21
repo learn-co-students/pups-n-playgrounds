@@ -27,7 +27,7 @@ struct Playground: Location {
     let longitude: String
     
     init(citydata: [String : Any]) {
-        self.playgroundID = citydata["Playground_ID"] as! String
+        self.playgroundID = citydata["Prop_ID"] as! String
         self.name = citydata["Name"] as! String
         self.location = citydata["Location"] as! String
         self.latitude = citydata["lat"] as! String

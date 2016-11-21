@@ -8,12 +8,12 @@
 
 import Foundation
 
-class DataStore {
+class LocationsDataStore {
     
     var playgrounds: [Playground] = []
     var dogRuns: [Dogrun] = []
     
-    static let sharedInstance = DataStore()
+    static let sharedInstance = LocationsDataStore()
     
     func getPlaygrounds() {
         self.playgrounds = []

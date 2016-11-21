@@ -61,5 +61,33 @@ class FirebaseData {
         
     }
     
+    func addPlaygrounds(playgroundID: String, name: String, location: String, isHandicap: Bool, latitude: String, longitude: String) {
+
+        let ref = FIRDatabase.database().reference().root
+        
+        let uniqueLocationKey = playgroundID
+        
+        var isHandicapString = "No"
+        
+        if isHandicap == true {
+            isHandicapString = "Yes"
+        }
+        
+        ref.child("locations").child("playgrounds").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "latitude": latitude, "longitude": longitude]])
+    }
     
+    func addDogruns(dogRunID: String, name: String, location: String, isHandicap: Bool, dogRunType: String, notes: String) {
+        
+        let ref = FIRDatabase.database().reference().root
+        
+        let uniqueLocationKey = dogRunID
+        
+        var isHandicapString = "No"
+        
+        if isHandicap == true {
+            isHandicapString = "Yes"
+        }
+        
+        ref.child("locations").child("dogruns").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "dogRunType": dogRunType, "notes": notes]])
+    }
 }
