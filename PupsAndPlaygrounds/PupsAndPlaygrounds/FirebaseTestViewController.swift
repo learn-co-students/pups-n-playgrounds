@@ -12,6 +12,8 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
+// *** submitButton will submit a review to Firebase, but can be used for any function! ***
+
 class FirebaseTestViewController: UIViewController {
     
     var reviewsView: FirebaseTestView!
@@ -26,8 +28,8 @@ class FirebaseTestViewController: UIViewController {
         reviewsView = FirebaseTestView()
         firebaseData = FirebaseData()
         store.getDogrunsAndPlaygrounds()
-//        print("PLAYGROUNDS = \(store.playgrounds)")
-        reviewsView.submitButton.addTarget(self, action: #selector(addDogRunsToFirebase), for: .touchUpInside)
+
+        reviewsView.submitButton.addTarget(self, action: #selector(submitToFirebaseTouched), for: .touchUpInside)
         
         view = reviewsView
         
