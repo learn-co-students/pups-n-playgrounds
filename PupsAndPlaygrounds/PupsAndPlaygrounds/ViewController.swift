@@ -12,11 +12,16 @@ class ViewController: UIViewController {
     
     var store = DataStore.sharedInstance
     
+    var firebaseHolder: DataSomething!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         store.getDogrunsAndPlaygrounds()
         print("store's playgrounds = \(store.playgrounds)")
         print("store's dogruns = \(store.dogRuns)")
+        
+        
+
     }
     
     override func didReceiveMemoryWarning() {

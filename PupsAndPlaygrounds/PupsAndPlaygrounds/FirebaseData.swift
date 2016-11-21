@@ -18,9 +18,9 @@ class DataSomething {
         
     }
     
-    var reviewTextBox: UITextField!
+    var reviewTextBox: String?
     
-    func addReview(_ sender: Any) {
+    func addReview(with comment: String) {
         let ref = FIRDatabase.database().reference().root
         //        let key = ref.child("reviews").childByAutoId().key
         guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
@@ -37,10 +37,12 @@ class DataSomething {
             
             var newReview = [String:String]()
             
-            if let reviewText = self.reviewTextBox.text {
+            if let reviewText = self.reviewTextBox {
                 newReview[count] = "\(reviewText)"
                 ref.child("reviews").child(userKey).updateChildValues(newReview)
             }
         })
     }
+    
+    
 }
