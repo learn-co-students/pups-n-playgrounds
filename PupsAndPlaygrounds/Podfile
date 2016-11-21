@@ -9,5 +9,8 @@ target 'PupsAndPlaygrounds' do
 
   # XML Parser
   pod 'SWXMLHash'
+  
+  # SnapKit
+  pod 'SnapKit'
 
 end

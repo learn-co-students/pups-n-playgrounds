@@ -9,25 +9,33 @@
 /* Begin PBXBuildFile section */
 		6EA3EE3560F8D7CCF450E2B4 /* Pods_PupsAndPlaygrounds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */; };
 		C411BBB21DDF706E0090335B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C411BBB11DDF706E0090335B /* GoogleService-Info.plist */; };
+		C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C4401DDF9A140020F10F /* LoginViewController.swift */; };
+		C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C4421DDFB69F0020F10F /* CustomColors.swift */; };
+		C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C44B1DDFC4660020F10F /* CustomFonts.swift */; };
+		C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */; };
+		C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */; };
+		C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */; };
+		C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */; };
 		C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */; };
-		C4EAE2D41DDF65E20069C15E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D31DDF65E20069C15E /* ViewController.swift */; };
-		C4EAE2D71DDF65E20069C15E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2D51DDF65E20069C15E /* Main.storyboard */; };
 		C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */; };
 		C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */; };
-		C4EAE2DF1DDF65E20069C15E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DD1DDF65E20069C15E /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		06127B45D1FA197E42D189AB /* Pods-PupsAndPlaygrounds.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.debug.xcconfig"; sourceTree = "<group>"; };
 		4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PupsAndPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C411BBB11DDF706E0090335B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C413C4401DDF9A140020F10F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C413C4421DDFB69F0020F10F /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
+		C413C44B1DDFC4660020F10F /* CustomFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
+		C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		C4EAE2CE1DDF65E20069C15E /* PupsAndPlaygrounds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PupsAndPlaygrounds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C4EAE2D31DDF65E20069C15E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C4EAE2D61DDF65E20069C15E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4EAE2D91DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PupsAndPlaygrounds.xcdatamodel; sourceTree = "<group>"; };
 		C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C4EAE2DE1DDF65E20069C15E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4EAE2E01DDF65E20069C15E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.release.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,6 +69,54 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C413C4441DDFB9C40020F10F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		C413C4451DDFB9C90020F10F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
+				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
+				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
+				C413C4471DDFB9DC0020F10F /* Extensions */,
+				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		C413C4461DDFB9CE0020F10F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
+				C413C4401DDF9A140020F10F /* LoginViewController.swift */,
+				C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		C413C4471DDFB9DC0020F10F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C413C4421DDFB69F0020F10F /* CustomColors.swift */,
+				C413C44B1DDFC4660020F10F /* CustomFonts.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		C413C4481DDFBA360020F10F /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				C4EAE2E01DDF65E20069C15E /* Info.plist */,
+				C411BBB11DDF706E0090335B /* GoogleService-Info.plist */,
+				C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
 		C4EAE2C51DDF65E20069C15E = {
 			isa = PBXGroup;
 			children = (
@@ -82,14 +138,10 @@
 		C4EAE2D01DDF65E20069C15E /* PupsAndPlaygrounds */ = {
 			isa = PBXGroup;
 			children = (
-				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
-				C4EAE2D31DDF65E20069C15E /* ViewController.swift */,
-				C4EAE2D51DDF65E20069C15E /* Main.storyboard */,
-				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
-				C4EAE2DD1DDF65E20069C15E /* LaunchScreen.storyboard */,
-				C4EAE2E01DDF65E20069C15E /* Info.plist */,
-				C411BBB11DDF706E0090335B /* GoogleService-Info.plist */,
-				C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */,
+				C413C4441DDFB9C40020F10F /* Model */,
+				C413C4451DDFB9C90020F10F /* View */,
+				C413C4461DDFB9CE0020F10F /* Controller */,
+				C413C4481DDFBA360020F10F /* Other */,
 			);
 			path = PupsAndPlaygrounds;
 			sourceTree = "<group>";
@@ -156,10 +208,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4EAE2DF1DDF65E20069C15E /* LaunchScreen.storyboard in Resources */,
 				C411BBB21DDF706E0090335B /* GoogleService-Info.plist in Resources */,
 				C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */,
-				C4EAE2D71DDF65E20069C15E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,32 +268,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4EAE2D41DDF65E20069C15E /* ViewController.swift in Sources */,
+				C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */,
+				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
+				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
+				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
+				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
+				C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */,
+				C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */,
 				C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		C4EAE2D51DDF65E20069C15E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C4EAE2D61DDF65E20069C15E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C4EAE2DD1DDF65E20069C15E /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C4EAE2DE1DDF65E20069C15E /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C4EAE2E11DDF65E20069C15E /* Debug */ = {

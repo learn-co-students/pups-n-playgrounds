@@ -38,12 +38,14 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
+  - SnapKit (3.0.2)
   - SWXMLHash (3.0.3)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
+  - SnapKit
   - SWXMLHash
 
 SPEC CHECKSUMS:
@@ -57,8 +59,9 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
+  SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   SWXMLHash: 80d2529d74891bb2f15305a0b9e08f2a4f229ee7
 
-PODFILE CHECKSUM: e0218da7042e39c99594ab7311dfbd796ae88b18
+PODFILE CHECKSUM: f06a51efb0536c3a082b92193e88b39b01f2d8ed
 
 COCOAPODS: 1.1.1
