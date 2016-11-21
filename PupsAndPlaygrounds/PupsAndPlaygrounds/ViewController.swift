@@ -14,10 +14,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        store.getPlaygrounds()
-        
+        store.getDogrunsAndPlaygrounds()
         print("store's playgrounds = \(store.playgrounds)")
-        
+        print("store's dogruns = \(store.dogRuns)")
     }
     
     override func didReceiveMemoryWarning() {

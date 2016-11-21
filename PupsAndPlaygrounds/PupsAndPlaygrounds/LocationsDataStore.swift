@@ -18,21 +18,15 @@ class DataStore {
     func getPlaygrounds() {
         self.playgrounds = []
         
-        
         JsonParse.getPlaygrounds { (rawDictionary) in
             
-            print("running json parse")
-            
             if let dictionary2 = rawDictionary["playgrounds"]?["facility"] as? [[String : Any]]{
-                print(dictionary2)
                 
                 for playgroundData in dictionary2 {
                     let playground = Playground(citydata: playgroundData)
                     self.playgrounds.append(playground)
                 }
-                
             }
-            
         }
     }
     
@@ -42,13 +36,11 @@ class DataStore {
         JsonParse.getDogruns { (rawDictionary) in
             
             if let dictionary2 = rawDictionary["dogruns"]?["facility"] as? [[String : Any]]{
-                print(dictionary2)
                 
                 for dogrunData in dictionary2 {
                     let dogrun = Dogrun(citydata: dogrunData)
                     self.dogRuns.append(dogrun)
                 }
-                
             }
         }
     }

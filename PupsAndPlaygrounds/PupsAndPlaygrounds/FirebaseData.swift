@@ -17,4 +17,30 @@ class DataSomething {
         ref = FIRDatabase.database().reference()
         
     }
+    
+    var reviewTextBox: UITextField!
+    
+    func addReview(_ sender: Any) {
+        let ref = FIRDatabase.database().reference().root
+        //        let key = ref.child("reviews").childByAutoId().key
+        guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        ref.child("reviews").observeSingleEvent(of: .value, with: { snapshot in
+            
+            var count: String = "0"
+            if let userDict = snapshot.value as? [String:Any] {
+                if let reviewsDict = userDict[userKey] {
+                    
+                    count = String((reviewsDict as AnyObject).count)
+                }
+            }
+            
+            var newReview = [String:String]()
+            
+            if let reviewText = self.reviewTextBox.text {
+                newReview[count] = "\(reviewText)"
+                ref.child("reviews").child(userKey).updateChildValues(newReview)
+            }
+        })
+    }
 }

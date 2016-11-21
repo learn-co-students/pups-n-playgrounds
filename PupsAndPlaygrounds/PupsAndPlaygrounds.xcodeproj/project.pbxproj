@@ -15,9 +15,10 @@
 		C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */; };
 		C4EAE2DF1DDF65E20069C15E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DD1DDF65E20069C15E /* LaunchScreen.storyboard */; };
 		E841997A1DE0FA1400522C8A /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199791DE0FA1400522C8A /* Locations.swift */; };
-		E841997C1DE2253000522C8A /* jsonParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E841997B1DE2253000522C8A /* jsonParse.swift */; };
+		E841997C1DE2253000522C8A /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E841997B1DE2253000522C8A /* JSONParser.swift */; };
 		E841997E1DE24CFA00522C8A /* LocationsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E841997D1DE24CFA00522C8A /* LocationsDataStore.swift */; };
 		E84199B61DE29E5F00522C8A /* FirebaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199B51DE29E5F00522C8A /* FirebaseData.swift */; };
+		E84199BD1DE3509100522C8A /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199BC1DE3509100522C8A /* Reviews.swift */; };
 		E8BAA1701DDFC18D001DFC4D /* dogrunsnyc.json in Resources */ = {isa = PBXBuildFile; fileRef = E8BAA16E1DDFC18D001DFC4D /* dogrunsnyc.json */; };
 		E8BAA1711DDFC18D001DFC4D /* playgroundsnyc.json in Resources */ = {isa = PBXBuildFile; fileRef = E8BAA16F1DDFC18D001DFC4D /* playgroundsnyc.json */; };
 /* End PBXBuildFile section */
@@ -35,9 +36,10 @@
 		C4EAE2E01DDF65E20069C15E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.release.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.release.xcconfig"; sourceTree = "<group>"; };
 		E84199791DE0FA1400522C8A /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Locations.swift; path = PupsAndPlaygrounds/Locations.swift; sourceTree = "<group>"; };
-		E841997B1DE2253000522C8A /* jsonParse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jsonParse.swift; sourceTree = "<group>"; };
+		E841997B1DE2253000522C8A /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		E841997D1DE24CFA00522C8A /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationsDataStore.swift; path = PupsAndPlaygrounds/LocationsDataStore.swift; sourceTree = "<group>"; };
 		E84199B51DE29E5F00522C8A /* FirebaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseData.swift; sourceTree = "<group>"; };
+		E84199BC1DE3509100522C8A /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		E8BAA16E1DDFC18D001DFC4D /* dogrunsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dogrunsnyc.json; sourceTree = "<group>"; };
 		E8BAA16F1DDFC18D001DFC4D /* playgroundsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = playgroundsnyc.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 			children = (
 				E84199791DE0FA1400522C8A /* Locations.swift */,
 				E841997D1DE24CFA00522C8A /* LocationsDataStore.swift */,
+				E84199BC1DE3509100522C8A /* Reviews.swift */,
 			);
 			name = Model;
 			path = ..;
@@ -151,7 +154,7 @@
 		E8BAA1721DDFC19E001DFC4D /* JSON locations */ = {
 			isa = PBXGroup;
 			children = (
-				E841997B1DE2253000522C8A /* jsonParse.swift */,
+				E841997B1DE2253000522C8A /* JSONParser.swift */,
 				E8BAA16E1DDFC18D001DFC4D /* dogrunsnyc.json */,
 				E8BAA16F1DDFC18D001DFC4D /* playgroundsnyc.json */,
 			);
@@ -287,7 +290,8 @@
 				C4EAE2D41DDF65E20069C15E /* ViewController.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
 				E841997A1DE0FA1400522C8A /* Locations.swift in Sources */,
-				E841997C1DE2253000522C8A /* jsonParse.swift in Sources */,
+				E841997C1DE2253000522C8A /* JSONParser.swift in Sources */,
+				E84199BD1DE3509100522C8A /* Reviews.swift in Sources */,
 				E841997E1DE24CFA00522C8A /* LocationsDataStore.swift in Sources */,
 				C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */,
 			);
