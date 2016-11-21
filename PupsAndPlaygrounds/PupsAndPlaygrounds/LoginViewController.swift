@@ -41,8 +41,8 @@ final class LoginViewController: UIViewController {
       
       guard error == nil else { print("error signing user in"); return }
       
-      let homeVC = HomeViewController()
-      self.navigationController?.pushViewController(homeVC, animated: true)
+      let profileVC = ProfileViewController()
+      self.navigationController?.pushViewController(profileVC, animated: true)
     }
   }
   
