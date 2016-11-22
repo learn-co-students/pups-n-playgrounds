@@ -16,8 +16,9 @@ import FirebaseDatabase
 
 class FirebaseTestViewController: UIViewController {
     
-    var reviewsView: FirebaseTestView!
+    var firebaseTestView: FirebaseTestView!
     var firebaseData: FirebaseData!
+
     
     let store = LocationsDataStore.sharedInstance
     
@@ -25,13 +26,15 @@ class FirebaseTestViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
         
-        reviewsView = FirebaseTestView()
-        firebaseData = FirebaseData()
         store.getDogrunsAndPlaygrounds()
-
-        reviewsView.submitButton.addTarget(self, action: #selector(submitToFirebaseTouched), for: .touchUpInside)
         
-        view = reviewsView
+        firebaseTestView = FirebaseTestView()
+        firebaseData = FirebaseData()
+        
+        
+        firebaseTestView.submitButton.addTarget(self, action: #selector(addPlaygroundsToFirebaseTouched), for: .touchUpInside)
+        
+        view = firebaseTestView
         
         
     }
@@ -43,8 +46,8 @@ class FirebaseTestViewController: UIViewController {
     
     func submitToFirebaseTouched() {
         print("SUBMIT BUTTON TOUCHED")
-        guard let review = reviewsView.reviewTextField.text else { print("error reviews field"); return }
-        guard let rating = reviewsView.ratingTextField.text else { print("error ratings field"); return }
+        guard let review = firebaseTestView.reviewTextField.text else { print("error reviews field"); return }
+        guard let rating = firebaseTestView.ratingTextField.text else { print("error ratings field"); return }
         
         firebaseData.addReview(with: review, rating: rating, locationID: "0000001 = Location ID")
         

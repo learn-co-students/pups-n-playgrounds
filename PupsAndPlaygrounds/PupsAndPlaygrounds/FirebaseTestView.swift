@@ -11,6 +11,12 @@ import SnapKit
 
 class FirebaseTestView: UIView {
     
+    let store = LocationsDataStore.sharedInstance
+
+    
+    var location: Location!
+    var locationNameLabel: UILabel!
+    
     var reviewTextField: UITextField!
     var ratingTextField: UITextField!
     var submitButton: UIButton!
@@ -21,6 +27,7 @@ class FirebaseTestView: UIView {
     
     convenience init() {
         self.init(frame: CGRect.zero)
+        location = store.playgrounds[0]
         configure()
         constrain()
     }
@@ -33,6 +40,11 @@ class FirebaseTestView: UIView {
     func configure() {
         
         backgroundColor = UIColor.themeLightBlue
+        
+        locationNameLabel = UILabel()
+        locationNameLabel.font = UIFont.themeMediumBold
+        locationNameLabel.textColor = UIColor.themeDarkBlue
+        locationNameLabel.text = location.name
         
         reviewTextField = CustomTextField()
         reviewTextField.placeholder = "Type review here"
@@ -60,19 +72,27 @@ class FirebaseTestView: UIView {
     }
     
     func constrain() {
+        addSubview(locationNameLabel)
+        locationNameLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(60)
+            $0.width.equalToSuperview().dividedBy(2)
+            $0.height.equalToSuperview().dividedBy(10)
+        }
+        
         addSubview(reviewTextField)
         reviewTextField.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(60)
-            $0.width.equalToSuperview().dividedBy(1.3)
+            $0.top.equalTo(locationNameLabel.snp.bottom)
+            $0.width.equalToSuperview().dividedBy(2)
             $0.height.equalToSuperview().dividedBy(3)
         }
         
         addSubview(ratingTextField)
         ratingTextField.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(reviewTextField.snp.bottomMargin)
-            $0.width.equalToSuperview().dividedBy(1.3)
+            $0.top.equalTo(reviewTextField.snp.bottom)
+            $0.width.equalToSuperview().dividedBy(2)
             $0.height.equalToSuperview().dividedBy(3)
         }
         

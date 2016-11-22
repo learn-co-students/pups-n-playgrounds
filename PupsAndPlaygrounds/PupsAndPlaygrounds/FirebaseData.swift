@@ -19,7 +19,6 @@ class FirebaseData {
     }
     
     
-    
     class func createAccountTouched(firstName: String, lastName: String, email:String, password: String, checkedPassword:String) {
         
         FIRAuth.auth()?.createUser(withEmail: email, password: password) { user, error in

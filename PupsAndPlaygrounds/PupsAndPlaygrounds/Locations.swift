@@ -1,6 +1,6 @@
 //
 //  Locations.swift
-//  
+//
 //
 //  Created by Robert Deans on 11/19/16.
 //
@@ -12,6 +12,8 @@ protocol Location {
     var name: String { get }
     var location: String { get }
     var isHandicap: Bool { get }
+//    var reviews: [Review] { get }
+//    var photos: [UIImage] { get }
 }
 
 struct Playground: Location {
@@ -22,7 +24,8 @@ struct Playground: Location {
     var isHandicap: Bool = false
     let latitude: String
     let longitude: String
-//    var reviews: [Review]
+    //    var reviews: [Review]
+    //    var photos: [UIImage]
     
     init(citydata: [String : Any]) {
         self.playgroundID = citydata["Prop_ID"] as! String
@@ -46,6 +49,8 @@ struct Dogrun: Location {
     let dogRunType: String
     let notes: String
     var isHandicap: Bool = false
+    //    var reviews: [Review]
+    //    var photos: [UIImage]
     
     init(citydata: [String : Any]) {
         self.dogRunID = citydata["Prop_ID"] as! String

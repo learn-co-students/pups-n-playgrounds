@@ -11,7 +11,7 @@ import Foundation
 struct Review {
     
     var comment: String
-    var rating: Int
+    var rating: String
     let user: String
     let location: Location
     //photos!

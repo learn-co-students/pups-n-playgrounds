@@ -5,7 +5,7 @@
 //  Created by William Robinson on 11/21/16.
 //  Copyright © 2016 Flatiron School. All rights reserved.
 //
-
+/*
 import UIKit
 import Firebase
 import SnapKit
@@ -80,3 +80,4 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     dismiss(animated: true, completion: nil)
   }
 }
+*/
