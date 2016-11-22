@@ -36,5 +36,29 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+  
+  <!-- Facebook -->
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb1369775309719496</string>
+      </array>
+    </dict>
+  </array>
+  <key>FacebookAppID</key>
+  <string>1369775309719496</string>
+  <key>FacebookDisplayName</key>
+  <string>PupsAndPlaygrounds</string>
+  
+  <key>LSApplicationQueriesSchemes</key>
+  <array>
+    <string>fbapi</string>
+    <string>fb-messenger-api</string>
+    <string>fbauth2</string>
+    <string>fbshareextension</string>
+  </array>
+  
 </dict>
 </plist>

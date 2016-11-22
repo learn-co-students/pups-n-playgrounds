@@ -13,14 +13,17 @@ import SnapKit
 class ProfileViewController: UIViewController {
   
   // MARK: Properties
+  var storageRef: FIRStorageReference!
   var profileView: ProfileView!
   var profileImage: UIImage!
   var imagePicker: UIImagePickerController!
   var imagePickerView: ImagePickerView!
-  var user: FIRUser!
+  var currentUser: FIRUser!
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    storageRef = FIRStorage.storage().reference()
     
     navigationItem.title = "Profile"
     navigationController?.isNavigationBarHidden = false
@@ -46,11 +49,20 @@ class ProfileViewController: UIViewController {
       $0.edges.equalToSuperview()
     }
     
-    guard let user = FIRAuth.auth()?.currentUser else { print("error retrieving current user"); return }
-    profileView.userNameLabel.text = user.displayName
+    if let currentUser = FIRAuth.auth()?.currentUser {
+      
+      self.currentUser = currentUser
+      
+    } else {
+      
+      print("error retrieving current user"); return
+      
+    }
+    
+    profileView.userNameLabel.text = currentUser.displayName
     
     guard let photoURL = user.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
-    //    profileView.profileButton.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControlState#>)
+//    profileView.profileButton.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControlState#>)
   }
   
   // MARK: Action Methods
@@ -70,6 +82,10 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     
     profileImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+    profileImagePNG = UIImagePNGRepresentation(profileImage)
+    
+    profileImageRef = storageRef.child("images").child("userImages").child("\(currentUser.uid)").setValuesForKeys(["profileImage" : profileImagePNG])
+    profile
     profileView.profileButton.setImage(profileImage, for: .normal)
     
     dismiss(animated: true, completion: nil)
