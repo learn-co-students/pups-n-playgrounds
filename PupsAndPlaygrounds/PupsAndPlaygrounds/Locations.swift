@@ -16,15 +16,13 @@ protocol Location {
 
 struct Playground: Location {
     
-//    internal var name: String
-
-    
     let playgroundID: String
     let name: String
     let location: String
     var isHandicap: Bool = false
     let latitude: String
     let longitude: String
+//    var reviews: [Review]
     
     init(citydata: [String : Any]) {
         self.playgroundID = citydata["Prop_ID"] as! String

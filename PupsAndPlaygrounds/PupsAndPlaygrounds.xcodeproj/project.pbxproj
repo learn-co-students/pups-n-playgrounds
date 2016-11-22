@@ -33,6 +33,8 @@
 		E84199CD1DE3847D00522C8A /* FirebaseTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199CC1DE3847D00522C8A /* FirebaseTestViewController.swift */; };
 		E84199CF1DE385EA00522C8A /* FirebaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */; };
 		E84199D11DE38FE400522C8A /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Reviews.swift */; };
+		E8B029CF1DE4AFA900A9AD25 /* TemporaryLocationsProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B029CE1DE4AFA900A9AD25 /* TemporaryLocationsProfileView.swift */; };
+		E8B029D11DE4AFDB00A9AD25 /* TemporaryLocationsProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B029D01DE4AFDB00A9AD25 /* TemporaryLocationsProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		E84199CC1DE3847D00522C8A /* FirebaseTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTestViewController.swift; sourceTree = "<group>"; };
 		E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTestView.swift; sourceTree = "<group>"; };
 		E84199D01DE38FE400522C8A /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
+		E8B029CE1DE4AFA900A9AD25 /* TemporaryLocationsProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemporaryLocationsProfileView.swift; sourceTree = "<group>"; };
+		E8B029D01DE4AFDB00A9AD25 /* TemporaryLocationsProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemporaryLocationsProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 		C413C4451DDFB9C90020F10F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E8B029CE1DE4AFA900A9AD25 /* TemporaryLocationsProfileView.swift */,
 				E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */,
 				C4DECFD91DE35667001CE1A2 /* Main.storyboard */,
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
@@ -132,6 +137,7 @@
 				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
 				C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */,
 				E84199CC1DE3847D00522C8A /* FirebaseTestViewController.swift */,
+				E8B029D01DE4AFDB00A9AD25 /* TemporaryLocationsProfileViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -342,12 +348,14 @@
 				E84199D11DE38FE400522C8A /* Reviews.swift in Sources */,
 				C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */,
 				E84199CD1DE3847D00522C8A /* FirebaseTestViewController.swift in Sources */,
+				E8B029CF1DE4AFA900A9AD25 /* TemporaryLocationsProfileView.swift in Sources */,
 				E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */,
 				E84199CF1DE385EA00522C8A /* FirebaseTestView.swift in Sources */,
 				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
 				E84199CA1DE37EB000522C8A /* Locations.swift in Sources */,
+				E8B029D11DE4AFDB00A9AD25 /* TemporaryLocationsProfileViewController.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,

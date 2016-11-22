@@ -14,6 +14,7 @@ struct Review {
     var rating: Int
     let user: String
     let location: Location
+    //photos!
     
 }
 

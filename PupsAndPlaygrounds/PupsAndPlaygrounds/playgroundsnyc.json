@@ -752,8 +752,8 @@
             "Accessible": "N",
             "Level": "",
             "Adaptive_Swing": "",
-            "lat": "",
-            "lon": ""
+            "lat": "40.6708",
+            "lon": "-73.9938"
          },
          {
             "Prop_ID": "B096",
@@ -999,8 +999,8 @@
             "Accessible": "N",
             "Level": "",
             "Adaptive_Swing": "",
-            "lat": "",
-            "lon": ""
+            "lat": "40.6716",
+            "lon": "-73.9925"
          },
          {
             "Prop_ID": "B121",
@@ -1896,8 +1896,8 @@
             "Accessible": "Y",
             "Level": "4",
             "Adaptive_Swing": "N",
-            "lat": "",
-            "lon": ""
+            "lat": "40.6919",
+            "lon": "-73.9988"
          },
          {
             "Prop_ID": "B233F",
@@ -1909,8 +1909,8 @@
             "Accessible": "N",
             "Level": "",
             "Adaptive_Swing": "",
-            "lat": "",
-            "lon": ""
+            "lat": "40.7009",
+            "lon": "-73.9954"
          },
          {
             "Prop_ID": "B223H",
@@ -1930,13 +1930,13 @@
             "Playground_ID": "B223J02",
             "School_ID": "",
             "Status": "",
-            "Name": "PARK",
+            "Name": "Bridge Park",
             "Location": "Jay, York, Prospect, Bridge Sts",
             "Accessible": "Y",
             "Level": "4",
             "Adaptive_Swing": "N",
-            "lat": "",
-            "lon": ""
+            "lat": "40.7007",
+            "lon": "-73.9857"
          },
          {
             "Prop_ID": "B223J03",
@@ -1948,8 +1948,8 @@
             "Accessible": "N",
             "Level": "",
             "Adaptive_Swing": "",
-            "lat": "",
-            "lon": ""
+            "lat": "40.7010",
+            "lon": "-73.9857"
          },
          {
             "Prop_ID": "B223N01",
@@ -1961,8 +1961,8 @@
             "Accessible": "N",
             "Level": "",
             "Adaptive_Swing": "",
-            "lat": "",
-            "lon": ""
+            "lat": "40.6993",
+            "lon": "-73.9616"
          },
          {
             "Prop_ID": "B223N03",
@@ -1974,8 +1974,8 @@
             "Accessible": "Y",
             "Level": "2",
             "Adaptive_Swing": "N",
-            "lat": "",
-            "lon": ""
+            "lat": "40.7007",
+            "lon": "-73.9608"
          },
          {
             "Prop_ID": "B223O02",
@@ -1987,8 +1987,8 @@
             "Accessible": "N",
             "Level": "",
             "Adaptive_Swing": "",
-            "lat": "",
-            "lon": ""
+            "lat": "40.7075",
+            "lon": "-73.9582"
          },
          {
             "Prop_ID": "B223O03",
@@ -2000,8 +2000,8 @@
             "Accessible": "N",
             "Level": "",
             "Adaptive_Swing": "",
-            "lat": "",
-            "lon": ""
+            "lat": "40.7075",
+            "lon": "-73.9572"
          },
          {
             "Prop_ID": "B223P01",
@@ -7122,8 +7122,8 @@
             "Accessible": "Y",
             "Level": "4",
             "Adaptive_Swing": "N",
-            "lat": "",
-            "lon": ""
+            "lat": "40.7749",
+            "lon": "-73.9223"
          },
          {
             "Prop_ID": "Q066B",
@@ -13020,12 +13020,12 @@
             "School_ID": "",
             "Status": "",
             "Name": "J.J. Byrne Playground",
-            "Location": "Washington Park",
+            "Location": "Old Sone House & Washington Park",
             "Accessible": "Y",
             "Level": "1",
             "Adaptive_Swing": "Y",
-            "lat": "",
-            "lon": ""
+            "lat": "40.6727",
+            "lon": "-739841"
          },
          {
             "Prop_ID": "R100",
@@ -13037,8 +13037,8 @@
             "Accessible": "Y",
             "Level": "2",
             "Adaptive_Swing": "Y",
-            "lat": "",
-            "lon": ""
+            "lat": "40.5494",
+            "lon": "-74.1799"
          },
          {
             "Prop_ID": "X271",
@@ -16079,8 +16079,8 @@
             "Accessible": "Y",
             "Level": "4",
             "Adaptive_Swing": "N",
-            "lat": "",
-            "lon": ""
+            "lat": "40.6282",
+            "lon": "-74.1076"
          },
          {
             "Prop_ID": "B",
@@ -16092,8 +16092,8 @@
             "Accessible": "Y",
             "Level": "4",
             "Adaptive_Swing": "N",
-            "lat": "",
-            "lon": ""
+            "lat": "40.6939",
+            "lon": "-73.9286"
          },
          {
             "Prop_ID": "M",
@@ -16105,8 +16105,8 @@
             "Accessible": "Y",
             "Level": "4",
             "Adaptive_Swing": "N",
-            "lat": "",
-            "lon": ""
+            "lat": "40.8105",
+            "lon": "-73.9490"
          },
          {
             "Prop_ID": "B",
@@ -16118,8 +16118,8 @@
             "Accessible": "Y",
             "Level": "4",
             "Adaptive_Swing": "N",
-            "lat": "",
-            "lon": ""
+            "lat": "40.6773",
+            "lon": "-74.0122"
          },
          {
             "Prop_ID": "R145",
@@ -16144,8 +16144,8 @@
             "Accessible": "Y",
             "Level": "4",
             "Adaptive_Swing": "N",
-            "lat": "",
-            "lon": ""
+            "lat": "40.869",
+            "lon": "-73.8780"
          },
          {
             "Prop_ID": "B",
@@ -16157,8 +16157,8 @@
             "Accessible": "Y",
             "Level": "4",
             "Adaptive_Swing": "N",
-            "lat": "",
-            "lon": ""
+            "lat": "40.6699",
+            "lon": "-73.8746"
          },
          {
             "Prop_ID": "B",
@@ -16170,8 +16170,8 @@
             "Accessible": "Y",
             "Level": "4",
             "Adaptive_Swing": "N",
-            "lat": "",
-            "lon": ""
+            "lat": "40.6699",
+            "lon": "-73.8746"
          },
          {
             "Prop_ID": "Q162",
@@ -16196,8 +16196,8 @@
             "Accessible": "",
             "Level": "",
             "Adaptive_Swing": "",
-            "lat": "",
-            "lon": ""
+            "lat": "40.7429",
+            "lon": "-73.9604"
          },
          {
             "Prop_ID": "B529",
