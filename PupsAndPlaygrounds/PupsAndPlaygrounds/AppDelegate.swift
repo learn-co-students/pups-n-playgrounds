@@ -15,18 +15,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
   var navigationController: UINavigationController!
+  var rootVC: UIViewController!
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
-    let loginViewController = LoginViewController()
-    navigationController = UINavigationController(rootViewController: loginViewController)
-    navigationController.isNavigationBarHidden = true
-    
-    window = UIWindow(frame: UIScreen.main.bounds)
-    window?.rootViewController = navigationController
-    window?.makeKeyAndVisible()
-    
     FIRApp.configure()
+    FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+      
+      self.rootVC = user != nil ? ProfileViewController() : LoginViewController()
+      self.navigationController = UINavigationController(rootViewController: self.rootVC)
+      self.navigationController.navigationBar.isTranslucent = false
+      self.navigationController.navigationBar.barTintColor = UIColor.themeMediumBlue
+      self.navigationController.navigationBar.tintColor = UIColor.themeWhite
+      self.navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.themeWhite]
+      
+      self.window = UIWindow(frame: UIScreen.main.bounds)
+      self.window?.rootViewController = self.navigationController
+      self.window?.makeKeyAndVisible()
+
+    }
     
     return true
   }

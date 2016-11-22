@@ -27,6 +27,7 @@ final class ImagePickerView: UIView {
   override init(frame: CGRect) {
     
     super.init(frame: frame)
+    
   }
   
   convenience init() {
@@ -35,11 +36,13 @@ final class ImagePickerView: UIView {
     
     configure()
     constrain()
+    
   }
   
   required init?(coder aDecoder: NSCoder) {
     
     super.init(coder: aDecoder)
+    
   }
   
   // MARK: View Configuration
@@ -60,6 +63,7 @@ final class ImagePickerView: UIView {
     captureButton = UIButton()
     captureButton.backgroundColor = UIColor.themeRed
     captureButton.layer.cornerRadius = captureButtonWidth / 2
+    
   }
   
   // MARK: View Constraints
@@ -70,6 +74,7 @@ final class ImagePickerView: UIView {
       
       $0.leading.trailing.top.equalToSuperview()
       $0.height.equalTo(blurViewHeight)
+      
     }
     
     blurView.contentView.addSubview(circleView)
@@ -77,12 +82,14 @@ final class ImagePickerView: UIView {
       
       $0.center.equalToSuperview()
       $0.width.height.equalTo(circleViewWidth)
+      
     }
     
     circleView.addSubview(vibrancyView)
     vibrancyView.snp.makeConstraints {
       
       $0.edges.equalToSuperview()
+      
     }
     
     addSubview(captureButtonView)
@@ -90,6 +97,7 @@ final class ImagePickerView: UIView {
       
       $0.leading.trailing.bottom.equalToSuperview()
       $0.top.equalTo(blurView.snp.bottom)
+      
     }
     
     captureButtonView.addSubview(captureButton)
@@ -97,6 +105,9 @@ final class ImagePickerView: UIView {
       
       $0.center.equalToSuperview()
       $0.width.height.equalTo(captureButtonWidth)
+      
     }
+    
   }
+
 }

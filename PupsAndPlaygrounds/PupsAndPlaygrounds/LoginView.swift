@@ -90,11 +90,11 @@ class LoginView: UIView {
     passwordField.layer.borderColor = UIColor.themeWhite.cgColor
     
     loginButton = UIButton()
-    loginButton.contentEdgeInsets = UIEdgeInsetsMake(11, 16, 11, 16)
+    loginButton.contentEdgeInsets = UIEdgeInsetsMake(0, 16, 0, 16)
     loginButton.setTitle("Log in", for: .normal)
     loginButton.titleLabel?.font = UIFont.themeSmallBold
     loginButton.setTitleColor(UIColor.themeWhite, for: .normal)
-    loginButton.layer.cornerRadius = 20
+    loginButton.layer.cornerRadius = 18
     loginButton.layer.borderWidth = 2
     loginButton.layer.borderColor = UIColor.themeWhite.cgColor
     
@@ -104,11 +104,8 @@ class LoginView: UIView {
     orUseLabel.textColor = UIColor.themeWhite
     
     facebookButton = UIButton()
-    facebookButton.setTitle("F", for: .normal)
-    facebookButton.titleLabel?.font = UIFont.themeSmallBold
-    facebookButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
-    facebookButton.layer.borderWidth = 2
-    facebookButton.layer.borderColor = UIColor.themeDarkBlue.cgColor
+    facebookButton.setImage(#imageLiteral(resourceName: "Facebook Logo"), for: .normal)
+    facebookButton.imageView?.contentMode = .scaleAspectFit
     
     googleButton = UIButton()
     googleButton.setTitle("G", for: .normal)
@@ -126,6 +123,7 @@ class LoginView: UIView {
     
     loginOptionsStackView = UIStackView(arrangedSubviews: [loginButton, orUseLabel, facebookButton, googleButton, twitterButton])
     loginOptionsStackView.distribution = .equalSpacing
+    loginOptionsStackView.alignment = .fill
     
     loginStackView = UIStackView(arrangedSubviews: [emailField, passwordField, loginOptionsStackView])
     loginStackView.axis = .vertical
@@ -152,18 +150,21 @@ class LoginView: UIView {
     // Top View
     addSubview(topView)
     topView.snp.makeConstraints {
+      
       $0.leading.trailing.top.equalToSuperview()
       $0.height.equalToSuperview().dividedBy(2.5)
     }
     
     topView.addSubview(titleLabel)
     titleLabel.snp.makeConstraints {
+      
       $0.center.equalToSuperview()
     }
     
     // Middle View
     addSubview(middleView)
     middleView.snp.makeConstraints {
+      
       $0.leading.trailing.equalToSuperview()
       $0.top.equalTo(topView.snp.bottom)
       $0.height.equalToSuperview().dividedBy(2.1)
@@ -171,43 +172,48 @@ class LoginView: UIView {
     
     middleView.addSubview(loginStackView)
     loginStackView.snp.makeConstraints {
+      
       $0.center.equalToSuperview()
       $0.width.equalToSuperview().dividedBy(1.3)
     }
     
     emailField.snp.makeConstraints {
+      
       $0.width.equalToSuperview()
     }
     
     passwordField.snp.makeConstraints {
+      
       $0.width.equalToSuperview()
     }
     
     loginOptionsStackView.snp.makeConstraints {
+      
       $0.width.equalToSuperview()
-    }
-    
-    facebookButton.snp.makeConstraints {
-      $0.width.equalTo(facebookButton.snp.height)
+      $0.height.equalTo(38)
     }
     
     googleButton.snp.makeConstraints {
+      
       $0.width.equalTo(googleButton.snp.height)
     }
     
     twitterButton.snp.makeConstraints {
+      
       $0.width.equalTo(twitterButton.snp.height)
     }
     
     // Bottom View
     addSubview(bottomView)
     bottomView.snp.makeConstraints {
+      
       $0.leading.trailing.bottom.equalToSuperview()
       $0.top.equalTo(middleView.snp.bottom)
     }
     
     bottomView.addSubview(noLoginStackView)
     noLoginStackView.snp.makeConstraints {
+      
       $0.center.equalToSuperview()
     }
   }
