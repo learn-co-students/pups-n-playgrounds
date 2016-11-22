@@ -43,6 +43,12 @@ class CreateAccountViewController: UIViewController {
         
         FirebaseData.createAccountTouched(firstName: firstName, lastName: lastName, email: email, password: password, checkedPassword: checkedPassword)
         
+<<<<<<< HEAD
+=======
+        let profileVC = ProfileViewController()
+        self.navigationController?.pushViewController(profileVC, animated: true)
+      }
+>>>>>>> user-authentication-wsr
     }
     
     
