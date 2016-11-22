@@ -24,6 +24,12 @@
 		C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */; };
 		C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */; };
 		C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */; };
+		E84199C21DE37E7800522C8A /* dogrunsnyc.json in Resources */ = {isa = PBXBuildFile; fileRef = E84199BF1DE37E7800522C8A /* dogrunsnyc.json */; };
+		E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C01DE37E7800522C8A /* JSONParser.swift */; };
+		E84199C41DE37E7800522C8A /* playgroundsnyc.json in Resources */ = {isa = PBXBuildFile; fileRef = E84199C11DE37E7800522C8A /* playgroundsnyc.json */; };
+		E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C51DE37E8F00522C8A /* FirebaseData.swift */; };
+		E84199CA1DE37EB000522C8A /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C81DE37EB000522C8A /* Locations.swift */; };
+		E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C91DE37EB000522C8A /* LocationsDataStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +54,12 @@
 		C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4EAE2E01DDF65E20069C15E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.release.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.release.xcconfig"; sourceTree = "<group>"; };
+		E84199BF1DE37E7800522C8A /* dogrunsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = dogrunsnyc.json; path = PupsAndPlaygrounds/dogrunsnyc.json; sourceTree = "<group>"; };
+		E84199C01DE37E7800522C8A /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONParser.swift; path = PupsAndPlaygrounds/JSONParser.swift; sourceTree = "<group>"; };
+		E84199C11DE37E7800522C8A /* playgroundsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = playgroundsnyc.json; path = PupsAndPlaygrounds/playgroundsnyc.json; sourceTree = "<group>"; };
+		E84199C51DE37E8F00522C8A /* FirebaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseData.swift; sourceTree = "<group>"; };
+		E84199C81DE37EB000522C8A /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
+		E84199C91DE37EB000522C8A /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsDataStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +94,8 @@
 		C413C4441DDFB9C40020F10F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E84199C81DE37EB000522C8A /* Locations.swift */,
+				E84199C91DE37EB000522C8A /* LocationsDataStore.swift */,
 				C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */,
 			);
 			name = Model;
@@ -161,12 +175,33 @@
 		C4EAE2D01DDF65E20069C15E /* PupsAndPlaygrounds */ = {
 			isa = PBXGroup;
 			children = (
+				E84199C71DE37E9300522C8A /* Firebase */,
+				E84199BE1DE37E5100522C8A /* JSON */,
 				C413C4441DDFB9C40020F10F /* Model */,
 				C413C4451DDFB9C90020F10F /* View */,
 				C413C4461DDFB9CE0020F10F /* Controller */,
 				C413C4481DDFBA360020F10F /* Other */,
 			);
 			path = PupsAndPlaygrounds;
+			sourceTree = "<group>";
+		};
+		E84199BE1DE37E5100522C8A /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				E84199C01DE37E7800522C8A /* JSONParser.swift */,
+				E84199BF1DE37E7800522C8A /* dogrunsnyc.json */,
+				E84199C11DE37E7800522C8A /* playgroundsnyc.json */,
+			);
+			name = JSON;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		E84199C71DE37E9300522C8A /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				E84199C51DE37E8F00522C8A /* FirebaseData.swift */,
+			);
+			name = Firebase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,9 +266,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E84199C41DE37E7800522C8A /* playgroundsnyc.json in Resources */,
 				C4DECFDA1DE35667001CE1A2 /* Main.storyboard in Resources */,
 				C411BBB21DDF706E0090335B /* GoogleService-Info.plist in Resources */,
 				C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */,
+				E84199C21DE37E7800522C8A /* dogrunsnyc.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,9 +331,13 @@
 			files = (
 				C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */,
 				C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */,
+				E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */,
+				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
+				E84199CA1DE37EB000522C8A /* Locations.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
+				E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
 				C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,
