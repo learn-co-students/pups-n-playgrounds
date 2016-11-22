@@ -10,27 +10,27 @@ import UIKit
 import Firebase
 
 class CreateAccountViewController: UIViewController {
-  
-  // MARK: Properties
-  var createAccountView: CreateAccountView!
-  
-  
-  // MARK: Override Methods
-  override func viewDidLoad() {
     
-    super.viewDidLoad()
+    // MARK: Properties
+    var createAccountView: CreateAccountView!
     
-    createAccountView = CreateAccountView()
-    createAccountView.createAccountButton.addTarget(self, action: #selector(createAccountTouched), for: .touchUpInside)
     
-    view = createAccountView
-  }
-  
-  deinit {
+    // MARK: Override Methods
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        createAccountView = CreateAccountView()
+        createAccountView.createAccountButton.addTarget(self, action: #selector(createAccountTouched), for: .touchUpInside)
+        
+        view = createAccountView
+    }
     
-    print("deinitialized CreateAccountViewController")
-  }
-
+    deinit {
+        
+        print("deinitialized CreateAccountViewController")
+    }
+    
     
     func createAccountTouched() {
         
@@ -48,5 +48,5 @@ class CreateAccountViewController: UIViewController {
     
     
 }
-  
+
 

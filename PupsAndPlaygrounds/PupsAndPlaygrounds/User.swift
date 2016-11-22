@@ -8,15 +8,18 @@
 
 import Foundation
 
-//class User {
-//    
-//    let name: String
-//    let uniqueID: String
-//    // let profilePhoto: UIImage
-//    var reviews: [Reviews] = []
-//    // var photoGallery
-//    
-//    
-//    
-//    
-//}
+class User {
+    
+    var userName: String
+    let uniqueID: String
+    //    var profilePhoto: UIImage
+    //    var reviews: [Reviews] = []
+    //    var photoGallery
+    
+    init(profileData userName: String, uniqueID: String) {
+        self.userName = userName
+        self.uniqueID = uniqueID
+    }
+    
+    
+}
