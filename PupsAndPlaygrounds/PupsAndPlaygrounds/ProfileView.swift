@@ -9,10 +9,11 @@
 import UIKit
 import SnapKit
 
-class ProfileView: UIView {
+final class ProfileView: UIView {
   
   // MARK: Properties
   var profileButton: UIButton!
+  let profileButtonWidth: CGFloat = 200
   var userNameLabel: UILabel!
 
   // MARK: Initialization
@@ -35,26 +36,32 @@ class ProfileView: UIView {
   }
   
   // MARK: View Configuration
-  func configure() {
-    backgroundColor = UIColor.themeDarkBlue
+  private func configure() {
+    backgroundColor = UIColor.themeLightBlue
     
-    profileButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-    profileButton.layer.cornerRadius = profileButton.frame.width / 2
-    profileButton.layer.borderWidth = 2
+    profileButton = UIButton()
+    profileButton.titleLabel?.font = UIFont.themeMediumBold
+    profileButton.titleLabel?.numberOfLines = 2
+    profileButton.titleLabel?.textAlignment = .center
+    profileButton.imageView?.contentMode = .scaleAspectFill
+    profileButton.layer.cornerRadius = profileButtonWidth / 2
+    profileButton.layer.borderWidth = 4
     profileButton.layer.borderColor = UIColor.themeWhite.cgColor
+    profileButton.clipsToBounds = true
     
     userNameLabel = UILabel()
-    userNameLabel.font = UIFont.themeMediumThin
+    userNameLabel.font = UIFont.themeMediumLight
     userNameLabel.textColor = UIColor.themeWhite
   }
   
   // MARK: View Constraints
-  func constrain() {
+  private func constrain() {
     
     addSubview(profileButton)
     profileButton.snp.makeConstraints {
       $0.centerX.equalToSuperview()
       $0.top.equalToSuperview().offset(80)
+      $0.width.height.equalTo(profileButtonWidth)
     }
     
     addSubview(userNameLabel)
