@@ -52,7 +52,7 @@ class FirebaseData {
     }
     
     static func addPlaygrounds(playgroundID: String, name: String, location: String, isHandicap: Bool, latitude: String, longitude: String) {
-
+        
         let ref = FIRDatabase.database().reference().root
         
         let uniqueLocationKey = playgroundID
@@ -80,4 +80,22 @@ class FirebaseData {
         
         ref.child("locations").child("dogruns").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "dogRunType": dogRunType, "notes": notes]])
     }
+    
+    static func getPlaygroundsLocationCoordinates(with locationID: String, completion: @escaping (_ longitude: String, _ latitude: String) -> Void) {
+        
+        let ref = FIRDatabase.database().reference().child("locations").child("playgrounds").child(locationID)
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let locationSnap = snapshot.value as? [String: Any] else {return}
+            
+            print("LOCATIONSNAP = \(locationSnap)")
+            
+                guard let longitude = locationSnap["longitude"] as? String else {return}
+                guard let latitude = locationSnap["latitude"] as? String else {return}
+                
+                completion(longitude, latitude)
+        })
+        
+    }
+    
 }

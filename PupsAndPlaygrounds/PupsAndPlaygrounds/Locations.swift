@@ -16,7 +16,7 @@ protocol Location {
 //    var photos: [UIImage] { get }
 }
 
-struct Playground: Location {
+class Playground: Location {
     
     let playgroundID: String
     let name: String
@@ -41,7 +41,7 @@ struct Playground: Location {
     
 }
 
-struct Dogrun: Location {
+class Dogrun: Location {
     
     let dogRunID: String
     let name: String

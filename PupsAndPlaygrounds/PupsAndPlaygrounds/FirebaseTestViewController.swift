@@ -33,7 +33,9 @@ class FirebaseTestViewController: UIViewController {
         
         view = firebaseTestView
         
-        
+        FirebaseData.getPlaygroundsLocationCoordinates(with: store.playgrounds[0].playgroundID) { (longitude, latitude) in
+            print(longitude, latitude)
+        }
     }
     
     override func didReceiveMemoryWarning() {
