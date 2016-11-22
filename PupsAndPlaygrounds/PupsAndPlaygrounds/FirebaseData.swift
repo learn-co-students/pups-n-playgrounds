@@ -28,6 +28,21 @@ class FirebaseData {
                 
             }
         }
+        
+        addUserToBranch(firstName: firstName, lastName: lastName, email: email, password: password)
+        
+        
+    }
+    
+    static func addUserToBranch(firstName: String, lastName: String, email:String, password: String) {
+        let ref = FIRDatabase.database().reference().root
+        guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        ref.child("users").updateChildValues([userKey: ["firstName": firstName, "lastName": lastName, "email": email, "password": password]])
+    }
+    
+    static func updateUserProfile() {
+        
     }
     
     
@@ -90,10 +105,10 @@ class FirebaseData {
             
             print("LOCATIONSNAP = \(locationSnap)")
             
-                guard let longitude = locationSnap["longitude"] as? String else {return}
-                guard let latitude = locationSnap["latitude"] as? String else {return}
-                
-                completion(longitude, latitude)
+            guard let longitude = locationSnap["longitude"] as? String else {return}
+            guard let latitude = locationSnap["latitude"] as? String else {return}
+            
+            completion(longitude, latitude)
         })
         
     }
