@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 import Firebase
 import FBSDKLoginKit
 
@@ -44,9 +43,10 @@ final class LoginViewController: UIViewController {
   // MARK: Action Methods
   func loginButtonTouched() {
     
-    guard let email = loginView.emailField.text else { print("error unwrapping user email"); return }
-    guard let password = loginView.passwordField.text else { print("error unwrapping user password"); return }
+    let firebaseView = FirebaseTestViewController()
+    self.navigationController?.pushViewController(firebaseView, animated: true)
     
+<<<<<<< HEAD
     FIRAuth.auth()?.signIn(withEmail: email, password: password) { self.handleSignIn(user: $0, error: $1) }
   }
   
@@ -62,6 +62,8 @@ final class LoginViewController: UIViewController {
       let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
       FIRAuth.auth()?.signIn(with: credential) { self.handleSignIn(user: $0, error: $1) }
     }
+=======
+>>>>>>> 5f11df889a5a84c477b5e4be3f09f4ba77a2ca2d
   }
   
   func handleSignIn(user: FIRUser?, error: Error?) {

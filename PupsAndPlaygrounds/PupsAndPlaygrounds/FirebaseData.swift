@@ -9,40 +9,93 @@
 import Foundation
 import Firebase
 
-class DataSomething {
+class FirebaseData {
     
-    var ref: FIRDatabaseReference!
     
-    func needFunction() {
-        ref = FIRDatabase.database().reference()
+    static func createAccountTouched(firstName: String, lastName: String, email:String, password: String, checkedPassword:String) {
         
+        FIRAuth.auth()?.createUser(withEmail: email, password: password) { user, error in
+            
+            guard error == nil else { print("error creating firebase user; Error: \(error)"); return }
+            guard let user = user else { print("error unwrapping user data"); return }
+            
+            let changeRequest = user.profileChangeRequest()
+            changeRequest.displayName = firstName + lastName
+            
+            changeRequest.commitChanges { error in
+                
+                guard error == nil else { print("error commiting changes for user profile change request"); return }
+                
+            }
+        }
     }
     
-    var reviewTextBox: String?
     
-    func addReview(with comment: String) {
+    static func signIn(email: String, password: String) {
+        
+        FIRAuth.auth()?.signIn(withEmail: email, password: password) { user, error in
+            
+            guard error == nil else { print("error signing user in"); return }
+            
+        }
+    }
+    
+    static func addReview(with comment: String, rating: String, locationID: String) {
         let ref = FIRDatabase.database().reference().root
-        //        let key = ref.child("reviews").childByAutoId().key
+        
+        let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
+        
         guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
         
-        ref.child("reviews").observeSingleEvent(of: .value, with: { snapshot in
-            
-            var count: String = "0"
-            if let userDict = snapshot.value as? [String:Any] {
-                if let reviewsDict = userDict[userKey] {
-                    
-                    count = String((reviewsDict as AnyObject).count)
-                }
-            }
-            
-            var newReview = [String:String]()
-            
-            if let reviewText = self.reviewTextBox {
-                newReview[count] = "\(reviewText)"
-                ref.child("reviews").child(userKey).updateChildValues(newReview)
-            }
-        })
+        ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "rating": rating, "userID": userKey, "locationID": locationID]])
+        
     }
     
+    static func addPlaygrounds(playgroundID: String, name: String, location: String, isHandicap: Bool, latitude: String, longitude: String) {
+        
+        let ref = FIRDatabase.database().reference().root
+        
+        let uniqueLocationKey = playgroundID
+        
+        var isHandicapString = "No"
+        
+        if isHandicap == true {
+            isHandicapString = "Yes"
+        }
+        
+        ref.child("locations").child("playgrounds").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "latitude": latitude, "longitude": longitude]])
+    }
+    
+    static func addDogruns(dogRunID: String, name: String, location: String, isHandicap: Bool, dogRunType: String, notes: String) {
+        
+        let ref = FIRDatabase.database().reference().root
+        
+        let uniqueLocationKey = dogRunID
+        
+        var isHandicapString = "No"
+        
+        if isHandicap == true {
+            isHandicapString = "Yes"
+        }
+        
+        ref.child("locations").child("dogruns").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "dogRunType": dogRunType, "notes": notes]])
+    }
+    
+    static func getPlaygroundsLocationCoordinates(with locationID: String, completion: @escaping (_ longitude: String, _ latitude: String) -> Void) {
+        
+        let ref = FIRDatabase.database().reference().child("locations").child("playgrounds").child(locationID)
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let locationSnap = snapshot.value as? [String: Any] else {return}
+            
+            print("LOCATIONSNAP = \(locationSnap)")
+            
+                guard let longitude = locationSnap["longitude"] as? String else {return}
+                guard let latitude = locationSnap["latitude"] as? String else {return}
+                
+                completion(longitude, latitude)
+        })
+        
+    }
     
 }
