@@ -13,5 +13,13 @@ import SnapKit
 class TemporaryLocationsProfileView: UIView {
 
     // Picture, name, address, is handicap, reviews!
+
+    var locationImage: UIImage!
+    var locationNameLabel: UILabel!
+    var locationAddressLabel: UILabel!
+    var isHandicapLabel: UILabel!
+    
+    
+    
     
 }
