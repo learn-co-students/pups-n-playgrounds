@@ -12,14 +12,12 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-// *** submitButton will submit a review to Firebase, but can be used for any function! ***
+// *** submitButton is AMBIGUOUS!!! Check to see what the button will do in viewDidLoad ***
 
 class FirebaseTestViewController: UIViewController {
     
     var firebaseTestView: FirebaseTestView!
-    var firebaseData: FirebaseData!
 
-    
     let store = LocationsDataStore.sharedInstance
     
     override func viewDidLoad() {
@@ -29,10 +27,9 @@ class FirebaseTestViewController: UIViewController {
         store.getDogrunsAndPlaygrounds()
         
         firebaseTestView = FirebaseTestView()
-        firebaseData = FirebaseData()
         
         
-        firebaseTestView.submitButton.addTarget(self, action: #selector(addPlaygroundsToFirebaseTouched), for: .touchUpInside)
+        firebaseTestView.submitButton.addTarget(self, action: #selector(submitReviewToFirebaseTouched), for: .touchUpInside)
         
         view = firebaseTestView
         
@@ -44,12 +41,12 @@ class FirebaseTestViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func submitToFirebaseTouched() {
+    func submitReviewToFirebaseTouched() {
         print("SUBMIT BUTTON TOUCHED")
         guard let review = firebaseTestView.reviewTextField.text else { print("error reviews field"); return }
         guard let rating = firebaseTestView.ratingTextField.text else { print("error ratings field"); return }
         
-        firebaseData.addReview(with: review, rating: rating, locationID: "0000001 = Location ID")
+        FirebaseData.addReview(with: review, rating: rating, locationID: store.playgrounds[0].playgroundID)
         
     }
     
@@ -57,7 +54,7 @@ class FirebaseTestViewController: UIViewController {
         var count = 0
         for playground in store.playgrounds {
             
-            firebaseData.addPlaygrounds(playgroundID: playground.playgroundID, name: playground.name, location: playground.location, isHandicap: playground.isHandicap, latitude: playground.latitude, longitude: playground.longitude)
+            FirebaseData.addPlaygrounds(playgroundID: playground.playgroundID, name: playground.name, location: playground.location, isHandicap: playground.isHandicap, latitude: playground.latitude, longitude: playground.longitude)
             
             count += 1
         }
@@ -68,7 +65,7 @@ class FirebaseTestViewController: UIViewController {
         var count = 0
         for dogrun in store.dogRuns {
             
-            firebaseData.addDogruns(dogRunID: dogrun.dogRunID, name: dogrun.name, location: dogrun.location, isHandicap: dogrun.isHandicap, dogRunType: dogrun.dogRunType, notes: dogrun.notes)
+            FirebaseData.addDogruns(dogRunID: dogrun.dogRunID, name: dogrun.name, location: dogrun.location, isHandicap: dogrun.isHandicap, dogRunType: dogrun.dogRunType, notes: dogrun.notes)
             
             count += 1
         }

@@ -11,15 +11,8 @@ import Firebase
 
 class FirebaseData {
     
-    var ref: FIRDatabaseReference!
     
-    func needFunction() {
-        ref = FIRDatabase.database().reference()
-        
-    }
-    
-    
-    class func createAccountTouched(firstName: String, lastName: String, email:String, password: String, checkedPassword:String) {
+    static func createAccountTouched(firstName: String, lastName: String, email:String, password: String, checkedPassword:String) {
         
         FIRAuth.auth()?.createUser(withEmail: email, password: password) { user, error in
             
@@ -38,9 +31,7 @@ class FirebaseData {
     }
     
     
-    
-    
-    func signIn(email: String, password: String) {
+    static func signIn(email: String, password: String) {
         
         FIRAuth.auth()?.signIn(withEmail: email, password: password) { user, error in
             
@@ -49,7 +40,7 @@ class FirebaseData {
         }
     }
     
-    func addReview(with comment: String, rating: String, locationID: String) {
+    static func addReview(with comment: String, rating: String, locationID: String) {
         let ref = FIRDatabase.database().reference().root
         
         let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
@@ -60,7 +51,7 @@ class FirebaseData {
         
     }
     
-    func addPlaygrounds(playgroundID: String, name: String, location: String, isHandicap: Bool, latitude: String, longitude: String) {
+    static func addPlaygrounds(playgroundID: String, name: String, location: String, isHandicap: Bool, latitude: String, longitude: String) {
 
         let ref = FIRDatabase.database().reference().root
         
@@ -75,7 +66,7 @@ class FirebaseData {
         ref.child("locations").child("playgrounds").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "latitude": latitude, "longitude": longitude]])
     }
     
-    func addDogruns(dogRunID: String, name: String, location: String, isHandicap: Bool, dogRunType: String, notes: String) {
+    static func addDogruns(dogRunID: String, name: String, location: String, isHandicap: Bool, dogRunType: String, notes: String) {
         
         let ref = FIRDatabase.database().reference().root
         
