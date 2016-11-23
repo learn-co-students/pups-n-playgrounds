@@ -257,11 +257,6 @@
 				TargetAttributes = {
 					C4EAE2CD1DDF65E20069C15E = {
 						CreatedOnToolsVersion = 8.1;
-<<<<<<< HEAD
-						DevelopmentTeam = 9TAE6F86BV;
-=======
-						DevelopmentTeam = TWPE6ND5AF;
->>>>>>> master
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -361,15 +356,9 @@
 				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
-<<<<<<< HEAD
 				E84199CA1DE37EB000522C8A /* Locations.swift in Sources */,
-<<<<<<< HEAD
 				E809BA111DE4FF9D00E7BF03 /* User.swift in Sources */,
-=======
-=======
 				C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */,
->>>>>>> user-authentication-wsr
->>>>>>> master
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
@@ -483,11 +472,7 @@
 			baseConfigurationReference = 06127B45D1FA197E42D189AB /* Pods-PupsAndPlaygrounds.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-<<<<<<< HEAD
-				DEVELOPMENT_TEAM = 9TAE6F86BV;
-=======
-				DEVELOPMENT_TEAM = TWPE6ND5AF;
->>>>>>> master
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FlatironSchool.PupsAndPlaygrounds;
@@ -501,11 +486,7 @@
 			baseConfigurationReference = DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-<<<<<<< HEAD
-				DEVELOPMENT_TEAM = 9TAE6F86BV;
-=======
-				DEVELOPMENT_TEAM = TWPE6ND5AF;
->>>>>>> master
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FlatironSchool.PupsAndPlaygrounds;
