@@ -6,16 +6,10 @@ target 'PupsAndPlaygrounds' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
-  pod 'Firebase/Storage'
-
-  # Facebook
-  pod 'FBSDKCoreKit'
-  pod 'FBSDKLoginKit'
-  pod 'FBSDKShareKit'
 
   # XML Parser
   pod 'SWXMLHash'
-
+  
   # SnapKit
   pod 'SnapKit'
 
