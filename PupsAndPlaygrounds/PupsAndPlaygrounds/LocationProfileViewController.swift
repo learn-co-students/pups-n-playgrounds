@@ -41,6 +41,7 @@ class LocationProfileViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
             let reviewTextField = alert.textFields![0]
             print("REVIEW = \(reviewTextField.text)")
+            FirebaseData.addReview(comment: reviewTextField.text!, locationID: self.locationProfileView.location.playgroundID)
         }))
 
         self.present(alert, animated: true, completion: nil)    }

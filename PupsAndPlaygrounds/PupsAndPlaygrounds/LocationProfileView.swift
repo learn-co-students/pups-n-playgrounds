@@ -13,7 +13,7 @@ class LocationProfileView: UIView {
     
     let store = LocationsDataStore.sharedInstance
     
-    var location: Location!
+    var location: Playground!
     var locationNameLabel: UILabel!
     var locationAddressLabel: UILabel!
     var submitButton: UIButton!

@@ -55,15 +55,15 @@ class FirebaseData {
         }
     }
     
-    static func addReview(with comment: String, rating: String, locationID: String) {
+    static func addReview(comment: String, locationID: String) {
         let ref = FIRDatabase.database().reference().root
         
         let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
         
         guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
         
-        ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "rating": rating, "userID": userKey, "locationID": locationID]])
-        
+        ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userKey, "locationID": locationID]])
+        //took out rating for now
     }
     
     static func addPlaygrounds(playgroundID: String, name: String, location: String, isHandicap: Bool, latitude: String, longitude: String) {

@@ -47,7 +47,7 @@ class FirebaseTestViewController: UIViewController {
         guard let review = firebaseTestView.reviewTextField.text else { print("error reviews field"); return }
         guard let rating = firebaseTestView.ratingTextField.text else { print("error ratings field"); return }
         
-        FirebaseData.addReview(with: review, rating: rating, locationID: store.playgrounds[0].playgroundID)
+        FirebaseData.addReview(comment: review, locationID: store.playgrounds[0].playgroundID)
         
     }
     
