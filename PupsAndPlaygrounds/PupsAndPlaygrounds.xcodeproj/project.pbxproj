@@ -36,6 +36,8 @@
 		E84199CD1DE3847D00522C8A /* FirebaseTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199CC1DE3847D00522C8A /* FirebaseTestViewController.swift */; };
 		E84199CF1DE385EA00522C8A /* FirebaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */; };
 		E84199D11DE38FE400522C8A /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Reviews.swift */; };
+		E881FF6B1DE61BE100029F80 /* LocationsProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF6A1DE61BE100029F80 /* LocationsProfileView.swift */; };
+		E881FF6F1DE61C2900029F80 /* LocationsProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF6E1DE61C2900029F80 /* LocationsProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,8 @@
 		E84199CC1DE3847D00522C8A /* FirebaseTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTestViewController.swift; sourceTree = "<group>"; };
 		E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTestView.swift; sourceTree = "<group>"; };
 		E84199D01DE38FE400522C8A /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
+		E881FF6A1DE61BE100029F80 /* LocationsProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsProfileView.swift; sourceTree = "<group>"; };
+		E881FF6E1DE61C2900029F80 /* LocationsProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,7 @@
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
 				C4810D1A1DE36C3A00A652DB /* HomeView.swift */,
 				C4810D1E1DE36F9E00A652DB /* ProfileView.swift */,
+				E881FF6A1DE61BE100029F80 /* LocationsProfileView.swift */,
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
 				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
@@ -135,12 +140,13 @@
 			isa = PBXGroup;
 			children = (
 				E809BA0E1DE4F5B500E7BF03 /* MapkitTestViewController.swift */,
-				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
+				E84199CC1DE3847D00522C8A /* FirebaseTestViewController.swift */,
+				E881FF6E1DE61C2900029F80 /* LocationsProfileViewController.swift */,
 				C413C4401DDF9A140020F10F /* LoginViewController.swift */,
 				C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */,
 				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
 				C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */,
-				E84199CC1DE3847D00522C8A /* FirebaseTestViewController.swift */,
+				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -358,6 +364,7 @@
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
 				E84199CA1DE37EB000522C8A /* Locations.swift in Sources */,
 				E809BA111DE4FF9D00E7BF03 /* User.swift in Sources */,
+				E881FF6F1DE61C2900029F80 /* LocationsProfileViewController.swift in Sources */,
 				C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */,
@@ -368,6 +375,7 @@
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
 				C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */,
 				C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */,
+				E881FF6B1DE61BE100029F80 /* LocationsProfileView.swift in Sources */,
 				C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */,
 				E809BA0F1DE4F5B500E7BF03 /* MapkitTestViewController.swift in Sources */,
 			);
