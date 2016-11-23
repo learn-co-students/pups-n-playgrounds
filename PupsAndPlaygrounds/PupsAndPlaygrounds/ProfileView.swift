@@ -18,12 +18,10 @@ final class ProfileView: UIView {
 
   // MARK: Initialization
   override init(frame: CGRect) {
-    
     super.init(frame: frame)
   }
   
   convenience init() {
-    
     self.init(frame: CGRect.zero)
     
     configure()
@@ -31,7 +29,6 @@ final class ProfileView: UIView {
   }
   
   required init?(coder aDecoder: NSCoder) {
-    
     super.init(coder: aDecoder)
   }
   
@@ -56,7 +53,6 @@ final class ProfileView: UIView {
   
   // MARK: View Constraints
   private func constrain() {
-    
     addSubview(profileButton)
     profileButton.snp.makeConstraints {
       $0.centerX.equalToSuperview()

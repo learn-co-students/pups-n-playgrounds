@@ -19,11 +19,19 @@ final class LoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    navigationController?.isNavigationBarHidden = true
+    
     loginView = LoginView()
+    loginView.emailField.delegate = self
+    loginView.passwordField.delegate = self
     loginView.loginButton.addTarget(self, action: #selector(loginButtonTouched), for: .touchUpInside)
     loginView.createAccountButton.addTarget(self, action: #selector(createAccountButtonTouched), for: .touchUpInside)
     
     view = loginView
+  }
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    _ = view.endEditing(true)
   }
   
   // MARK: Action Methods
@@ -42,8 +50,15 @@ final class LoginViewController: UIViewController {
   }
   
   func createAccountButtonTouched() {
-    
     let createAccountVC = CreateAccountViewController()
+    
     navigationController?.pushViewController(createAccountVC, animated: true)
+  }
+}
+
+// MARK: UITextFieldDelegate
+extension LoginViewController: UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    return textField.resignFirstResponder()
   }
 }
