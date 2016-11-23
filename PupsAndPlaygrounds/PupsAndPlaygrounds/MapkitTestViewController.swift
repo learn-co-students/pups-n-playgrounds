@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
-
+/*
 class MapkitTestViewController: UIViewController, CLLocationManagerDelegate,NSURLConnectionDelegate,UITableViewDelegate {
     
     let locationManager = CLLocationManager()
@@ -42,3 +42,4 @@ class MapkitTestViewController: UIViewController, CLLocationManagerDelegate,NSUR
     }
     
 }
+*/

@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SnapKit
+import FirebaseStorage
 
 class ProfileViewController: UIViewController {
   

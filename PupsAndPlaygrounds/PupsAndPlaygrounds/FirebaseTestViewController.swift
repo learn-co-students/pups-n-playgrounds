@@ -27,11 +27,10 @@ class FirebaseTestViewController: UIViewController {
         store.getDogrunsAndPlaygrounds()
         
         firebaseTestView = FirebaseTestView()
-        
-        
+        view = firebaseTestView
+
         firebaseTestView.submitButton.addTarget(self, action: #selector(submitReviewToFirebaseTouched), for: .touchUpInside)
         
-        view = firebaseTestView
         
         FirebaseData.getPlaygroundsLocationCoordinates(with: store.playgrounds[0].playgroundID) { (longitude, latitude) in
             print(longitude, latitude)

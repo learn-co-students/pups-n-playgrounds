@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     FIRApp.configure()
     FIRAuth.auth()?.addStateDidChangeListener { auth, user in
       
-      self.rootVC = user != nil ? ProfileViewController() : LoginViewController()
+      self.rootVC = /* = user != nil ?  ProfileViewController() : */ LoginViewController()
       self.navigationController = UINavigationController(rootViewController: self.rootVC)
       self.navigationController.navigationBar.isTranslucent = false
       self.navigationController.navigationBar.barTintColor = UIColor.themeMediumBlue
