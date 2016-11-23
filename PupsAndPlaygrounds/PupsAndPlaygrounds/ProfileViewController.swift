@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
 //    profileView.profileButton.addTarget(self, action: #selector(profileButtonTouched), for: .touchUpInside)
     
     view = profileView
-    
+    profileView.locationButton.addTarget(self, action: #selector(locationButtonTouched), for: .touchUpInside)
 //    imagePicker = UIImagePickerController()
 //    imagePicker.delegate = self
 //    imagePicker.sourceType = .camera
@@ -54,6 +54,11 @@ class ProfileViewController: UIViewController {
     //    profileView.profileButton.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControlState#>)
   }
   
+    func locationButtonTouched() {
+        let locationProfileVC = LocationProfileViewController()
+        self.navigationController?.pushViewController(locationProfileVC, animated: true)
+    }
+    
   // MARK: Action Methods
 //  func profileButtonTouched() {
 //    present(imagePicker, animated: true, completion: nil)
