@@ -38,6 +38,7 @@
 		E84199D11DE38FE400522C8A /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Reviews.swift */; };
 		E881FF751DE6422B00029F80 /* LocationProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF741DE6422B00029F80 /* LocationProfileView.swift */; };
 		E881FF771DE6423B00029F80 /* LocationProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF761DE6423B00029F80 /* LocationProfileViewController.swift */; };
+		E881FF791DE64E1300029F80 /* LocationProfReviewsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF781DE64E1300029F80 /* LocationProfReviewsTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		E84199D01DE38FE400522C8A /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		E881FF741DE6422B00029F80 /* LocationProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationProfileView.swift; sourceTree = "<group>"; };
 		E881FF761DE6423B00029F80 /* LocationProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationProfileViewController.swift; sourceTree = "<group>"; };
+		E881FF781DE64E1300029F80 /* LocationProfReviewsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationProfReviewsTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				C4DECFD91DE35667001CE1A2 /* Main.storyboard */,
+				E881FF781DE64E1300029F80 /* LocationProfReviewsTableView.swift */,
 				E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */,
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
@@ -369,6 +372,7 @@
 				C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */,
+				E881FF791DE64E1300029F80 /* LocationProfReviewsTableView.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
 				C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,

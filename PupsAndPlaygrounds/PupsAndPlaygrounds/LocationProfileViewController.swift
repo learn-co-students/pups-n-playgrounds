@@ -12,7 +12,7 @@ class LocationProfileViewController: UIViewController {
     
     var locationProfileView: LocationProfileView!
     let store = LocationsDataStore.sharedInstance
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         store.getDogrunsAndPlaygrounds()
@@ -32,8 +32,17 @@ class LocationProfileViewController: UIViewController {
     }
     
     func submitReviewAlert() {
-        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+        guard let name = locationProfileView.locationNameLabel.text else { return }
+        let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
+
+        alert.addTextField { (reviewTextField) in
+            reviewTextField.text = ""
+        }
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
+            let reviewTextField = alert.textFields![0]
+            print("REVIEW = \(reviewTextField.text)")
+        }))
+
         self.present(alert, animated: true, completion: nil)    }
     
 }
