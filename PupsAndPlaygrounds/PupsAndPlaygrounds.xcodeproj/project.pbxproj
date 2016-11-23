@@ -123,12 +123,12 @@
 			isa = PBXGroup;
 			children = (
 				E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */,
+				E881FF6A1DE61BE100029F80 /* LocationsProfileView.swift */,
 				C4DECFD91DE35667001CE1A2 /* Main.storyboard */,
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
 				C4810D1A1DE36C3A00A652DB /* HomeView.swift */,
 				C4810D1E1DE36F9E00A652DB /* ProfileView.swift */,
-				E881FF6A1DE61BE100029F80 /* LocationsProfileView.swift */,
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
 				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
