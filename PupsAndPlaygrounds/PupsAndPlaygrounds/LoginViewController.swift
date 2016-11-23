@@ -16,6 +16,13 @@ final class LoginViewController: UIViewController {
   var loginView: LoginView!
   var facebookLoginManager: FBSDKLoginManager!
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    navigationController?.isNavigationBarHidden = true
+    configure()
+  }
+  
   // MARK: Instance Methods
   func configure() {
     loginView = LoginView()
