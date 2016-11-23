@@ -15,6 +15,8 @@
 		C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */; };
 		C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */; };
 		C4EAE2DF1DDF65E20069C15E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DD1DDF65E20069C15E /* LaunchScreen.storyboard */; };
+		F623047D1DE632240034C80B /* Playground.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623047C1DE632240034C80B /* Playground.swift */; };
+		F623047F1DE6326A0034C80B /* VCMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623047E1DE6326A0034C80B /* VCMapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		C4EAE2DE1DDF65E20069C15E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4EAE2E01DDF65E20069C15E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.release.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.release.xcconfig"; sourceTree = "<group>"; };
+		F623047C1DE632240034C80B /* Playground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playground.swift; sourceTree = "<group>"; };
+		F623047E1DE6326A0034C80B /* VCMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 			children = (
 				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
 				C4EAE2D31DDF65E20069C15E /* ViewController.swift */,
+				F623047E1DE6326A0034C80B /* VCMapView.swift */,
+				F623047C1DE632240034C80B /* Playground.swift */,
 				C4EAE2D51DDF65E20069C15E /* Main.storyboard */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
 				C4EAE2DD1DDF65E20069C15E /* LaunchScreen.storyboard */,
@@ -129,6 +135,7 @@
 				TargetAttributes = {
 					C4EAE2CD1DDF65E20069C15E = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 57Z2TZGD3U;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -218,7 +225,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F623047D1DE632240034C80B /* Playground.swift in Sources */,
 				C4EAE2D41DDF65E20069C15E /* ViewController.swift in Sources */,
+				F623047F1DE6326A0034C80B /* VCMapView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
 				C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */,
 			);
@@ -342,9 +351,11 @@
 			baseConfigurationReference = 06127B45D1FA197E42D189AB /* Pods-PupsAndPlaygrounds.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 57Z2TZGD3U;
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.FlatironSchool.PupsAndPlaygrounds;
+				PRODUCT_BUNDLE_IDENTIFIER = FlatironSchool.PupsAndPlaygrounds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -355,9 +366,11 @@
 			baseConfigurationReference = DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 57Z2TZGD3U;
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.FlatironSchool.PupsAndPlaygrounds;
+				PRODUCT_BUNDLE_IDENTIFIER = FlatironSchool.PupsAndPlaygrounds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
