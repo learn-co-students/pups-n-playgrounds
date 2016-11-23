@@ -19,10 +19,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
+    
     FIRApp.configure()
+    
+    do {
+      try FIRAuth.auth()?.signOut()
+    } catch {}
+
+    
     FIRAuth.auth()?.addStateDidChangeListener { auth, user in
       
-      self.rootVC = /* = user != nil ?  ProfileViewController() : */ LoginViewController()
+      
+      self.rootVC = user != nil ? ProfileViewController() : LoginViewController()
       self.navigationController = UINavigationController(rootViewController: self.rootVC)
       self.navigationController.navigationBar.isTranslucent = false
       self.navigationController.navigationBar.barTintColor = UIColor.themeMediumBlue

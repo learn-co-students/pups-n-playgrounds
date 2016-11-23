@@ -10,44 +10,52 @@ import UIKit
 import Firebase
 
 class CreateAccountViewController: UIViewController {
+  
+  // MARK: Properties
+  var createAccountView: CreateAccountView!
+  
+  
+  // MARK: Override Methods
+  override func viewDidLoad() {
     
-    // MARK: Properties
-    var createAccountView: CreateAccountView!
+    super.viewDidLoad()
     
+    createAccountView = CreateAccountView()
+    createAccountView.createAccountButton.addTarget(self, action: #selector(createAccountTouched), for: .touchUpInside)
     
-    // MARK: Override Methods
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        createAccountView = CreateAccountView()
-        createAccountView.createAccountButton.addTarget(self, action: #selector(createAccountTouched), for: .touchUpInside)
-        
-        view = createAccountView
-    }
+    view = createAccountView
+  }
+  
+  deinit {
     
-    deinit { print("deinitialized CreateAccountViewController") }
+    print("deinitialized CreateAccountViewController")
+  }
+  
+  func createAccountTouched() {
     
+    guard let firstName = createAccountView.firstNameField.text else { print("error unwrapping first name"); return }
+    guard let lastName = createAccountView.lastNameField.text else { print("error unwrapping last name"); return }
+    guard let email = createAccountView.emailField.text else { print("error unwrapping email"); return }
+    guard let password = createAccountView.passwordField.text else { print("error unwrapping password"); return }
+    guard let retypePassword = createAccountView.retypePasswordField.text else { print("error unwrapping retyped password"); return }
     
-    func createAccountTouched() {
+    guard password == retypePassword else { print("passwords do not match"); return }
+    
+    FIRAuth.auth()?.createUser(withEmail: email, password: password) { user, error in
+      
+      guard error == nil else { print("error creating firebase user"); return }
+      guard let user = user else { print("error unwrapping user data"); return }
+      
+      let changeRequest = user.profileChangeRequest()
+      changeRequest.displayName = firstName + lastName
+      
+      changeRequest.commitChanges { error in
         
-        guard let firstName = createAccountView.firstNameField.text else { return }
-        guard let lastName = createAccountView.lastNameField.text else { return }
-        guard let email = createAccountView.emailField.text else { return }
-        guard let password = createAccountView.passwordField.text else { return }
-        guard let checkedPassword = createAccountView.retypePasswordField.text else { return }
+        guard error == nil else { print("error commiting changes for user profile change request"); return }
         
-        FirebaseData.createAccountTouched(firstName: firstName, lastName: lastName, email: email, password: password, checkedPassword: checkedPassword)
-        
-        let testFB = FirebaseTestViewController()
-        self.navigationController?.pushViewController(testFB, animated: true)
-        
-        /*
         let profileVC = ProfileViewController()
         self.navigationController?.pushViewController(profileVC, animated: true)
-        */
+      }
     }
-    
+  }
 }
-
-
