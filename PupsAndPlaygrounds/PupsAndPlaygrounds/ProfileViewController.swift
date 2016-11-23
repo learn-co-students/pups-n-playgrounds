@@ -61,7 +61,7 @@ class ProfileViewController: UIViewController {
     
     profileView.userNameLabel.text = currentUser.displayName
     
-    guard let photoURL = user.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
+    guard let photoURL = currentUser.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
 //    profileView.profileButton.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControlState#>)
   }
   
@@ -69,6 +69,7 @@ class ProfileViewController: UIViewController {
   func profileButtonTouched() {
     
     present(imagePicker, animated: true, completion: nil)
+    
   }
   
   func captureButtonTouched() {
@@ -82,10 +83,10 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     
     profileImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-    profileImagePNG = UIImagePNGRepresentation(profileImage)
+    let profileImagePNG = UIImagePNGRepresentation(profileImage)
     
-    profileImageRef = storageRef.child("images").child("userImages").child("\(currentUser.uid)").setValuesForKeys(["profileImage" : profileImagePNG])
-    profile
+    let profileImageRef = storageRef.child("images").child("userImages").child("\(currentUser.uid)").setValuesForKeys(["profileImage" : profileImagePNG])
+  
     profileView.profileButton.setImage(profileImage, for: .normal)
     
     dismiss(animated: true, completion: nil)

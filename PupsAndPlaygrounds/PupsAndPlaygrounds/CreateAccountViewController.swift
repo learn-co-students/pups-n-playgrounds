@@ -10,49 +10,40 @@ import UIKit
 import Firebase
 
 class CreateAccountViewController: UIViewController {
+  
+  // MARK: Properties
+  var createAccountView: CreateAccountView!
+  
+  
+  // MARK: Override Methods
+  override func viewDidLoad() {
     
-    // MARK: Properties
-    var createAccountView: CreateAccountView!
+    super.viewDidLoad()
     
+    createAccountView = CreateAccountView()
+    createAccountView.createAccountButton.addTarget(self, action: #selector(createAccountTouched), for: .touchUpInside)
     
-    // MARK: Override Methods
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        createAccountView = CreateAccountView()
-        createAccountView.createAccountButton.addTarget(self, action: #selector(createAccountTouched), for: .touchUpInside)
-        
-        view = createAccountView
-    }
+    view = createAccountView
+  }
+  
+  deinit { print("deinitialized CreateAccountViewController") }
+  
+  
+  func createAccountTouched() {
     
-    deinit {
-        
-        print("deinitialized CreateAccountViewController")
-    }
+    guard let firstName = createAccountView.firstNameField.text else { return }
+    guard let lastName = createAccountView.lastNameField.text else { return }
+    guard let email = createAccountView.emailField.text else { return }
+    guard let password = createAccountView.passwordField.text else { return }
+    guard let checkedPassword = createAccountView.retypePasswordField.text else { return }
     
+    FirebaseData.createAccountTouched(firstName: firstName, lastName: lastName, email: email, password: password, checkedPassword: checkedPassword)
     
-    func createAccountTouched() {
-        
-        guard let firstName = createAccountView.firstNameField.text else { return }
-        guard let lastName = createAccountView.lastNameField.text else { return }
-        guard let email = createAccountView.emailField.text else { return }
-        guard let password = createAccountView.passwordField.text else { return }
-        guard let checkedPassword = createAccountView.retypePasswordField.text else { return }
-        
-        
-        FirebaseData.createAccountTouched(firstName: firstName, lastName: lastName, email: email, password: password, checkedPassword: checkedPassword)
-        
-<<<<<<< HEAD
-=======
-        let profileVC = ProfileViewController()
-        self.navigationController?.pushViewController(profileVC, animated: true)
-      }
->>>>>>> user-authentication-wsr
-    }
+    let profileVC = ProfileViewController()
+    self.navigationController?.pushViewController(profileVC, animated: true)
     
-    
-    
+  }
+  
 }
 
 
