@@ -17,7 +17,6 @@ final class LoginViewController: UIViewController {
   
   // MARK: Override Methods
   override func viewDidLoad() {
-    
     super.viewDidLoad()
     
     loginView = LoginView()
@@ -25,10 +24,6 @@ final class LoginViewController: UIViewController {
     loginView.createAccountButton.addTarget(self, action: #selector(createAccountButtonTouched), for: .touchUpInside)
     
     view = loginView
-  }
-  
-  deinit {
-    print("deinitialized LoginViewController")
   }
   
   // MARK: Action Methods

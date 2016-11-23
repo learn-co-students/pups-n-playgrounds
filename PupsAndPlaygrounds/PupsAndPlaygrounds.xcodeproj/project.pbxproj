@@ -118,8 +118,8 @@
 		C413C4451DDFB9C90020F10F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */,
 				C4DECFD91DE35667001CE1A2 /* Main.storyboard */,
+				E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */,
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
 				C4810D1A1DE36C3A00A652DB /* HomeView.swift */,
@@ -134,12 +134,12 @@
 		C413C4461DDFB9CE0020F10F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E809BA0E1DE4F5B500E7BF03 /* MapkitTestViewController.swift */,
 				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
 				C413C4401DDF9A140020F10F /* LoginViewController.swift */,
 				C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */,
 				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
 				C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */,
+				E809BA0E1DE4F5B500E7BF03 /* MapkitTestViewController.swift */,
 				E84199CC1DE3847D00522C8A /* FirebaseTestViewController.swift */,
 			);
 			name = Controller;
