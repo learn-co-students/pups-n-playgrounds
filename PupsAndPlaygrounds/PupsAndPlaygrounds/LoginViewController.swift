@@ -41,7 +41,6 @@ final class LoginViewController: UIViewController {
     guard let password = loginView.passwordField.text else { print("error unwrapping user password"); return }
     
     FIRAuth.auth()?.signIn(withEmail: email, password: password) { user, error in
-      
       guard error == nil else { print("error signing user in"); return }
       
       let profileVC = ProfileViewController()

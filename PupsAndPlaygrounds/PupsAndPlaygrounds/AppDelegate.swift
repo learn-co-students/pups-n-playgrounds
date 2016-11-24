@@ -13,10 +13,12 @@ import Firebase
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
+  // MARK: Properties
   var window: UIWindow?
   var navigationController: UINavigationController!
   var rootVC: UIViewController!
   
+  // MARK: Instance Methods
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     FIRApp.configure()
     
@@ -27,8 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-      
-      
       self.rootVC = user != nil ? ProfileViewController() : LoginViewController()
       self.navigationController = UINavigationController(rootViewController: self.rootVC)
       self.navigationController.navigationBar.isTranslucent = false
@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       self.window = UIWindow(frame: UIScreen.main.bounds)
       self.window?.rootViewController = self.navigationController
       self.window?.makeKeyAndVisible()
-
     }
     
     return true

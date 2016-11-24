@@ -21,7 +21,6 @@
 		C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */; };
 		C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */; };
 		C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */; };
-		C4DECFDA1DE35667001CE1A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DECFD91DE35667001CE1A2 /* Main.storyboard */; };
 		C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */; };
 		C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */; };
 		C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */; };
@@ -54,7 +53,6 @@
 		C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		C4DECFD91DE35667001CE1A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C4EAE2CE1DDF65E20069C15E /* PupsAndPlaygrounds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PupsAndPlaygrounds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4EAE2D91DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PupsAndPlaygrounds.xcdatamodel; sourceTree = "<group>"; };
@@ -118,7 +116,6 @@
 		C413C4451DDFB9C90020F10F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C4DECFD91DE35667001CE1A2 /* Main.storyboard */,
 				E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */,
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
@@ -286,7 +283,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E84199C41DE37E7800522C8A /* playgroundsnyc.json in Resources */,
-				C4DECFDA1DE35667001CE1A2 /* Main.storyboard in Resources */,
 				C411BBB21DDF706E0090335B /* GoogleService-Info.plist in Resources */,
 				C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */,
 				E84199C21DE37E7800522C8A /* dogrunsnyc.json in Resources */,

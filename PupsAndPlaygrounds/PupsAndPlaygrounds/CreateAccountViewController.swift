@@ -26,11 +26,6 @@ class CreateAccountViewController: UIViewController {
     view = createAccountView
   }
   
-  deinit {
-    
-    print("deinitialized CreateAccountViewController")
-  }
-  
   func createAccountTouched() {
     
     guard let firstName = createAccountView.firstNameField.text else { print("error unwrapping first name"); return }

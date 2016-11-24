@@ -33,12 +33,10 @@ class LoginView: UIView {
   
   // MARK: Initialization
   override init(frame: CGRect) {
-    
     super.init(frame: frame)
   }
   
   convenience init() {
-    
     self.init(frame: CGRect.zero)
     
     configure()
@@ -46,7 +44,6 @@ class LoginView: UIView {
   }
   
   required init?(coder aDecoder: NSCoder) {
-    
     super.init(coder: aDecoder)
   }
   
@@ -104,11 +101,7 @@ class LoginView: UIView {
     orUseLabel.textColor = UIColor.themeWhite
     
     facebookButton = UIButton()
-    facebookButton.setTitle("F", for: .normal)
-    facebookButton.titleLabel?.font = UIFont.themeSmallBold
-    facebookButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
-    facebookButton.layer.borderWidth = 2
-    facebookButton.layer.borderColor = UIColor.themeDarkBlue.cgColor
+    facebookButton.setImage(#imageLiteral(resourceName: "Facebook Logo"), for: .normal)
     
     googleButton = UIButton()
     googleButton.setTitle("G", for: .normal)
