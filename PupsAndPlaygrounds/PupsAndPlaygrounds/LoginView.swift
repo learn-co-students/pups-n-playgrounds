@@ -102,6 +102,7 @@ class LoginView: UIView {
     
     facebookButton = UIButton()
     facebookButton.setImage(#imageLiteral(resourceName: "Facebook Logo"), for: .normal)
+    facebookButton.imageView?.contentMode = .scaleAspectFit
     
     googleButton = UIButton()
     googleButton.setTitle("G", for: .normal)
@@ -119,6 +120,7 @@ class LoginView: UIView {
     
     loginOptionsStackView = UIStackView(arrangedSubviews: [loginButton, orUseLabel, facebookButton, googleButton, twitterButton])
     loginOptionsStackView.distribution = .equalSpacing
+    loginOptionsStackView.alignment = .fill
     
     loginStackView = UIStackView(arrangedSubviews: [emailField, passwordField, loginOptionsStackView])
     loginStackView.axis = .vertical
@@ -137,6 +139,7 @@ class LoginView: UIView {
     
     noLoginStackView = UIStackView(arrangedSubviews: [createAccountButton, skipButton])
     noLoginStackView.axis = .vertical
+    noLoginStackView.spacing = 3
   }
   
   // MARK: View Constraints
@@ -178,6 +181,7 @@ class LoginView: UIView {
     
     loginOptionsStackView.snp.makeConstraints {
       $0.width.equalToSuperview()
+      $0.height.equalTo(40)
     }
     
     facebookButton.snp.makeConstraints {

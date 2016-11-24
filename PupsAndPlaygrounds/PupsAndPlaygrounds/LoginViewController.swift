@@ -19,13 +19,12 @@ final class LoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    navigationController?.isNavigationBarHidden = true
-    
     loginView = LoginView()
     loginView.emailField.delegate = self
     loginView.passwordField.delegate = self
     loginView.loginButton.addTarget(self, action: #selector(loginButtonTouched), for: .touchUpInside)
     loginView.createAccountButton.addTarget(self, action: #selector(createAccountButtonTouched), for: .touchUpInside)
+    loginView.skipButton.addTarget(self, action: #selector(skipButtonTouched), for: .touchUpInside)
     
     view = loginView
   }
@@ -44,14 +43,18 @@ final class LoginViewController: UIViewController {
       guard error == nil else { print("error signing user in"); return }
       
       let profileVC = ProfileViewController()
-      self.navigationController?.pushViewController(profileVC, animated: true)
+//      self.navigationController?.pushViewController(profileVC, animated: true)
     }
   }
   
   func createAccountButtonTouched() {
     let createAccountVC = CreateAccountViewController()
-    
-    navigationController?.pushViewController(createAccountVC, animated: true)
+//    navigationController?.pushViewController(createAccountVC, animated: true)
+  }
+  
+  func skipButtonTouched() {
+    let homeVC = HomeViewController()
+//    navigationController?.pushViewController(homeVC, animated: true)
   }
 }
 

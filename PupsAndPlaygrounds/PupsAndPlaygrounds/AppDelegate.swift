@@ -15,8 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   // MARK: Properties
   var window: UIWindow?
-  var navigationController: UINavigationController!
-  var rootVC: UIViewController!
+  var containerVC: UIViewController!
   
   // MARK: Instance Methods
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -26,18 +25,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     do {
       try FIRAuth.auth()?.signOut()
     } catch {}
-
     
     FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-      self.rootVC = user != nil ? ProfileViewController() : LoginViewController()
-      self.navigationController = UINavigationController(rootViewController: self.rootVC)
-      self.navigationController.navigationBar.isTranslucent = false
-      self.navigationController.navigationBar.barTintColor = UIColor.themeMediumBlue
-      self.navigationController.navigationBar.tintColor = UIColor.themeWhite
-      self.navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.themeWhite]
+      
+      //      self.navigationController = UINavigationController(rootViewController: self.rootVC)
+      //      self.navigationController.navigationBar.isTranslucent = false
+      //      self.navigationController.navigationBar.barTintColor = UIColor.themeMediumBlue
+      //      self.navigationController.navigationBar.tintColor = UIColor.themeWhite
+      //      self.navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.themeWhite]
+      
+      self.containerVC = UIViewController()
+      self.containerVC.addChildViewController(user != nil ? ProfileViewController() : LoginViewController())
       
       self.window = UIWindow(frame: UIScreen.main.bounds)
-      self.window?.rootViewController = self.navigationController
+      self.window?.rootViewController = self.containerVC
       self.window?.makeKeyAndVisible()
     }
     

@@ -21,10 +21,7 @@ class ProfileViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    navigationItem.title = "Profile"
-    navigationController?.isNavigationBarHidden = false
-    
+  
     profileView = ProfileView()
     profileView.profileButton.addTarget(self, action: #selector(profileButtonTouched), for: .touchUpInside)
     profileView.locationsTableView.delegate = self

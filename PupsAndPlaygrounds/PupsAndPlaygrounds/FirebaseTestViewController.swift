@@ -22,7 +22,6 @@ class FirebaseTestViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isNavigationBarHidden = false
         
         store.getDogrunsAndPlaygrounds()
         
