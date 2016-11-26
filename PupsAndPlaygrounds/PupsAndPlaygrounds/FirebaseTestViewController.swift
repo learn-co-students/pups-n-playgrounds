@@ -24,7 +24,7 @@ class FirebaseTestViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
         
-        store.getDogrunsAndPlaygrounds()
+        store.getDogrunsAndPlaygroundsFromJSON()
         
         firebaseTestView = FirebaseTestView()
         view = firebaseTestView
@@ -32,9 +32,10 @@ class FirebaseTestViewController: UIViewController {
         firebaseTestView.submitButton.addTarget(self, action: #selector(submitReviewToFirebaseTouched), for: .touchUpInside)
         
         
-        FirebaseData.getPlaygroundsLocationCoordinates(with: store.playgrounds[0].playgroundID) { (longitude, latitude) in
+        FirebaseData.getPlaygroundsLocationCoordinates(for: store.playgrounds[0].playgroundID) { (longitude, latitude) in
             print(longitude, latitude)
         }
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,7 +56,7 @@ class FirebaseTestViewController: UIViewController {
         var count = 0
         for playground in store.playgrounds {
             
-            FirebaseData.addPlaygrounds(playgroundID: playground.playgroundID, name: playground.name, location: playground.location, isHandicap: playground.isHandicap, latitude: playground.latitude, longitude: playground.longitude)
+            FirebaseData.addPlaygroundsToFirebase(playgroundID: playground.playgroundID, name: playground.name, location: playground.location, isHandicap: playground.isHandicap, latitude: playground.latitude, longitude: playground.longitude)
             
             count += 1
         }
@@ -66,7 +67,7 @@ class FirebaseTestViewController: UIViewController {
         var count = 0
         for dogrun in store.dogRuns {
             
-            FirebaseData.addDogruns(dogRunID: dogrun.dogRunID, name: dogrun.name, location: dogrun.location, isHandicap: dogrun.isHandicap, dogRunType: dogrun.dogRunType, notes: dogrun.notes)
+            FirebaseData.addDogrunsToFirebase(dogRunID: dogrun.dogRunID, name: dogrun.name, location: dogrun.location, isHandicap: dogrun.isHandicap, dogRunType: dogrun.dogRunType, notes: dogrun.notes)
             
             count += 1
         }

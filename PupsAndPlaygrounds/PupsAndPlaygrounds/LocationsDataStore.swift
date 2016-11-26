@@ -15,7 +15,7 @@ class LocationsDataStore {
     
     static let sharedInstance = LocationsDataStore()
     
-    func getPlaygrounds() {
+    func populatePlaygroundsFromJSON() {
         self.playgrounds = []
         
         JsonParse.getPlaygrounds { (rawDictionary) in
@@ -30,7 +30,7 @@ class LocationsDataStore {
         }
     }
     
-    func getDogruns() {
+    func populateDogrunsFromJSON() {
         self.dogRuns = []
         
         JsonParse.getDogruns { (rawDictionary) in
@@ -45,9 +45,9 @@ class LocationsDataStore {
         }
     }
     
-    func getDogrunsAndPlaygrounds() {
-        getDogruns()
-        getPlaygrounds()
+    func getDogrunsAndPlaygroundsFromJSON() {
+        populateDogrunsFromJSON()
+        populatePlaygroundsFromJSON()
     }
     
 }

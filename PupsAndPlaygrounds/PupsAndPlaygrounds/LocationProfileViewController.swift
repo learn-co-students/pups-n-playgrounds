@@ -15,15 +15,28 @@ class LocationProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        store.getDogrunsAndPlaygrounds()
+        print("STORE'S STARTING PLAYGROUND.COUNT = \(store.playgrounds.count)")
+        
+        let firebasePlaygrounds = FirebaseData.getAllPlaygrounds
+
+        print("PLAYGROUND.COUNT AFTER INITIALIZING = \(store.playgrounds.count)")
+        
+        populatePlaygroundArray(firebasePG: firebasePlaygrounds())
         
         navigationItem.title = "Location"
         navigationController?.isNavigationBarHidden = false
         
         locationProfileView = LocationProfileView()
         view = locationProfileView
+        
+        
         locationProfileView.submitButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
         
+
+
+        
+        
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,6 +45,7 @@ class LocationProfileViewController: UIViewController {
     }
     
     func submitReviewAlert() {
+        print("SUBMIT BUTTON STORE.PLAYGROUND = \(store.playgrounds.count)")
         guard let name = locationProfileView.locationNameLabel.text else { return }
         let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
 
@@ -45,5 +59,10 @@ class LocationProfileViewController: UIViewController {
         }))
 
         self.present(alert, animated: true, completion: nil)    }
+ 
+    func populatePlaygroundArray(firebasePG: [Playground]) {
+        print("LOCAL populatePlaygroundArray FUNCTION IS RUNNING")
+        store.playgrounds = firebasePG
+    }
     
 }

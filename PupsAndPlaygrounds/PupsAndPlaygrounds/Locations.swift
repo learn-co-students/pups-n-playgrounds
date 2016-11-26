@@ -39,6 +39,18 @@ class Playground: Location {
         }
     }
     
+    init(ID: String, name: String, location: String, handicap: String, latitude: String, longitude: String) {
+        self.playgroundID = ID
+        self.name = name
+        self.location = location
+        self.latitude = latitude
+        self.longitude = longitude
+        
+        if handicap == "Yes" {
+            self.isHandicap = true
+        }
+    }
+    
 }
 
 class Dogrun: Location {

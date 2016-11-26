@@ -22,9 +22,11 @@ class LocationProfileView: UIView {
         super.init(frame: frame)
     }
     
+    let temporaryLocation = Playground(ID: "B001", name: "American Playground", location: "Noble, Franklin, Milton Sts", handicap: "No", latitude: "40.7288", longitude: "-73.9579")
+    
     convenience init() {
         self.init(frame: CGRect.zero)
-        location = store.playgrounds[0]
+        location = temporaryLocation
         configure()
         constrain()
     }
