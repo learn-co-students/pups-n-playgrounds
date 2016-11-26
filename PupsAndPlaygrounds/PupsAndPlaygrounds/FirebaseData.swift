@@ -111,16 +111,20 @@ class FirebaseData {
     
     static func getAllPlaygrounds() -> [Playground] {
         print("FIREBASE getAllPlaygrounds IS RUNNING")
+        let myGroup = DispatchGroup()
+        
         var newArray: [Playground] = []
         
         let ref = FIRDatabase.database().reference().child("locations").child("playgrounds")
         
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let locationSnap = snapshot.value as? [String : Any] else { return }
+            guard let playgroundDict = snapshot.value as? [String : Any] else { return }
             
-            for newPlayground in locationSnap {
-                
+            myGroup.enter()
+            print("ENTERING")
+            
+            for newPlayground in playgroundDict {
                 let ID = newPlayground.key
                 let value = newPlayground.value as! [String:Any]
                 
@@ -134,10 +138,12 @@ class FirebaseData {
                 
                 newArray.append((newestPlayground))
                 print("NEW PLAYGROUND IS =\(newestPlayground)")
+                print(newArray.count)
             }
-            
-            
+            myGroup.leave()
+            print("LEAVING")
         })
+        myGroup.wait()
         print("FIREBASE PLAYGROUNDS ARRAY = \(newArray)")
         return newArray
     }
