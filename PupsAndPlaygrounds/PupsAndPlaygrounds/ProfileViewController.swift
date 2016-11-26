@@ -55,7 +55,7 @@ class ProfileViewController: UIViewController {
   }
   
     func locationButtonTouched() {
-        let locationProfileVC = LocationProfileViewController()
+        let locationProfileVC = TestFirebaseTableViewController()
         self.navigationController?.pushViewController(locationProfileVC, animated: true)
     }
     

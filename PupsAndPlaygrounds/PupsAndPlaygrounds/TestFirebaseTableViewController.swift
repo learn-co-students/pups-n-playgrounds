@@ -9,38 +9,41 @@
 import UIKit
 
 class TestFirebaseTableViewController: UITableViewController {
-
+    
     let store = LocationsDataStore.sharedInstance
-    let playgroundsArray: [Playground] = []
+    var playgroundArray: [Playground] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        store.getDogrunsAndPlaygroundsFromJSON()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Playground")
 
     }
-
-
+    
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return 0
+        let playgroundCount = store.playgrounds.count
+        return playgroundCount
     }
-
-    /*
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Playground", for: indexPath)
+        
+        let playground = store.playgrounds[indexPath.row]
+        
+        cell.textLabel?.text = playground.name
+        
         return cell
     }
-    */
-
-
-
     
-
+    
+    
+    
+    
+    
 }

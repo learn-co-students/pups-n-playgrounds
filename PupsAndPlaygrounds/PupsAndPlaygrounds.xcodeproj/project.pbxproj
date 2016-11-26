@@ -37,7 +37,6 @@
 		E84199D11DE38FE400522C8A /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Reviews.swift */; };
 		E881FF751DE6422B00029F80 /* LocationProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF741DE6422B00029F80 /* LocationProfileView.swift */; };
 		E881FF771DE6423B00029F80 /* LocationProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF761DE6423B00029F80 /* LocationProfileViewController.swift */; };
-		E881FF791DE64E1300029F80 /* LocationProfReviewsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF781DE64E1300029F80 /* LocationProfReviewsTableView.swift */; };
 		E881FF7B1DE8F7D500029F80 /* TestFirebaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF7A1DE8F7D500029F80 /* TestFirebaseTableViewController.swift */; };
 		E881FF7F1DEA1B0E00029F80 /* FirebaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF7E1DEA1B0E00029F80 /* FirebaseOperation.swift */; };
 /* End PBXBuildFile section */
@@ -77,7 +76,6 @@
 		E84199D01DE38FE400522C8A /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		E881FF741DE6422B00029F80 /* LocationProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationProfileView.swift; sourceTree = "<group>"; };
 		E881FF761DE6423B00029F80 /* LocationProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationProfileViewController.swift; sourceTree = "<group>"; };
-		E881FF781DE64E1300029F80 /* LocationProfReviewsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationProfReviewsTableView.swift; sourceTree = "<group>"; };
 		E881FF7A1DE8F7D500029F80 /* TestFirebaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFirebaseTableViewController.swift; sourceTree = "<group>"; };
 		E881FF7E1DEA1B0E00029F80 /* FirebaseOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,7 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				C4DECFD91DE35667001CE1A2 /* Main.storyboard */,
-				E881FF781DE64E1300029F80 /* LocationProfReviewsTableView.swift */,
+				E881FF741DE6422B00029F80 /* LocationProfileView.swift */,
 				E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */,
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
@@ -136,7 +134,6 @@
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
 				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
-				E881FF741DE6422B00029F80 /* LocationProfileView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -376,7 +373,6 @@
 				C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */,
-				E881FF791DE64E1300029F80 /* LocationProfReviewsTableView.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
 				C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,
