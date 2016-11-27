@@ -1,0 +1,6 @@
+framework module Pods_GeoFireTest {
+  umbrella header "Pods-GeoFireTest-umbrella.h"
+
+  export *
+  module * { export * }
+}

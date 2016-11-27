@@ -1,0 +1,403 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		55548E9ED91F26E89CD9A35C /* Pods_GeoFireTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B90B149E41D3230D34853EA1 /* Pods_GeoFireTest.framework */; };
+		B51B69F61DEB3C7E00280195 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B69F51DEB3C7E00280195 /* AppDelegate.swift */; };
+		B51B69F81DEB3C7E00280195 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B69F71DEB3C7E00280195 /* ViewController.swift */; };
+		B51B69FB1DEB3C7E00280195 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51B69F91DEB3C7E00280195 /* Main.storyboard */; };
+		B51B69FE1DEB3C7E00280195 /* GeoFireTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B51B69FC1DEB3C7E00280195 /* GeoFireTest.xcdatamodeld */; };
+		B51B6A001DEB3C7E00280195 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B51B69FF1DEB3C7E00280195 /* Assets.xcassets */; };
+		B51B6A031DEB3C7E00280195 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51B6A011DEB3C7E00280195 /* LaunchScreen.storyboard */; };
+		B51B6A0C1DEB3F9A00280195 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B51B6A0B1DEB3F9A00280195 /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1DF8250871BE9D1924A43D2F /* Pods-GeoFireTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFireTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFireTest/Pods-GeoFireTest.debug.xcconfig"; sourceTree = "<group>"; };
+		3938A3D07ADC08A59DBB43D0 /* Pods-GeoFireTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFireTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFireTest/Pods-GeoFireTest.release.xcconfig"; sourceTree = "<group>"; };
+		B51B69F21DEB3C7E00280195 /* GeoFireTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoFireTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B51B69F51DEB3C7E00280195 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B51B69F71DEB3C7E00280195 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B51B69FA1DEB3C7E00280195 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B51B69FD1DEB3C7E00280195 /* GeoFireTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GeoFireTest.xcdatamodel; sourceTree = "<group>"; };
+		B51B69FF1DEB3C7E00280195 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B51B6A021DEB3C7E00280195 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B51B6A041DEB3C7E00280195 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B51B6A0B1DEB3F9A00280195 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B90B149E41D3230D34853EA1 /* Pods_GeoFireTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeoFireTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B51B69EF1DEB3C7E00280195 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55548E9ED91F26E89CD9A35C /* Pods_GeoFireTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6B78A5BCD59DC243FC39BC6E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1DF8250871BE9D1924A43D2F /* Pods-GeoFireTest.debug.xcconfig */,
+				3938A3D07ADC08A59DBB43D0 /* Pods-GeoFireTest.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B51B69E91DEB3C7E00280195 = {
+			isa = PBXGroup;
+			children = (
+				B51B69F41DEB3C7E00280195 /* GeoFireTest */,
+				B51B69F31DEB3C7E00280195 /* Products */,
+				6B78A5BCD59DC243FC39BC6E /* Pods */,
+				E73977EC62C4F58AF8086E8C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B51B69F31DEB3C7E00280195 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B51B69F21DEB3C7E00280195 /* GeoFireTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B51B69F41DEB3C7E00280195 /* GeoFireTest */ = {
+			isa = PBXGroup;
+			children = (
+				B51B69F51DEB3C7E00280195 /* AppDelegate.swift */,
+				B51B69F71DEB3C7E00280195 /* ViewController.swift */,
+				B51B69F91DEB3C7E00280195 /* Main.storyboard */,
+				B51B69FF1DEB3C7E00280195 /* Assets.xcassets */,
+				B51B6A011DEB3C7E00280195 /* LaunchScreen.storyboard */,
+				B51B6A041DEB3C7E00280195 /* Info.plist */,
+				B51B6A0B1DEB3F9A00280195 /* GoogleService-Info.plist */,
+				B51B69FC1DEB3C7E00280195 /* GeoFireTest.xcdatamodeld */,
+			);
+			path = GeoFireTest;
+			sourceTree = "<group>";
+		};
+		E73977EC62C4F58AF8086E8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B90B149E41D3230D34853EA1 /* Pods_GeoFireTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B51B69F11DEB3C7E00280195 /* GeoFireTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B51B6A071DEB3C7E00280195 /* Build configuration list for PBXNativeTarget "GeoFireTest" */;
+			buildPhases = (
+				7818F4C963FE00F0D81C7340 /* [CP] Check Pods Manifest.lock */,
+				B51B69EE1DEB3C7E00280195 /* Sources */,
+				B51B69EF1DEB3C7E00280195 /* Frameworks */,
+				B51B69F01DEB3C7E00280195 /* Resources */,
+				C6A6168D701ABDB7C4087E7C /* [CP] Embed Pods Frameworks */,
+				CC088296644F16112725A113 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GeoFireTest;
+			productName = GeoFireTest;
+			productReference = B51B69F21DEB3C7E00280195 /* GeoFireTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B51B69EA1DEB3C7E00280195 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = FJ;
+				TargetAttributes = {
+					B51B69F11DEB3C7E00280195 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = B51B69ED1DEB3C7E00280195 /* Build configuration list for PBXProject "GeoFireTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B51B69E91DEB3C7E00280195;
+			productRefGroup = B51B69F31DEB3C7E00280195 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B51B69F11DEB3C7E00280195 /* GeoFireTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B51B69F01DEB3C7E00280195 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B51B6A031DEB3C7E00280195 /* LaunchScreen.storyboard in Resources */,
+				B51B6A0C1DEB3F9A00280195 /* GoogleService-Info.plist in Resources */,
+				B51B6A001DEB3C7E00280195 /* Assets.xcassets in Resources */,
+				B51B69FB1DEB3C7E00280195 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7818F4C963FE00F0D81C7340 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C6A6168D701ABDB7C4087E7C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeoFireTest/Pods-GeoFireTest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC088296644F16112725A113 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeoFireTest/Pods-GeoFireTest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B51B69EE1DEB3C7E00280195 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B51B69F81DEB3C7E00280195 /* ViewController.swift in Sources */,
+				B51B69F61DEB3C7E00280195 /* AppDelegate.swift in Sources */,
+				B51B69FE1DEB3C7E00280195 /* GeoFireTest.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B51B69F91DEB3C7E00280195 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B51B69FA1DEB3C7E00280195 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B51B6A011DEB3C7E00280195 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B51B6A021DEB3C7E00280195 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B51B6A051DEB3C7E00280195 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B51B6A061DEB3C7E00280195 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B51B6A081DEB3C7E00280195 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1DF8250871BE9D1924A43D2F /* Pods-GeoFireTest.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GeoFireTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.FJ.GeoFireTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		B51B6A091DEB3C7E00280195 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3938A3D07ADC08A59DBB43D0 /* Pods-GeoFireTest.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GeoFireTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.FJ.GeoFireTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B51B69ED1DEB3C7E00280195 /* Build configuration list for PBXProject "GeoFireTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B51B6A051DEB3C7E00280195 /* Debug */,
+				B51B6A061DEB3C7E00280195 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B51B6A071DEB3C7E00280195 /* Build configuration list for PBXNativeTarget "GeoFireTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B51B6A081DEB3C7E00280195 /* Debug */,
+				B51B6A091DEB3C7E00280195 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B51B69FC1DEB3C7E00280195 /* GeoFireTest.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B51B69FD1DEB3C7E00280195 /* GeoFireTest.xcdatamodel */,
+			);
+			currentVersion = B51B69FD1DEB3C7E00280195 /* GeoFireTest.xcdatamodel */;
+			path = GeoFireTest.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = B51B69EA1DEB3C7E00280195 /* Project object */;
+}

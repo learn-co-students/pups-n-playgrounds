@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="GeoFireTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4QC-7N-Rft">
+                                <rect key="frame" x="100.5" y="318.5" width="174" height="30"/>
+                                <state key="normal" title="Send location to Firebase"/>
+                                <connections>
+                                    <action selector="sendLocationButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qBs-Nd-NTN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i2l-Dn-tuS">
+                                <rect key="frame" x="92.5" y="356" width="189" height="30"/>
+                                <state key="normal" title="Get locations from Firebase"/>
+                                <connections>
+                                    <action selector="getLocations:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mTx-eN-qRi"/>
+                                    <action selector="sendLocationButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VUx-on-Qve"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7H-tf-EXD">
+                                <rect key="frame" x="116.5" y="394" width="142" height="30"/>
+                                <state key="normal" title="Get locations nearby"/>
+                                <connections>
+                                    <action selector="getLocations:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LEX-rE-xbS"/>
+                                    <action selector="getLocationsNearby:" destination="BYZ-38-t0r" eventType="touchUpInside" id="G6p-Za-Jbl"/>
+                                    <action selector="sendLocationButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JCq-dn-lfm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="i2l-Dn-tuS" firstAttribute="top" secondItem="4QC-7N-Rft" secondAttribute="bottom" constant="7.5" id="8y8-1S-wHA"/>
+                            <constraint firstItem="h7H-tf-EXD" firstAttribute="top" secondItem="i2l-Dn-tuS" secondAttribute="bottom" constant="8" id="MHg-ii-DD3"/>
+                            <constraint firstItem="i2l-Dn-tuS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Sh5-X4-fzy"/>
+                            <constraint firstItem="h7H-tf-EXD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XsH-4k-De5"/>
+                            <constraint firstItem="4QC-7N-Rft" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="af9-uw-P7i"/>
+                            <constraint firstItem="4QC-7N-Rft" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sHn-R6-eUZ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="36" y="54.422788605697157"/>
+        </scene>
+    </scenes>
+</document>
