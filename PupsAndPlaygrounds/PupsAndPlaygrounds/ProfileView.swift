@@ -54,7 +54,7 @@ final class ProfileView: UIView {
         
         locationButton = UIButton()
         locationButton.contentEdgeInsets = UIEdgeInsetsMake(11, 16, 11, 16)
-        locationButton.setTitle("Review This Location", for: .normal)
+        locationButton.setTitle("Go to Playgrounds List", for: .normal)
         locationButton.titleLabel?.font = UIFont.themeSmallBold
         locationButton.setTitleColor(UIColor.themeWhite, for: .normal)
         locationButton.layer.cornerRadius = 20

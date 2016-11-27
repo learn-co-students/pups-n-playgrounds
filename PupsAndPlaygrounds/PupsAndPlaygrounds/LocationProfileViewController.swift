@@ -10,18 +10,20 @@ import UIKit
 
 class LocationProfileViewController: UIViewController {
     
+    var playground: Playground?
     var locationProfileView: LocationProfileView!
     let store = LocationsDataStore.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("PLAYGROUND TAPPED = \(playground?.name)")
 
-        navigationItem.title = "Location"
-        navigationController?.isNavigationBarHidden = false
         
-        locationProfileView = LocationProfileView()
+        locationProfileView = LocationProfileView(playground: playground!)
         view = locationProfileView
         
+        navigationItem.title = "Location"
+        navigationController?.isNavigationBarHidden = true
         
         locationProfileView.submitButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
     
