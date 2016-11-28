@@ -16,6 +16,8 @@ class LocationProfileView: UIView {
     var locationNameLabel: UILabel!
     var locationAddressLabel: UILabel!
     var submitButton: UIButton!
+    var reviewsView: UIView!
+    var reviewsTableView: UITableView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,6 +42,7 @@ class LocationProfileView: UIView {
         locationProfileImage = UIImageView()
         locationProfileImage.image = location.profileImage
         locationProfileImage.layer.cornerRadius = 20
+        locationProfileImage.clipsToBounds = true
         
         locationNameLabel = UILabel()
         locationNameLabel.font = UIFont.themeMediumBold
@@ -49,12 +52,12 @@ class LocationProfileView: UIView {
         locationNameLabel.numberOfLines = 2
         locationNameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
-        
-        
         locationAddressLabel = UILabel()
         locationAddressLabel.font = UIFont.themeSmallRegular
         locationAddressLabel.textColor = UIColor.themeDarkBlue
         locationAddressLabel.text = location.location
+        locationAddressLabel.numberOfLines = 3
+        locationAddressLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         submitButton = UIButton()
         submitButton.contentEdgeInsets = UIEdgeInsetsMake(11, 16, 11, 16)
@@ -64,6 +67,11 @@ class LocationProfileView: UIView {
         submitButton.layer.cornerRadius = 20
         submitButton.layer.borderWidth = 2
         submitButton.layer.borderColor = UIColor.themeWhite.cgColor
+        
+        reviewsView = UIView()
+        reviewsTableView = UITableView()
+        reviewsTableView.rowHeight = 80
+        reviewsTableView.backgroundColor = UIColor.white
         
     }
     
@@ -96,6 +104,17 @@ class LocationProfileView: UIView {
         submitButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(locationProfileImage.snp.bottom).offset(10)
+        }
+        
+        addSubview(reviewsView)
+        reviewsView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(submitButton.snp.bottom).offset(10)
+        }
+        
+        reviewsView.addSubview(reviewsTableView)
+        reviewsTableView.snp.makeConstraints {
+            $0.edges.equalTo(UIEdgeInsetsMake(40, 40, 40, 40))
         }
     }
     

@@ -9,6 +9,7 @@
 import UIKit
 
 class FirebaseTableViewController: UITableViewController {
+
   
   var playgroundArray: [Playground] = []
   let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -70,7 +71,5 @@ class FirebaseTableViewController: UITableViewController {
   //        }
   //    }
   
-  
-  
-  
+
 }
