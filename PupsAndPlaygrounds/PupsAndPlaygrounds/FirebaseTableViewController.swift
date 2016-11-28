@@ -16,10 +16,23 @@ class FirebaseTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Playground")
+    
+    
+    
     FirebaseData.getAllPlaygrounds { (playgroundsFromFirebase) in
       self.playgroundArray = playgroundsFromFirebase
+        
+//        for playground in self.playgroundArray {
+//            GeoFireMethods.sendLocationToGeoFireWith(locations: playground)
+//        }
+        
       self.tableView.reloadData()
     }
+    
+    let playground = Playground(ID: "test", name: "test", location: "", handicap: "", latitude: "40.4995", longitude: "-74.2449")
+    GeoFireMethods.getNearby(locations: playground)
+    
+    
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
