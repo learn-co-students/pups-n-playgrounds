@@ -1,5 +1,5 @@
 //
-//  LocationsProfileView.swift
+//  LocationProfileView.swift
 //  PupsAndPlaygrounds
 //
 //  Created by Robert Deans on 11/23/16.
@@ -9,53 +9,95 @@
 import UIKit
 import SnapKit
 
-class LocationsProfileView: UIView {
+class LocationProfileView: UIView {
     
-    var nameLabel: UILabel!
-    var locationLabel: UILabel!
-    var handicapLabel: UILabel!
-    //  var ratingLabel: UILabel!
-    //  var reviewsTableView: UITableView!
-    var reviewTextField: UITextField!
-    var ratingTextField: UITextField!
-    var addReviewButton: UIButton!
-    
-    // inevitably the argument will be from Firebase and not the local LocationsDataStore
-    convenience init(location: Location) {
-        self.init(frame: CGRect.zero)
-        configure(location: location)
-        constrain()
-    }
+    var location: Playground!
+    var locationProfileImage: UIImageView!
+    var locationNameLabel: UILabel!
+    var locationAddressLabel: UILabel!
+    var submitButton: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
+    
+    convenience init(playground: Playground) {
+        self.init(frame: CGRect.zero)
+        location = playground
+        configure()
+        constrain()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(location: Location) {
+    func configure() {
+        
         backgroundColor = UIColor.themeLightBlue
         
-        nameLabel = UILabel()
-        locationLabel = UILabel()
-        handicapLabel = UILabel()
+        locationProfileImage = UIImageView()
+        locationProfileImage.image = location.profileImage
+        locationProfileImage.layer.cornerRadius = 20
         
-        nameLabel.text = location.name
-        locationLabel.text = location.location
-        if location.isHandicap == true {
-            handicapLabel.text = "Is accessible"
-        }else {
-            self.handicapLabel.text = "Is not accessible"
-        }
+        locationNameLabel = UILabel()
+        locationNameLabel.font = UIFont.themeMediumBold
+        locationNameLabel.textColor = UIColor.themeDarkBlue
+        locationNameLabel.text = location.name
+        locationNameLabel.adjustsFontSizeToFitWidth = true
+        locationNameLabel.numberOfLines = 2
+        locationNameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         
+        
+        locationAddressLabel = UILabel()
+        locationAddressLabel.font = UIFont.themeSmallRegular
+        locationAddressLabel.textColor = UIColor.themeDarkBlue
+        locationAddressLabel.text = location.location
+        
+        submitButton = UIButton()
+        submitButton.contentEdgeInsets = UIEdgeInsetsMake(11, 16, 11, 16)
+        submitButton.setTitle("Review This Location", for: .normal)
+        submitButton.titleLabel?.font = UIFont.themeSmallBold
+        submitButton.setTitleColor(UIColor.themeWhite, for: .normal)
+        submitButton.layer.cornerRadius = 20
+        submitButton.layer.borderWidth = 2
+        submitButton.layer.borderColor = UIColor.themeWhite.cgColor
         
     }
-    
     
     func constrain() {
+        addSubview(locationProfileImage)
+        locationProfileImage.snp.makeConstraints {
+            $0.leadingMargin.equalToSuperview().offset(10)
+            $0.topMargin.equalToSuperview().offset(35)
+            $0.width.equalToSuperview().dividedBy(3)
+            $0.height.equalTo(locationProfileImage.snp.width)
+        }
         
+        addSubview(locationNameLabel)
+        locationNameLabel.snp.makeConstraints {
+            $0.leading.equalTo(locationProfileImage.snp.trailing).offset(5)
+            $0.trailing.equalToSuperview()
+            $0.top.equalToSuperview().offset(15)
+            $0.height.equalToSuperview().dividedBy(10)
+        }
+        
+        addSubview(locationAddressLabel)
+        locationAddressLabel.snp.makeConstraints {
+            $0.leading.equalTo(locationProfileImage.snp.trailing).offset(5)
+            $0.trailing.equalToSuperview()
+            $0.top.equalTo(locationNameLabel.snp.bottom).offset(10)
+            $0.height.equalToSuperview().dividedBy(10)
+        }
+        
+        addSubview(submitButton)
+        submitButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(locationProfileImage.snp.bottom).offset(10)
+        }
     }
+    
     
 }
