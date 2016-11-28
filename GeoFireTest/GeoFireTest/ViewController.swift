@@ -17,6 +17,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     var latitude = Double()
     var longitude = Double()
+    
+    let geofireRef = FIRDatabase.database().reference().child("geoFireLocation")
+    
 
     
     override func viewDidLoad() {
@@ -34,7 +37,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func sendLocationToGeoFire() {
         
-        let geofireRef = FIRDatabase.database().reference().child("geoFireLocation")
         let geoFire = GeoFire(firebaseRef: geofireRef)
         let unqiueKey = FIRDatabase.database().reference().childByAutoId().key
         
@@ -63,7 +65,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     
     func retrieveUniqueKey(with completion: @escaping ([String]) -> Void) {
-        let geofireRef = FIRDatabase.database().reference().child("geoFireLocation")
+        let geoFire = GeoFire(firebaseRef: geofireRef)
         var uniqueIDs = [String]()
         
         geofireRef.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -81,9 +83,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func getLocationFromFirebaseWith() {
         
-        let geofireRef = FIRDatabase.database().reference().child("geoFireLocation")
         let geoFire = GeoFire(firebaseRef: geofireRef)
-        
+        print("INSIDE GET LOCATIONS FROM FIREBASE FUNC")
+    
         retrieveUniqueKey { (uniqueIDs) in
             for id in uniqueIDs {
                 
@@ -105,15 +107,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func getNearbyLocations() {
         
-        let center = CLLocation(latitude: 37.7832889, longitude: -122.4056973)
-        // Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
-        var circleQuery = geoFire.queryAtLocation(center, withRadius: 0.6)
+        let geoFire = GeoFire(firebaseRef: geofireRef)
+        
+        let center = CLLocation(latitude: self.latitude, longitude: self.longitude)
+        // Query locations at [self.latitude, self.longitude] with a radius of 600 meters
+        var circleQuery = geoFire?.query(at: center, withRadius: 0.6)
+        print("CIRCLE QUERY: \(circleQuery)")
         
         // Query location by region
         let span = MKCoordinateSpanMake(0.001, 0.001)
         let region = MKCoordinateRegionMake(center.coordinate, span)
-        var regionQuery = geoFire.queryWithRegion(region)
-        
+        var regionQuery = geoFire?.query(with: region)
+        print("REGION QUERY: \(regionQuery)")
     }
     
     
@@ -135,6 +140,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func getLocationsNearby(_ sender: Any) {
+        getNearbyLocations()
     }
 
     
