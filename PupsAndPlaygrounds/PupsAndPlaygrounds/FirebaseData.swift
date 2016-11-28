@@ -81,9 +81,8 @@ class FirebaseData {
     
     // MARK: Generates Locations on the app FROM Firebase data source
     
-    static func getAllPlaygrounds() -> [Playground] {
+    static func getAllPlaygrounds(with completion: @escaping ([Playground]) -> Void ) {
         print("FIREBASE getAllPlaygrounds IS RUNNING")
-        let myGroup = DispatchGroup()
         
         var newArray: [Playground] = []
         
@@ -93,8 +92,6 @@ class FirebaseData {
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let playgroundDict = snapshot.value as? [String : Any] else { return }
             
-            myGroup.enter()
-            print("ENTERING")
             
             for newPlayground in playgroundDict {
                 let ID = newPlayground.key
@@ -109,15 +106,12 @@ class FirebaseData {
                 let newestPlayground = Playground(ID: ID, name: name, location: location, handicap: isHandicap, latitude: latitude, longitude: longitude)
                 
                 newArray.append((newestPlayground))
-                print("NEW PLAYGROUND IS =\(newestPlayground)")
-                print(newArray.count)
             }
-            myGroup.leave()
-            print("LEAVING")
+            print("NEW ARRAY FOR COMPLETION = \(newArray)")
+            print("NEW ARRAY COUNT FOR COMPLETION = \(newArray.count)")
+
+            completion(newArray)
         })
-        myGroup.wait()
-        print("FIREBASE PLAYGROUNDS ARRAY = \(newArray)")
-        return newArray
     }
     
     // MARK: Adding local JSON files to Firebase

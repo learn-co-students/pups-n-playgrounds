@@ -16,7 +16,7 @@ class LocationProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         locationProfileView = LocationProfileView(playground: playground!)
         view = locationProfileView
         

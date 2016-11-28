@@ -10,14 +10,16 @@ import UIKit
 
 class TestFirebaseTableViewController: UITableViewController {
     
-    let store = LocationsDataStore.sharedInstance
     var playgroundArray: [Playground] = []
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        store.getDogrunsAndPlaygroundsFromJSON()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Playground")
+        FirebaseData.getAllPlaygrounds { (playgroundsFromFirebase) in
+            self.playgroundArray = playgroundsFromFirebase
+            self.tableView.reloadData()
+        }        
     }
     
     
@@ -26,7 +28,7 @@ class TestFirebaseTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let playgroundCount = store.playgrounds.count
+        let playgroundCount = playgroundArray.count
         return playgroundCount
     }
     
@@ -34,7 +36,7 @@ class TestFirebaseTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Playground", for: indexPath)
         
-        let playground = store.playgrounds[indexPath.row]
+        let playground = playgroundArray[indexPath.row]
         
         cell.textLabel?.text = playground.name
         
@@ -44,7 +46,7 @@ class TestFirebaseTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("DID SELECT ROW TAPPED")
         let locationProfileVC = LocationProfileViewController()
-        locationProfileVC.playground = store.playgrounds[indexPath.row]
+        locationProfileVC.playground = playgroundArray[indexPath.row]
         appDelegate?.window?.rootViewController = locationProfileVC
     }
     
