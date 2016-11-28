@@ -38,7 +38,6 @@
 		E881FF751DE6422B00029F80 /* LocationProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF741DE6422B00029F80 /* LocationProfileView.swift */; };
 		E881FF771DE6423B00029F80 /* LocationProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF761DE6423B00029F80 /* LocationProfileViewController.swift */; };
 		E881FF7B1DE8F7D500029F80 /* TestFirebaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF7A1DE8F7D500029F80 /* TestFirebaseTableViewController.swift */; };
-		E881FF7F1DEA1B0E00029F80 /* FirebaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FF7E1DEA1B0E00029F80 /* FirebaseOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,7 +76,6 @@
 		E881FF741DE6422B00029F80 /* LocationProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationProfileView.swift; sourceTree = "<group>"; };
 		E881FF761DE6423B00029F80 /* LocationProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationProfileViewController.swift; sourceTree = "<group>"; };
 		E881FF7A1DE8F7D500029F80 /* TestFirebaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFirebaseTableViewController.swift; sourceTree = "<group>"; };
-		E881FF7E1DEA1B0E00029F80 /* FirebaseOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,7 +163,6 @@
 		C413C4481DDFBA360020F10F /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				E881FF7E1DEA1B0E00029F80 /* FirebaseOperation.swift */,
 				C413C4471DDFB9DC0020F10F /* Extensions */,
 				C4DECFD61DE3474C001CE1A2 /* Preferences */,
 			);
@@ -376,7 +373,6 @@
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
 				C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,
-				E881FF7F1DEA1B0E00029F80 /* FirebaseOperation.swift in Sources */,
 				C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */,
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
 				C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */,

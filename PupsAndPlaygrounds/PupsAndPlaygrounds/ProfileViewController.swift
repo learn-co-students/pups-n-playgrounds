@@ -24,9 +24,7 @@ class ProfileViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    store.playgrounds = []
-    store.dogRuns = []
-    store.getDogrunsAndPlaygroundsFromJSON()
+
     navigationItem.title = "Profile"
     navigationController?.isNavigationBarHidden = false
     

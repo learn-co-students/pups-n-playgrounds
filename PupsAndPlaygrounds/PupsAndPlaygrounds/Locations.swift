@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 protocol Location {
     var name: String { get }
     var location: String { get }
     var isHandicap: Bool { get }
-//    var reviews: [Review] { get }
+    var reviews: [Review] { get }
 //    var photos: [UIImage] { get }
 }
 
@@ -24,8 +25,10 @@ class Playground: Location {
     var isHandicap: Bool = false
     let latitude: String
     let longitude: String
+    var profileImage: UIImage = #imageLiteral(resourceName: "playgroundTemplate")
+    
     var reviews: [Review] = []
-    //    var photos: [UIImage]
+//    var photos: [UIImage] = []
     
     init(citydata: [String : Any]) {
 
@@ -34,6 +37,7 @@ class Playground: Location {
         self.location = citydata["Location"] as! String
         self.latitude = citydata["lat"] as! String
         self.longitude = citydata["lon"] as! String
+
         
         if citydata["Accessible"] as! String == "Y" {
             self.isHandicap = true
