@@ -12,7 +12,7 @@ import Firebase
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+final class LoginViewController: UIViewController {
   
   // MARK: Properties
   let loginView = LoginView()
@@ -24,17 +24,19 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     loginView.emailField.delegate = self
     loginView.passwordField.delegate = self
-    
-    loginView.loginButton.addTarget(self, action: #selector(loginButtonTouched), for: .touchUpInside)
     loginView.facebookButton.delegate = self
-    loginView.facebookButton.readPermissions = ["email"]
-    
+    loginView.loginButton.addTarget(self, action: #selector(loginButtonTouched), for: .touchUpInside)
+//    loginView.facebookButton.addTarget(self, action: #selector(facebookButtonTouched), for: .touchUpInside)
     loginView.createAccountButton.addTarget(self, action: #selector(createAccountButtonTouched), for: .touchUpInside)
     loginView.skipButton.addTarget(self, action: #selector(skipButtonTouched), for: .touchUpInside)
     
     view.addSubview(loginView)
     loginView.snp.makeConstraints {
       $0.edges.equalToSuperview()
+    }
+    
+    if FBSDKAccessToken.current() != nil {
+      appDelegate?.window?.rootViewController = MainTabBarController()
     }
   }
   
@@ -48,29 +50,12 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     guard let password = loginView.passwordField.text else { print("error unwrapping user password"); return }
     
     FIRAuth.auth()?.signIn(withEmail: email, password: password) { user, error in
-      guard error == nil else { print("error signing user in via email"); return }
-      self.appDelegate?.window?.rootViewController = MainTabBarController()
-    }
-  }
-  
-  func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-    let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-    
-    FBSDKGraphRequest(graphPath: "me", parameters: nil).start { connection, result, error in
-      if let result = result { print(result) }
-    }
-    
-    FIRAuth.auth()?.signIn(with: credential) { user, error in
-      guard error == nil else { print("error logging using in via facebook"); return }
-      
+      guard error == nil else { print("error signing user in"); return }
       
       self.appDelegate?.window?.rootViewController = MainTabBarController()
     }
   }
   
-  func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-    print("logged out of facebook")
-  }
   
   func createAccountButtonTouched() {
     self.appDelegate?.window?.rootViewController = CreateAccountViewController()
@@ -78,10 +63,33 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
   
   func skipButtonTouched() {
     FIRAuth.auth()?.signInAnonymously { user, error in
-      guard error == nil else  { print("error signing user in anonymously"); return }
+      self.appDelegate?.window?.rootViewController = MainTabBarController()
+    }
+    
+  }
+}
+
+// MARK: FBSDKLoginButtonDelegate
+extension LoginViewController: FBSDKLoginButtonDelegate {
+  func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+    let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+
+    FIRAuth.auth()?.signIn(with: credential) { user, error in
       self.appDelegate?.window?.rootViewController = MainTabBarController()
     }
   }
+  
+  func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+    try? FIRAuth.auth()?.signOut()
+  }
+  
+//  func facebookButtonTouched() {
+//    FBSDKLoginManager().logIn(withReadPermissions: ["email"], from: self) { result, error in
+//      print("ok")
+//    }
+//  }
+  
+  
 }
 
 // MARK: - UITextFieldDelegate

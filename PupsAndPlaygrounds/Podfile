@@ -10,7 +10,6 @@ target 'PupsAndPlaygrounds' do
   pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
 
   # Facebook
-  pod 'Bolts'
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'

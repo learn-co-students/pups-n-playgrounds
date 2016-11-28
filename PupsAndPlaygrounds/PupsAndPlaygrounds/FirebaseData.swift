@@ -26,6 +26,7 @@ class FirebaseData {
             changeRequest.commitChanges { error in
                 
                 guard error == nil else { print("error commiting changes for user profile change request"); return }
+                
             }
         }
         
