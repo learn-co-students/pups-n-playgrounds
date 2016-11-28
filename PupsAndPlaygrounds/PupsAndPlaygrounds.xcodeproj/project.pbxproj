@@ -33,9 +33,11 @@
 		E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C51DE37E8F00522C8A /* FirebaseData.swift */; };
 		E84199CA1DE37EB000522C8A /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C81DE37EB000522C8A /* Locations.swift */; };
 		E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C91DE37EB000522C8A /* LocationsDataStore.swift */; };
-		E84199CD1DE3847D00522C8A /* FirebaseTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199CC1DE3847D00522C8A /* FirebaseTestViewController.swift */; };
-		E84199CF1DE385EA00522C8A /* FirebaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */; };
 		E84199D11DE38FE400522C8A /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Reviews.swift */; };
+		E856D29F1DEC9FE000013534 /* LocationProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E856D29E1DEC9FE000013534 /* LocationProfileViewController.swift */; };
+		E856D2A11DECA00100013534 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E856D2A01DECA00100013534 /* Main.storyboard */; };
+		E856D2A31DECA01000013534 /* LocationsProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E856D2A21DECA01000013534 /* LocationsProfileView.swift */; };
+		E856D2A51DECA02500013534 /* FirebaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E856D2A41DECA02500013534 /* FirebaseTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,9 +72,11 @@
 		E84199C51DE37E8F00522C8A /* FirebaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseData.swift; sourceTree = "<group>"; };
 		E84199C81DE37EB000522C8A /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		E84199C91DE37EB000522C8A /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsDataStore.swift; sourceTree = "<group>"; };
-		E84199CC1DE3847D00522C8A /* FirebaseTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTestViewController.swift; sourceTree = "<group>"; };
-		E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTestView.swift; sourceTree = "<group>"; };
 		E84199D01DE38FE400522C8A /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
+		E856D29E1DEC9FE000013534 /* LocationProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationProfileViewController.swift; sourceTree = "<group>"; };
+		E856D2A01DECA00100013534 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		E856D2A21DECA01000013534 /* LocationsProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsProfileView.swift; sourceTree = "<group>"; };
+		E856D2A41DECA02500013534 /* FirebaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,13 +123,14 @@
 		C413C4451DDFB9C90020F10F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E84199CE1DE385EA00522C8A /* FirebaseTestView.swift */,
+				E856D2A21DECA01000013534 /* LocationsProfileView.swift */,
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
 				C4810D1A1DE36C3A00A652DB /* HomeView.swift */,
 				C4810D1E1DE36F9E00A652DB /* ProfileView.swift */,
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
 				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
+				E856D2A01DECA00100013534 /* Main.storyboard */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
 			);
 			name = View;
@@ -135,13 +140,14 @@
 			isa = PBXGroup;
 			children = (
 				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
+				E856D29E1DEC9FE000013534 /* LocationProfileViewController.swift */,
+				E856D2A41DECA02500013534 /* FirebaseTableViewController.swift */,
 				C413C4401DDF9A140020F10F /* LoginViewController.swift */,
 				C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */,
 				C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */,
 				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
 				C49C67821DE77E0800163CD9 /* FeedViewController.swift */,
 				C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */,
-				E84199CC1DE3847D00522C8A /* FirebaseTestViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -293,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E84199C41DE37E7800522C8A /* playgroundsnyc.json in Resources */,
+				E856D2A11DECA00100013534 /* Main.storyboard in Resources */,
 				C411BBB21DDF706E0090335B /* GoogleService-Info.plist in Resources */,
 				C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */,
 				E84199C21DE37E7800522C8A /* dogrunsnyc.json in Resources */,
@@ -357,9 +364,7 @@
 				C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */,
 				E84199D11DE38FE400522C8A /* Reviews.swift in Sources */,
 				C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */,
-				E84199CD1DE3847D00522C8A /* FirebaseTestViewController.swift in Sources */,
 				E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */,
-				E84199CF1DE385EA00522C8A /* FirebaseTestView.swift in Sources */,
 				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
@@ -370,14 +375,17 @@
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
+				E856D29F1DEC9FE000013534 /* LocationProfileViewController.swift in Sources */,
 				C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,
+				E856D2A51DECA02500013534 /* FirebaseTableViewController.swift in Sources */,
 				C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */,
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
 				C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */,
 				C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */,
 				C49C67831DE77E0800163CD9 /* FeedViewController.swift in Sources */,
 				C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */,
+				E856D2A31DECA01000013534 /* LocationsProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
