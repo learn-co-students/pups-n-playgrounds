@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TestFirebaseTableViewController: UITableViewController {
+class FirebaseTableViewController: UITableViewController {
     
     var playgroundArray: [Playground] = []
     let appDelegate = UIApplication.shared.delegate as? AppDelegate

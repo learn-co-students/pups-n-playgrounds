@@ -182,6 +182,6 @@ class LocationProfileViewController: UIViewController {
 
 
 var locationsVCPG = LocationProfileViewController()
-XCPlaygroundPage.currentPage.liveView = locationsVCPG
+//XCPlaygroundPage.currentPage.liveView = locationsVCPG
 
 
