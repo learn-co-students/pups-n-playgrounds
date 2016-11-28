@@ -12,8 +12,9 @@ class LocationProfileViewController: UIViewController {
     
     var playground: Playground?
     var locationProfileView: LocationProfileView!
-    let store = LocationsDataStore.sharedInstance
+    var reviewsTableView: UITableView!
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,41 +53,5 @@ class LocationProfileViewController: UIViewController {
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    // MARK: gets data from Firebase... ideally...
-    
-    func populatePlaygroundArray(firebasePG: [Playground]) {
-        print("LOCAL populatePlaygroundArray FUNCTION IS RUNNING")
-        self.store.playgrounds = firebasePG
-    }
-    
-    
-    // MARK: functions to refersh Firebase data
-    
-    func addDogRunsAndPlaygroundsToFirebase() {
-        addPlaygroundsToFirebase()
-        addDogRunsToFirebase()
-    }
-    
-    func addPlaygroundsToFirebase() {
-        var count = 0
-        for playground in store.playgrounds {
-            
-            FirebaseData.addPlaygroundsToFirebase(playgroundID: playground.playgroundID, name: playground.name, location: playground.location, isHandicap: playground.isHandicap, latitude: playground.latitude, longitude: playground.longitude)
-            
-            count += 1
-        }
-        print("There are \(count) playgrounds")
-    }
-    
-    func addDogRunsToFirebase() {
-        var count = 0
-        for dogrun in store.dogRuns {
-            
-            FirebaseData.addDogrunsToFirebase(dogRunID: dogrun.dogRunID, name: dogrun.name, location: dogrun.location, isHandicap: dogrun.isHandicap, dogRunType: dogrun.dogRunType, notes: dogrun.notes)
-            
-            count += 1
-        }
-        print("There are \(count) dogruns")
-    }
+
 }
