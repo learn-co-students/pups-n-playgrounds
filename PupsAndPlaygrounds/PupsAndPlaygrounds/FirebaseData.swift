@@ -69,11 +69,15 @@ class FirebaseData {
             
             ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userKey]])
             
+            ref.child("users").child("\(userKey)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
+            
         } else if locationID.hasPrefix("DR") {
             
             ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userKey, "locationID": locationID]])
             
             ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userKey]])
+            
+            ref.child("users").child("\(userKey)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
         }
         
         
@@ -82,8 +86,6 @@ class FirebaseData {
     // MARK: Generates Locations on the app FROM Firebase data source
     
     static func getAllPlaygrounds(with completion: @escaping ([Playground]) -> Void ) {
-        print("FIREBASE getAllPlaygrounds IS RUNNING")
-        
         var newArray: [Playground] = []
         
         let ref = FIRDatabase.database().reference().child("locations").child("playgrounds")
@@ -107,9 +109,6 @@ class FirebaseData {
                 
                 newArray.append((newestPlayground))
             }
-            print("NEW ARRAY FOR COMPLETION = \(newArray)")
-            print("NEW ARRAY COUNT FOR COMPLETION = \(newArray.count)")
-
             completion(newArray)
         })
     }
