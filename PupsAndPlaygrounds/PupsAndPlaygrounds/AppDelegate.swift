@@ -9,40 +9,43 @@
 import UIKit
 import CoreData
 import Firebase
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
+  // MARK: Properties
   var window: UIWindow?
-  var navigationController: UINavigationController!
-  var rootVC: UIViewController!
   
+  // MARK: Instance Methods
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     FIRApp.configure()
     
     // Comment this block out to stay signed in
     do {
       try FIRAuth.auth()?.signOut()
-    } catch {}
-
+    } catch {
+      print("error signing user out")
+    }
     
     FIRAuth.auth()?.addStateDidChangeListener { auth, user in
       
-      
-      self.rootVC = user != nil ? ProfileViewController() : LoginViewController()
-      self.navigationController = UINavigationController(rootViewController: self.rootVC)
-      self.navigationController.navigationBar.isTranslucent = false
-      self.navigationController.navigationBar.barTintColor = UIColor.themeMediumBlue
-      self.navigationController.navigationBar.tintColor = UIColor.themeWhite
-      self.navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.themeWhite]
+      //      self.navigationController = UINavigationController(rootViewController: self.rootVC)
+      //      self.navigationController.navigationBar.isTranslucent = false
+      //      self.navigationController.navigationBar.barTintColor = UIColor.themeMediumBlue
+      //      self.navigationController.navigationBar.tintColor = UIColor.themeWhite
+      //      self.navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.themeWhite]
       
       self.window = UIWindow(frame: UIScreen.main.bounds)
-      self.window?.rootViewController = self.navigationController
+      self.window?.rootViewController = user != nil ? MainTabBarController() : LoginViewController()
       self.window?.makeKeyAndVisible()
-
     }
     
-    return true
+    return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+  
+  func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
   }
   
   func applicationWillResignActive(_ application: UIApplication) {
@@ -60,7 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func applicationDidBecomeActive(_ application: UIApplication) {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
   }
   
   func applicationWillTerminate(_ application: UIApplication) {
@@ -113,6 +115,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
     }
   }
-  
 }
 

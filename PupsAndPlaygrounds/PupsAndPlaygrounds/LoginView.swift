@@ -8,6 +8,8 @@
 
 import UIKit
 import SnapKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class LoginView: UIView {
   
@@ -22,9 +24,9 @@ class LoginView: UIView {
   var passwordField: CustomTextField!
   var loginButton: UIButton!
   var orUseLabel: UILabel!
-  var facebookButton: UIButton!
-  var googleButton: UIButton!
-  var twitterButton: UIButton!
+  var facebookButton: FBSDKLoginButton!
+//  var googleButton: UIButton!
+//  var twitterButton: UIButton!
   var loginOptionsStackView: UIStackView!
   var loginStackView: UIStackView!
   var createAccountButton: UIButton!
@@ -33,12 +35,10 @@ class LoginView: UIView {
   
   // MARK: Initialization
   override init(frame: CGRect) {
-    
     super.init(frame: frame)
   }
   
   convenience init() {
-    
     self.init(frame: CGRect.zero)
     
     configure()
@@ -46,7 +46,6 @@ class LoginView: UIView {
   }
   
   required init?(coder aDecoder: NSCoder) {
-    
     super.init(coder: aDecoder)
   }
   
@@ -103,29 +102,29 @@ class LoginView: UIView {
     orUseLabel.font = UIFont.themeSmallBold
     orUseLabel.textColor = UIColor.themeWhite
     
-    facebookButton = UIButton()
-    facebookButton.setTitle("F", for: .normal)
-    facebookButton.titleLabel?.font = UIFont.themeSmallBold
-    facebookButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
-    facebookButton.layer.borderWidth = 2
-    facebookButton.layer.borderColor = UIColor.themeDarkBlue.cgColor
+    facebookButton = FBSDKLoginButton()
+//    facebookButton.setImage(#imageLiteral(resourceName: "Facebook Logo"), for: .normal)
+//    facebookButton.imageView?.contentMode = .scaleAspectFit
     
-    googleButton = UIButton()
-    googleButton.setTitle("G", for: .normal)
-    googleButton.titleLabel?.font = UIFont.themeSmallBold
-    googleButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
-    googleButton.layer.borderWidth = 2
-    googleButton.layer.borderColor = UIColor.themeDarkBlue.cgColor
+//    googleButton = UIButton()
+//    googleButton.setTitle("G", for: .normal)
+//    googleButton.titleLabel?.font = UIFont.themeSmallBold
+//    googleButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
+//    googleButton.layer.borderWidth = 2
+//    googleButton.layer.borderColor = UIColor.themeDarkBlue.cgColor
+//    
+//    twitterButton = UIButton()
+//    twitterButton.setTitle("T", for: .normal)
+//    twitterButton.titleLabel?.font = UIFont.themeSmallBold
+//    twitterButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
+//    twitterButton.layer.borderWidth = 2
+//    twitterButton.layer.borderColor = UIColor.themeDarkBlue.cgColor
     
-    twitterButton = UIButton()
-    twitterButton.setTitle("T", for: .normal)
-    twitterButton.titleLabel?.font = UIFont.themeSmallBold
-    twitterButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
-    twitterButton.layer.borderWidth = 2
-    twitterButton.layer.borderColor = UIColor.themeDarkBlue.cgColor
-    
-    loginOptionsStackView = UIStackView(arrangedSubviews: [loginButton, orUseLabel, facebookButton, googleButton, twitterButton])
+    loginOptionsStackView = UIStackView(arrangedSubviews: [loginButton, orUseLabel, facebookButton])
     loginOptionsStackView.distribution = .equalSpacing
+    loginOptionsStackView.alignment = .fill
+    loginOptionsStackView.spacing = 10
+    
     
     loginStackView = UIStackView(arrangedSubviews: [emailField, passwordField, loginOptionsStackView])
     loginStackView.axis = .vertical
@@ -144,6 +143,7 @@ class LoginView: UIView {
     
     noLoginStackView = UIStackView(arrangedSubviews: [createAccountButton, skipButton])
     noLoginStackView.axis = .vertical
+    noLoginStackView.spacing = 3
   }
   
   // MARK: View Constraints
@@ -185,19 +185,20 @@ class LoginView: UIView {
     
     loginOptionsStackView.snp.makeConstraints {
       $0.width.equalToSuperview()
+      $0.height.equalTo(40)
     }
     
-    facebookButton.snp.makeConstraints {
-      $0.width.equalTo(facebookButton.snp.height)
-    }
+//    facebookButton.snp.makeConstraints {
+//      $0.width.equalTo(facebookButton.snp.height)
+//    }
     
-    googleButton.snp.makeConstraints {
-      $0.width.equalTo(googleButton.snp.height)
-    }
-    
-    twitterButton.snp.makeConstraints {
-      $0.width.equalTo(twitterButton.snp.height)
-    }
+//    googleButton.snp.makeConstraints {
+//      $0.width.equalTo(googleButton.snp.height)
+//    }
+//    
+//    twitterButton.snp.makeConstraints {
+//      $0.width.equalTo(twitterButton.snp.height)
+//    }
     
     // Bottom View
     addSubview(bottomView)
