@@ -34,5 +34,35 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+  
+  <!-- Facebook -->
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb1369775309719496</string>
+      </array>
+    </dict>
+  </array>
+  <key>FacebookAppID</key>
+  <string>1369775309719496</string>
+  <key>FacebookDisplayName</key>
+  <string>PupsAndPlaygrounds</string>
+
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb1369775309719496</string>
+      </array>
+    </dict>
+  </array>
+  <key>FacebookAppID</key>
+  <string>1369775309719496</string>
+  <key>FacebookDisplayName</key>
+  <string>PupsAndPlaygrounds</string>
+  
 </dict>
 </plist>

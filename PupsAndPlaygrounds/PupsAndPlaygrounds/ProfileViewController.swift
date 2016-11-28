@@ -21,14 +21,18 @@ class ProfileViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-  
+    
+    
     profileView = ProfileView()
     profileView.profileButton.addTarget(self, action: #selector(profileButtonTouched), for: .touchUpInside)
     profileView.locationsTableView.delegate = self
     profileView.locationsTableView.dataSource = self
     profileView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
     
-    view = profileView
+    view.addSubview(profileView)
+    profileView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
     
     imagePicker = UIImagePickerController()
     imagePicker.delegate = self
@@ -45,10 +49,17 @@ class ProfileViewController: UIViewController {
       $0.edges.equalToSuperview()
     }
     
-//    guard let user = FIRAuth.auth()?.currentUser else { print("error retrieving current user"); return }
-//    profileView.userNameLabel.text = user.displayName
-//    
-//    guard let photoURL = user.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
+    guard let user = FIRAuth.auth()?.currentUser else { return }
+    let userRef = FIRDatabase.database().reference().child("users").child(user.uid)
+    
+    userRef.observeSingleEvent(of: .value, with: { snapshot in
+      guard let value = snapshot.value as? [String : String] else { return }
+      guard let firstName = value["firstName"],
+        let lastName = value["lastName"] else { return }
+      self.profileView.userNameLabel.text = "\(firstName) \(lastName)"
+    })
+
+    guard let photoURL = user.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
     //    profileView.profileButton.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControlState#>)
   }
   
@@ -84,7 +95,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell")!
-    cell.textLabel?.text = "\(indexPath.row)"
+    
+    cell.textLabel?.text = "Test Location \(indexPath.row + 1)"
+    cell.textLabel?.textColor = UIColor.themeWhite
+    cell.backgroundColor = UIColor.clear
     
     return cell
   }

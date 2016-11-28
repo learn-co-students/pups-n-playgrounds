@@ -12,6 +12,10 @@ target 'PupsAndPlaygrounds' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
+  
+  # Google Maps
+#  pod 'GoogleMaps'
+#  pod 'GooglePlaces'
 
   # XML Parser
   pod 'SWXMLHash'

@@ -54,6 +54,8 @@ final class ProfileView: UIView {
     
     locationsView = UIView()
     locationsTableView = UITableView()
+    locationsTableView.rowHeight = 80
+    locationsTableView.backgroundColor = UIColor.clear
   }
   
   // MARK: View Constraints
@@ -79,7 +81,7 @@ final class ProfileView: UIView {
     
     locationsView.addSubview(locationsTableView)
     locationsTableView.snp.makeConstraints {
-      $0.edges.equalTo(UIEdgeInsetsMake(20, 20, 20, 20))
+      $0.edges.equalTo(UIEdgeInsetsMake(40, 40, 40, 40))
     }
   }
 }
