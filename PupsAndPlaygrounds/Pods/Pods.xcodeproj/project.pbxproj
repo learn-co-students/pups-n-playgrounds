@@ -322,6 +322,7 @@
 		C3678E871422F5A3E72FFB53886D85DD /* FBSDKBridgeAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B3E8CCE8C8D89492175B6643A68588 /* FBSDKBridgeAPIRequest.m */; };
 		C378A91DA1ACE7925CC39CEB086BD1FD /* FBSDKErrorConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D46BD54DD7377A8DFEEEFF112E291A /* FBSDKErrorConfiguration.m */; };
 		C39613DBB90FF65789612725FC595542 /* FBSDKAppInviteDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = AFDA070146530DFE50121E29B9663AC5 /* FBSDKAppInviteDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C432CCAA1DEC9884003C0686 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 667F9BFF008EC9A7AAA6B87CE6A127A4 /* FirebaseDatabase.framework */; };
 		C51B4865E5186E9BF6DB6BEFC9517EF1 /* FBSDKHashtag.h in Headers */ = {isa = PBXBuildFile; fileRef = 971092A8178372409183900FE355C2C4 /* FBSDKHashtag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C583FF6D5F3A73498E46D8D80B21E3DB /* FBSDKLoginKit+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B99D0C3053EB73339FD78003A354104B /* FBSDKLoginKit+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C6CAF863E1F760FD026549D81C246A14 /* FBSDKBridgeAPICrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = C68F0A428634CB1A1DCA8E8933C9D0FD /* FBSDKBridgeAPICrypto.m */; };
@@ -1072,6 +1073,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C432CCAA1DEC9884003C0686 /* FirebaseDatabase.framework in Frameworks */,
 				8DBA17B8CB43ECBA3FFCDBAAEB7EE5DF /* CoreLocation.framework in Frameworks */,
 				45286A9CF15F835FC2D6FE8389E63F5C /* Foundation.framework in Frameworks */,
 				E514C58DD45A98FBE215C31697E4E322 /* GoogleToolboxForMac.framework in Frameworks */,
@@ -3322,6 +3324,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FirebaseDatabase/Frameworks",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/GeoFire/GeoFire-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/GeoFire/Info.plist";
@@ -3418,6 +3424,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FirebaseDatabase/Frameworks",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/GeoFire/GeoFire-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/GeoFire/Info.plist";
