@@ -34,19 +34,21 @@ class ProfileViewController: UIViewController {
       $0.edges.equalToSuperview()
     }
     
-    imagePicker = UIImagePickerController()
-    imagePicker.delegate = self
-    imagePicker.sourceType = .camera
-    imagePicker.cameraCaptureMode = .photo
-    imagePicker.showsCameraControls = false
-    imagePicker.allowsEditing = false
-    
-    imagePickerView = ImagePickerView()
-    imagePickerView.captureButton.addTarget(self, action: #selector(captureButtonTouched), for: .touchUpInside)
-    
-    imagePicker.view.addSubview(imagePickerView)
-    imagePickerView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
+    if UIImagePickerController.isSourceTypeAvailable(.camera) {
+      imagePicker = UIImagePickerController()
+      imagePicker.delegate = self
+      imagePicker.sourceType = .camera
+      imagePicker.cameraCaptureMode = .photo
+      imagePicker.showsCameraControls = false
+      imagePicker.allowsEditing = false
+      
+      imagePickerView = ImagePickerView()
+      imagePickerView.captureButton.addTarget(self, action: #selector(captureButtonTouched), for: .touchUpInside)
+      
+      imagePicker.view.addSubview(imagePickerView)
+      imagePickerView.snp.makeConstraints {
+        $0.edges.equalToSuperview()
+      }
     }
     
     guard let user = FIRAuth.auth()?.currentUser else { return }

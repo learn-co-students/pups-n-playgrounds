@@ -12,16 +12,19 @@ class MainTabBarController: UITabBarController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let homeViewController = HomeViewController()
-    homeViewController.tabBarItem = UITabBarItem(title: "Home", image: nil, selectedImage: nil)
+    let homeNC = UINavigationController(rootViewController: )
+    homeNC.title = "List View"
+    homeNC.tabBarItem = UITabBarItem(title: "Home", image: nil, selectedImage: nil)
     
-    let feedViewController = FeedViewController()
-    feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: nil, selectedImage: nil)
+    let feedNC = UINavigationController(rootViewController: FeedViewController())
+    feedNC.title = "Feed"
+    feedNC.tabBarItem = UITabBarItem(title: "Feed", image: nil, selectedImage: nil)
     
-    let profileViewController = ProfileViewController()
-    profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: nil, selectedImage: nil)
+    let profileNC = UINavigationController(rootViewController: ProfileViewController())
+    profileNC.title = "Profile"
+    profileNC.tabBarItem = UITabBarItem(title: "Profile", image: nil, selectedImage: nil)
     
-    viewControllers = [homeViewController, feedViewController, profileViewController]
+    viewControllers = [homeNC, feedNC, profileNC]
     tabBar.isTranslucent = false
   }
 }
