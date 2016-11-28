@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    title = "Profile"
     
     profileView = ProfileView()
     profileView.profileButton.addTarget(self, action: #selector(profileButtonTouched), for: .touchUpInside)

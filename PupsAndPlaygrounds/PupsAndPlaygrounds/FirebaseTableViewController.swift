@@ -15,13 +15,18 @@ class FirebaseTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    navigationController?.title = "List View"
+    title = "List View"
+    navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Switch View"), style: .plain, target: self, action: #selector(switchView))
     
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Playground")
     FirebaseData.getAllPlaygrounds { (playgroundsFromFirebase) in
       self.playgroundArray = playgroundsFromFirebase
       self.tableView.reloadData()
     }
+  }
+  
+  func switchView() {
+    
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

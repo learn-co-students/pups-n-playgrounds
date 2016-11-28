@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import SnapKit
 
-class <#View#>: UIView {
+class FeedView: UIView {
   
   // MARK: Properties
-  
+  let feedTableView = UITableView()
   
   // MARK: Initialization
   required init?(coder aDecoder: NSCoder) {
@@ -31,11 +32,14 @@ class <#View#>: UIView {
 
   // MARK: View Configuration
   func configure() {
-    
+    feedTableView.rowHeight = 80
   }
   
   // MARK: View Constraints
   func constrain() {
-    
+    addSubview(feedTableView)
+    feedTableView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
   }
 }

@@ -8,7 +8,6 @@
 
 import UIKit
 import SnapKit
-import FBSDKCoreKit
 import FBSDKLoginKit
 
 class LoginView: UIView {
@@ -34,6 +33,10 @@ class LoginView: UIView {
   var noLoginStackView: UIStackView!
   
   // MARK: Initialization
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
   }
@@ -43,10 +46,6 @@ class LoginView: UIView {
     
     configure()
     constrain()
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
   }
   
   // MARK: View Configuration
@@ -103,28 +102,11 @@ class LoginView: UIView {
     orUseLabel.textColor = UIColor.themeWhite
     
     facebookButton = FBSDKLoginButton()
-//    facebookButton.setImage(#imageLiteral(resourceName: "Facebook Logo"), for: .normal)
-//    facebookButton.imageView?.contentMode = .scaleAspectFit
-    
-//    googleButton = UIButton()
-//    googleButton.setTitle("G", for: .normal)
-//    googleButton.titleLabel?.font = UIFont.themeSmallBold
-//    googleButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
-//    googleButton.layer.borderWidth = 2
-//    googleButton.layer.borderColor = UIColor.themeDarkBlue.cgColor
-//    
-//    twitterButton = UIButton()
-//    twitterButton.setTitle("T", for: .normal)
-//    twitterButton.titleLabel?.font = UIFont.themeSmallBold
-//    twitterButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
-//    twitterButton.layer.borderWidth = 2
-//    twitterButton.layer.borderColor = UIColor.themeDarkBlue.cgColor
     
     loginOptionsStackView = UIStackView(arrangedSubviews: [loginButton, orUseLabel, facebookButton])
     loginOptionsStackView.distribution = .equalSpacing
     loginOptionsStackView.alignment = .fill
     loginOptionsStackView.spacing = 10
-    
     
     loginStackView = UIStackView(arrangedSubviews: [emailField, passwordField, loginOptionsStackView])
     loginStackView.axis = .vertical
