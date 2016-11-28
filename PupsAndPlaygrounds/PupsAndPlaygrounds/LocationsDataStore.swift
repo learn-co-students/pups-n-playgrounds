@@ -6,6 +6,16 @@
 //  Copyright © 2016 Flatiron School. All rights reserved.
 //
 
+// This is a useful class to edit local JSON data and push it to Firebase
+// 1) Create a singleton (store)
+// 2) In viewDidLoad() run : store.getDogrunsAndPlaygroundsFromJSON() to populate store's array
+// 3) run : store.addDogrunsAndPlaygroundsToFirebase() to send store's array to Firebase
+
+// *** THIS METHOD WILL OVER-WRITE ALL THE LOCATIONS DATA INCLUDING REVIEWS ***
+
+// If you are only trying to edit a specific location or child, use a more precise function
+
+
 import Foundation
 
 class LocationsDataStore {
@@ -51,7 +61,7 @@ class LocationsDataStore {
     
     func addPlaygroundsToFirebase() {
         for playground in playgrounds {
-            FirebaseData.addPlaygroundsToFirebase(playgroundID: playground.playgroundID, name: playground.name, location: playground.location, isHandicap: playground.isHandicap, latitude: playground.latitude, longitude: playground.longitude)
+            FirebaseData.addPlaygroundsToFirebase(playgroundID: playground.playgroundID, name: playground.name, location: playground.location, isHandicap: playground.isHandicap, latitude: "\(playground.latitude)", longitude: "\(playground.longitude)")
         }
     }
     

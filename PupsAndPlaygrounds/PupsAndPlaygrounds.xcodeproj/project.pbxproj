@@ -73,9 +73,9 @@
 		E84199BF1DE37E7800522C8A /* dogrunsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = dogrunsnyc.json; path = PupsAndPlaygrounds/dogrunsnyc.json; sourceTree = "<group>"; };
 		E84199C01DE37E7800522C8A /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONParser.swift; path = PupsAndPlaygrounds/JSONParser.swift; sourceTree = "<group>"; };
 		E84199C11DE37E7800522C8A /* playgroundsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = playgroundsnyc.json; path = PupsAndPlaygrounds/playgroundsnyc.json; sourceTree = "<group>"; };
-		E84199C51DE37E8F00522C8A /* FirebaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseData.swift; sourceTree = "<group>"; };
+		E84199C51DE37E8F00522C8A /* FirebaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseData.swift; path = PupsAndPlaygrounds/FirebaseData.swift; sourceTree = "<group>"; };
 		E84199C81DE37EB000522C8A /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
-		E84199C91DE37EB000522C8A /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsDataStore.swift; sourceTree = "<group>"; };
+		E84199C91DE37EB000522C8A /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationsDataStore.swift; path = PupsAndPlaygrounds/LocationsDataStore.swift; sourceTree = "<group>"; };
 		E84199D01DE38FE400522C8A /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,7 +114,6 @@
 				E84199D01DE38FE400522C8A /* Reviews.swift */,
 				E84199C81DE37EB000522C8A /* Locations.swift */,
 				E809BA101DE4FF9D00E7BF03 /* User.swift */,
-				E84199C91DE37EB000522C8A /* LocationsDataStore.swift */,
 				C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */,
 			);
 			name = Model;
@@ -200,9 +199,14 @@
 		C4EAE2D01DDF65E20069C15E /* PupsAndPlaygrounds */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				C4B9C01E1DECCCF2005D1E7A /* PupsAndPlaygrounds.entitlements */,
 				E84199C71DE37E9300522C8A /* Firebase */,
 				E84199BE1DE37E5100522C8A /* JSON */,
+=======
+				C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */,
+				E84199BE1DE37E5100522C8A /* Data - Local and Firebase */,
+>>>>>>> 6e2557706b22956e3cef0df076d70f1987674361
 				C413C4441DDFB9C40020F10F /* Model */,
 				C413C4451DDFB9C90020F10F /* View */,
 				C413C4461DDFB9CE0020F10F /* Controller */,
@@ -211,23 +215,17 @@
 			path = PupsAndPlaygrounds;
 			sourceTree = "<group>";
 		};
-		E84199BE1DE37E5100522C8A /* JSON */ = {
+		E84199BE1DE37E5100522C8A /* Data - Local and Firebase */ = {
 			isa = PBXGroup;
 			children = (
+				E84199C51DE37E8F00522C8A /* FirebaseData.swift */,
+				E84199C91DE37EB000522C8A /* LocationsDataStore.swift */,
 				E84199C01DE37E7800522C8A /* JSONParser.swift */,
 				E84199BF1DE37E7800522C8A /* dogrunsnyc.json */,
 				E84199C11DE37E7800522C8A /* playgroundsnyc.json */,
 			);
-			name = JSON;
+			name = "Data - Local and Firebase";
 			path = ..;
-			sourceTree = "<group>";
-		};
-		E84199C71DE37E9300522C8A /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				E84199C51DE37E8F00522C8A /* FirebaseData.swift */,
-			);
-			name = Firebase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
