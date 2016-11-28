@@ -29,13 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-      
-      //      self.navigationController = UINavigationController(rootViewController: self.rootVC)
-      //      self.navigationController.navigationBar.isTranslucent = false
-      //      self.navigationController.navigationBar.barTintColor = UIColor.themeMediumBlue
-      //      self.navigationController.navigationBar.tintColor = UIColor.themeWhite
-      //      self.navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.themeWhite]
-      
       self.window = UIWindow(frame: UIScreen.main.bounds)
       self.window?.rootViewController = user != nil ? MainTabBarController() : LoginViewController()
       self.window?.makeKeyAndVisible()

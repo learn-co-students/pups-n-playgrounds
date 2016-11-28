@@ -22,8 +22,8 @@ class LocationProfileViewController: UIViewController {
         view = locationProfileView
         
         navigationItem.title = "Location"
-        navigationController?.isNavigationBarHidden = true
-        
+//        navigationController?.isNavigationBarHidden = true
+      
         locationProfileView.submitButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
         
         
