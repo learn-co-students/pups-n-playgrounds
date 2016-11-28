@@ -9,12 +9,14 @@
 import UIKit
 
 class FirebaseTableViewController: UITableViewController {
-  
   var playgroundArray: [Playground] = []
   let appDelegate = UIApplication.shared.delegate as? AppDelegate
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    navigationController?.title = "List View"
+    
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Playground")
     FirebaseData.getAllPlaygrounds { (playgroundsFromFirebase) in
       self.playgroundArray = playgroundsFromFirebase
