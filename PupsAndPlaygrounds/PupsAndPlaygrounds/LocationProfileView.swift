@@ -10,9 +10,7 @@ import UIKit
 import SnapKit
 
 class LocationProfileView: UIView {
-    
-    let store = LocationsDataStore.sharedInstance
-    
+        
     var location: Playground!
     var locationNameLabel: UILabel!
     var locationAddressLabel: UILabel!
@@ -21,8 +19,6 @@ class LocationProfileView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
-    let temporaryLocation = Playground(ID: "B001", name: "American Playground", location: "Noble, Franklin, Milton Sts", handicap: "No", latitude: "40.7288", longitude: "-73.9579")
     
     convenience init(playground: Playground) {
         self.init(frame: CGRect.zero)

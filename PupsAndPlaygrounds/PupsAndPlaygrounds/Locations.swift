@@ -24,11 +24,12 @@ class Playground: Location {
     var isHandicap: Bool = false
     let latitude: String
     let longitude: String
-    //    var reviews: [Review]
+    var reviews: [Review] = []
     //    var photos: [UIImage]
     
     init(citydata: [String : Any]) {
-        self.playgroundID = citydata["Playground_ID"] as! String
+
+        self.playgroundID = "PG+\(citydata["Playground_ID"] as! String)"
         self.name = citydata["Name"] as! String
         self.location = citydata["Location"] as! String
         self.latitude = citydata["lat"] as! String
@@ -61,11 +62,11 @@ class Dogrun: Location {
     let dogRunType: String
     let notes: String
     var isHandicap: Bool = false
-    //    var reviews: [Review]
+    var reviews: [Review] = []
     //    var photos: [UIImage]
     
     init(citydata: [String : Any]) {
-        self.dogRunID = citydata["Prop_ID"] as! String
+        self.dogRunID = "DR+\(citydata["Prop_ID"])"
         self.name = citydata["Name"] as! String
         self.location = citydata["Address"] as! String
         self.dogRunType = citydata["DogRuns_Type"] as! String

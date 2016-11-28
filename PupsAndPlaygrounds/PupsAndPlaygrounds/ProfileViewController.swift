@@ -13,6 +13,8 @@ import FirebaseStorage
 
 class ProfileViewController: UIViewController {
   
+    let store = LocationsDataStore.sharedInstance
+    
   // MARK: Properties
   var profileView: ProfileView!
   var profileImage: UIImage!
@@ -22,7 +24,9 @@ class ProfileViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    store.playgrounds = []
+    store.dogRuns = []
+    store.getDogrunsAndPlaygroundsFromJSON()
     navigationItem.title = "Profile"
     navigationController?.isNavigationBarHidden = false
     
@@ -50,13 +54,13 @@ class ProfileViewController: UIViewController {
     guard let user = FIRAuth.auth()?.currentUser else { print("error retrieving current user"); return }
     profileView.userNameLabel.text = user.displayName
     
-    guard let photoURL = user.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
+//    guard let photoURL = user.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
     //    profileView.profileButton.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControlState#>)
   }
   
     func locationButtonTouched() {
-        let locationProfileVC = TestFirebaseTableViewController()
-        self.navigationController?.pushViewController(locationProfileVC, animated: true)
+        let locationsTableViewController = TestFirebaseTableViewController()
+        self.navigationController?.pushViewController(locationsTableViewController, animated: true)
     }
     
   // MARK: Action Methods

@@ -46,13 +46,13 @@ class FirebaseTestViewController: UIViewController {
     func submitReviewToFirebaseTouched() {
         print("SUBMIT BUTTON TOUCHED")
         guard let review = firebaseTestView.reviewTextField.text else { print("error reviews field"); return }
-        guard let rating = firebaseTestView.ratingTextField.text else { print("error ratings field"); return }
+//        guard let rating = firebaseTestView.ratingTextField.text else { print("error ratings field"); return }
         
         FirebaseData.addReview(comment: review, locationID: store.playgrounds[0].playgroundID)
         
     }
     
-    func addPlaygroundsToFirebaseTouched() {
+    func addPlaygroundsToFirebase() {
         var count = 0
         for playground in store.playgrounds {
             
