@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController {
 
     homeNC.tabBarItem = UITabBarItem(title: "Home", image: nil, selectedImage: nil)
     
-    let feedNC = UINavigationController(rootViewController: FeedViewController())
+    let feedNC = UINavigationController(rootViewController: ViewController())
     feedNC.navigationBar.isTranslucent = false
     feedNC.navigationBar.barTintColor = UIColor.themeMediumBlue
     feedNC.navigationBar.tintColor = UIColor.themeWhite

@@ -102,8 +102,8 @@ class FirebaseData {
                 guard let name = value["name"] as? String else { return }
                 guard let location = value["location"] as? String else { return }
                 guard let isHandicap = value["isHandicap"] as? String else { return }
-                guard let latitude = value["latitude"] as? String else { return }
-                guard let longitude = value["longitude"] as? String else { return }
+                guard let latitude = value["latitude"] as? Double else { return }
+                guard let longitude = value["longitude"] as? Double else { return }
                 
                 let newestPlayground = Playground(ID: ID, name: name, location: location, handicap: isHandicap, latitude: latitude, longitude: longitude)
                 
