@@ -52,7 +52,7 @@ class FirebaseData {
         }
     }
     
-    // MARK: Reviews Data Branch
+    // MARK: Adds Reviews to Data Branch
     
     static func addReview(comment: String, locationID: String) {
         let ref = FIRDatabase.database().reference().root
@@ -105,7 +105,7 @@ class FirebaseData {
                 guard let latitude = value["latitude"] as? String else { return }
                 guard let longitude = value["longitude"] as? String else { return }
                 
-                let newestPlayground = Playground(ID: ID, name: name, location: location, handicap: isHandicap, latitude: latitude, longitude: longitude)
+                let newestPlayground = Playground(ID: ID, name: name, location: location, handicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!)
                 
                 newArray.append((newestPlayground))
             }
@@ -113,39 +113,7 @@ class FirebaseData {
         })
     }
     
-    // MARK: Adding local JSON files to Firebase
-    
-    static func addPlaygroundsToFirebase(playgroundID: String, name: String, location: String, isHandicap: Bool, latitude: String, longitude: String) {
-        
-        let ref = FIRDatabase.database().reference().root
-        
-        let uniqueLocationKey = "PG+\(playgroundID)"
-        
-        var isHandicapString = "No"
-        
-        if isHandicap == true {
-            isHandicapString = "Yes"
-        }
-        
-        ref.child("locations").child("playgrounds").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "latitude": latitude, "longitude": longitude]])
-    }
-    
-    static func addDogrunsToFirebase(dogRunID: String, name: String, location: String, isHandicap: Bool, dogRunType: String, notes: String) {
-        
-        let ref = FIRDatabase.database().reference().root
-        
-        let uniqueLocationKey = "DR+\(dogRunID)"
-        
-        var isHandicapString = "No"
-        
-        if isHandicap == true {
-            isHandicapString = "Yes"
-        }
-        
-        ref.child("locations").child("dogruns").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "dogRunType": dogRunType, "notes": notes]])
-    }
-    
-    // MARK: Location Services
+    // MARK: Get coordinates from Firebase
     
     static func getPlaygroundsLocationCoordinates(for locationID: String, completion: @escaping (_ longitude: String, _ latitude: String) -> Void) {
         
@@ -163,5 +131,53 @@ class FirebaseData {
         })
         
     }
+    
+    // MARK: Get reviews from Firebase
+    
+    static func getReviewsFromFirebase(for locationID: String, completion: @escaping ([[String: Any]]) -> Void) {
+        
+        let ref = FIRDatabase.database().reference().child("locations").child("playgrounds").child(locationID).child("reviews")
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let reviewSnap = snapshot.value as? [[String : Any]] else { return }
+            
+            completion(reviewSnap)
+        })
+        
+    }
+    
+    // MARK: Adding local JSON files to Firebase
+    
+    static func addPlaygroundsToFirebase(playgroundID: String, name: String, location: String, isHandicap: Bool, latitude: String, longitude: String) {
+        
+        let ref = FIRDatabase.database().reference().root
+        
+        let uniqueLocationKey = playgroundID
+        
+        var isHandicapString = "No"
+        
+        if isHandicap == true {
+            isHandicapString = "Yes"
+        }
+        
+        ref.child("locations").child("playgrounds").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "latitude": latitude, "longitude": longitude]])
+    }
+    
+    static func addDogrunsToFirebase(dogRunID: String, name: String, location: String, isHandicap: Bool, dogRunType: String, notes: String) {
+        
+        let ref = FIRDatabase.database().reference().root
+        
+        let uniqueLocationKey = dogRunID
+        
+        var isHandicapString = "No"
+        
+        if isHandicap == true {
+            isHandicapString = "Yes"
+        }
+        
+        ref.child("locations").child("dogruns").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "dogRunType": dogRunType, "notes": notes]])
+    }
+    
+
     
 }

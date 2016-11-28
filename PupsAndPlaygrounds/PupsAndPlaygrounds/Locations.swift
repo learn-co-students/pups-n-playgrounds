@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 protocol Location {
     var name: String { get }
@@ -23,8 +24,8 @@ class Playground: Location {
     let name: String
     let location: String
     var isHandicap: Bool = false
-    let latitude: String
-    let longitude: String
+    let latitude: Double
+    let longitude: Double
     var profileImage: UIImage = #imageLiteral(resourceName: "playgroundTemplate")
     
     var reviews: [Review] = []
@@ -35,8 +36,8 @@ class Playground: Location {
         self.playgroundID = "PG+\(citydata["Playground_ID"] as! String)"
         self.name = citydata["Name"] as! String
         self.location = citydata["Location"] as! String
-        self.latitude = citydata["lat"] as! String
-        self.longitude = citydata["lon"] as! String
+        self.latitude = citydata["lat"] as! Double
+        self.longitude = citydata["lon"] as! Double
 
         
         if citydata["Accessible"] as! String == "Y" {
@@ -44,7 +45,7 @@ class Playground: Location {
         }
     }
     
-    init(ID: String, name: String, location: String, handicap: String, latitude: String, longitude: String) {
+    init(ID: String, name: String, location: String, handicap: String, latitude: Double, longitude: Double) {
         self.playgroundID = ID
         self.name = name
         self.location = location
