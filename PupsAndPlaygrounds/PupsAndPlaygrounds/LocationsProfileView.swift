@@ -40,6 +40,7 @@ class LocationProfileView: UIView {
         locationProfileImage = UIImageView()
         locationProfileImage.image = location.profileImage
         locationProfileImage.layer.cornerRadius = 20
+        locationProfileImage.clipsToBounds = true
         
         locationNameLabel = UILabel()
         locationNameLabel.font = UIFont.themeMediumBold
@@ -55,6 +56,8 @@ class LocationProfileView: UIView {
         locationAddressLabel.font = UIFont.themeSmallRegular
         locationAddressLabel.textColor = UIColor.themeDarkBlue
         locationAddressLabel.text = location.location
+        locationAddressLabel.numberOfLines = 3
+        locationAddressLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         submitButton = UIButton()
         submitButton.contentEdgeInsets = UIEdgeInsetsMake(11, 16, 11, 16)
