@@ -109,7 +109,7 @@ class FirebaseData {
     // MARK: Generates Locations on the app FROM Firebase data source
     
     static func getAllPlaygrounds(with completion: @escaping ([Playground]) -> Void ) {
-        var newArray: [Playground] = []
+        var playgroundArray: [Playground] = []
         
         let ref = FIRDatabase.database().reference().child("locations").child("playgrounds")
         
@@ -122,17 +122,34 @@ class FirebaseData {
                 let ID = newPlayground.key
                 let value = newPlayground.value as! [String:Any]
                 
-                guard let name = value["name"] as? String else { return }
+                guard let locationName = value["name"] as? String else { return }
                 guard let location = value["location"] as? String else { return }
                 guard let isHandicap = value["isHandicap"] as? String else { return }
                 guard let latitude = value["latitude"] as? String else { return }
                 guard let longitude = value["longitude"] as? String else { return }
                 
-                let newestPlayground = Playground(ID: ID, name: name, location: location, handicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: [])
+                var reviewsArray = [Review]()
                 
-                newArray.append((newestPlayground))
+                if let reviewDict = value["reviews"] as? [String:Any] {
+                    
+                    
+                    for review in reviewDict {
+                        let value = review.value as! [String:Any]
+                        
+                        guard let comment = value["comment"] as? String else { return }
+                        
+                        let newReview = Review(name: locationName, comment: comment)
+                        
+                        reviewsArray.append(newReview)
+                    }
+                }
+                
+                let newestPlayground = Playground(ID: ID, name: locationName, location: location, handicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray)
+                
+                playgroundArray.append((newestPlayground))
+                
             }
-            completion(newArray)
+            completion(playgroundArray)
         })
     }
     
