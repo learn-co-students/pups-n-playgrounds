@@ -19,6 +19,7 @@
 		C49C67811DE77D6D00163CD9 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */; };
 		C49C67831DE77E0800163CD9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C67821DE77E0800163CD9 /* FeedViewController.swift */; };
 		C4AEC6211DEDD47E0095DC47 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AEC6201DEDD47E0095DC47 /* FeedView.swift */; };
+		C4B6ED7D1DEDDF8700F28C04 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */; };
 		C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */; };
 		C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */; };
 		C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */; };
@@ -55,6 +56,7 @@
 		C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		C49C67821DE77E0800163CD9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		C4AEC6201DEDD47E0095DC47 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
 				C4810D1A1DE36C3A00A652DB /* HomeView.swift */,
 				C4AEC6201DEDD47E0095DC47 /* FeedView.swift */,
+				C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */,
 				C4810D1E1DE36F9E00A652DB /* ProfileView.swift */,
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
 				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
@@ -359,6 +362,7 @@
 				E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */,
 				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
+				C4B6ED7D1DEDDF8700F28C04 /* MapView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
 				C49C67811DE77D6D00163CD9 /* MainTabBarController.swift in Sources */,
 				E84199CA1DE37EB000522C8A /* Locations.swift in Sources */,
