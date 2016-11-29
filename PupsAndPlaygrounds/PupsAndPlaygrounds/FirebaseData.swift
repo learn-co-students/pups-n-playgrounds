@@ -59,27 +59,35 @@ class FirebaseData {
         
         let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
         
-        guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
+        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
         
+        let userKey = ref.child("users").child(userUniqueID)
+        var userName: String = ""
+        
+        userKey.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let userNameKey = snapshot.value as? [String : String] else { return }
+            guard let name = userNameKey[userUniqueID] else { return }
+            userName = name
+        })
+        
+        print("USER NAME = \(userName)")
 
-        
         if locationID.hasPrefix("PG") {
         
-            ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userKey, "locationID": locationID]])
+            ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID]])
             
-            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userKey]])
+            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID]])
             
-            ref.child("users").child("\(userKey)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
+            ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
             
         } else if locationID.hasPrefix("DR") {
             
-            ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userKey, "locationID": locationID]])
+            ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID]])
             
-            ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userKey]])
+            ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID]])
             
-            ref.child("users").child("\(userKey)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
+            ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
         }
-        
         
     }
     
@@ -121,9 +129,6 @@ class FirebaseData {
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let locationSnap = snapshot.value as? [String: Any] else {return}
-            
-            print("LOCATIONSNAP = \(locationSnap)")
-            
             guard let longitude = locationSnap["longitude"] as? String else {return}
             guard let latitude = locationSnap["latitude"] as? String else {return}
             
@@ -132,7 +137,7 @@ class FirebaseData {
         
     }
     
-    // MARK: Get reviews from Firebase
+    // MARK: Gets reviews from Firebase
     
     static func getReviewsFromFirebase(for locationID: String, completion: @escaping ([[String: Any]]) -> Void) {
         

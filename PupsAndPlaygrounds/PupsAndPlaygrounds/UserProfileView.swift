@@ -9,14 +9,14 @@
 import UIKit
 import SnapKit
 
-final class ProfileView: UIView {
+final class UserProfileView: UIView {
   
   // MARK: Properties
   var profileButton: UIButton!
   let profileButtonWidth: CGFloat = 120
   var userNameLabel: UILabel!
-  var locationsView: UIView!
-  var locationsTableView: UITableView!
+  var reviewsView: UIView!
+  var reviewsTableView: UITableView!
 
   // MARK: Initialization
   override init(frame: CGRect) {
@@ -52,10 +52,10 @@ final class ProfileView: UIView {
     userNameLabel.font = UIFont.themeMediumLight
     userNameLabel.textColor = UIColor.themeWhite
     
-    locationsView = UIView()
-    locationsTableView = UITableView()
-    locationsTableView.rowHeight = 80
-    locationsTableView.backgroundColor = UIColor.clear
+    reviewsView = UIView()
+    reviewsTableView = UITableView()
+    reviewsTableView.rowHeight = 80
+    reviewsTableView.backgroundColor = UIColor.white
   }
   
   // MARK: View Constraints
@@ -73,15 +73,15 @@ final class ProfileView: UIView {
       $0.centerX.equalToSuperview()
     }
     
-    addSubview(locationsView)
-    locationsView.snp.makeConstraints {
-      $0.leading.trailing.bottom.equalToSuperview()
-      $0.top.equalTo(userNameLabel.snp.bottom)
+    addSubview(reviewsView)
+    reviewsView.snp.makeConstraints {
+        $0.leading.trailing.bottom.equalToSuperview()
+        $0.top.equalTo(userNameLabel.snp.bottom).offset(10)
     }
     
-    locationsView.addSubview(locationsTableView)
-    locationsTableView.snp.makeConstraints {
-      $0.edges.equalTo(UIEdgeInsetsMake(40, 40, 40, 40))
+    reviewsView.addSubview(reviewsTableView)
+    reviewsTableView.snp.makeConstraints {
+        $0.edges.equalTo(UIEdgeInsetsMake(40, 40, 40, 40))
     }
   }
 }
