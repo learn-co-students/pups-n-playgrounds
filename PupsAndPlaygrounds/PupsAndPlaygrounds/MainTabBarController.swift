@@ -12,7 +12,7 @@ class MainTabBarController: UITabBarController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let homeNC = UINavigationController(rootViewController: FirebaseTableViewController())
+    let homeNC = UINavigationController(rootViewController: HomeViewController())
     homeNC.navigationBar.isTranslucent = false
     homeNC.navigationBar.barTintColor = UIColor.themeMediumBlue
     homeNC.navigationBar.tintColor = UIColor.themeWhite
