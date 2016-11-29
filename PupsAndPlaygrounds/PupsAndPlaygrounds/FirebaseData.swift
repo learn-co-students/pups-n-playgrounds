@@ -54,7 +54,7 @@ class FirebaseData {
     
     // MARK: Adds Reviews to Data Branch
     
-    static func addReview(comment: String, locationID: String) {
+    static func addReview(comment: String, locationID: String, completion: @escaping (String) -> String) {
         let ref = FIRDatabase.database().reference().root
         
         let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
@@ -62,29 +62,32 @@ class FirebaseData {
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
         
         let userKey = ref.child("users").child(userUniqueID)
-        var userName: String = ""
+        var userName: String = "anonymous"
         
         userKey.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let userNameKey = snapshot.value as? [String : String] else { return }
-            guard let name = userNameKey[userUniqueID] else { return }
-            userName = name
+            guard let userKey = snapshot.value as? [String : Any] else { return }
+            guard let userNameValue = userKey["firstName"] as? String else { return }
+            completion(userNameValue)
         })
         
+        userName = completion()
         print("USER NAME = \(userName)")
-
-        if locationID.hasPrefix("PG") {
         
-            ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID]])
+        
+        
+        if locationID.hasPrefix("PG") {
             
-            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID]])
+            ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName, "locationID": locationID]])
+            
+            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName]])
             
             ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
             
         } else if locationID.hasPrefix("DR") {
             
-            ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID]])
+            ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName, "locationID": locationID]])
             
-            ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID]])
+            ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName]])
             
             ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
         }
@@ -183,6 +186,6 @@ class FirebaseData {
         ref.child("locations").child("dogruns").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "dogRunType": dogRunType, "notes": notes]])
     }
     
-
+    
     
 }
