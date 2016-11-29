@@ -17,7 +17,7 @@ final class ProfileView: UIView {
   var userNameLabel: UILabel!
   var locationsView: UIView!
   var locationsTableView: UITableView!
-
+  
   // MARK: Initialization
   override init(frame: CGRect) {
     super.init(frame: frame)

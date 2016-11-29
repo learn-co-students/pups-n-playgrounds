@@ -35,7 +35,7 @@ class CreateAccountView: UIView {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
-
+  
   // MARK: View Configuration
   func configure() {
     backgroundColor = UIColor.themeLightBlue
