@@ -8,8 +8,9 @@
 
 import UIKit
 import SnapKit
+import GoogleMaps
 
-class LocationProfileView: UIView {
+class LocationProfileView: UIView, GMSMapViewDelegate {
     
     var location: Playground!
     var locationProfileImage: UIImageView!
@@ -18,6 +19,8 @@ class LocationProfileView: UIView {
     var submitButton: UIButton!
     var reviewsView: UIView!
     var reviewsTableView: UITableView!
+    var streetView: UIView!
+    var panoView: GMSPanoramaView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,8 +29,12 @@ class LocationProfileView: UIView {
     convenience init(playground: Playground) {
         self.init(frame: CGRect.zero)
         location = playground
+
         configure()
         constrain()
+        
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,6 +50,10 @@ class LocationProfileView: UIView {
         locationProfileImage.image = location.profileImage
         locationProfileImage.layer.cornerRadius = 20
         locationProfileImage.clipsToBounds = true
+        
+        streetView = UIView()
+        panoView = GMSPanoramaView()
+        panoView.moveNearCoordinate(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
         
         locationNameLabel = UILabel()
         locationNameLabel.font = UIFont.themeMediumBold
@@ -72,6 +83,7 @@ class LocationProfileView: UIView {
         reviewsTableView = UITableView()
         reviewsTableView.rowHeight = 40
         reviewsTableView.backgroundColor = UIColor.white
+        reviewsTableView.layer.cornerRadius = 5
         
     }
     
@@ -79,7 +91,7 @@ class LocationProfileView: UIView {
         addSubview(locationProfileImage)
         locationProfileImage.snp.makeConstraints {
             $0.leadingMargin.equalToSuperview().offset(10)
-            $0.topMargin.equalToSuperview().offset(35)
+            $0.topMargin.equalToSuperview().offset(10)
             $0.width.equalToSuperview().dividedBy(3)
             $0.height.equalTo(locationProfileImage.snp.width)
         }
@@ -100,22 +112,36 @@ class LocationProfileView: UIView {
             $0.height.equalToSuperview().dividedBy(10)
         }
         
+        addSubview(streetView)
+        streetView.snp.makeConstraints {
+            $0.top.equalTo(locationProfileImage.snp.bottom).offset(5)
+            $0.height.equalToSuperview().dividedBy(2)
+            $0.leading.equalToSuperview().offset(10)
+            $0.trailing.equalToSuperview().offset(-10)
+        }
+        
+        streetView.addSubview(panoView)
+        panoView.snp.makeConstraints {
+          $0.edges.equalTo(UIEdgeInsetsMake(20, 20, 20, 20))
+        }
+        
         addSubview(submitButton)
         submitButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(locationProfileImage.snp.bottom).offset(10)
+            $0.top.equalTo(streetView.snp.bottom).offset(5)
         }
         
         addSubview(reviewsView)
         reviewsView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(submitButton.snp.bottom).offset(10)
+            $0.top.equalTo(submitButton.snp.bottom).offset(5)
         }
         
         reviewsView.addSubview(reviewsTableView)
         reviewsTableView.snp.makeConstraints {
-            $0.edges.equalTo(UIEdgeInsetsMake(40, 40, 40, 40))
+            $0.edges.equalTo(UIEdgeInsetsMake(20, 20, 20, 20))
         }
+
     }
     
     
