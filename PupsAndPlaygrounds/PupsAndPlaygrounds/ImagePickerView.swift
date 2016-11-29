@@ -11,87 +11,67 @@ import UIKit
 final class ImagePickerView: UIView {
   
   // MARK: Properties
-  var blurView: UIVisualEffectView!
-  let blurViewHeight = UIScreen.main.bounds.width * 4 / 3
+  var cutoutView = UIView()
+  let cutoutViewWidth = UIScreen.main.bounds.width
+  let cutoutViewHeight = UIScreen.main.bounds.width * 4 / 3
+  let circleCutoutRadius = UIScreen.main.bounds.width / 2
   
-  var circleView: UIView!
-  let circleViewWidth = UIScreen.main.bounds.width
-  
-  var vibrancyView: UIView!
-  
-  var captureButtonView: UIView!
-  var captureButton: UIButton!
+  var captureButtonView = UIView()
+  var captureButton = UIButton()
   let captureButtonWidth: CGFloat = 80
   
   // MARK: Initialization
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+  
   override init(frame: CGRect) {
-    
     super.init(frame: frame)
   }
   
   convenience init() {
-    
     self.init(frame: CGRect.zero)
     
     configure()
     constrain()
   }
   
-  required init?(coder aDecoder: NSCoder) {
-    
-    super.init(coder: aDecoder)
-  }
-  
   // MARK: View Configuration
   func configure() {
+    cutoutView.frame = CGRect(x: 0, y: 0, width: cutoutViewWidth, height: cutoutViewHeight)
     
-    blurView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+    let bezierPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: cutoutViewWidth, height: cutoutViewHeight))
+    bezierPath.append(UIBezierPath(ovalIn: CGRect(x: 0, y: cutoutViewHeight / 2 - circleCutoutRadius, width: circleCutoutRadius * 2, height: circleCutoutRadius * 2)))
+    bezierPath.usesEvenOddFillRule = true
     
-    circleView = UIView()
-    circleView.backgroundColor = UIColor.themeWhite
-    circleView.clipsToBounds = true
-    circleView.layer.cornerRadius = circleViewWidth / 2
+    let fillLayer = CAShapeLayer()
+    fillLayer.path = bezierPath.cgPath
+    fillLayer.fillRule = kCAFillRuleEvenOdd
+    fillLayer.fillColor = UIColor.black.withAlphaComponent(0.8).cgColor
     
-    vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .dark)))
+    cutoutView.layer.addSublayer(fillLayer)
     
-    captureButtonView = UIView()
     captureButtonView.backgroundColor = UIColor.themeDarkBlue
-    
-    captureButton = UIButton()
+
     captureButton.backgroundColor = UIColor.themeRed
     captureButton.layer.cornerRadius = captureButtonWidth / 2
   }
   
   // MARK: View Constraints
   func constrain() {
-    
-    addSubview(blurView)
-    blurView.snp.makeConstraints {
-      
+    addSubview(cutoutView)
+    cutoutView.snp.makeConstraints {
       $0.leading.trailing.top.equalToSuperview()
-      $0.height.equalTo(blurViewHeight)
-    }
-    
-    blurView.contentView.addSubview(circleView)
-    circleView.snp.makeConstraints {
-      
-      $0.center.equalToSuperview()
-      $0.width.height.equalTo(circleViewWidth)
-    }
-    
-    circleView.addSubview(vibrancyView)
-    vibrancyView.snp.makeConstraints {
-      
-      $0.edges.equalToSuperview()
+      $0.height.equalTo(cutoutViewHeight)
     }
     
     addSubview(captureButtonView)
     captureButtonView.snp.makeConstraints {
       
       $0.leading.trailing.bottom.equalToSuperview()
-      $0.top.equalTo(blurView.snp.bottom)
+      $0.top.equalTo(cutoutView.snp.bottom)
     }
-    
+
     captureButtonView.addSubview(captureButton)
     captureButton.snp.makeConstraints {
       
