@@ -55,8 +55,10 @@
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
+		<string>comgooglemaps</string>
+		<string>googlechromes</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>YES</string>
+	<string></string>
 </dict>
 </plist>
