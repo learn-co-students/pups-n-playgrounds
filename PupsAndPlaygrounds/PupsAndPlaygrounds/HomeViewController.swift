@@ -8,14 +8,18 @@
 
 import UIKit
 import Firebase
+import MapKit
+
 
 class HomeViewController: UIViewController {
   
   // MARK: Properties
+    
   let mapView = MapView()
   let listView = ListView()
   var isMapView = true
   var locations = [Location]()
+    var annotationArray = [MKAnnotation]()
   
   // MARK: Override Methods
   override func viewDidLoad() {
@@ -39,7 +43,29 @@ class HomeViewController: UIViewController {
       self.locations = playgrounds
       self.listView.locationsTableView.reloadData()
     }
+    
+    let playground = Playground(ID: "TEST", name: "TESTING NAME", location: "", handicap: "", latitude: 40.4995, longitude: -74.2449, reviews: [])
+    
+    
+    GeoFireMethods.getNearby(locations: playground) { (coordinates) in
+        for coordinate in coordinates {
+            let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, 600, 600)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = "\(playground.name)"
+            self.annotationArray.append(annotation)
+            self.mapView.map.setRegion(coordinateRegion, animated: true)
+            
+        }
+            self.mapView.map.addAnnotations(self.annotationArray)
+        
+        
+        }
+    
   }
+    
+    
+    
   
   private func constrain() {
     view.addSubview(mapView)
