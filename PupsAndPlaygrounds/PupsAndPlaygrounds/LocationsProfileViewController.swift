@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class LocationProfileViewController: UIViewController {
     var playground: Playground?
     var locationProfileView: LocationProfileView!
@@ -54,6 +55,7 @@ class LocationProfileViewController: UIViewController {
             
             self.playground?.reviews.append(newReview)
             self.locationProfileView.reviewsTableView.reloadData()
+            
         }))
         self.present(alert, animated: true, completion: nil)
     }
