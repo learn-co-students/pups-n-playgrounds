@@ -126,7 +126,7 @@ class FirebaseData {
             completion(playgroundArray)
         })
     }
-    
+    // the function below may be entirely useless
     static func getSinglePlaygroundInfo(playground: Playground, completion: @escaping (Playground) -> Void ) {
         
         let playgroundID = playground.playgroundID

@@ -49,13 +49,13 @@ class LocationProfileViewController: UIViewController {
             let reviewTextField = alert.textFields![0]
             
             FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
-        }))
-        self.present(alert, animated: true) {
-            FirebaseData.getSinglePlaygroundInfo(playground: self.playground!) { (updatedPlayground) in
-                self.locationProfileView = LocationProfileView(playground: updatedPlayground)
-            }
+            
+            let newReview = Review(name: location.name, comment: reviewTextField.text!)
+
+            self.playground?.reviews.append(newReview)
             self.locationProfileView.reviewsTableView.reloadData()
-        }
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
