@@ -1,5 +1,5 @@
 //
-//  MapView.swift
+//  ListView.swift
 //  PupsAndPlaygrounds
 //
 //  Created by William Robinson on 11/29/16.
@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import MapKit
 import SnapKit
 
-class MapView: UIView {
+class ListView: UIView {
   
   // MARK: Properties
-  let map = MKMapView()
+  let locationsTableView = UITableView()
   
   // MARK: Initialization
   required init?(coder aDecoder: NSCoder) {
@@ -38,8 +37,8 @@ class MapView: UIView {
   
   // MARK: View Constraints
   func constrain() {
-    addSubview(map)
-    map.snp.makeConstraints {
+    addSubview(locationsTableView)
+    locationsTableView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
   }
