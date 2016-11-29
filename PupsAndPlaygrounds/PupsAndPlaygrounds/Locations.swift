@@ -13,6 +13,8 @@ import MapKit
 protocol Location {
     var name: String { get }
     var location: String { get }
+    var latitude: Double { get }
+    var longitude: Double { get }
     var isHandicap: Bool { get }
     var reviews: [Review] { get }
 //    var photos: [UIImage] { get }
@@ -27,7 +29,6 @@ class Playground: Location {
     let latitude: Double
     let longitude: Double
     var profileImage: UIImage = #imageLiteral(resourceName: "playgroundTemplate")
-    
     var reviews: [Review] = []
 //    var photos: [UIImage] = []
     
@@ -64,6 +65,8 @@ class Dogrun: Location {
     let dogRunID: String
     let name: String
     let location: String
+    let latitude: Double = 0.0
+    let longitude: Double = 0.0
     let dogRunType: String
     let notes: String
     var isHandicap: Bool = false
