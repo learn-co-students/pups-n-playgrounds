@@ -15,7 +15,7 @@ target 'PupsAndPlaygrounds' do
   pod 'FBSDKShareKit'
 
   # Google Maps
-#  pod 'GoogleMaps'
+  pod 'GoogleMaps'
 #  pod 'GooglePlaces'
 
   # XML Parser

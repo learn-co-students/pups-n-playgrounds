@@ -70,7 +70,21 @@ class FirebaseData {
         completion("Anonymous")
     }
     
-    
+    static func getNewReviewsForLocation(completion:@escaping (String)->()) {
+        let ref = FIRDatabase.database().reference().root
+        
+        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        let userKey = ref.child("users").child(userUniqueID)
+        
+        userKey.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let userKey = snapshot.value as? [String : Any] else { return }
+            guard let userNameValue = userKey["firstName"] as? String else { return }
+            completion(userNameValue)
+        })
+        completion("Anonymous")
+    }
+
     
     // MARK: Adds Reviews to Data Branch
     
@@ -101,9 +115,6 @@ class FirebaseData {
                 ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "locationID": locationID]])
             }
         }
-        
-        
-        
     }
     
     // MARK: Generates Locations on the app FROM Firebase data source

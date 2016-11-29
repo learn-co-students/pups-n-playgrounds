@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class LocationProfileViewController: UIViewController {
     var playground: Playground?
     var locationProfileView: LocationProfileView!
@@ -51,9 +52,9 @@ class LocationProfileViewController: UIViewController {
             FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
             
             let newReview = Review(name: location.name, comment: reviewTextField.text!)
-            
             self.playground?.reviews.append(newReview)
             self.locationProfileView.reviewsTableView.reloadData()
+            
         }))
         self.present(alert, animated: true, completion: nil)
     }
