@@ -70,7 +70,7 @@ class LocationProfileView: UIView {
         
         reviewsView = UIView()
         reviewsTableView = UITableView()
-        reviewsTableView.rowHeight = 80
+        reviewsTableView.rowHeight = 40
         reviewsTableView.backgroundColor = UIColor.white
         
     }

@@ -14,22 +14,20 @@ class LocationProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         locationProfileView = LocationProfileView(playground: playground!)
-        view = locationProfileView
+        locationProfileView.reviewsTableView.delegate = self
+        locationProfileView.reviewsTableView.dataSource = self
+        locationProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "reviewsCell")
         
-        FirebaseData.getPlaygroundsLocationCoordinates(for: (playground?.playgroundID)!) { (latitude: String, longitude: String) in
-            
-            print("Latitude = \(latitude) Longitude = \(longitude)")
+        view.addSubview(locationProfileView)
+        locationProfileView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         
-        FirebaseData.getReviewsFromFirebase(for: (playground?.playgroundID)!) { (dictionary) in
-            print("REVIEWS = \(dictionary)")
-        }
         navigationItem.title = "Location"
-      
-        locationProfileView.submitButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)        
         
+        locationProfileView.submitButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,8 +50,12 @@ class LocationProfileViewController: UIViewController {
             
             FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
         }))
-        
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true) {
+            FirebaseData.getSinglePlaygroundInfo(playground: self.playground!) { (updatedPlayground) in
+                self.locationProfileView = LocationProfileView(playground: updatedPlayground)
+            }
+            self.locationProfileView.reviewsTableView.reloadData()
+        }
     }
     
 }
@@ -69,9 +71,14 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reviewsCell")!
         
-        cell.textLabel?.text = "Test Location \(indexPath.row + 1)"
-        cell.textLabel?.textColor = UIColor.themeWhite
-        cell.backgroundColor = UIColor.clear
+        if let review = playground?.reviews[indexPath.row] {
+            cell.textLabel?.text = review.comment
+            cell.textLabel?.textColor = UIColor.blue
+            cell.textLabel?.font = UIFont.themeTinyRegular
+            cell.textLabel?.numberOfLines = 3
+            cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+            
+        }
         
         return cell
     }
