@@ -26,6 +26,7 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     loginView.passwordField.delegate = self
     
     loginView.loginButton.addTarget(self, action: #selector(loginButtonTouched), for: .touchUpInside)
+    
     loginView.facebookButton.delegate = self
     loginView.facebookButton.readPermissions = ["email"]
     
