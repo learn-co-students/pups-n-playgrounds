@@ -21,13 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     FIRApp.configure()
     
-    // Comment this block out to stay signed in
-    do {
-      try FIRAuth.auth()?.signOut()
-    } catch {
-      print("error signing user out")
-    }
-    
     FIRAuth.auth()?.addStateDidChangeListener { auth, user in
       self.window = UIWindow(frame: UIScreen.main.bounds)
       self.window?.rootViewController = user != nil ? MainTabBarController() : LoginViewController()

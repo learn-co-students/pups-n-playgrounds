@@ -19,10 +19,14 @@ class ProfileViewController: UIViewController {
   var imagePickerView: ImagePickerView!
   var user: FIRUser!
   
+  let appDelegate = UIApplication.shared.delegate as? AppDelegate
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     title = "Profile"
+    
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logOutButtonTouched))
     
     profileView = ProfileView()
     profileView.profileButton.addTarget(self, action: #selector(profileButtonTouched), for: .touchUpInside)
@@ -63,7 +67,9 @@ class ProfileViewController: UIViewController {
     })
     
     guard let photoURL = user.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
-    //    profileView.profileButton.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControlState#>)
+    guard let photoData = try? Data(contentsOf: photoURL) else { print("error retrieving image data"); return }
+    
+    profileView.profileButton.setImage(UIImage(data: photoData), for: .normal)
   }
   
   // MARK: Action Methods
@@ -73,6 +79,16 @@ class ProfileViewController: UIViewController {
   
   func captureButtonTouched() {
     imagePicker.takePicture()
+  }
+  
+  func logOutButtonTouched() {
+    do {
+      try FIRAuth.auth()?.signOut()
+    } catch {
+      print("error signing user out")
+    }
+    
+    appDelegate?.window?.rootViewController = LoginViewController()
   }
 }
 
