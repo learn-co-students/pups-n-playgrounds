@@ -71,7 +71,7 @@ class GeoFireMethods {
     }
     
     
-    static func getNearby(locations playground: Playground, completion: @escaping ([CLLocationCoordinate2D]) -> Void) {
+    static func getNearby(locations longitude: Double, latitude: Double, completion: @escaping ([CLLocationCoordinate2D]) -> Void) {
         
         let geofireRef = FIRDatabase.database().reference().child("geoFireLocation")
         
@@ -80,7 +80,7 @@ class GeoFireMethods {
         
         let geoFire = GeoFire(firebaseRef: geofireRef)
         
-        let center = CLLocation(latitude: playground.latitude, longitude: playground.longitude)
+        let center = CLLocation(latitude: latitude, longitude: longitude)
         // Query locations at [self.latitude, self.longitude] with a radius of 1 km
         var circleQuery = geoFire?.query(at: center, withRadius: 1.0)
         guard let unwrappedCircleQuery = circleQuery else { print("no query"); return }
