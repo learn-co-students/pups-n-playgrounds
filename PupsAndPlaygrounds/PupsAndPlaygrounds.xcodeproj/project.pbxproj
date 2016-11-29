@@ -38,8 +38,6 @@
 		E84199CA1DE37EB000522C8A /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C81DE37EB000522C8A /* Locations.swift */; };
 		E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C91DE37EB000522C8A /* LocationsDataStore.swift */; };
 		E84199D11DE38FE400522C8A /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Reviews.swift */; };
-		F6CC164A1DECDA9D00F025DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CC16491DECDA9D00F025DB /* ViewController.swift */; };
-		F6CC164C1DECDAA700F025DB /* VCMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CC164B1DECDAA700F025DB /* VCMapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,8 +77,6 @@
 		E84199C81DE37EB000522C8A /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		E84199C91DE37EB000522C8A /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationsDataStore.swift; path = PupsAndPlaygrounds/LocationsDataStore.swift; sourceTree = "<group>"; };
 		E84199D01DE38FE400522C8A /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
-		F6CC16491DECDA9D00F025DB /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F6CC164B1DECDAA700F025DB /* VCMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +122,6 @@
 		C413C4451DDFB9C90020F10F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F6CC164B1DECDAA700F025DB /* VCMapView.swift */,
 				E813A3A91DECA4E4006D9725 /* LocationsProfileView.swift */,
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
@@ -143,7 +138,6 @@
 		C413C4461DDFB9CE0020F10F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				F6CC16491DECDA9D00F025DB /* ViewController.swift */,
 				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
 				E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */,
 				E813A3AB1DECA513006D9725 /* FirebaseTableViewController.swift */,
@@ -366,7 +360,6 @@
 				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
-				F6CC164A1DECDA9D00F025DB /* ViewController.swift in Sources */,
 				C49C67811DE77D6D00163CD9 /* MainTabBarController.swift in Sources */,
 				E84199CA1DE37EB000522C8A /* Locations.swift in Sources */,
 				C4AEC6211DEDD47E0095DC47 /* FeedView.swift in Sources */,
@@ -377,7 +370,6 @@
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
 				C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,
-				F6CC164C1DECDAA700F025DB /* VCMapView.swift in Sources */,
 				E813A3AC1DECA513006D9725 /* FirebaseTableViewController.swift in Sources */,
 				C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */,
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
