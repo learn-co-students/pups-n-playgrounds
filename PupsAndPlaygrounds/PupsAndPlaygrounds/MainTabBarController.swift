@@ -19,7 +19,7 @@ class MainTabBarController: UITabBarController {
     homeNC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.themeWhite]
     homeNC.tabBarItem = UITabBarItem(title: "Home", image: #imageLiteral(resourceName: "Home Tab Bar"), selectedImage: nil)
     
-    let feedNC = UINavigationController(rootViewController: ViewController())
+    let feedNC = UINavigationController(rootViewController: FeedViewController())
     feedNC.navigationBar.isTranslucent = false
     feedNC.navigationBar.barTintColor = UIColor.themeMediumBlue
     feedNC.navigationBar.tintColor = UIColor.themeWhite

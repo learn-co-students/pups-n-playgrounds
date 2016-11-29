@@ -144,7 +144,7 @@ class FirebaseData {
                     }
                 }
                 
-                let newestPlayground = Playground(ID: ID, name: locationName, location: location, handicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray)
+                let newestPlayground = Playground(ID: ID, name: locationName, location: location, handicap: isHandicap, latitude: latitude, longitude: longitude, reviews: reviewsArray)
                 
                 playgroundArray.append((newestPlayground))
                 
