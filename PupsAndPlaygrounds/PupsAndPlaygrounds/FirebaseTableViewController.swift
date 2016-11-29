@@ -23,6 +23,10 @@ class FirebaseTableViewController: UITableViewController {
             self.playgroundArray = playgroundsFromFirebase
             self.tableView.reloadData()
         }
+        
+        
+        
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,19 +51,6 @@ class FirebaseTableViewController: UITableViewController {
         
         navigationController?.pushViewController(locationProfileVC, animated: true)
     }
-    
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        print("SEGUE BUTTON PRESSED")
-    //        if segue.identifier == "LocationsProfile" {
-    //            if let destination = segue.destination as? LocationProfileViewController, let indexPath = tableView.indexPathForSelectedRow {
-    //
-    //                destination.playground = store.playgrounds[(indexPath as IndexPath).row]
-    //            }
-    //
-    //        }
-    //    }
-    
-    
-    
+
     
 }

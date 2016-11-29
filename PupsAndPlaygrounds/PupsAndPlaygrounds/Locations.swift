@@ -45,12 +45,13 @@ class Playground: Location {
         }
     }
     
-    init(ID: String, name: String, location: String, handicap: String, latitude: Double, longitude: Double) {
+    init(ID: String, name: String, location: String, handicap: String, latitude: Double, longitude: Double, reviews: [Review]) {
         self.playgroundID = ID
         self.name = name
         self.location = location
         self.latitude = latitude
         self.longitude = longitude
+        self.reviews = reviews
         
         if handicap == "Yes" {
             self.isHandicap = true
