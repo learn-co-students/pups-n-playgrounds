@@ -9,10 +9,10 @@
 import Foundation
 
 struct Review {
-    let user: String
-    let location: Location
+    //    let user: String
+    let name: String
     var comment: String
-    var rating: String
+    //    var rating: String
     //multiple rating categories?
 
     //photos!
