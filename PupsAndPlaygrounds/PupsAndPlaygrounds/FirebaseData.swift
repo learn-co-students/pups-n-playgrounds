@@ -54,43 +54,64 @@ class FirebaseData {
     
     // MARK: Adds Reviews to Data Branch
     
-    static func addReview(comment: String, locationID: String, completion: @escaping (String) -> String) {
+    static func getUserName(completion:@escaping (String)->()) {
         let ref = FIRDatabase.database().reference().root
-        
-        let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
         
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
         
         let userKey = ref.child("users").child(userUniqueID)
-        var userName: String = "anonymous"
         
         userKey.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let userKey = snapshot.value as? [String : Any] else { return }
             guard let userNameValue = userKey["firstName"] as? String else { return }
             completion(userNameValue)
         })
+        completion("Anonymous")
+    }
+
+    static func getLocationName(completion:@escaping (String)->()) {
+        let ref = FIRDatabase.database().reference().root
         
-        userName = completion()
-        print("USER NAME = \(userName)")
+        let userKey = ref.child("location")
         
         
         
-        if locationID.hasPrefix("PG") {
+        userKey.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let userKey = snapshot.value as? [String : Any] else { return }
+            guard let userNameValue = userKey["firstName"] as? String else { return }
+            completion(userNameValue)
+        })
+    }
+    
+    static func addReview(comment: String, locationID: String) {
+        let ref = FIRDatabase.database().reference().root
+        
+        let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
+        
+        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
             
-            ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName, "locationID": locationID]])
-            
-            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName]])
-            
-            ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
-            
-        } else if locationID.hasPrefix("DR") {
-            
-            ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName, "locationID": locationID]])
-            
-            ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName]])
-            
-            ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
+        getUserName { (userNameCompletion) in
+            let userName = userNameCompletion
+
+            if locationID.hasPrefix("PG") {
+                
+                ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName, "locationID": locationID]])
+                
+                ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName]])
+                
+                ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
+                
+            } else if locationID.hasPrefix("DR") {
+                
+                ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName, "locationID": locationID]])
+                
+                ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "userName": userName]])
+                
+                ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
+            }
         }
+        
+        
         
     }
     
