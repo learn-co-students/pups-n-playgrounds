@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import FBSDKCoreKit
 import Firebase
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       self.window?.rootViewController = user != nil ? MainTabBarController() : LoginViewController()
       self.window?.makeKeyAndVisible()
     }
+    
+    GMSServices.provideAPIKey(googleMapsAPIKey)
     
     return true
   }
