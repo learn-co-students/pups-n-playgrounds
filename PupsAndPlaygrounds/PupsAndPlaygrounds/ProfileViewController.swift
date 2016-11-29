@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    title = "Profile"
     
     profileView = ProfileView()
     profileView.profileButton.addTarget(self, action: #selector(profileButtonTouched), for: .touchUpInside)
@@ -60,7 +61,7 @@ class ProfileViewController: UIViewController {
         let lastName = value["lastName"] else { return }
       self.profileView.userNameLabel.text = "\(firstName) \(lastName)"
     })
-
+    
     guard let photoURL = user.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
     //    profileView.profileButton.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControlState#>)
   }

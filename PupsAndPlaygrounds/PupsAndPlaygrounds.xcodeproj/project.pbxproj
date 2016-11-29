@@ -18,6 +18,7 @@
 		C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */; };
 		C49C67811DE77D6D00163CD9 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */; };
 		C49C67831DE77E0800163CD9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C67821DE77E0800163CD9 /* FeedViewController.swift */; };
+		C4AEC6211DEDD47E0095DC47 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AEC6201DEDD47E0095DC47 /* FeedView.swift */; };
 		C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */; };
 		C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */; };
 		C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */; };
@@ -55,6 +56,7 @@
 		C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		C49C67821DE77E0800163CD9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		C4AEC6201DEDD47E0095DC47 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
@@ -73,9 +75,9 @@
 		E84199BF1DE37E7800522C8A /* dogrunsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = dogrunsnyc.json; path = PupsAndPlaygrounds/dogrunsnyc.json; sourceTree = "<group>"; };
 		E84199C01DE37E7800522C8A /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONParser.swift; path = PupsAndPlaygrounds/JSONParser.swift; sourceTree = "<group>"; };
 		E84199C11DE37E7800522C8A /* playgroundsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = playgroundsnyc.json; path = PupsAndPlaygrounds/playgroundsnyc.json; sourceTree = "<group>"; };
-		E84199C51DE37E8F00522C8A /* FirebaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseData.swift; sourceTree = "<group>"; };
+		E84199C51DE37E8F00522C8A /* FirebaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseData.swift; path = PupsAndPlaygrounds/FirebaseData.swift; sourceTree = "<group>"; };
 		E84199C81DE37EB000522C8A /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
-		E84199C91DE37EB000522C8A /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsDataStore.swift; sourceTree = "<group>"; };
+		E84199C91DE37EB000522C8A /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationsDataStore.swift; path = PupsAndPlaygrounds/LocationsDataStore.swift; sourceTree = "<group>"; };
 		E84199D01DE38FE400522C8A /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		F6CC16491DECDA9D00F025DB /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F6CC164B1DECDAA700F025DB /* VCMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMapView.swift; sourceTree = "<group>"; };
@@ -116,7 +118,6 @@
 				E84199D01DE38FE400522C8A /* Reviews.swift */,
 				E84199C81DE37EB000522C8A /* Locations.swift */,
 				E809BA101DE4FF9D00E7BF03 /* User.swift */,
-				E84199C91DE37EB000522C8A /* LocationsDataStore.swift */,
 				C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */,
 			);
 			name = Model;
@@ -130,6 +131,7 @@
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
 				C4810D1A1DE36C3A00A652DB /* HomeView.swift */,
+				C4AEC6201DEDD47E0095DC47 /* FeedView.swift */,
 				C4810D1E1DE36F9E00A652DB /* ProfileView.swift */,
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
 				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
@@ -204,8 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */,
-				E84199C71DE37E9300522C8A /* Firebase */,
-				E84199BE1DE37E5100522C8A /* JSON */,
+				E84199BE1DE37E5100522C8A /* Data - Local and Firebase */,
 				C413C4441DDFB9C40020F10F /* Model */,
 				C413C4451DDFB9C90020F10F /* View */,
 				C413C4461DDFB9CE0020F10F /* Controller */,
@@ -214,23 +215,17 @@
 			path = PupsAndPlaygrounds;
 			sourceTree = "<group>";
 		};
-		E84199BE1DE37E5100522C8A /* JSON */ = {
+		E84199BE1DE37E5100522C8A /* Data - Local and Firebase */ = {
 			isa = PBXGroup;
 			children = (
+				E84199C51DE37E8F00522C8A /* FirebaseData.swift */,
+				E84199C91DE37EB000522C8A /* LocationsDataStore.swift */,
 				E84199C01DE37E7800522C8A /* JSONParser.swift */,
 				E84199BF1DE37E7800522C8A /* dogrunsnyc.json */,
 				E84199C11DE37E7800522C8A /* playgroundsnyc.json */,
 			);
-			name = JSON;
+			name = "Data - Local and Firebase";
 			path = ..;
-			sourceTree = "<group>";
-		};
-		E84199C71DE37E9300522C8A /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				E84199C51DE37E8F00522C8A /* FirebaseData.swift */,
-			);
-			name = Firebase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +369,7 @@
 				F6CC164A1DECDA9D00F025DB /* ViewController.swift in Sources */,
 				C49C67811DE77D6D00163CD9 /* MainTabBarController.swift in Sources */,
 				E84199CA1DE37EB000522C8A /* Locations.swift in Sources */,
+				C4AEC6211DEDD47E0095DC47 /* FeedView.swift in Sources */,
 				E809BA111DE4FF9D00E7BF03 /* User.swift in Sources */,
 				C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 import Firebase
 
 class CreateAccountViewController: UIViewController {
@@ -28,7 +29,10 @@ class CreateAccountViewController: UIViewController {
     createAccountView.passwordField.delegate = self
     createAccountView.retypePasswordField.delegate = self
     
-    view = createAccountView
+    view.addSubview(createAccountView)
+    createAccountView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

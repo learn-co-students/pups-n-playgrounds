@@ -10,16 +10,15 @@ import Foundation
 import UIKit
 import MapKit
 
-protocol Location: MKAnnotation {
+protocol Location {
     var name: String { get }
     var location: String { get }
     var isHandicap: Bool { get }
     var reviews: [Review] { get }
-    var coordinate: CLLocationCoordinate2D {get}
 //    var photos: [UIImage] { get }
 }
 
-class Playground: NSObject, Location {
+class Playground: Location {
     
     let playgroundID: String
     let name: String
@@ -27,7 +26,6 @@ class Playground: NSObject, Location {
     var isHandicap: Bool = false
     let latitude: Double
     let longitude: Double
-    var coordinate = CLLocationCoordinate2D()
     var profileImage: UIImage = #imageLiteral(resourceName: "playgroundTemplate")
     
     var reviews: [Review] = []
@@ -40,7 +38,6 @@ class Playground: NSObject, Location {
         self.location = citydata["Location"] as! String
         self.latitude = citydata["lat"] as! Double
         self.longitude = citydata["lon"] as! Double
-        self.coordinate = CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
 
         
         if citydata["Accessible"] as! String == "Y" {
@@ -48,13 +45,13 @@ class Playground: NSObject, Location {
         }
     }
     
-    init(ID: String, name: String, location: String, handicap: String, latitude: Double, longitude: Double, coordinate: CLLocationCoordinate2D) {
+    init(ID: String, name: String, location: String, handicap: String, latitude: Double, longitude: Double, reviews: [Review]) {
         self.playgroundID = ID
         self.name = name
         self.location = location
         self.latitude = latitude
         self.longitude = longitude
-        self.coordinate = CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
+        self.reviews = reviews
         
         if handicap == "Yes" {
             self.isHandicap = true
@@ -63,7 +60,7 @@ class Playground: NSObject, Location {
     
 }
 
-class Dogrun: NSObject, Location {
+class Dogrun: Location {
     
     let dogRunID: String
     let name: String
@@ -71,7 +68,6 @@ class Dogrun: NSObject, Location {
     let dogRunType: String
     let notes: String
     var isHandicap: Bool = false
-    var coordinate = CLLocationCoordinate2D()
     var reviews: [Review] = []
     //    var photos: [UIImage]
     
@@ -81,8 +77,6 @@ class Dogrun: NSObject, Location {
         self.location = citydata["Address"] as! String
         self.dogRunType = citydata["DogRuns_Type"] as! String
         self.notes = citydata["Notes"] as! String
-        self.coordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-        
         
         if citydata["Accessible"] as! String == "Y" {
             self.isHandicap = true

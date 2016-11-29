@@ -52,7 +52,7 @@ class FirebaseData {
         }
     }
     
-    // MARK: Reviews Data Branch
+    // MARK: Adds Reviews to Data Branch
     
     static func addReview(comment: String, locationID: String) {
         let ref = FIRDatabase.database().reference().root
@@ -61,14 +61,13 @@ class FirebaseData {
         
         guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
         
-
         
         if locationID.hasPrefix("PG") {
-        
+            
             ref.child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userKey, "locationID": locationID]])
             
             ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userKey]])
-            
+           
             ref.child("users").child("\(userKey)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
             
         } else if locationID.hasPrefix("DR") {
@@ -79,14 +78,12 @@ class FirebaseData {
             
             ref.child("users").child("\(userKey)").child("reviews").updateChildValues([uniqueReviewKey: ["comment": comment]])
         }
-        
-        
     }
     
     // MARK: Generates Locations on the app FROM Firebase data source
     
     static func getAllPlaygrounds(with completion: @escaping ([Playground]) -> Void ) {
-        var newArray: [Playground] = []
+        var playgroundArray: [Playground] = []
         
         let ref = FIRDatabase.database().reference().child("locations").child("playgrounds")
         
@@ -99,19 +96,91 @@ class FirebaseData {
                 let ID = newPlayground.key
                 let value = newPlayground.value as! [String:Any]
                 
-                guard let name = value["name"] as? String else { return }
+                guard let locationName = value["name"] as? String else { return }
                 guard let location = value["location"] as? String else { return }
                 guard let isHandicap = value["isHandicap"] as? String else { return }
                 guard let latitude = value["latitude"] as? Double else { return }
                 guard let longitude = value["longitude"] as? Double else { return }
                 
-                let newestPlayground = Playground(ID: ID, name: name, location: location, handicap: isHandicap, latitude: latitude, longitude: longitude)
+                var reviewsArray = [Review]()
                 
-                newArray.append((newestPlayground))
+                if let reviewDict = value["reviews"] as? [String:Any] {
+                    
+                    
+                    for review in reviewDict {
+                        let value = review.value as! [String:Any]
+                        
+                        guard let comment = value["comment"] as? String else { return }
+                        
+                        let newReview = Review(name: locationName, comment: comment)
+                        
+                        reviewsArray.append(newReview)
+                    }
+                }
+                
+                let newestPlayground = Playground(ID: ID, name: locationName, location: location, handicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray)
+                
+                playgroundArray.append((newestPlayground))
+                
             }
-            completion(newArray)
+            completion(playgroundArray)
         })
     }
+    // the function below may be entirely useless
+    static func getSinglePlaygroundInfo(playground: Playground, completion: @escaping (Playground) -> Void ) {
+        
+        let playgroundID = playground.playgroundID
+        
+        let ref = FIRDatabase.database().reference().child("locations").child("playgrounds").child(playgroundID)
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let playgroundDict = snapshot.value as? [String : Any] else { return }
+            
+            guard let locationName = playgroundDict["name"] as? String else { return }
+            guard let location = playgroundDict["location"] as? String else { return }
+            guard let isHandicap = playgroundDict["isHandicap"] as? String else { return }
+            guard let latitude = playgroundDict["latitude"] as? String else { return }
+            guard let longitude = playgroundDict["longitude"] as? String else { return }
+            
+            var reviewsArray = [Review]()
+            
+            if let reviewDict = playgroundDict["reviews"] as? [String:Any] {
+                
+                
+                for review in reviewDict {
+                    let value = review.value as! [String:Any]
+                    
+                    guard let comment = value["comment"] as? String else { return }
+                    
+                    let newReview = Review(name: locationName, comment: comment)
+                    
+                    reviewsArray.append(newReview)
+                }
+            
+            }
+            let updatedPlayground = Playground(ID: playgroundID, name: locationName, location: location, handicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray)
+            print("REVIEWS ARRAY = \(reviewsArray)")
+            completion(updatedPlayground)
+            
+        })
+    }
+    
+    // MARK: Get coordinates from Firebase
+    
+    static func getPlaygroundsLocationCoordinates(for locationID: String, completion: @escaping (_ longitude: String, _ latitude: String) -> Void) {
+        
+        let ref = FIRDatabase.database().reference().child("locations").child("playgrounds").child(locationID)
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let locationSnap = snapshot.value as? [String: Any] else {return}
+            guard let longitude = locationSnap["longitude"] as? String else {return}
+            guard let latitude = locationSnap["latitude"] as? String else {return}
+            
+            completion(longitude, latitude)
+        })
+        
+    }
+    
     
     // MARK: Adding local JSON files to Firebase
     
@@ -119,7 +188,7 @@ class FirebaseData {
         
         let ref = FIRDatabase.database().reference().root
         
-        let uniqueLocationKey = "PG+\(playgroundID)"
+        let uniqueLocationKey = playgroundID
         
         var isHandicapString = "No"
         
@@ -134,7 +203,7 @@ class FirebaseData {
         
         let ref = FIRDatabase.database().reference().root
         
-        let uniqueLocationKey = "DR+\(dogRunID)"
+        let uniqueLocationKey = dogRunID
         
         var isHandicapString = "No"
         
@@ -145,24 +214,6 @@ class FirebaseData {
         ref.child("locations").child("dogruns").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "dogRunType": dogRunType, "notes": notes]])
     }
     
-    // MARK: Location Services
-    
-    static func getPlaygroundsLocationCoordinates(for locationID: String, completion: @escaping (_ longitude: String, _ latitude: String) -> Void) {
-        
-        let ref = FIRDatabase.database().reference().child("locations").child("playgrounds").child(locationID)
-        
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let locationSnap = snapshot.value as? [String: Any] else {return}
-            
-            print("LOCATIONSNAP = \(locationSnap)")
-            
-            guard let longitude = locationSnap["longitude"] as? String else {return}
-            guard let latitude = locationSnap["latitude"] as? String else {return}
-            
-            completion(longitude, latitude)
-        })
-        
-    }
     
     
 }
