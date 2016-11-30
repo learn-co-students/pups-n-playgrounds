@@ -61,13 +61,13 @@ class LocationsDataStore {
     
     func addPlaygroundsToFirebase() {
         for playground in playgrounds {
-            FirebaseData.addPlaygroundsToFirebase(playgroundID: playground.playgroundID, name: playground.name, location: playground.location, isHandicap: playground.isHandicap, latitude: "\(playground.latitude)", longitude: "\(playground.longitude)")
+            FirebaseData.addPlaygroundsToFirebase(playgroundID: playground.playgroundID, name: playground.name, location: playground.address, isHandicap: playground.isHandicap, latitude: "\(playground.latitude)", longitude: "\(playground.longitude)")
         }
     }
     
     func addDogRunsToFirebase() {
         for dogrun in dogRuns {
-            FirebaseData.addDogrunsToFirebase(dogRunID: dogrun.dogRunID, name: dogrun.name, location: dogrun.location, isHandicap: dogrun.isHandicap, dogRunType: dogrun.dogRunType, notes: dogrun.notes)
+            FirebaseData.addDogrunsToFirebase(dogRunID: dogrun.dogRunID, name: dogrun.name, location: dogrun.address, isHandicap: dogrun.isHandicap, dogRunType: dogrun.dogRunType, notes: dogrun.notes)
         }
     }
     

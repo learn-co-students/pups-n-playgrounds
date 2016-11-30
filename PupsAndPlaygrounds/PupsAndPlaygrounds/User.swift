@@ -12,14 +12,21 @@ import UIKit
 class User {
     let uniqueID: String
     var firstName: String
-    var lastName: String
+    var lastName: String?
     var profilePhoto: UIImage?
     var reviews = [Review]()
     var photos = [UIImage?]()
     
-    init(citydata: [String : Any]) {
-        self.uniqueID = citydata[""] as! String
-        self.firstName = citydata[""] as! String
-        self.lastName = citydata[""] as! String
+    init(firebaseData: [String : Any]) {
+        self.uniqueID = firebaseData[""] as! String
+        self.firstName = firebaseData[""] as! String
+        self.lastName = firebaseData[""] as! String
+    }
+    
+    init(uniqueID: String, firstName: String, lastName: String?, reviews: [Review?]) {
+        self.uniqueID = uniqueID
+        self.firstName = firstName
+        self.lastName = lastName
+        self.reviews = reviews as! [Review]
     }
 }

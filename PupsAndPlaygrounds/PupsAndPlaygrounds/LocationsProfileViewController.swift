@@ -38,26 +38,26 @@ class LocationProfileViewController: UIViewController {
     
     func submitReviewAlert() {
         
-        guard let name = locationProfileView.locationNameLabel.text else { return }
-        guard let location = locationProfileView.location else { return }
-        
-        let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addTextField { (reviewTextField) in
-            reviewTextField.text = "" }
-        
-        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
-            let reviewTextField = alert.textFields![0]
-            
-            FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
-            
-            let newReview = Review(comment: reviewTextField.text!, name: location.name)
-            
-            self.playground?.reviews.append(newReview)
-            self.locationProfileView.reviewsTableView.reloadData()
-            
-        }))
-        self.present(alert, animated: true, completion: nil)
+//        guard let name = locationProfileView.locationNameLabel.text else { return }
+//        guard let location = locationProfileView.location else { return }
+//        
+//        let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
+//        
+//        alert.addTextField { (reviewTextField) in
+//            reviewTextField.text = "" }
+//        
+//        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
+//            let reviewTextField = alert.textFields![0]
+//            
+//            FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
+//            
+//            let newReview = Review(user: <#T##User#>, location: location, comment: reviewTextField.text!, photos: [])
+//            
+//            self.playground?.reviews.append(newReview)
+//            self.locationProfileView.reviewsTableView.reloadData()
+//            
+//        }))
+//        self.present(alert, animated: true, completion: nil)
     }
     
 }

@@ -67,7 +67,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         locationAddressLabel = UILabel()
         locationAddressLabel.font = UIFont.themeSmallRegular
         locationAddressLabel.textColor = UIColor.themeDarkBlue
-        locationAddressLabel.text = location.location
+        locationAddressLabel.text = location.address
         locationAddressLabel.numberOfLines = 3
         locationAddressLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
