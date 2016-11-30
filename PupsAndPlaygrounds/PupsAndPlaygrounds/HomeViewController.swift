@@ -70,7 +70,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
                 
             }
             self.mapView.map.addAnnotations(self.annotationArray)
-            
+            print("Test location annotations added.")
 
         }
         
@@ -130,9 +130,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         userAnnotation.coordinate = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         userAnnotation.title = "Current Location"
         mapView.map.addAnnotation(userAnnotation)
-        
-
-        
+    
     }
     
     
@@ -140,28 +138,25 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         print(error)
         print("Location data currently not available. Let's go to Central Park.")
         
-        let defaultLocation: CLLocation = Playground(ID: "B139", name: "Heckscher Playground", location: "Grove To Linden Sts, Central To Wilson Aves", handicap: "N", latitude: 40.6952, longitude: -73.9184, reviews: [])
+       // let defaultLocation = Playground(ID: "B139", name: "Heckscher Playground", location: "Grove To Linden Sts, Central To Wilson Aves", handicap: "N", latitude: 40.6952, longitude: -73.9184, reviews: [])
         
-        let center = CLLocationCoordinate2D(latitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude)
+        // Location model will need a coordinate property
+        //Playgrounds & dogs will need to adopt in order to display this location on map
         
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        //let center = CLLocationCoordinate2D(latitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude)
+       
+       // let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
-        mapView.map.setRegion(region, animated: true)
+       // mapView.map.setRegion(region, animated: true)
         
         //Annotation 
-        let defaultAnnotation: MKPointAnnotation = MKPointAnnotation()
-        defaultAnnotation.coordinate = CLLocationCoordinate2D(latitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude)
-        defaultAnnotation.title = "Central Park - Hecksher Playground"
-        mapView.map.addAnnotation(defaultAnnotation)
-        
-        
+       // let defaultAnnotation: MKPointAnnotation = MKPointAnnotation()
+       // defaultAnnotation.coordinate = CLLocationCoordinate2D(latitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude)
+        //defaultAnnotation.title = "Central Park - Hecksher Playground"
+       // mapView.map.addAnnotation(defaultAnnotation)
+    
     }
 
-    
-    
-    
-    
-    
     
     private func constrain() {
         view.addSubview(mapView)
