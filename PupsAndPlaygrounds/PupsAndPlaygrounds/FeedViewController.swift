@@ -27,7 +27,17 @@ class FeedViewController: UIViewController {
     feedView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
+    
+    
+//   feedView.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
+//    
   }
+    
+    
+    func flagButtonTouched() {
+        
+        print("button touched")
+    }
   
   /*
    // MARK: - Navigation
@@ -49,7 +59,21 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell", for: indexPath)
+    
+    let flagButton = UIButton()
+    flagButton.setImage(#imageLiteral(resourceName: "Flag"), for: .normal)
+
+
+
+    cell.addSubview(flagButton)
+    flagButton.snp.makeConstraints {
+        $0.top.equalTo(cell.snp.top)
+        $0.right.equalTo(cell.snp.right)
+    }
+    
     cell.textLabel?.text = "Feed Post \(indexPath.row + 1)"
+    
+    
     
     return cell
   }
