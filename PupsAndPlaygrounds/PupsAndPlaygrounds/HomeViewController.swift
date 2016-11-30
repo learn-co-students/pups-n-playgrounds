@@ -13,169 +13,171 @@ import CoreLocation
 
 
 class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+  
+  // MARK: Properties
+  
+  let mapView = MapView()
+  let listView = ListView()
+  var isMapView = true
+  var locations = [Location]()
+  var annotationArray = [MKAnnotation]()
+  var longitude = Double()
+  var latitude = Double()
+  var locationManager = CLLocationManager()
+  
+  // MARK: Override Methods
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    // MARK: Properties
+    configure()
+    constrain()
+    mapView.map.showsUserLocation = true
     
-    let mapView = MapView()
-    let listView = ListView()
-    var isMapView = true
-    var locations = [Location]()
-    var annotationArray = [MKAnnotation]()
-    var longitude = Double()
-    var latitude = Double()
-    var locationManager = CLLocationManager()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
     
-    // MARK: Override Methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        configure()
-        constrain()
-        mapView.map.showsUserLocation = true
-        
-    }
+    determineCurrentLocation()
+  }
+  
+  private func configure() {
+    navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Switch View"), style: .plain, target: self, action: #selector(switchView))
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        determineCurrentLocation()
-    }
+    listView.locationsTableView.delegate = self
+    listView.locationsTableView.dataSource = self
+    listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
+    listView.isHidden = true
     
-    private func configure() {
-        title = "Map View"
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Switch View"), style: .plain, target: self, action: #selector(switchView))
-        
-        listView.locationsTableView.delegate = self
-        listView.locationsTableView.dataSource = self
-        listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
-        listView.isHidden = true
-        
-        determineCurrentLocation()
-        
-        FirebaseData.getAllPlaygrounds { playgrounds in
-            self.locations = playgrounds
-            self.listView.locationsTableView.reloadData()
-        }     
-
-        
-        GeoFireMethods.getNearby(locations: longitude, latitude: latitude) { (coordinates) in
-            for coordinate in coordinates {
-                let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, 600, 600)
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = coordinate
-                annotation.title = "TEST"
-                self.annotationArray.append(annotation)
-                self.mapView.map.setRegion(coordinateRegion, animated: true)
-                
-            }
-            self.mapView.map.addAnnotations(self.annotationArray)
-            
-
-        }
-        
+    determineCurrentLocation()
+    
+    FirebaseData.getAllPlaygrounds { playgrounds in
+      self.locations = playgrounds
+      self.listView.locationsTableView.reloadData()
     }
     
     
-    private func determineCurrentLocation(){
+    GeoFireMethods.getNearby(locations: longitude, latitude: latitude) { (coordinates) in
+      for coordinate in coordinates {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, 600, 600)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = "TEST"
+        self.annotationArray.append(annotation)
+        self.mapView.map.setRegion(coordinateRegion, animated: true)
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingHeading()
-            locationManager.startUpdatingLocation()
-        } else {
-            
-        }
-        
-        if let unwrappedlatitude = locationManager.location?.coordinate.latitude, let unwrappedLongitude = locationManager.location?.coordinate.longitude{
-            self.latitude = unwrappedlatitude
-            self.longitude = unwrappedLongitude
-            print("LAT: \(self.latitude)")
-            print("Long: \(self.longitude)")
-            
-        }
+      }
+      self.mapView.map.addAnnotations(self.annotationArray)
+      
+      
     }
     
+  }
+  
+  
+  private func determineCurrentLocation(){
     
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    locationManager.requestWhenInUseAuthorization()
+    locationManager.requestLocation()
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        let userLocation: CLLocation = locations[0] as CLLocation
-        
-       //to stop listening for location updates, call stopUpdatingLocation()
-        manager.stopUpdatingLocation()
-        manager.delegate = nil
-        print("manager.stopUpdatingLocation called.")
-        
-        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        
-        mapView.map.setRegion(region, animated: true)
-       
-        //Annotation 
-        let userAnnotation: MKPointAnnotation = MKPointAnnotation()
-        userAnnotation.coordinate = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-        userAnnotation.title = "Current Location"
-        mapView.map.addAnnotation(userAnnotation)
-        
-
-        
+    if CLLocationManager.locationServicesEnabled() {
+      locationManager.startUpdatingHeading()
+      locationManager.startUpdatingLocation()
+    } else {
+      
     }
     
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+    if let unwrappedlatitude = locationManager.location?.coordinate.latitude, let unwrappedLongitude = locationManager.location?.coordinate.longitude{
+      self.latitude = unwrappedlatitude
+      self.longitude = unwrappedLongitude
+      print("LAT: \(self.latitude)")
+      print("Long: \(self.longitude)")
+      
     }
-
+  }
+  
+  
+  
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    
+    let userLocation: CLLocation = locations[0] as CLLocation
+    
+    //to stop listening for location updates, call stopUpdatingLocation()
+    manager.stopUpdatingLocation()
+    manager.delegate = nil
+    print("manager.stopUpdatingLocation called.")
+    
+    let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+    let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+    
+    mapView.map.setRegion(region, animated: true)
+    
+    //Annotation
+    let userAnnotation: MKPointAnnotation = MKPointAnnotation()
+    userAnnotation.coordinate = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+    userAnnotation.title = "Current Location"
+    mapView.map.addAnnotation(userAnnotation)
     
     
     
-    
-    
-    
-    private func constrain() {
-        view.addSubview(mapView)
-        mapView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        view.addSubview(listView)
-        listView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
+  }
+  
+  
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    print(error)
+  }
+  
+  
+  
+  
+  
+  
+  
+  private func constrain() {
+    view.addSubview(mapView)
+    mapView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
     }
     
-    func switchView() {
-        title = isMapView ? "List View" : "Map View"
-        
-        mapView.isHidden = !mapView.isHidden
-        listView.isHidden = !listView.isHidden
-        
-        isMapView = !isMapView
+    view.addSubview(listView)
+    listView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
     }
+  }
+  
+  func switchView() {
+    if isMapView {
+      
+    } else {
+      
+    }
+    
+    mapView.isHidden = !mapView.isHidden
+    listView.isHidden = !listView.isHidden
+    
+    isMapView = !isMapView
+  }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locations.count
-    }
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return locations.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath)
+    cell.textLabel?.text = locations[indexPath.row].name
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath)
-        cell.textLabel?.text = locations[indexPath.row].name
-        
-        return cell
-    }
+    return cell
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let locationProfileVC = LocationProfileViewController()
+    guard let playground = locations[indexPath.row] as? Playground else { print("error downcasting to playground"); return }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let locationProfileVC = LocationProfileViewController()
-        guard let playground = locations[indexPath.row] as? Playground else { print("error downcasting to playground"); return }
-        
-        locationProfileVC.playground = playground
-        navigationController?.pushViewController(locationProfileVC, animated: true)
-    }
+    locationProfileVC.playground = playground
+    navigationController?.pushViewController(locationProfileVC, animated: true)
+  }
 }
