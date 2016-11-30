@@ -80,15 +80,20 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     private func determineCurrentLocation(){
         
         locationManager.delegate = self
+        locationManager.distanceFilter = 200.0
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingHeading()
-            locationManager.startUpdatingLocation()
-        } else {
-            
+            switch(CLLocationManager.authorizationStatus()) {
+            case .notDetermined, .restricted, .denied:
+                print("Sorry, we don't have access to your location right now.")
+            case .authorizedAlways, .authorizedWhenInUse:
+                print("Location access granted.")
+                locationManager.startUpdatingHeading()
+                locationManager.startUpdatingLocation()
+            }
         }
         
         if let unwrappedlatitude = locationManager.location?.coordinate.latitude, let unwrappedLongitude = locationManager.location?.coordinate.longitude{
@@ -105,7 +110,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let userLocation: CLLocation = locations[0] as CLLocation
-        
+      
        //to stop listening for location updates, call stopUpdatingLocation()
         manager.stopUpdatingLocation()
         manager.delegate = nil
