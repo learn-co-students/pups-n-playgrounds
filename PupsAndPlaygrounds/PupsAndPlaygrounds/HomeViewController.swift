@@ -23,7 +23,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     var annotationArray = [MKAnnotation]()
     var longitude = Double()
     var latitude = Double()
-    let locationManager = CLLocationManager()
+    var locationManager = CLLocationManager()
     
     // MARK: Override Methods
     override func viewDidLoad() {
@@ -71,12 +71,11 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             }
             self.mapView.map.addAnnotations(self.annotationArray)
             
-            
+
         }
         
     }
     
-
     
     private func determineCurrentLocation(){
         
@@ -88,6 +87,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingHeading()
             locationManager.startUpdatingLocation()
+        } else {
+            
         }
         
         if let unwrappedlatitude = locationManager.location?.coordinate.latitude, let unwrappedLongitude = locationManager.location?.coordinate.longitude{
@@ -106,7 +107,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         let userLocation: CLLocation = locations[0] as CLLocation
         
        //to stop listening for location updates, call stopUpdatingLocation()
-        //manager.stopUpdatingLocation
+        manager.stopUpdatingLocation()
+        manager.delegate = nil
+        print("manager.stopUpdatingLocation called.")
         
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
@@ -119,9 +122,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         userAnnotation.title = "Current Location"
         mapView.map.addAnnotation(userAnnotation)
         
-        manager.stopUpdatingLocation()
-        
-        
+
         
     }
     
