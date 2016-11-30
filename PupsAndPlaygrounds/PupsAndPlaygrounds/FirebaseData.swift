@@ -149,7 +149,7 @@ class FirebaseData {
                         
                         guard let comment = value["comment"] as? String else { return }
                         
-                        let newReview = Review(name: locationName, comment: comment)
+                        let newReview = Review(comment: comment, name: locationName)
                         
                         reviewsArray.append(newReview)
                     }
@@ -222,6 +222,7 @@ class FirebaseData {
         if isHandicap == true {
             isHandicapString = "Yes"
         }
+        
         
         ref.child("locations").child("dogruns").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "dogRunType": dogRunType, "notes": notes]])
     }
