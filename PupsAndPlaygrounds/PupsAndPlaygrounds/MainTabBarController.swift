@@ -34,7 +34,6 @@ class MainTabBarController: UITabBarController {
     profileNC.tabBarItem = UITabBarItem(title: "Profile", image: #imageLiteral(resourceName: "Profile Tab Bar"), selectedImage: nil)
     
     viewControllers = [homeNC, feedNC, profileNC]
-    tabBar.isTranslucent = false
     tabBar.tintColor = UIColor.themeRed
   }
 }

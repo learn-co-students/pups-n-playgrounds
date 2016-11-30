@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 
 
-class HomeViewController: UIViewController, CLLocationManagerDelegate {
+class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     // MARK: Properties
     
@@ -23,7 +23,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     var annotationArray = [MKAnnotation]()
     var longitude = Double()
     var latitude = Double()
-    let locationManager = CLLocationManager()
+    var locationManager = CLLocationManager()
     
     // MARK: Override Methods
     override func viewDidLoad() {
@@ -31,6 +31,14 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         
         configure()
         constrain()
+        mapView.map.showsUserLocation = true
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        determineCurrentLocation()
     }
     
     private func configure() {
@@ -43,7 +51,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
         listView.isHidden = true
         
-        setupLocationManager()
+        determineCurrentLocation()
         
         FirebaseData.getAllPlaygrounds { playgrounds in
             self.locations = playgrounds
@@ -63,18 +71,25 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             }
             self.mapView.map.addAnnotations(self.annotationArray)
             
-            
+
         }
         
     }
     
     
-    private func setupLocationManager(){
+    private func determineCurrentLocation(){
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingHeading()
+            locationManager.startUpdatingLocation()
+        } else {
+            
+        }
         
         if let unwrappedlatitude = locationManager.location?.coordinate.latitude, let unwrappedLongitude = locationManager.location?.coordinate.longitude{
             self.latitude = unwrappedlatitude
@@ -84,12 +99,41 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             
         }
     }
+    
+    
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let userLocation: CLLocation = locations[0] as CLLocation
+        
+       //to stop listening for location updates, call stopUpdatingLocation()
+        manager.stopUpdatingLocation()
+        manager.delegate = nil
+        print("manager.stopUpdatingLocation called.")
+        
+        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        
+        mapView.map.setRegion(region, animated: true)
+       
+        //Annotation 
+        let userAnnotation: MKPointAnnotation = MKPointAnnotation()
+        userAnnotation.coordinate = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        userAnnotation.title = "Current Location"
+        mapView.map.addAnnotation(userAnnotation)
+        
+
+        
     }
+    
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
 
+    
+    
+    
     
     
     

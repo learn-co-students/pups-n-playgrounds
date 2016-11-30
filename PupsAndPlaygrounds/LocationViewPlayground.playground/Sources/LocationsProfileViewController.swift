@@ -9,11 +9,11 @@
 import UIKit
 
 
-class LocationProfileViewController: UIViewController {
+public class LocationProfileViewController: UIViewController {
     var playground: Playground?
     var locationProfileView: LocationProfileView!
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Location"
@@ -31,47 +31,47 @@ class LocationProfileViewController: UIViewController {
         locationProfileView.submitReviewButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
     }
     
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     func submitReviewAlert() {
-        
-        guard let name = locationProfileView.locationNameLabel.text else { return }
-        guard let location = locationProfileView.location else { return }
-        
-        let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addTextField { (reviewTextField) in
-            reviewTextField.text = "" }
-        
-        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
-            let reviewTextField = alert.textFields![0]
-            
-            FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
-            
-            let newReview = Review(comment: reviewTextField.text!, name: location.name)
-            
-            self.playground?.reviews.append(newReview)
-            self.locationProfileView.reviewsTableView.reloadData()
-            
-        }))
-        self.present(alert, animated: true, completion: nil)
+//        
+//        guard let name = locationProfileView.locationNameLabel.text else { return }
+//        guard let location = locationProfileView.location else { return }
+//        
+//        let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
+//        
+//        alert.addTextField { (reviewTextField) in
+//            reviewTextField.text = "" }
+//        
+//        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
+//            let reviewTextField = alert.textFields![0]
+//            
+//            FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
+//            
+//            let newReview = Review(name: location.name, comment: reviewTextField.text!)
+//            
+//            self.playground?.reviews.append(newReview)
+//            self.locationProfileView.reviewsTableView.reloadData()
+//            
+//        }))
+//        self.present(alert, animated: true, completion: nil)
     }
     
 }
 
 extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let reviews = playground?.reviews {
             return reviews.count
         }
         return 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reviewsCell")!
         
         if let review = playground?.reviews[indexPath.row] {

@@ -8,9 +8,9 @@
 
 import UIKit
 import SnapKit
-import GoogleMaps
+//import GoogleMaps
 
-class LocationProfileView: UIView, GMSMapViewDelegate {
+class LocationProfileView: UIView /* , GMSMapViewDelegate */ {
     
     var location: Playground!
     var locationProfileImage: UIImageView!
@@ -20,7 +20,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     var reviewsView: UIView!
     var reviewsTableView: UITableView!
     var streetView: UIView!
-    var panoView: GMSPanoramaView!
+//    var panoView: GMSPanoramaView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,9 +52,10 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         locationProfileImage.clipsToBounds = true
         
         streetView = UIView()
-        panoView = GMSPanoramaView()
-        panoView.moveNearCoordinate(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
-        panoView.layer.cornerRadius = 5
+//        panoView = GMSPanoramaView()
+//        panoView.moveNearCoordinate(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
+        streetView.layer.cornerRadius = 5
+        streetView.backgroundColor = UIColor.blue
         
         locationNameLabel = UILabel()
         locationNameLabel.font = UIFont.themeMediumBold
@@ -128,10 +129,10 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
             $0.trailing.equalToSuperview().offset(-10)
         }
         
-        streetView.addSubview(panoView)
-        panoView.snp.makeConstraints {
-          $0.edges.equalTo(UIEdgeInsetsMake(20, 10, 10, 10))
-        }
+//        streetView.addSubview(panoView)
+//        panoView.snp.makeConstraints {
+//          $0.edges.equalTo(UIEdgeInsetsMake(20, 10, 10, 10))
+//        }
 
         
         addSubview(reviewsView)
