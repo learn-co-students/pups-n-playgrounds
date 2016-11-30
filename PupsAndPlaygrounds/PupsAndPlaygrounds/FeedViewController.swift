@@ -21,7 +21,7 @@ class FeedViewController: UIViewController {
     
     feedView.feedTableView.delegate = self
     feedView.feedTableView.dataSource = self
-    feedView.feedTableView.register(UITableViewCell.self, forCellReuseIdentifier: "feedCell")
+    feedView.feedTableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
     
     view.addSubview(feedView)
     feedView.snp.makeConstraints {
@@ -29,8 +29,6 @@ class FeedViewController: UIViewController {
     }
     
     
-//   feedView.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
-//    
   }
     
     
@@ -58,23 +56,13 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell", for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell", for: indexPath) as! FeedTableViewCell
     
-    let flagButton = UIButton()
-    flagButton.setImage(#imageLiteral(resourceName: "Flag"), for: .normal)
+    cell.titleLabel.text = "Feed Post \(indexPath.row + 1)"
+    
+    cell.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
 
 
-
-    cell.addSubview(flagButton)
-    flagButton.snp.makeConstraints {
-        $0.top.equalTo(cell.snp.top)
-        $0.right.equalTo(cell.snp.right)
-    }
-    
-    cell.textLabel?.text = "Feed Post \(indexPath.row + 1)"
-    
-    
-    
     return cell
   }
 }
