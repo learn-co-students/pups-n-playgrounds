@@ -43,7 +43,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
         listView.isHidden = true
         
-        setupLocationManager()
+        determineCurrentLocation()
         
         FirebaseData.getAllPlaygrounds { playgrounds in
             self.locations = playgrounds
@@ -68,13 +68,19 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
+
     
-    private func setupLocationManager(){
+    private func determineCurrentLocation(){
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingHeading()
+            locationManager.startUpdatingLocation()
+        }
         
         if let unwrappedlatitude = locationManager.location?.coordinate.latitude, let unwrappedLongitude = locationManager.location?.coordinate.longitude{
             self.latitude = unwrappedlatitude
@@ -84,12 +90,32 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             
         }
     }
+    
+    
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let userLocation: CLLocation = locations[0] as CLLocation
+        
+       //to stop listening for location updates, call stopUpdatingLocation()
+        //manager.stopUpdatingLocation
+        
+        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        
+        //mapView.setRegion(region, animated: true)
+        
+        
     }
+    
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
 
+    
+    
+    
     
     
     
