@@ -103,7 +103,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
-        //mapView.setRegion(region, animated: true)
+        mapView.map.setRegion(region, animated: true)
+        
+        //Annotation 
+        let userAnnotation: MKPointAnnotation = MKPointAnnotation()
+        userAnnotation.coordinate = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        userAnnotation.title = "Current Location"
+        mapView.map.addAnnotation(userAnnotation)
         
         
     }
