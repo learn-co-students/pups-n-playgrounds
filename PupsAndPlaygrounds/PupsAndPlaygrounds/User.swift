@@ -7,19 +7,19 @@
 //
 
 import Foundation
+import UIKit
 
 class User {
-    
-    var userName: String
     let uniqueID: String
-    //    var profilePhoto: UIImage
-    //    var reviews: [Reviews] = []
-    //    var photoGallery
+    var firstName: String
+    var lastName: String
+    var profilePhoto: UIImage?
+    var reviews = [Review]()
+    var photos = [UIImage?]()
     
-    init(profileData userName: String, uniqueID: String) {
-        self.userName = userName
-        self.uniqueID = uniqueID
+    init(citydata: [String : Any]) {
+        self.uniqueID = citydata[""] as! String
+        self.firstName = citydata[""] as! String
+        self.lastName = citydata[""] as! String
     }
-    
-    
 }
