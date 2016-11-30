@@ -13,6 +13,8 @@ class FeedView: UIView {
   
   // MARK: Properties
   let feedTableView = UITableView()
+//    var flagButton: UIButton!
+    
   
   // MARK: Initialization
   required init?(coder aDecoder: NSCoder) {
@@ -33,6 +35,18 @@ class FeedView: UIView {
   // MARK: View Configuration
   func configure() {
     feedTableView.rowHeight = 80
+    
+    
+//    flagButton = UIButton()
+//    flagButton.contentEdgeInsets = UIEdgeInsetsMake(11, 16, 11, 16)
+//    flagButton.setTitle("Flag Review", for: .normal)
+//    flagButton.titleLabel?.font = UIFont.themeSmallBold
+//    flagButton.setTitleColor(UIColor.themeRed, for: .normal)
+//    flagButton.layer.cornerRadius = 20
+//    flagButton.layer.borderWidth = 2
+//    flagButton.layer.borderColor = UIColor.themeWhite.cgColor
+//
+    
   }
   
   // MARK: View Constraints
