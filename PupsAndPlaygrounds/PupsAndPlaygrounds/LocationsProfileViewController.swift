@@ -51,7 +51,7 @@ class LocationProfileViewController: UIViewController {
             
             FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
             
-            let newReview = Review(name: location.name, comment: reviewTextField.text!)
+            let newReview = Review(comment: reviewTextField.text!, name: location.name)
             
             self.playground?.reviews.append(newReview)
             self.locationProfileView.reviewsTableView.reloadData()

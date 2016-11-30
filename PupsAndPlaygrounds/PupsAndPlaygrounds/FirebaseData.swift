@@ -149,7 +149,7 @@ class FirebaseData {
                         
                         guard let comment = value["comment"] as? String else { return }
                         
-                        let newReview = Review(name: locationName, comment: comment)
+                        let newReview = Review(comment: comment, name: locationName)
                         
                         reviewsArray.append(newReview)
                     }
