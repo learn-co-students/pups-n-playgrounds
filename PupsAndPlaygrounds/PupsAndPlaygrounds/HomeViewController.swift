@@ -89,6 +89,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             switch(CLLocationManager.authorizationStatus()) {
             case .notDetermined, .restricted, .denied:
                 print("Sorry, we don't have access to your location right now.")
+               
+                // if location is not available, locationManager(_:didFailWithError) called
+                
+                
             case .authorizedAlways, .authorizedWhenInUse:
                 print("Location access granted.")
                 locationManager.startUpdatingHeading()
@@ -134,6 +138,23 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+        print("Location data currently not available. Let's go to Central Park.")
+        
+        let defaultLocation: CLLocation = Playground(ID: "B139", name: "Heckscher Playground", location: "Grove To Linden Sts, Central To Wilson Aves", handicap: "N", latitude: 40.6952, longitude: -73.9184, reviews: [])
+        
+        let center = CLLocationCoordinate2D(latitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude)
+        
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        
+        mapView.map.setRegion(region, animated: true)
+        
+        //Annotation 
+        let defaultAnnotation: MKPointAnnotation = MKPointAnnotation()
+        defaultAnnotation.coordinate = CLLocationCoordinate2D(latitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude)
+        defaultAnnotation.title = "Central Park - Hecksher Playground"
+        mapView.map.addAnnotation(defaultAnnotation)
+        
+        
     }
 
     
