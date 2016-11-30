@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 
 
-class HomeViewController: UIViewController, CLLocationManagerDelegate {
+class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     // MARK: Properties
     
@@ -31,6 +31,14 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         
         configure()
         constrain()
+        mapView.map.showsUserLocation = true
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        determineCurrentLocation()
     }
     
     private func configure() {
@@ -104,12 +112,15 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
         mapView.map.setRegion(region, animated: true)
-        
+       
         //Annotation 
         let userAnnotation: MKPointAnnotation = MKPointAnnotation()
         userAnnotation.coordinate = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         userAnnotation.title = "Current Location"
         mapView.map.addAnnotation(userAnnotation)
+        
+        manager.stopUpdatingLocation()
+        
         
         
     }
