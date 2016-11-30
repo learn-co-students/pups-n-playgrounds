@@ -100,16 +100,23 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         locationNameLabel.snp.makeConstraints {
             $0.leading.equalTo(locationProfileImage.snp.trailing).offset(5)
             $0.trailing.equalToSuperview()
-            $0.top.equalToSuperview().offset(15)
-            $0.height.equalToSuperview().dividedBy(10)
+            $0.topMargin.equalToSuperview().offset(10)
+            $0.bottom.equalTo(locationProfileImage).dividedBy(2)
         }
         
         addSubview(locationAddressLabel)
         locationAddressLabel.snp.makeConstraints {
             $0.leading.equalTo(locationProfileImage.snp.trailing).offset(5)
             $0.trailing.equalToSuperview()
-            $0.top.equalTo(locationNameLabel.snp.bottom).offset(10)
+            $0.top.equalTo(locationNameLabel.snp.bottom)
             $0.height.equalToSuperview().dividedBy(10)
+        }
+        
+        addSubview(submitButton)
+        submitButton.snp.makeConstraints {
+            $0.leading.equalTo(locationProfileImage.snp.trailing).offset(5)
+            $0.trailing.equalToSuperview()
+            $0.bottom.equalTo(locationProfileImage.snp.bottom)
         }
         
         addSubview(streetView)
@@ -124,17 +131,12 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         panoView.snp.makeConstraints {
           $0.edges.equalTo(UIEdgeInsetsMake(20, 20, 20, 20))
         }
-        
-        addSubview(submitButton)
-        submitButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(streetView.snp.bottom).offset(5)
-        }
+
         
         addSubview(reviewsView)
         reviewsView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(submitButton.snp.bottom).offset(5)
+            $0.top.equalTo(streetView.snp.bottom).offset(5)
         }
         
         reviewsView.addSubview(reviewsTableView)

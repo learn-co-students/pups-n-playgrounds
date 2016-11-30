@@ -223,6 +223,7 @@ class FirebaseData {
             isHandicapString = "Yes"
         }
         
+        
         ref.child("locations").child("dogruns").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "dogRunType": dogRunType, "notes": notes]])
     }
     
