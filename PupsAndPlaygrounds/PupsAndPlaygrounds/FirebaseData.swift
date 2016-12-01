@@ -51,7 +51,52 @@ class FirebaseData {
             
         }
     }
-    //////////////////////////////////////////////////////////////////
+    
+    // MARK: Get single user/review/location with uniqueID
+    
+    static func returnUser(userID: String) -> User? {
+        let ref = FIRDatabase.database().reference().root
+        
+        let userKey = ref.child("users").child(userID)
+        var newUser: User?
+        
+        userKey.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let userDict = snapshot.value as? [String : Any] else { return }
+            guard let firstName = userDict["firstName"] as? String else { return }
+            guard let lastName = userDict["lastName"] as? String else { return }
+            guard let userReviews = userDict["reviews"] as? [String:Any] else { return }
+            
+            var reviewsArray = [Review]()
+            
+            newUser = User(uniqueID: "\(userKey)", firstName: firstName, lastName: lastName, reviews: reviewsArray)
+
+        })
+        return newUser
+    }
+    
+    static func returnLocation(locationID: String) -> Location? {
+        let ref = FIRDatabase.database().reference().root
+        
+        let locationKey = ref.child("locations").child(locationID)
+        var newLocation: Location?
+        
+        locationKey.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let locationDict = snapshot.value as? [String : Any] else { return }
+            guard let name = locationDict["name"] as? String else { return }
+            guard let address = locationDict["address"] as? String else { return }
+            guard let latitude = locationDict["latitude"] as? Double else { return }
+            guard let longitude = locationDict["longitude"] as? Double else { return }
+            guard let isHandicap = locationDict["isHandicap"] as? String else { return }
+            guard let reviewsDict = locationDict["reviews"] as? [String:Any] else { return }
+            
+            var reviewsArray = [Review]()
+        
+            newLocation = Playground(ID: "\(locationKey)", name: name, address: address, handicap: isHandicap, latitude: latitude, longitude: longitude, reviews: reviewsArray)
+        })
+        
+        return newLocation
+    }
+    
     
     static func getUser(with userID: String, completion: @escaping (User) -> ()) {
         let ref = FIRDatabase.database().reference().root
@@ -67,11 +112,9 @@ class FirebaseData {
             var reviewsArray = [Review]()
             
             for review in userReviews {
-                
-                var newReview: Review
-                
+                                
                 getReview(with: review.key, completion: { (reviewComp) in
-                    newReview = reviewComp
+                    let newReview = reviewComp
                     reviewsArray.append(newReview)
                 })
                 
@@ -80,6 +123,8 @@ class FirebaseData {
             completion(User(uniqueID: "\(userKey)", firstName: firstName, lastName: lastName, reviews: reviewsArray))
         })
     }
+    
+
     
     
     static func getReview(with reviewID: String, completion: @escaping (Review) -> ()) {
@@ -214,10 +259,9 @@ class FirebaseData {
                     
                     for review in playgroundReviews {
                         
-                        var newReview: Review
                         
                         getReview(with: review.key, completion: { (reviewComp) in
-                            newReview = reviewComp
+                            let newReview = reviewComp
                             reviewsArray.append(newReview)
                         })
                         

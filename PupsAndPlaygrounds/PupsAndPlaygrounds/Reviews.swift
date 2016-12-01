@@ -9,29 +9,38 @@
 import Foundation
 import UIKit
 
+
 class Review {
-    let user: User
-    let location: Location
+    var user: User?
+    var location: Location?
     let comment: String
+    var photos = [UIImage?]()
     // let rating: Int
-    let photos: [UIImage?]
-    
+
     init(firebaseData: [String : Any]) {
-        self.comment = firebaseData[""] as! String
+        self.comment = firebaseData["comment"] as! String
         
         let userID = firebaseData["userID"] as! String
-        FirebaseData.getUser(with: userID, completion: { (user) in
-            self.user = user
-        })
-        
         let locationID = firebaseData["locationID"] as! String
-        FirebaseData.getLocation(with: locationID) { (location) in
-            self.location = location
-        }
+
+        let returnUser: User? = FirebaseData.returnUser(userID: userID)
+        guard let unwrappedUser = returnUser else { return }
+        self.user = returnUser
+        
+        let returnLocation: Location? = FirebaseData.returnLocation(locationID: locationID)
+        guard let unwrappedLocation = returnLocation else { return }
+        self.location = returnLocation
+        
+        self.photos = []
     }
     
     init(user: User, location: Location, comment: String, photos: [UIImage?]) {
-        
+        self.user = user
+        self.location = location
+        self.comment = comment
+        self.photos = photos
     }
+    
 }
+
 

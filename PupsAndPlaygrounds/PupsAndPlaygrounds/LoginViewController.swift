@@ -26,7 +26,7 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             print("REVIEW = \(review)")
             print("REVIEW COMMENT = \(review.comment)")
             print("REVIEW LOCATION = \(review.location)")
-            print("REVIEW USER = \(review.user.firstName)")
+            print("REVIEW USER = \(review.user?.firstName)")
             print("REVIEW PHOTOS = \(review.photos)")
 
         }
