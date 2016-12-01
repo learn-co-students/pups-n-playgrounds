@@ -14,6 +14,7 @@ protocol Location: class {
     var name: String { get }
     var address: String { get }
     var isHandicap: Bool { get }
+    var isFlagged: Bool { get }
     var reviews: [Review?] { get }
      var photos: [UIImage?] { get }
 }

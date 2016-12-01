@@ -55,27 +55,6 @@ class FirebaseData {
     
     // MARK: Get single user/review/location with uniqueID
     
-    static func returnUser(userID: String) -> User? {
-        
-        print("RETURN USER FUNCTION CALLED")
-        let ref = FIRDatabase.database().reference().root
-        
-        let userKey = ref.child("users").child(userID)
-        var newUser: User?
-        
-        userKey.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let userDict = snapshot.value as? [String : Any] else { return print("ERROR #1") }
-            guard let firstName = userDict["firstName"] as? String else { return print("ERROR #2") }
-            guard let lastName = userDict["lastName"] as? String else { return print("ERROR #3") }
-            guard let userReviews = userDict["reviews"] as? [String:Any] else { return print("ERROR #4") }
-            
-            var reviewsArray = [Review]()
-            
-            newUser = User(uniqueID: "\(userKey)", firstName: firstName, lastName: lastName, reviews: reviewsArray)
-            print("NEW USER = \(newUser)")
-        })
-        return newUser
-    }
     
     static func getUser(with userID: String, completion: @escaping (User?) -> ()) {
         let ref = FIRDatabase.database().reference().root
@@ -204,24 +183,53 @@ class FirebaseData {
         
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
         
+        
         if locationID.hasPrefix("PG") {
             
             ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
             
-            ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID]])
-            
-            ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
-            
         } else if locationID.hasPrefix("DR") {
             
             ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
-            
-            ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID]])
-            
-            ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
         }
         
+        ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
+        
+        ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": false]])
+            
+
+        
+        
     }
+    
+    // MARK Flag review or location
+    
+    
+    static func flagReviewWith(unique reviewID: String, locationID: String, comment: String, userID: String, completion: () -> Void) {
+        let rootRef = FIRDatabase.database().reference().root
+        
+        let reviewRef = rootRef.child("reviews")
+        
+        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        if locationID.hasPrefix("PG") {
+            
+            rootRef.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([reviewID: ["flagged": true]])
+            
+        } else if locationID.hasPrefix("DR") {
+            
+            rootRef.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([reviewID: ["flagged": true]])
+        }
+        
+        rootRef.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([reviewID: ["flagged": true]])
+
+        
+        reviewRef.child("flagged").updateChildValues([reviewID: ["comment": comment, "userID": userID, "locationID": locationID, "flagged": true]])
+        
+        reviewRef.child("visible").child(reviewID).removeValue()
+        completion()
+    }
+    
     
     // MARK: Generates Locations on the app FROM Firebase data source
     
