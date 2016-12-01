@@ -123,7 +123,7 @@ class FirebaseData {
         var playgroundArray: [Playground] = []
         
         let ref = FIRDatabase.database().reference().child("locations").child("playgrounds")
-        
+        print("RUNNING GET ALL PLAYGROUNDS")
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let playgroundDict = snapshot.value as? [String : Any] else { return }
@@ -140,24 +140,22 @@ class FirebaseData {
                 guard let longitude = value["longitude"] as? String else { return }
                 
                 var reviewsArray = [Review]()
-                
-                if let reviewDict = value["reviews"] as? [String:Any] {
-                    
-                    
-                    for review in reviewDict {
-                        let value = review.value as! [String:Any]
-                        
-                        guard let comment = value["comment"] as? String else { return }
-                        
-                        let newReview = Review(comment: comment, name: locationName)
-                        
-                        reviewsArray.append(newReview)
-                    }
-                }
+//                
+//                if let reviewDict = value["reviews"] as? [String:Any] {
+//                
+//                    for review in reviewDict {
+//                        let value = review.value as! [String:Any]
+//                        
+//                        guard let comment = value["comment"] as? String else { return }
+//                        
+//                        let newReview = Review(comment: comment, name: locationName)
+//                        
+//                        reviewsArray.append(newReview)
+//                    }
+//                }
                 
                 let newestPlayground = Playground(ID: ID, name: locationName, location: location, handicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray)
-                
-                playgroundArray.append((newestPlayground))
+                playgroundArray.append(newestPlayground)
                 
             }
             completion(playgroundArray)

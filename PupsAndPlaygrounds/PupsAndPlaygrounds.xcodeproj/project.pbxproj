@@ -42,6 +42,7 @@
 		E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C91DE37EB000522C8A /* LocationsDataStore.swift */; };
 		E84199D11DE38FE400522C8A /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Reviews.swift */; };
 		E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EE2131DEE141B00CAEACF /* Secrets.swift */; };
+		E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		E84199C91DE37EB000522C8A /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationsDataStore.swift; path = PupsAndPlaygrounds/LocationsDataStore.swift; sourceTree = "<group>"; };
 		E84199D01DE38FE400522C8A /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		E89EE2131DEE141B00CAEACF /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 		C413C4471DDFB9DC0020F10F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */,
 				C413C4421DDFB69F0020F10F /* CustomColors.swift */,
 				C413C44B1DDFC4660020F10F /* CustomFonts.swift */,
 			);
@@ -269,7 +272,6 @@
 				TargetAttributes = {
 					C4EAE2CD1DDF65E20069C15E = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 57Z2TZGD3U;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -371,6 +373,7 @@
 				E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */,
 				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
+				E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */,
 				C4B6ED7D1DEDDF8700F28C04 /* MapView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
 				E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */,
@@ -500,7 +503,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PupsAndPlaygrounds/PupsAndPlaygrounds.entitlements;
-				DEVELOPMENT_TEAM = 57Z2TZGD3U;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FlatironSchool.PupsAndPlaygrounds;
@@ -516,7 +519,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PupsAndPlaygrounds/PupsAndPlaygrounds.entitlements;
-				DEVELOPMENT_TEAM = 57Z2TZGD3U;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FlatironSchool.PupsAndPlaygrounds;
