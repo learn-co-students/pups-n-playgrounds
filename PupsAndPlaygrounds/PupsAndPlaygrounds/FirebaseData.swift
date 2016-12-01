@@ -155,11 +155,9 @@ class FirebaseData {
 //                }
                 
                 let newestPlayground = Playground(ID: ID, name: locationName, location: location, handicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray)
-                print("NEWEST PLAYGROUND = \(newestPlayground)")
                 playgroundArray.append(newestPlayground)
                 
             }
-            print("PLAYGROUNDARRAY.COUNT = \(playgroundArray.count)")
             completion(playgroundArray)
         })
     }
