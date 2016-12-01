@@ -13,7 +13,7 @@ class Review {
     weak var user: User?
     weak var location: Location?
     let comment: String
-    // let rating: Int
+    var rating: String?
     var photos: [UIImage?]
     
     init(firebaseData: [String : Any], handler: @escaping (Bool) -> Void) {
@@ -48,9 +48,7 @@ class Review {
         self.photos = photos
     }
     
-    func getFirebaseUser() {
-        
-    }
+
 }
 
 

@@ -11,6 +11,8 @@ import Firebase
 
 class FirebaseData {
     
+    
+    
     // MARK: Account Creation
     
     static func createAccountTouched(firstName: String, lastName: String, email:String, password: String, checkedPassword:String) {
@@ -31,7 +33,6 @@ class FirebaseData {
         }
         
         addUserToBranch(firstName: firstName, lastName: lastName, email: email, password: password)
-        
         
     }
     
@@ -275,7 +276,7 @@ class FirebaseData {
                 
                 let newestPlayground = Playground(ID: ID, name: locationName, address: location, handicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray)
                 
-                playgroundArray.append((newestPlayground))
+                playgroundArray.append(newestPlayground)
                 
             }
             completion(playgroundArray)
