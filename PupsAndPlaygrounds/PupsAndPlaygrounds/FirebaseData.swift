@@ -55,21 +55,23 @@ class FirebaseData {
     // MARK: Get single user/review/location with uniqueID
     
     static func returnUser(userID: String) -> User? {
+        
+        print("RETURN USER FUNCTION CALLED")
         let ref = FIRDatabase.database().reference().root
         
         let userKey = ref.child("users").child(userID)
         var newUser: User?
         
         userKey.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let userDict = snapshot.value as? [String : Any] else { return }
-            guard let firstName = userDict["firstName"] as? String else { return }
-            guard let lastName = userDict["lastName"] as? String else { return }
-            guard let userReviews = userDict["reviews"] as? [String:Any] else { return }
+            guard let userDict = snapshot.value as? [String : Any] else { return print("ERROR #1") }
+            guard let firstName = userDict["firstName"] as? String else { return print("ERROR #2") }
+            guard let lastName = userDict["lastName"] as? String else { return print("ERROR #3") }
+            guard let userReviews = userDict["reviews"] as? [String:Any] else { return print("ERROR #4") }
             
             var reviewsArray = [Review]()
             
             newUser = User(uniqueID: "\(userKey)", firstName: firstName, lastName: lastName, reviews: reviewsArray)
-
+            print("NEW USER = \(newUser)")
         })
         return newUser
     }
@@ -98,7 +100,7 @@ class FirebaseData {
     }
     
     
-    static func getUser(with userID: String, completion: @escaping (User) -> ()) {
+    static func getUser(with userID: String, completion: @escaping (User?) -> ()) {
         let ref = FIRDatabase.database().reference().root
         
         let userKey = ref.child("users").child(userID)
@@ -109,41 +111,44 @@ class FirebaseData {
             guard let lastName = userDict["lastName"] as? String else { return }
             guard let userReviews = userDict["reviews"] as? [String:Any] else { return }
             
-            var reviewsArray = [Review]()
             
+            print("USER IS \(firstName) \(lastName)")
+            
+            var reviewsArray = [Review]()
             for review in userReviews {
-                                
+                print("REVIEW KEY IS \(review.key)")
+                
                 getReview(with: review.key, completion: { (reviewComp) in
                     let newReview = reviewComp
                     reviewsArray.append(newReview)
                 })
-                
             }
-            
             completion(User(uniqueID: "\(userKey)", firstName: firstName, lastName: lastName, reviews: reviewsArray))
         })
     }
-    
 
-    
-    
     static func getReview(with reviewID: String, completion: @escaping (Review) -> ()) {
         let ref = FIRDatabase.database().reference().root
         
-        let userKey = ref.child("reviews").child(reviewID)
+        let userKey = ref.child("reviews").child("visible").child(reviewID)
+        
+        print(userKey)
         
         userKey.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let reviewDict = snapshot.value as? [String : Any] else { return }
-            guard let comment = reviewDict["comment"] as? String else { return }
-            guard let userID = reviewDict["userID"] as? String else { return }
-            guard let locationID = reviewDict["locationID"] as? String else { return }
+            print("SNAPSHOT = \(snapshot.value)")
+            
+            guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICT = \(snapshot.value as? [String : Any])"); return }
+            
+            guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
+            
+            guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
+            guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
             
             getLocation(with: locationID, completion: { (location) in
                 getUser(with: userID, completion: { (user) in
-                    completion(Review(user: user, location: location, comment: comment, photos: []))
+                    completion(Review(user: user!, location: location, comment: comment, photos: []))
                 })
             })
-            
         })
     }
     

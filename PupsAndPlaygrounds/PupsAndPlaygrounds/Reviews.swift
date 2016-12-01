@@ -9,29 +9,36 @@
 import Foundation
 import UIKit
 
-
 class Review {
-    var user: User?
-    var location: Location?
+    weak var user: User?
+    weak var location: Location?
     let comment: String
-    var photos = [UIImage?]()
     // let rating: Int
-
-    init(firebaseData: [String : Any]) {
+    var photos: [UIImage?]
+    
+    init(firebaseData: [String : Any], handler: @escaping (Bool) -> Void) {
         self.comment = firebaseData["comment"] as! String
-        
+        self.photos = []
         let userID = firebaseData["userID"] as! String
         let locationID = firebaseData["locationID"] as! String
 
-        let returnUser: User? = FirebaseData.returnUser(userID: userID)
-        guard let unwrappedUser = returnUser else { return }
-        self.user = returnUser
+        FirebaseData.getUser(with: userID, completion: { user in
+            
+            self.user = user
+            
+            FirebaseData.getLocation(with: locationID) { location in
+                
+                self.location = location
+                
+                handler(true)
+                
+            }
+            
+        })
         
-        let returnLocation: Location? = FirebaseData.returnLocation(locationID: locationID)
-        guard let unwrappedLocation = returnLocation else { return }
-        self.location = returnLocation
+
+       
         
-        self.photos = []
     }
     
     init(user: User, location: Location, comment: String, photos: [UIImage?]) {
@@ -41,6 +48,9 @@ class Review {
         self.photos = photos
     }
     
+    func getFirebaseUser() {
+        
+    }
 }
 
 

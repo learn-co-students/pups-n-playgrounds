@@ -16,50 +16,64 @@ class LocationProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Location"
         
-        locationProfileView = LocationProfileView(playground: playground!)
-        locationProfileView.reviewsTableView.delegate = self
-        locationProfileView.reviewsTableView.dataSource = self
-        locationProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "reviewsCell")
+        FirebaseData.getUser(with: "rrp6mG2IIgemmpj7oYjviQMVTzo2", completion: { (user) in
+            print("USER COMPLETION = \(user?.firstName)")
+        })
         
-        view.addSubview(locationProfileView)
-        locationProfileView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        locationProfileView.submitReviewButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
+//        FirebaseData.getReview(with: "-KXvbyCnYHdIEHzKtBnm", completion: { (review) in
+//            print("USER REVIEW = \(review.comment)")
+//        })
+//        
+//        FirebaseData.getLocation(with: "PG+B001", completion: { (location) in
+//            print("USER LOCATION ADDRESS = \(location.address)")
+//        })
+    
+    
+    title = "Location"
+    
+    locationProfileView = LocationProfileView(playground: playground!)
+    locationProfileView.reviewsTableView.delegate = self
+    locationProfileView.reviewsTableView.dataSource = self
+    locationProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "reviewsCell")
+    
+    view.addSubview(locationProfileView)
+    locationProfileView.snp.makeConstraints {
+    $0.edges.equalToSuperview()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    locationProfileView.submitReviewButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
+}
+
+override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+}
+
+func submitReviewAlert() {
     
-    func submitReviewAlert() {
-        
-//        guard let name = locationProfileView.locationNameLabel.text else { return }
-//        guard let location = locationProfileView.location else { return }
-//        
-//        let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
-//        
-//        alert.addTextField { (reviewTextField) in
-//            reviewTextField.text = "" }
-//        
-//        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
-//            let reviewTextField = alert.textFields![0]
-//            
-//            FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
-//            
-//            let newReview = Review(user: <#T##User#>, location: location, comment: reviewTextField.text!, photos: [])
-//            
-//            self.playground?.reviews.append(newReview)
-//            self.locationProfileView.reviewsTableView.reloadData()
-//            
-//        }))
-//        self.present(alert, animated: true, completion: nil)
-    }
+            guard let name = locationProfileView.locationNameLabel.text else { return }
+            guard let location = locationProfileView.location else { return }
     
+            let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
+    
+            alert.addTextField { (reviewTextField) in
+                reviewTextField.text = "" }
+    
+            alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
+                let reviewTextField = alert.textFields![0]
+    
+                FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
+    
+//                let newReview = Review(user: <#T##User#>, location: location, comment: reviewTextField.text!, photos: [])
+//    
+//                self.playground?.reviews.append(newReview)
+//                self.locationProfileView.reviewsTableView.reloadData()
+    
+            }))
+            self.present(alert, animated: true, completion: nil)
+}
+
 }
 
 extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSource {

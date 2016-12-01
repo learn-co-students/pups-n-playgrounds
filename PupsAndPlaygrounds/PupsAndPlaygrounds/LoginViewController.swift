@@ -22,15 +22,6 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FirebaseData.getReview(with: "KXhTlLql-ZATLTWDDzL") { (review) in
-            print("REVIEW = \(review)")
-            print("REVIEW COMMENT = \(review.comment)")
-            print("REVIEW LOCATION = \(review.location)")
-            print("REVIEW USER = \(review.user?.firstName)")
-            print("REVIEW PHOTOS = \(review.photos)")
-
-        }
-        
         loginView.emailField.delegate = self
         loginView.passwordField.delegate = self
         

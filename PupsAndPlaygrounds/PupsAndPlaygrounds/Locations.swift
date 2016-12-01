@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 
-protocol Location {
+protocol Location: class {
     var name: String { get }
     var address: String { get }
     var isHandicap: Bool { get }
