@@ -77,30 +77,6 @@ class FirebaseData {
         return newUser
     }
     
-    static func returnLocation(locationID: String) -> Location? {
-        let ref = FIRDatabase.database().reference().root
-        
-        let locationKey = ref.child("locations").child(locationID)
-        var newLocation: Location?
-        
-        locationKey.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let locationDict = snapshot.value as? [String : Any] else { return }
-            guard let name = locationDict["name"] as? String else { return }
-            guard let address = locationDict["address"] as? String else { return }
-            guard let latitude = locationDict["latitude"] as? Double else { return }
-            guard let longitude = locationDict["longitude"] as? Double else { return }
-            guard let isHandicap = locationDict["isHandicap"] as? String else { return }
-            guard let reviewsDict = locationDict["reviews"] as? [String:Any] else { return }
-            
-            var reviewsArray = [Review]()
-        
-            newLocation = Playground(ID: "\(locationKey)", name: name, address: address, handicap: isHandicap, latitude: latitude, longitude: longitude, reviews: reviewsArray)
-        })
-        
-        return newLocation
-    }
-    
-    
     static func getUser(with userID: String, completion: @escaping (User?) -> ()) {
         let ref = FIRDatabase.database().reference().root
         
@@ -166,9 +142,13 @@ class FirebaseData {
             guard let address = locationDict["address"] as? String else { return }
             guard let latitude = locationDict["latitude"] as? Double else { return }
             guard let longitude = locationDict["longitude"] as? Double else { return }
-            guard let isHandicap = locationDict["isHandicap"] as? String else { return }
+            guard let isHandicap = locationDict["isHandicap"] as? Bool else { return }
+            guard let isFlagged = locationDict["isFlagged"] as? Bool else { return }
+            guard let photos = locationDict["photos"] as? [UIImage] else { return }
             guard let reviewsDict = locationDict["reviews"] as? [String:Any] else { return }
             
+            
+            // to complete later
             var reviewsArray = [Review]()
             
             /*
@@ -180,7 +160,14 @@ class FirebaseData {
             
             if locationID.hasPrefix("PG") {
                 
-                completion(Playground(ID: locationID, name: name, address: address, handicap: isHandicap, latitude: latitude, longitude: longitude, reviews: reviewsArray))
+                
+                
+                
+                completion(Playground(ID: "\(locationKey)", name: name, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviews: reviewsArray, photos: photos, isFlagged: isFlagged)
+                
+                
+                
+                )
                 
             } /* else if locationID.hasPrefix("DR") {
              
@@ -254,10 +241,13 @@ class FirebaseData {
                 
                 guard let locationName = value["name"] as? String else { return }
                 guard let location = value["location"] as? String else { return }
-                guard let isHandicap = value["isHandicap"] as? String else { return }
                 guard let latitude = value["latitude"] as? String else { return }
                 guard let longitude = value["longitude"] as? String else { return }
-                
+                guard let isHandicap = value["isHandicap"] as? Bool else { return }
+                guard let isFlagged = value["isFlagged"] as? Bool else { return }
+                guard let photos = value["photos"] as? [UIImage] else { return }
+                guard let reviewsDict = value["reviews"] as? [String:Any] else { return }
+
                 var reviewsArray = [Review]()
                 
                 if let playgroundReviews = value["reviews"] as? [String:Any] {
@@ -274,7 +264,7 @@ class FirebaseData {
                     }
                 }
                 
-                let newestPlayground = Playground(ID: ID, name: locationName, address: location, handicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray)
+                let newestPlayground = Playground(ID: ID, name: locationName, address: location, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: photos, isFlagged: isFlagged)
                 
                 playgroundArray.append(newestPlayground)
                 

@@ -14,9 +14,8 @@ protocol Location: class {
     var name: String { get }
     var address: String { get }
     var isHandicap: Bool { get }
-    var reviews: [Review] { get }
-    // coordinate
-    // var photos: [UIImage] { get }
+    var reviews: [Review?] { get }
+     var photos: [UIImage?] { get }
 }
 
 class Playground: Location {
@@ -24,15 +23,14 @@ class Playground: Location {
     let playgroundID: String
     let name: String
     let address: String
-    var isHandicap: Bool = false
+    var isHandicap = false
     let latitude: Double
     let longitude: Double
     var profileImage: UIImage = #imageLiteral(resourceName: "playgroundTemplate")
+    var reviews = [Review?]()
+    var photos = [UIImage?]()
     var isFlagged = false
-    
-    var reviews: [Review] = []
-    //    var photos: [UIImage] = []
-    
+
     init(citydata: [String : Any]) {
         
         self.playgroundID = "\(citydata["Playground_ID"] as! String)"
@@ -40,28 +38,26 @@ class Playground: Location {
         self.address = citydata["Location"] as! String
         self.latitude = citydata["lat"] as! Double
         self.longitude = citydata["lon"] as! Double
+        self.isFlagged = citydata["isFlagged"] as! Bool
+        self.isHandicap = citydata["isHandicap"] as! Bool
         
-        
-        if citydata["Accessible"] as! String == "Y" {
-            self.isHandicap = true
-        }
     }
     
-    init(ID: String, name: String, address: String, handicap: String, latitude: Double, longitude: Double, reviews: [Review]) {
+    init(ID: String, name: String, address: String, isHandicap: Bool, latitude: Double, longitude: Double, reviews: [Review?], photos: [UIImage?], isFlagged: Bool) {
         self.playgroundID = ID
         self.name = name
         self.address = address
         self.latitude = latitude
         self.longitude = longitude
         self.reviews = reviews
-        
-        if handicap == "Yes" {
-            self.isHandicap = true
-        }
+        self.photos = photos
+        self.isFlagged = isFlagged
+        self.isHandicap = isHandicap
     }
     
 }
 
+/*
 class Dogrun: Location {
     
     let dogRunID: String
@@ -87,3 +83,4 @@ class Dogrun: Location {
         }
     }
 }
+ */
