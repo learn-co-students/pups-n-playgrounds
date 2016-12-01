@@ -15,6 +15,7 @@ protocol Location {
     var location: String { get }
     var isHandicap: Bool { get }
     var reviews: [Review] { get }
+  //  var coordinates: CLLocationCoordinate2D {get set}
 //    var photos: [UIImage] { get }
 }
 
