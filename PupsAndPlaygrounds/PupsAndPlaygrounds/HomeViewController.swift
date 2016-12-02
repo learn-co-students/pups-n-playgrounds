@@ -53,10 +53,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         
         determineCurrentLocation()
         
-//        FirebaseData.getAllPlaygrounds { playgrounds in
-//            self.locations = playgrounds
-//            self.listView.locationsTableView.reloadData()
-//        }     
+        FirebaseData.getAllPlaygrounds { playgrounds in
+            self.locations = playgrounds
+            self.listView.locationsTableView.reloadData()
+        }     
 
         
         GeoFireMethods.getNearby(locations: longitude, latitude: latitude) { (coordinates) in
@@ -70,8 +70,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
                 
             }
             self.mapView.map.addAnnotations(self.annotationArray)
-            
-
         }
         
     }
@@ -121,9 +119,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         userAnnotation.coordinate = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         userAnnotation.title = "Current Location"
         mapView.map.addAnnotation(userAnnotation)
-        
-
-        
     }
     
     
