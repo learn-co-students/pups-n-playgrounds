@@ -62,7 +62,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         
         streetView = UIView()
         panoView = GMSPanoramaView()
-        panoView.moveNearCoordinate(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
+//        panoView.moveNearCoordinate(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
         panoView.layer.cornerRadius = 5
         
         locationNameLabel = UILabel()

@@ -14,6 +14,8 @@ import FBSDKLoginKit
 
 final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
+    let store = LocationsDataStore.sharedInstance
+    
     // MARK: Properties
     let loginView = LoginView()
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -21,6 +23,8 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     // MARK: Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("PLAYGROUND COUNT IS \(store.playgrounds.count)")
         
         loginView.emailField.delegate = self
         loginView.passwordField.delegate = self

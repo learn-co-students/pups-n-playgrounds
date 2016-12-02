@@ -14,18 +14,18 @@ import GeoFire
 class GeoFireMethods {
     
     static func sendLocationToGeoFireWith(locations playground: Playground) {
-        let geofireRef = FIRDatabase.database().reference().child("geoFireLocation")
-        
-        let geoFire = GeoFire(firebaseRef: geofireRef)
-        let unqiueKey = playground.playgroundID
-        
-        geoFire?.setLocation(CLLocation(latitude: playground.latitude, longitude: playground.longitude), forKey: unqiueKey) { (error) in
-            if (error != nil) {
-                print("An error occured: \(error)")
-            } else {
-                print("Saved location successfully!")
-            }
-        }
+//        let geofireRef = FIRDatabase.database().reference().child("geoFireLocation")
+//        
+//        let geoFire = GeoFire(firebaseRef: geofireRef)
+//        let unqiueKey = playground.playgroundID
+//        
+//        geoFire?.setLocation(CLLocation(latitude: playground.latitude, longitude: playground.longitude), forKey: unqiueKey) { (error) in
+//            if (error != nil) {
+//                print("An error occured: \(error)")
+//            } else {
+//                print("Saved location successfully!")
+//            }
+//        }
     }
     
     static func retrieveUniqueKey(with completion: @escaping ([String]) -> Void) {

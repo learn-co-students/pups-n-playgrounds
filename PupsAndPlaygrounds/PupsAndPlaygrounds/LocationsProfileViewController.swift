@@ -63,7 +63,7 @@ func submitReviewAlert() {
             alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
                 let reviewTextField = alert.textFields![0]
     
-                FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
+//                FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
     
 //                let newReview = Review(user: <#T##User#>, location: location, comment: reviewTextField.text!, photos: [])
 //    

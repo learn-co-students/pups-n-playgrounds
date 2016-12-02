@@ -31,10 +31,10 @@ class Playground: Location {
     var reviews = [Review?]()
     var photos = [UIImage?]()
     var isFlagged = false
-
+    
     init(citydata: [String : Any]) {
         
-        self.playgroundID = "\(citydata["Playground_ID"] as! String)"
+        self.playgroundID = citydata["Playground_ID"] as! String
         self.name = citydata["Name"] as! String
         self.address = citydata["Location"] as! String
         self.latitude = citydata["lat"] as! Double
@@ -67,10 +67,10 @@ class Dogrun: Location {
     let dogRunType: String
     let notes: String
     var isHandicap: Bool = false
-    var reviews: [Review] = []
+    var reviews: [Review?] = []
     var isFlagged = false
 
-    //    var photos: [UIImage]
+        var photos: [UIImage?]
     
     init(citydata: [String : Any]) {
         self.dogRunID = "DR+\(citydata["Prop_ID"])"
@@ -84,4 +84,5 @@ class Dogrun: Location {
         }
     }
 }
- */
+
+*/
