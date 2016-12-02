@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 
 class LocationProfileViewController: UIViewController {
@@ -15,6 +16,15 @@ class LocationProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("PLAYGROUND = \(playground?.playgroundID) ")
+
+        FirebaseData.getLocation(with: playground!.playgroundID) { (firebaseLocation) in
+            print("FIREBASE LOCATION \(firebaseLocation)")
+            print("FIREBASE NAME \(firebaseLocation?.name)")
+            print("PLAYGROUND COUNT = \(firebaseLocation?.reviews.count) ")
+            self.playground = firebaseLocation as! Playground?
+
+        }
         
         title = "Location"
         
@@ -29,6 +39,22 @@ class LocationProfileViewController: UIViewController {
         }
         
         locationProfileView.submitReviewButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("VIEW IS WILL APPEARING")
+        
+        let ref = FIRDatabase.database().reference().root
+        
+        ref.observe(FIRDataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String:Any] ?? [:]
+            
+            print("SNAPSHOT = \(postDict)")
+//            var newReview: Review!
+            self.locationProfileView.reviewsTableView.reloadData()
+            
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,8 +64,8 @@ class LocationProfileViewController: UIViewController {
     
     func submitReviewAlert() {
         
-        guard let name = locationProfileView.locationNameLabel.text else { return }
         guard let location = locationProfileView.location else { return }
+        let name = location.name
         
         let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
         
@@ -51,10 +77,7 @@ class LocationProfileViewController: UIViewController {
             
             FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
             
-            let newReview = Review(comment: reviewTextField.text!, name: location.name)
-            
-            self.playground?.reviews.append(newReview)
-            self.locationProfileView.reviewsTableView.reloadData()
+
             
         }))
         self.present(alert, animated: true, completion: nil)
@@ -82,7 +105,6 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
             cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
             
         }
-        
         return cell
     }
 }

@@ -9,19 +9,29 @@
 import Foundation
 import UIKit
 
-struct Review {
-//    let userFirstName: User
-//    let reviewID: String
+class Review {
+    let userID: String
+    let locationID: String
     let comment: String
-//    let rating: Int
-//    let photo: UIImage?
-    //    let user: String
-    let name: String
-//    var comment: String
-    //    var rating: String
-    //multiple rating categories?
-
-    //photos!
+    var rating: String?
+    var photos: [UIImage?]
     
+    init(firebaseData: [String : Any]) {
+        self.comment = firebaseData["comment"] as! String
+        self.photos = []
+        self.userID = firebaseData["userID"] as! String
+        self.locationID = firebaseData["locationID"] as! String
+
+    }
+    
+    init(userID: String, locationID: String, comment: String, photos: [UIImage?]) {
+        self.userID = userID
+        self.locationID = locationID
+        self.comment = comment
+        self.photos = photos
+    }
+    
+
 }
+
 

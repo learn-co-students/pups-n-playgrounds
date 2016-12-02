@@ -20,8 +20,8 @@ import Foundation
 
 class LocationsDataStore {
     
-    var playgrounds: [Playground] = []
-    var dogRuns: [Dogrun] = []
+    var playgrounds: [PlaygroundJSON] = []
+    var dogRuns: [DogrunJSON] = []
     
     static let sharedInstance = LocationsDataStore()
     
@@ -32,7 +32,7 @@ class LocationsDataStore {
         JsonParse.getPlaygrounds { (rawDictionary) in
             if let dictionary2 = rawDictionary["playgrounds"]?["facility"] as? [[String : Any]]{
                 for playgroundData in dictionary2 {
-                    let playground = Playground(citydata: playgroundData)
+                    let playground = PlaygroundJSON(jsonData: playgroundData)
                     self.playgrounds.append(playground)
                 }
             }
@@ -44,7 +44,7 @@ class LocationsDataStore {
         JsonParse.getDogruns { (rawDictionary) in
             if let dictionary2 = rawDictionary["dogruns"]?["facility"] as? [[String : Any]]{
                 for dogrunData in dictionary2 {
-                    let dogrun = Dogrun(citydata: dogrunData)
+                    let dogrun = DogrunJSON(jsonData: dogrunData)
                     self.dogRuns.append(dogrun)
                 }
             }
@@ -61,13 +61,13 @@ class LocationsDataStore {
     
     func addPlaygroundsToFirebase() {
         for playground in playgrounds {
-            FirebaseData.addPlaygroundsToFirebase(playgroundID: playground.playgroundID, name: playground.name, location: playground.location, isHandicap: playground.isHandicap, latitude: "\(playground.latitude)", longitude: "\(playground.longitude)")
+            FirebaseData.addPlaygroundsToFirebase(name: playground.name, address: playground.address, isHandicap: playground.isHandicap, latitude: playground.latitude, longitude: playground.longitude)
         }
     }
     
     func addDogRunsToFirebase() {
         for dogrun in dogRuns {
-            FirebaseData.addDogrunsToFirebase(dogRunID: dogrun.dogRunID, name: dogrun.name, location: dogrun.location, isHandicap: dogrun.isHandicap, dogRunType: dogrun.dogRunType, notes: dogrun.notes)
+            FirebaseData.addDogrunsToFirebase(name: dogrun.name, address: dogrun.address, isHandicap: dogrun.isHandicap, dogRunType: dogrun.dogRunType, notes: dogrun.notes)
         }
     }
     
@@ -78,3 +78,45 @@ class LocationsDataStore {
     
 }
 
+
+class PlaygroundJSON {
+
+    let name: String
+    let address: String
+    let isHandicap: String
+    let latitude: String
+    let longitude: String
+
+    
+    init(jsonData: [String : Any]) {
+        
+        self.name = jsonData["Name"] as! String
+        self.address = jsonData["Location"] as! String
+        self.latitude = jsonData["lat"] as! String
+        self.longitude = jsonData["lon"] as! String
+        self.isHandicap = jsonData["Accessible"] as! String
+        
+    }
+    
+}
+
+class DogrunJSON {
+    
+    let name: String
+    let address: String
+    let isHandicap: String
+    let notes: String
+    let dogRunType: String
+
+    
+    init(jsonData: [String : Any]) {
+        
+        self.name = jsonData["Name"] as! String
+        self.address = jsonData["Address"] as! String
+        self.isHandicap = jsonData["Accessible"] as! String
+        self.notes = jsonData["Notes"] as! String
+        self.dogRunType = jsonData["DogRuns_Type"] as! String
+        
+    }
+    
+}

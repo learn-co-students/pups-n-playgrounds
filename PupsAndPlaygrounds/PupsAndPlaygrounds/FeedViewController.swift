@@ -10,15 +10,12 @@ import UIKit
 import SnapKit
 
 class FeedViewController: UIViewController {
-  
-  // MARK: Properties
-  let feedView = FeedView()
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
     
-    title = "Live Feed"
+    // MARK: Properties
+    let listView = ListView()
+    var locations = [Location]()
     
+<<<<<<< HEAD
     feedView.feedTableView.delegate = self
     feedView.feedTableView.dataSource = self
     feedView.feedTableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
@@ -47,10 +44,34 @@ class FeedViewController: UIViewController {
    }
    */
   
+=======
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        FirebaseData.getAllPlaygrounds { playgrounds in
+            self.locations = playgrounds
+            self.listView.locationsTableView.reloadData()
+        }
+        
+        title = "Temporary Work Window!"
+        
+        listView.locationsTableView.delegate = self
+        listView.locationsTableView.dataSource = self
+        listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
+        
+        view.addSubview(listView)
+        listView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+    }
+    
+>>>>>>> reviews-rdfj
 }
 
 // MARK: - UITableViewDelegate
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
+<<<<<<< HEAD
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 10
   }
@@ -65,4 +86,24 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
 
     return cell
   }
+=======
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return locations.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath)
+        cell.textLabel?.text = locations[indexPath.row].name
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let locationProfileVC = LocationProfileViewController()
+        guard let playground = locations[indexPath.row] as? Playground else { print("error downcasting to playground"); return }
+        
+        locationProfileVC.playground = playground
+        navigationController?.pushViewController(locationProfileVC, animated: true)
+    }
+>>>>>>> reviews-rdfj
 }

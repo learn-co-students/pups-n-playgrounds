@@ -21,6 +21,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     var reviewsTableView: UITableView!
     var streetView: UIView!
     var panoView: GMSPanoramaView!
+    var starReviews: StarReview!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,13 +30,13 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     convenience init(playground: Playground) {
         self.init(frame: CGRect.zero)
         location = playground
-
+        
         configure()
         constrain()
         
         
-        
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -43,6 +44,14 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     }
     
     func configure() {
+        
+        starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
+        starReviews.starCount = 5
+        starReviews.value = 1
+        starReviews.allowAccruteStars = false
+        starReviews.starFillColor = UIColor.red
+        starReviews.starBackgroundColor = UIColor.black
+        starReviews.starMarginScale = 0.3
         
         backgroundColor = UIColor.themeLightBlue
         
@@ -67,7 +76,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         locationAddressLabel = UILabel()
         locationAddressLabel.font = UIFont.themeSmallRegular
         locationAddressLabel.textColor = UIColor.themeDarkBlue
-        locationAddressLabel.text = location.location
+        locationAddressLabel.text = location.address
         locationAddressLabel.numberOfLines = 3
         locationAddressLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
@@ -112,7 +121,6 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
             $0.top.equalTo(locationNameLabel.snp.bottom).offset(5)
             $0.height.equalTo(locationNameLabel.snp.height).dividedBy(2)
         }
-        
         addSubview(submitReviewButton)
         submitReviewButton.snp.makeConstraints {
             $0.leading.equalTo(locationProfileImage.snp.trailing).offset(30)
@@ -120,6 +128,15 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
             $0.bottom.equalTo(locationProfileImage.snp.bottom)
         }
         
+        addSubview(starReviews)
+        starReviews.snp.makeConstraints {
+            $0.leading.equalTo(locationProfileImage.snp.trailing).offset(30)
+            $0.trailing.equalToSuperview().offset(-30)
+            $0.top.equalTo(locationAddressLabel.snp.bottom).offset(5)
+            $0.bottom.equalTo(submitReviewButton.snp.top).offset(5)
+
+        }
+
         addSubview(streetView)
         streetView.snp.makeConstraints {
             $0.top.equalTo(locationProfileImage.snp.bottom)
@@ -130,9 +147,9 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         
         streetView.addSubview(panoView)
         panoView.snp.makeConstraints {
-          $0.edges.equalTo(UIEdgeInsetsMake(20, 10, 10, 10))
+            $0.edges.equalTo(UIEdgeInsetsMake(20, 10, 10, 10))
         }
-
+        
         
         addSubview(reviewsView)
         reviewsView.snp.makeConstraints {
@@ -144,7 +161,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         reviewsTableView.snp.makeConstraints {
             $0.edges.equalTo(UIEdgeInsetsMake(10, 20, 20, 20))
         }
-
+        
     }
     
     
