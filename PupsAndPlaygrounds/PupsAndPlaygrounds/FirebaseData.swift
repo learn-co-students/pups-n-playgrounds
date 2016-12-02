@@ -140,7 +140,7 @@ class FirebaseData {
     
     // MARK: Adds Review
     
-    static func addReview(comment: String, locationID: String) {
+    static func addReview(comment: String, locationID: String, tableView: UITableView) {
         let ref = FIRDatabase.database().reference().root
         
         let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
@@ -160,6 +160,15 @@ class FirebaseData {
         
         ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": false]])
         
+        ref.observe(FIRDataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String:Any] ?? [:]
+            
+            print("SNAPSHOT = \(postDict)")
+            var newReview: Review!
+            
+            
+            tableView.reloadData()
+        })
     }
     
     // MARK: Delete reviews
@@ -184,14 +193,14 @@ class FirebaseData {
             ref.child("users").child("\(userUniqueID)").child("reviews").child(reviewID).removeValue()
             
             
-            ref.child("visible").child(reviewID).removeValue()
+            ref.child("reviews").child("visible").child(reviewID).removeValue()
             
             completion()
             
         }
     }
     
-    static func deleteCommentAdmin(with userID: String, reviewID: String, locationID: String, completion: () -> ()) {
+    static func deleteCommentAdmin(userID: String, reviewID: String, locationID: String, completion: () -> ()) {
         
         let ref = FIRDatabase.database().reference().root
         
@@ -210,7 +219,7 @@ class FirebaseData {
             ref.child("users").child("\(userUniqueID)").child("reviews").child(reviewID).removeValue()
             
             
-            ref.child("visible").child(reviewID).removeValue()
+            ref.child("reviews").child("visible").child(reviewID).removeValue()
             
             completion()
 
@@ -248,7 +257,6 @@ class FirebaseData {
     // MARK: Generates Locations on the app FROM Firebase data source
     
     static func getAllPlaygrounds(with completion: @escaping ([Playground]) -> Void ) {
-        print("GETTING ALL PLAYGROUNDS")
         
         var playgroundArray: [Playground] = []
         
@@ -263,15 +271,18 @@ class FirebaseData {
                 let ID = newPlayground.key
                 let value = newPlayground.value as! [String:Any]
                 guard let locationName = value["name"] as? String else { return }
-                guard let location = value["location"] as? String else { return }
+                guard let address = value["address"] as? String else { return }
                 guard let latitude = value["latitude"] as? String else { return }
                 guard let longitude = value["longitude"] as? String else { return }
                 guard let isHandicap = value["isHandicap"] as? Bool else { return }
                 guard let isFlagged = value["isFlagged"] as? Bool else { return }
-                //                guard let photos = value["photos"] as? [UIImage] else { return }
-                guard let reviewsDict = value["reviews"] as? [String:Any] else { return }
                 
+
+                /*
+                guard let photos = value["photos"] as? [UIImage] else { return }
+                guard let reviewsDict = value["reviews"] as? [String:Any] else { return }
                 var reviewsArray = [Review]()
+
                 let photos = [UIImage]()
                 if let playgroundReviews = value["reviews"] as? [String:Any] {
                     
@@ -290,9 +301,9 @@ class FirebaseData {
                         
                     }
                 }
-                
-                let newestPlayground = Playground(ID: ID, name: locationName, address: location, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: photos, isFlagged: isFlagged)
-                print("NEW PLAYGROUND = \(newestPlayground)")
+                */
+                let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: [], photos: [], isFlagged: isFlagged)
+
                 playgroundArray.append(newestPlayground)
                 
             }

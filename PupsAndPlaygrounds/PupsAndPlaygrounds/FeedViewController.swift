@@ -10,47 +10,52 @@ import UIKit
 import SnapKit
 
 class FeedViewController: UIViewController {
-  
-  // MARK: Properties
-  let feedView = FeedView()
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
     
-    title = "Live Feed"
+    // MARK: Properties
+    let listView = ListView()
+    var locations = [Location]()
     
-    feedView.feedTableView.delegate = self
-    feedView.feedTableView.dataSource = self
-    feedView.feedTableView.register(UITableViewCell.self, forCellReuseIdentifier: "feedCell")
-    
-    view.addSubview(feedView)
-    feedView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("ONCE")
+        FirebaseData.getAllPlaygrounds { playgrounds in
+            self.locations = playgrounds
+            self.listView.locationsTableView.reloadData()
+        }
+        
+        title = "Temporary Work Window!"
+        
+        listView.locationsTableView.delegate = self
+        listView.locationsTableView.dataSource = self
+        listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
+        
+        view.addSubview(listView)
+        listView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
     }
-  }
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
-  
+    
 }
 
 // MARK: - UITableViewDelegate
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell", for: indexPath)
-    cell.textLabel?.text = "Feed Post \(indexPath.row + 1)"
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return locations.count
+    }
     
-    return cell
-  }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath)
+        cell.textLabel?.text = locations[indexPath.row].name
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let locationProfileVC = LocationProfileViewController()
+        guard let playground = locations[indexPath.row] as? Playground else { print("error downcasting to playground"); return }
+        
+        locationProfileVC.playground = playground
+        navigationController?.pushViewController(locationProfileVC, animated: true)
+    }
 }
