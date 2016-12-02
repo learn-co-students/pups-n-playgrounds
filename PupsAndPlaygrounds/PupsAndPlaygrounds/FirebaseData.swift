@@ -112,31 +112,40 @@ class FirebaseData {
             guard let longitude = locationDict["longitude"] as? String else { print("ERROR #5"); return }
             guard let isHandicap = locationDict["isHandicap"] as? Bool else { print("ERROR #6"); return }
             guard let isFlagged = locationDict["isFlagged"] as? Bool else { print("ERROR #7"); return }
-            //            guard let photos = locationDict["photos"] as? [UIImage] else { return }
-            guard let reviewsDict = locationDict["reviews"] as? [String:Any] else { print("ERROR #8"); return }
-            
+            //          guard let photos = locationDict["photos"] as? [UIImage] else { return }
             var reviewsArray = [Review]()
             
-            for iterReview in reviewsDict {
-                let reviewID = iterReview.key
-                print("ITER REVIEW RUNNING")
-                let reviewsKey = ref.child("reviews").child("visible").child(reviewID)
+            
+            if let reviewsDict = locationDict["reviews"] as? [String:Any] {
                 
-                reviewsKey.observeSingleEvent(of: .value, with: { (snapshot) in
-                    guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICT = \(snapshot.value as? [String : Any])"); return }
-                    guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
-                    guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
-                    guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
+                if !reviewsDict.isEmpty {
                     
-                    let newReview = Review(userID: userID, locationID: locationID, comment: comment, photos: [])
-                    
-                    reviewsArray.append(newReview)
-                    print("REVIEW ARRAY COUNT \(reviewsArray.count)")
-                })
+                    for iterReview in reviewsDict {
+                        let reviewID = iterReview.key
+                        let reviewsKey = ref.child("reviews").child("visible").child(reviewID)
+                        
+                        reviewsKey.observeSingleEvent(of: .value, with: { (snapshot) in
+                            guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICT = \(snapshot.value as? [String : Any])"); return }
+                            guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
+                            guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
+                            guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
+                            
+                            let newReview = Review(userID: userID, locationID: locationID, comment: comment, photos: [])
+                            
+                            reviewsArray.append(newReview)
+                            
+                            if reviewsArray.count == reviewsDict.count {
+                                
+                                completion(Playground(ID: locationID, name: name, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: [], isFlagged: isFlagged))
+                            }
+                            
+                        })
+                    }
+                }
+            } else {
+                completion(Playground(ID: locationID, name: name, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: [], isFlagged: isFlagged))
             }
-                    
-            completion(Playground(ID: "\(locationKey)", name: name, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: [], isFlagged: isFlagged))
-
+            
         })
     }
     
@@ -161,7 +170,7 @@ class FirebaseData {
         
         ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
         
-        ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": false]])
+        ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": false, "reviewID": uniqueReviewKey]])
         
     }
     

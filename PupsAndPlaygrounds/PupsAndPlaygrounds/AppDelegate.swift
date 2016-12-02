@@ -17,17 +17,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   // MARK: Properties
   var window: UIWindow?
+    lazy var mainTBC: MainTabBarController = MainTabBarController()
+    lazy var loginVC: LoginViewController = LoginViewController()
   
   // MARK: Instance Methods
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     FIRApp.configure()
     
-    FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-      self.window = UIWindow(frame: UIScreen.main.bounds)
-      self.window?.rootViewController = user != nil ? MainTabBarController() : LoginViewController()
-      self.window?.makeKeyAndVisible()
-    }
+    var userAuthenticated = false
     
+    FIRAuth.auth()?.addStateDidChangeListener { _, user in userAuthenticated = user != nil }
+    
+    window = UIWindow(frame: UIScreen.main.bounds)
+    window?.rootViewController = userAuthenticated ? mainTBC : loginVC
+    window?.makeKeyAndVisible()
+
     GMSServices.provideAPIKey(googleMapsAPIKey)
     
     return true

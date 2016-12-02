@@ -16,29 +16,26 @@ class LocationProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("PLAYGROUND = \(playground?.playgroundID) ")
-
+        
+        
         FirebaseData.getLocation(with: playground!.playgroundID) { (firebaseLocation) in
-            print("FIREBASE LOCATION \(firebaseLocation)")
-            print("FIREBASE NAME \(firebaseLocation?.name)")
-            print("PLAYGROUND COUNT = \(firebaseLocation?.reviews.count) ")
             self.playground = firebaseLocation as! Playground?
-
+            
+            
+            self.locationProfileView = LocationProfileView(playground: firebaseLocation as! Playground)
+            self.locationProfileView.reviewsTableView.delegate = self
+            self.locationProfileView.reviewsTableView.dataSource = self
+            self.locationProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "reviewsCell")
+            
+            self.view.addSubview(self.locationProfileView)
+            self.locationProfileView.snp.makeConstraints {
+                $0.edges.equalToSuperview()
+            }
+            
+            self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(self.submitReviewAlert), for: .touchUpInside)
         }
         
         title = "Location"
-        
-        locationProfileView = LocationProfileView(playground: playground!)
-        locationProfileView.reviewsTableView.delegate = self
-        locationProfileView.reviewsTableView.dataSource = self
-        locationProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "reviewsCell")
-        
-        view.addSubview(locationProfileView)
-        locationProfileView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        locationProfileView.submitReviewButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
         
     }
     
@@ -48,10 +45,8 @@ class LocationProfileViewController: UIViewController {
         let ref = FIRDatabase.database().reference().root
         
         ref.observe(FIRDataEventType.value, with: { (snapshot) in
-            let postDict = snapshot.value as? [String:Any] ?? [:]
-            
-            print("SNAPSHOT = \(postDict)")
-//            var newReview: Review!
+//            let postDict = snapshot.value as? [String:Any] ?? [:]
+            //            var newReview: Review!
             self.locationProfileView.reviewsTableView.reloadData()
             
         })
@@ -77,8 +72,7 @@ class LocationProfileViewController: UIViewController {
             
             FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
             
-
-            
+            self.locationProfileView.reviewsTableView.reloadData()
         }))
         self.present(alert, animated: true, completion: nil)
     }

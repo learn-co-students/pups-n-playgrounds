@@ -53,10 +53,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         
         determineCurrentLocation()
         
-//        FirebaseData.getAllPlaygrounds { playgrounds in
-//            self.locations = playgrounds
-//            self.listView.locationsTableView.reloadData()
-//        }     
+        FirebaseData.getAllPlaygrounds { playgrounds in
+            self.locations = playgrounds
+            self.listView.locationsTableView.reloadData()
+        }     
 
         
         GeoFireMethods.getNearby(locations: longitude, latitude: latitude) { (coordinates) in
