@@ -70,8 +70,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
                 
             }
             self.mapView.map.addAnnotations(self.annotationArray)
+            
             print("Test location annotations added.")
-
         }
         
     }
@@ -130,7 +130,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         userAnnotation.coordinate = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         userAnnotation.title = "Current Location"
         mapView.map.addAnnotation(userAnnotation)
+<<<<<<< HEAD
     
+=======
+>>>>>>> flag-fsj
     }
     
     

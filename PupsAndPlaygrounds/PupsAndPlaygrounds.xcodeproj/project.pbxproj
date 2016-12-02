@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6EA3EE3560F8D7CCF450E2B4 /* Pods_PupsAndPlaygrounds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */; };
+		B5302D921DEE01FC007848B2 /* GeoFireMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5302D911DEE01FC007848B2 /* GeoFireMethods.swift */; };
+		B57955D01DF08215000A030A /* StarReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57955CF1DF08215000A030A /* StarReview.swift */; };
 		B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */; };
-		C405AE131DF0BCD30044D9C8 /* GeoFireMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = C405AE121DF0BCD30044D9C8 /* GeoFireMethods.swift */; };
 		C411BBB21DDF706E0090335B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C411BBB11DDF706E0090335B /* GoogleService-Info.plist */; };
 		C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C4401DDF9A140020F10F /* LoginViewController.swift */; };
 		C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C4421DDFB69F0020F10F /* CustomColors.swift */; };
@@ -42,14 +43,14 @@
 		E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C91DE37EB000522C8A /* LocationsDataStore.swift */; };
 		E84199D11DE38FE400522C8A /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Reviews.swift */; };
 		E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EE2131DEE141B00CAEACF /* Secrets.swift */; };
-		E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		06127B45D1FA197E42D189AB /* Pods-PupsAndPlaygrounds.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.debug.xcconfig"; sourceTree = "<group>"; };
 		4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PupsAndPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5302D911DEE01FC007848B2 /* GeoFireMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoFireMethods.swift; sourceTree = "<group>"; };
+		B57955CF1DF08215000A030A /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
 		B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
-		C405AE121DF0BCD30044D9C8 /* GeoFireMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeoFireMethods.swift; path = PupsAndPlaygrounds/GeoFireMethods.swift; sourceTree = "<group>"; };
 		C411BBB11DDF706E0090335B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C413C4401DDF9A140020F10F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C413C4421DDFB69F0020F10F /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
@@ -86,7 +87,6 @@
 		E84199C91DE37EB000522C8A /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationsDataStore.swift; path = PupsAndPlaygrounds/LocationsDataStore.swift; sourceTree = "<group>"; };
 		E84199D01DE38FE400522C8A /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		E89EE2131DEE141B00CAEACF /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
-		E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,8 +166,8 @@
 		C413C4471DDFB9DC0020F10F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */,
 				C413C4421DDFB69F0020F10F /* CustomColors.swift */,
+				B57955CF1DF08215000A030A /* StarReview.swift */,
 				C413C44B1DDFC4660020F10F /* CustomFonts.swift */,
 			);
 			name = Extensions;
@@ -227,7 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				E84199C51DE37E8F00522C8A /* FirebaseData.swift */,
-				C405AE121DF0BCD30044D9C8 /* GeoFireMethods.swift */,
+				B5302D911DEE01FC007848B2 /* GeoFireMethods.swift */,
 				E84199C91DE37EB000522C8A /* LocationsDataStore.swift */,
 				E84199C01DE37E7800522C8A /* JSONParser.swift */,
 				E84199BF1DE37E7800522C8A /* dogrunsnyc.json */,
@@ -371,11 +371,9 @@
 				E84199D11DE38FE400522C8A /* Reviews.swift in Sources */,
 				C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */,
 				E813A3A81DECA4BA006D9725 /* LocationsProfileViewController.swift in Sources */,
-				C405AE131DF0BCD30044D9C8 /* GeoFireMethods.swift in Sources */,
 				E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */,
 				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
-				E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */,
 				C4B6ED7D1DEDDF8700F28C04 /* MapView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
 				E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */,
@@ -391,9 +389,11 @@
 				B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,
 				C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */,
+				B5302D921DEE01FC007848B2 /* GeoFireMethods.swift in Sources */,
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
 				C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */,
 				C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */,
+				B57955D01DF08215000A030A /* StarReview.swift in Sources */,
 				C4B6ED7F1DEDEB8D00F28C04 /* ListView.swift in Sources */,
 				C49C67831DE77E0800163CD9 /* FeedViewController.swift in Sources */,
 				C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */,

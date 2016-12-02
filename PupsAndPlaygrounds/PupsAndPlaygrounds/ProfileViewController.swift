@@ -12,6 +12,7 @@ import SnapKit
 
 class ProfileViewController: UIViewController {
   
+    
   // MARK: Properties
   var profileView: ProfileView!
   var profileImage: UIImage!

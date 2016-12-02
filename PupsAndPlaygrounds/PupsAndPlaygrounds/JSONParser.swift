@@ -40,10 +40,5 @@ class JsonParse {
         }
         
     }
-    
-    
-    
-    
-    
-    
+
 }
