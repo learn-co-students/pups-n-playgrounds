@@ -307,30 +307,17 @@ class FirebaseData {
         let ref = FIRDatabase.database().reference().root
         
         let uniqueLocationKey = FIRDatabase.database().reference().childByAutoId().key
-        print("Key = \(uniqueLocationKey)")
         
-        var isHandicapBool = false
-        if isHandicap == "true" {
-            isHandicapBool = false
-        }
-        
-        ref.child("locations").child("playgrounds").updateChildValues(["PG-\(uniqueLocationKey)":["name": name, "address": address, "isHandicap": isHandicapBool, "latitude": latitude, "longitude": longitude, "isFlagged": false]])
+        ref.child("locations").child("playgrounds").updateChildValues(["PG-\(uniqueLocationKey)":["name": name, "address": address, "isHandicap": isHandicap, "latitude": latitude, "longitude": longitude, "isFlagged": false]])
     }
     
-    static func addDogrunsToFirebase(dogRunID: String, name: String, location: String, isHandicap: Bool, dogRunType: String, notes: String) {
+    static func addDogrunsToFirebase(name: String, address: String, isHandicap: String, dogRunType: String, notes: String) {
         
         let ref = FIRDatabase.database().reference().root
         
-        let uniqueLocationKey = dogRunID
+        let uniqueLocationKey = FIRDatabase.database().reference().childByAutoId().key
         
-        var isHandicapString = "No"
-        
-        if isHandicap == true {
-            isHandicapString = "Yes"
-        }
-        
-        
-        ref.child("locations").child("dogruns").updateChildValues( [uniqueLocationKey:["name": name, "location": location, "isHandicap": isHandicapString, "dogRunType": dogRunType, "notes": notes]])
+        ref.child("locations").child("dogruns").updateChildValues( ["DR-\(uniqueLocationKey)":["name": name, "location": address, "isHandicap": isHandicap, "dogRunType": dogRunType, "notes": notes]])
     }
     
 }
