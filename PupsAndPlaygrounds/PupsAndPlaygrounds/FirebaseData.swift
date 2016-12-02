@@ -96,8 +96,7 @@ class FirebaseData {
             })
         })
     }
-    
-    
+
     
     static func getLocation(with locationID: String, completion: @escaping (Location) -> ()) {
         let ref = FIRDatabase.database().reference().root
@@ -138,23 +137,8 @@ class FirebaseData {
         })
     }
     
-    static func getNewReviewsForLocation(completion:@escaping (String)->()) {
-        let ref = FIRDatabase.database().reference().root
-        
-        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
-        
-        let userKey = ref.child("users").child(userUniqueID)
-        
-        userKey.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let userKey = snapshot.value as? [String : Any] else { return }
-            guard let userNameValue = userKey["firstName"] as? String else { return }
-            completion(userNameValue)
-        })
-        completion("Anonymous")
-    }
     
-    
-    // MARK: Adds Reviews to Data Branch
+    // MARK: Adds Review
     
     static func addReview(comment: String, locationID: String) {
         let ref = FIRDatabase.database().reference().root
@@ -178,36 +162,7 @@ class FirebaseData {
         
     }
     
-    // MARK Flag review or location
-    
-    
-    static func flagReviewWith(unique reviewID: String, locationID: String, comment: String, userID: String, completion: () -> Void) {
-        let rootRef = FIRDatabase.database().reference().root
-        
-        let reviewRef = rootRef.child("reviews")
-        
-        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
-        
-        if locationID.hasPrefix("PG") {
-            
-            rootRef.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([reviewID: ["flagged": true]])
-            
-        } else if locationID.hasPrefix("DR") {
-            
-            rootRef.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([reviewID: ["flagged": true]])
-        }
-        
-        rootRef.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([reviewID: ["flagged": true]])
-        
-        
-        reviewRef.child("flagged").updateChildValues([reviewID: ["comment": comment, "userID": userID, "locationID": locationID, "flagged": true]])
-        
-        reviewRef.child("visible").child(reviewID).removeValue()
-        completion()
-    }
-    
-    
-    // MARK: User can delete own comment
+    // MARK: Delete reviews
     
     static func deleteUsersOwnReview(with userID: String, reviewID: String, locationID: String, completion: () -> ()) {
         
@@ -259,6 +214,35 @@ class FirebaseData {
             
             completion()
 
+    }
+    
+    
+    // MARK Flag review or location
+    
+    
+    static func flagReviewWith(unique reviewID: String, locationID: String, comment: String, userID: String, completion: () -> Void) {
+        let rootRef = FIRDatabase.database().reference().root
+        
+        let reviewRef = rootRef.child("reviews")
+        
+        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        if locationID.hasPrefix("PG") {
+            
+            rootRef.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([reviewID: ["flagged": true]])
+            
+        } else if locationID.hasPrefix("DR") {
+            
+            rootRef.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([reviewID: ["flagged": true]])
+        }
+        
+        rootRef.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([reviewID: ["flagged": true]])
+        
+        
+        reviewRef.child("flagged").updateChildValues([reviewID: ["comment": comment, "userID": userID, "locationID": locationID, "flagged": true]])
+        
+        reviewRef.child("visible").child(reviewID).removeValue()
+        completion()
     }
     
     // MARK: Generates Locations on the app FROM Firebase data source
@@ -314,36 +298,6 @@ class FirebaseData {
             }
             completion(playgroundArray)
         })
-    }
-    
-    // MARK: Get coordinates from Firebase
-    
-    static func getPlaygroundsLocationCoordinates(for locationID: String, completion: @escaping (_ longitude: String, _ latitude: String) -> Void) {
-        
-        let ref = FIRDatabase.database().reference().child("locations").child("playgrounds").child(locationID)
-        
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let locationSnap = snapshot.value as? [String: Any] else {return}
-            guard let longitude = locationSnap["longitude"] as? String else {return}
-            guard let latitude = locationSnap["latitude"] as? String else {return}
-            
-            completion(longitude, latitude)
-        })
-        
-    }
-    
-    // MARK: Gets reviews from Firebase
-    
-    static func getReviewsFromFirebase(for locationID: String, completion: @escaping ([[String: Any]]) -> Void) {
-        
-        let ref = FIRDatabase.database().reference().child("locations").child("playgrounds").child(locationID).child("reviews")
-        
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let reviewSnap = snapshot.value as? [[String : Any]] else { return }
-            
-            completion(reviewSnap)
-        })
-        
     }
     
     // MARK: Adding local JSON files to Firebase
