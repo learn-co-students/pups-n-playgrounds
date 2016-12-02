@@ -33,7 +33,6 @@ class FeedViewController: UIViewController {
             let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                 
-                
                 FirebaseData.getVisibleReviewsForFeed { (reviews) in
                     self.reviews = reviews
                     self.feedView.feedTableView.reloadData()
@@ -51,6 +50,7 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("reviews count: \(reviews.count)")
         feedView.feedTableView.delegate = self
         feedView.feedTableView.dataSource = self
         feedView.feedTableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
@@ -63,7 +63,10 @@ class FeedViewController: UIViewController {
         FirebaseData.getVisibleReviewsForFeed { (reviews) in
             self.reviews = reviews
             self.feedView.feedTableView.reloadData()
+            print("reviews count: \(reviews.count)")
         }
+        
+        print("reviews count: \(reviews.count)")
         
     }
 }

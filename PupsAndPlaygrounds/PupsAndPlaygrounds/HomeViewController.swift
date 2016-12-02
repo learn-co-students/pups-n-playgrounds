@@ -130,10 +130,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         userAnnotation.coordinate = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         userAnnotation.title = "Current Location"
         mapView.map.addAnnotation(userAnnotation)
-<<<<<<< HEAD
-    
-=======
->>>>>>> flag-fsj
     }
     
     
