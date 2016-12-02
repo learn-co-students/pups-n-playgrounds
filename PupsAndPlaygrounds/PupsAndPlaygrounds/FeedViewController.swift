@@ -17,7 +17,7 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("ONCE")
+
         FirebaseData.getAllPlaygrounds { playgrounds in
             self.locations = playgrounds
             self.listView.locationsTableView.reloadData()
