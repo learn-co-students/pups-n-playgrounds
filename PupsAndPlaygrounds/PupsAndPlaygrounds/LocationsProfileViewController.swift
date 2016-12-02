@@ -23,22 +23,23 @@ class LocationProfileViewController: UIViewController {
             print("FIREBASE NAME \(firebaseLocation?.name)")
             print("PLAYGROUND COUNT = \(firebaseLocation?.reviews.count) ")
             self.playground = firebaseLocation as! Playground?
+            
+            self.locationProfileView = LocationProfileView(playground: self.playground!)
+            self.locationProfileView.reviewsTableView.delegate = self
+            self.locationProfileView.reviewsTableView.dataSource = self
+            self.locationProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "reviewsCell")
+            
+           self.view.addSubview(self.locationProfileView)
+            self.locationProfileView.snp.makeConstraints {
+                $0.edges.equalToSuperview()
+            }
+            
+            self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(self.submitReviewAlert), for: .touchUpInside)
 
+            
         }
         
         title = "Location"
-        
-        locationProfileView = LocationProfileView(playground: playground!)
-        locationProfileView.reviewsTableView.delegate = self
-        locationProfileView.reviewsTableView.dataSource = self
-        locationProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "reviewsCell")
-        
-        view.addSubview(locationProfileView)
-        locationProfileView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        locationProfileView.submitReviewButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
         
     }
     
