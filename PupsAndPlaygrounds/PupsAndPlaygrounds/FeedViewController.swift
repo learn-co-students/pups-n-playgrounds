@@ -17,7 +17,7 @@ class FeedViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    title = "Live Feed"
+    navigationItem.title = "Live Feed"
     
     feedView.feedTableView.delegate = self
     feedView.feedTableView.dataSource = self

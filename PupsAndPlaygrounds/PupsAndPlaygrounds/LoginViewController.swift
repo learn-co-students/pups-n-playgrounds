@@ -55,15 +55,11 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
   }
   
   func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-    let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
     
-    FBSDKGraphRequest(graphPath: "me", parameters: nil).start { connection, result, error in
-      if let result = result { print(result) }
-    }
+    let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
     
     FIRAuth.auth()?.signIn(with: credential) { user, error in
       guard error == nil else { print("error logging using in via facebook"); return }
-      
       
       self.appDelegate?.window?.rootViewController = MainTabBarController()
     }

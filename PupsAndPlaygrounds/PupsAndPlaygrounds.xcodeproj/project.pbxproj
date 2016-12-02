@@ -14,6 +14,8 @@
 		C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C4401DDF9A140020F10F /* LoginViewController.swift */; };
 		C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C4421DDFB69F0020F10F /* CustomColors.swift */; };
 		C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C44B1DDFC4660020F10F /* CustomFonts.swift */; };
+		C4283EB51DF10C570052580A /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4283EB41DF10C570052580A /* LocationAnnotation.swift */; };
+		C4283EB71DF1DD8E0052580A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */; };
 		C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1A1DE36C3A00A652DB /* HomeView.swift */; };
 		C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */; };
 		C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1E1DE36F9E00A652DB /* ProfileView.swift */; };
@@ -54,6 +56,8 @@
 		C413C4401DDF9A140020F10F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C413C4421DDFB69F0020F10F /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		C413C44B1DDFC4660020F10F /* CustomFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
+		C4283EB41DF10C570052580A /* LocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
+		C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PupsAndPlaygrounds.entitlements; sourceTree = "<group>"; };
 		C4810D1A1DE36C3A00A652DB /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 				E84199D01DE38FE400522C8A /* Reviews.swift */,
 				E84199C81DE37EB000522C8A /* Locations.swift */,
 				E809BA101DE4FF9D00E7BF03 /* User.swift */,
+				C4283EB41DF10C570052580A /* LocationAnnotation.swift */,
 				C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */,
 			);
 			name = Model;
@@ -152,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
+				C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */,
 				C413C4401DDF9A140020F10F /* LoginViewController.swift */,
 				C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */,
 				C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */,
@@ -178,18 +184,18 @@
 			children = (
 				E89EE2131DEE141B00CAEACF /* Secrets.swift */,
 				C413C4471DDFB9DC0020F10F /* Extensions */,
-				C4DECFD61DE3474C001CE1A2 /* Preferences */,
+				C4DECFD61DE3474C001CE1A2 /* Preference Files */,
 			);
 			name = Other;
 			sourceTree = "<group>";
 		};
-		C4DECFD61DE3474C001CE1A2 /* Preferences */ = {
+		C4DECFD61DE3474C001CE1A2 /* Preference Files */ = {
 			isa = PBXGroup;
 			children = (
 				C4EAE2E01DDF65E20069C15E /* Info.plist */,
 				C411BBB11DDF706E0090335B /* GoogleService-Info.plist */,
 			);
-			name = Preferences;
+			name = "Preference Files";
 			sourceTree = "<group>";
 		};
 		C4EAE2C51DDF65E20069C15E = {
@@ -374,6 +380,7 @@
 				C405AE131DF0BCD30044D9C8 /* GeoFireMethods.swift in Sources */,
 				E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */,
 				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
+				C4283EB51DF10C570052580A /* LocationAnnotation.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
 				E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */,
 				C4B6ED7D1DEDDF8700F28C04 /* MapView.swift in Sources */,
@@ -391,6 +398,7 @@
 				B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,
 				C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */,
+				C4283EB71DF1DD8E0052580A /* ContainerViewController.swift in Sources */,
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
 				C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */,
 				C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */,

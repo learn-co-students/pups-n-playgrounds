@@ -16,7 +16,7 @@ class LocationProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Location"
+        navigationItem.title = "Location"
         
         locationProfileView = LocationProfileView(playground: playground!)
         locationProfileView.reviewsTableView.delegate = self
