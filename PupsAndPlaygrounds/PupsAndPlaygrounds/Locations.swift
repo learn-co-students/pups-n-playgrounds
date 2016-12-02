@@ -17,6 +17,9 @@ protocol Location: class {
     var isFlagged: Bool { get }
     var reviews: [Review?] { get }
      var photos: [UIImage?] { get }
+    var reviews: [Review] { get }
+  //  var coordinates: CLLocationCoordinate2D {get set}
+//    var photos: [UIImage] { get }
 }
 
 class Playground: Location {

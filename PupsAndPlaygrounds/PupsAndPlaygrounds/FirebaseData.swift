@@ -257,7 +257,7 @@ class FirebaseData {
         var playgroundArray: [Playground] = []
         
         let ref = FIRDatabase.database().reference().child("locations").child("playgrounds")
-        
+        print("RUNNING GET ALL PLAYGROUNDS")
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let playgroundDict = snapshot.value as? [String : Any] else { return }

@@ -264,6 +264,7 @@ public final class StarReview: UIControl {
         }
     }
 }
+<<<<<<< HEAD
 
 
 
@@ -275,3 +276,5 @@ public final class StarReview: UIControl {
 
 
 
+=======
+>>>>>>> master
