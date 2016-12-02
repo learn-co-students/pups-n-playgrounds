@@ -21,7 +21,7 @@ import Foundation
 class LocationsDataStore {
     
     var playgrounds: [PlaygroundJSON] = []
-//    var dogRuns: [Dogrun] = []
+    var dogRuns: [DogrunJSON] = []
     
     static let sharedInstance = LocationsDataStore()
     
@@ -40,15 +40,15 @@ class LocationsDataStore {
     }
     
     func populateDogrunsFromJSON() {
-//        self.dogRuns = []
-//        JsonParse.getDogruns { (rawDictionary) in
-//            if let dictionary2 = rawDictionary["dogruns"]?["facility"] as? [[String : Any]]{
-//                for dogrunData in dictionary2 {
-//                    let dogrun = Dogrun(citydata: dogrunData)
-//                    self.dogRuns.append(dogrun)
-//                }
-//            }
-//        }
+        self.dogRuns = []
+        JsonParse.getDogruns { (rawDictionary) in
+            if let dictionary2 = rawDictionary["dogruns"]?["facility"] as? [[String : Any]]{
+                for dogrunData in dictionary2 {
+                    let dogrun = DogrunJSON(jsonData: dogrunData)
+                    self.dogRuns.append(dogrun)
+                }
+            }
+        }
     }
     
     func getDogrunsAndPlaygroundsFromJSON() {
@@ -83,7 +83,7 @@ class PlaygroundJSON {
 
     let name: String
     let address: String
-    var isHandicap: String
+    let isHandicap: String
     let latitude: String
     let longitude: String
 
@@ -98,5 +98,25 @@ class PlaygroundJSON {
         
     }
     
+}
+
+class DogrunJSON {
+    
+    let name: String
+    let address: String
+    let isHandicap: String
+    let notes: String
+    let type: String
+
+    
+    init(jsonData: [String : Any]) {
+        
+        self.name = jsonData["Name"] as! String
+        self.address = jsonData["Address"] as! String
+        self.isHandicap = jsonData["Accessible"] as! String
+        self.notes = jsonData["Notes"] as! String
+        self.type = jsonData["DogRuns_Type"] as! String
+        
+    }
     
 }

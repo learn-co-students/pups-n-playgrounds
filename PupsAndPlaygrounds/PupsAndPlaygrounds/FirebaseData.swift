@@ -12,7 +12,6 @@ import Firebase
 class FirebaseData {
     
     
-    
     // MARK: Account Creation
     
     static func createAccountTouched(firstName: String, lastName: String, email:String, password: String, checkedPassword:String) {
@@ -67,12 +66,8 @@ class FirebaseData {
             guard let lastName = userDict["lastName"] as? String else { return }
             guard let userReviews = userDict["reviews"] as? [String:Any] else { return }
             
-            
-            print("USER IS \(firstName) \(lastName)")
-            
             var reviewsArray = [Review]()
             for review in userReviews {
-                print("REVIEW KEY IS \(review.key)")
                 
                 getReview(with: review.key, completion: { (reviewComp) in
                     let newReview = reviewComp
@@ -88,15 +83,9 @@ class FirebaseData {
         
         let userKey = ref.child("reviews").child("visible").child(reviewID)
         
-        print(userKey)
-        
         userKey.observeSingleEvent(of: .value, with: { (snapshot) in
-            print("SNAPSHOT = \(snapshot.value)")
-            
             guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICT = \(snapshot.value as? [String : Any])"); return }
-            
             guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
-            
             guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
             guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
             
@@ -138,14 +127,7 @@ class FirebaseData {
              */
             
             if locationID.hasPrefix("PG") {
-                
-                
-                
-                
                 completion(Playground(ID: "\(locationKey)", name: name, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviews: reviewsArray, photos: photos, isFlagged: isFlagged)
-                    
-                    
-                    
                 )
                 
             } /* else if locationID.hasPrefix("DR") {
@@ -153,8 +135,6 @@ class FirebaseData {
              completion(Dogrun(citydata: <#T##[String : Any]#>))
              
              } */
-            
-            
         })
     }
     
@@ -183,7 +163,6 @@ class FirebaseData {
         
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
         
-        
         if locationID.hasPrefix("PG") {
             
             ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
@@ -196,9 +175,6 @@ class FirebaseData {
         ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
         
         ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": false]])
-        
-        
-        
         
     }
     
@@ -258,8 +234,31 @@ class FirebaseData {
             completion()
             
         }
+    }
+    
+    static func deleteCommentAdmin(with userID: String, reviewID: String, locationID: String, completion: () -> ()) {
         
+        let ref = FIRDatabase.database().reference().root
         
+        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+            
+            if locationID.hasPrefix("PG") {
+                
+                ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").child(reviewID).removeValue()
+                
+            } else if locationID.hasPrefix("DR") {
+                
+                ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").child(reviewID).removeValue()
+            }
+            
+            ref.child("users").child("\(userUniqueID)").child("reviews").child(reviewID).removeValue()
+            
+            
+            ref.child("visible").child(reviewID).removeValue()
+            
+            completion()
+
     }
     
     // MARK: Generates Locations on the app FROM Firebase data source
@@ -275,12 +274,10 @@ class FirebaseData {
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let playgroundDict = snapshot.value as? [String : Any] else { return }
             
-            print("PLAYGROUND DICTIONARY = \(playgroundDict)")
             for newPlayground in playgroundDict {
                 
                 let ID = newPlayground.key
                 let value = newPlayground.value as! [String:Any]
-                print("PLAYGROUND VALUE = \(value)")
                 guard let locationName = value["name"] as? String else { return }
                 guard let location = value["location"] as? String else { return }
                 guard let latitude = value["latitude"] as? String else { return }

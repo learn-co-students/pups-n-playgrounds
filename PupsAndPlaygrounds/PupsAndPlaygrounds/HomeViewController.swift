@@ -132,11 +132,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     }
 
     
-    
-    
-    
-    
-    
     private func constrain() {
         view.addSubview(mapView)
         mapView.snp.makeConstraints {

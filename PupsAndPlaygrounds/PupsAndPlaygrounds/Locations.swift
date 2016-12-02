@@ -58,31 +58,31 @@ class Playground: Location {
     
 }
 
-/*
-class Dogrun: Location {
-    
-    let dogRunID: String
-    let name: String
-    let address: String
-    let dogRunType: String
-    let notes: String
-    var isHandicap: Bool = false
-    var reviews: [Review?] = []
-    var isFlagged = false
 
-        var photos: [UIImage?]
-    
-    init(citydata: [String : Any]) {
-        self.dogRunID = "DR+\(citydata["Prop_ID"])"
-        self.name = citydata["Name"] as! String
-        self.address = citydata["Address"] as! String
-        self.dogRunType = citydata["DogRuns_Type"] as! String
-        self.notes = citydata["Notes"] as! String
-        
-        if citydata["Accessible"] as! String == "Y" {
-            self.isHandicap = true
-        }
-    }
+class Dogrun /*: Location */ {
+ 
+//    let dogRunID: String
+//    let name: String
+//    let address: String
+//    let dogRunType: String
+//    let notes: String
+//    var isHandicap: Bool = false
+//    var reviews: [Review?] = []
+//    var isFlagged = false
+//
+//        var photos: [UIImage?]
+//    
+//    init(citydata: [String : Any]) {
+//        self.dogRunID = "DR+\(citydata["Prop_ID"])"
+//        self.name = citydata["Name"] as! String
+//        self.address = citydata["Address"] as! String
+//        self.dogRunType = citydata["DogRuns_Type"] as! String
+//        self.notes = citydata["Notes"] as! String
+//        
+//        if citydata["Accessible"] as! String == "Y" {
+//            self.isHandicap = true
+//        }
+//    }
 }
 
-*/
+
