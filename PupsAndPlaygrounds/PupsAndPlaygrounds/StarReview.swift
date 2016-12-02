@@ -8,29 +8,29 @@
 
 import UIKit
 public final class StarReview: UIControl {
-   public var starCount:Int = 5{
+    public var starCount:Int = 5{ //可以用来打分的星星的数量
         didSet{
-            maxmunValue = Float(starCount)
+            maxmunValue = Float(starCount) //再设最大值
             setNeedsDisplay()
         }
     }
-    public var starFillColor:UIColor = UIColor.blue{
-        didSet{
-            setNeedsDisplay()
-        }
-    }
-  public var starBackgroundColor:UIColor = UIColor.gray{
+    public var starFillColor:UIColor = UIColor.blue{ //星星的填充颜色
         didSet{
             setNeedsDisplay()
         }
     }
-   public var allowEdit:Bool = true
+    public var starBackgroundColor:UIColor = UIColor.gray{
+        didSet{
+            setNeedsDisplay()
+        }
+    }
+    public var allowEdit:Bool = true
     public var allowAccruteStars:Bool = false{
         didSet{
             setNeedsDisplay()
         }
     }
- public    var starMarginScale:Float = 0.3{
+    public    var starMarginScale:Float = 0.3{
         didSet{
             if starMarginScale > 0.9
             {
@@ -42,18 +42,18 @@ public final class StarReview: UIControl {
             setNeedsDisplay()
         }
     }
-   public var value:Float {
+    public var value:Float {
         get{
             if allowAccruteStars{
                 let index = getStarIndex()
-                if index.0 != -1{
-                    let a = Float((1 + starMarginScale) * Float(starRadius) * (Float(index.0) - 1))
+                if index.0 != -1{  //如果是在星上
+                    let a = Float((1 + starMarginScale) * Float(starRadius) * (Float(index.0) - 1)) //按下的那颗星开始的坐标点
                     return  (Float(starPixelValue * (1 + starMarginScale) * starRadius) - a) / Float(starRadius) + Float(index.0) - 1
                 }
-                else{
+                else{ //如果不在星上
                     return Float(index.1 + 1)
                 }
-
+                
             }
             else{
                 return starPixelValue
@@ -68,29 +68,29 @@ public final class StarReview: UIControl {
             }
             else{
                 if allowAccruteStars{
-                    //starValue  = CGFloat(newValue - 0.08)
-                    
+                    //starValue  = CGFloat(newValue - 0.08) //这样不精确 需要将值进行转化,虽然这两者很相近,想并不相等
+                    //先取出整数部分
                     let intPart = Int(newValue)
-                    
+                    //取出小数部分
                     let floatPart = newValue - Float(intPart)
-                    
+                    //转化成坐标点
                     let x = (1 + starMarginScale) * starRadius * Float(intPart) + starRadius * Float(floatPart)
-                    
+                    //坐标转化成 starValue
                     starPixelValue = x / starRadius / (1 + starMarginScale)
                 }
                 else{
                     starPixelValue = Float(lroundf(newValue))
                 }
             }
-
+            
         }
     }
-   public var maxmunValue:Float = 5{
+    public var maxmunValue:Float = 5{
         didSet{
             setNeedsDisplay()
         }
     }
-  public  var minimunValue:Float = 0{
+    public  var minimunValue:Float = 0{
         didSet{
             setNeedsDisplay()
         }
@@ -103,23 +103,23 @@ public final class StarReview: UIControl {
     
     fileprivate var offsetX:Float{
         get{
-        //    return ratio > startReviewWidthScale ? Float(self.frame.width) / 2 - startReviewWidthScale / 2 * Float(self.frame.height) + Float(layer.borderWidth) : Float(layer.borderWidth) 
-            return ratio > startReviewWidthScale ? Float(self.frame.width) / 2 - startReviewWidthScale / 2 * Float(self.frame.height)  : 0.0
+            //    return ratio > startReviewWidthScale ? Float(self.frame.width) / 2 - startReviewWidthScale / 2 * Float(self.frame.height) + Float(layer.borderWidth) : Float(layer.borderWidth)  //左边的空白处
+            return ratio > startReviewWidthScale ? Float(self.frame.width) / 2 - startReviewWidthScale / 2 * Float(self.frame.height)  : 0.0  //左边的空白处
         }
     }
     
     fileprivate var offsetY:Float{
         get{
-            return ratio < startReviewWidthScale ? (Float(self.frame.height)  - starRadius) / 2 : 0.0
+            return ratio < startReviewWidthScale ? (Float(self.frame.height)  - starRadius) / 2 : 0.0  //上面的空白处
         }
     }
     
-    fileprivate var ratio:Float{
+    fileprivate var ratio:Float{ //长宽比
         get{
             return Float(self.frame.width) / Float(self.frame.height)
         }
     }
-    fileprivate var startReviewWidthScale:Float{
+    fileprivate var startReviewWidthScale:Float{  //这个是5个星星们的长宽比.
         get {
             return Float(starCount) + Float((starCount - 1)) * starMarginScale
         }
@@ -141,7 +141,7 @@ public final class StarReview: UIControl {
             }
             
         }
-
+        
     }
     
     
@@ -172,13 +172,13 @@ public final class StarReview: UIControl {
         //对于View的尺寸是有要求的,如果过长,那么5颗星排起来也排不满整个长度,如果太高的话,那么又占不了整个高度,如果一个星是正文形,长宽都是1的话,那么总长宽比可以是
         //所以可以计算一下应该取多少
         clipsToBounds = false
-         starRadius = Float(self.frame.size.height) - Float(layer.borderWidth * 2)
+        starRadius = Float(self.frame.size.height) - Float(layer.borderWidth * 2)
         if ratio < startReviewWidthScale{
             starRadius = Float(self.frame.width) / startReviewWidthScale - Float(layer.borderWidth * 2)
         }
-//        print("startReviewWidthScale\(startReviewWidthScale)")
-//        print("offsetX:\(offsetX)")
-//        print("offsetY:\(offsetY)")
+        //        print("startReviewWidthScale\(startReviewWidthScale)")
+        //        print("offsetX:\(offsetX)")
+        //        print("offsetY:\(offsetY)")
         let ctx = UIGraphicsGetCurrentContext()
         for s in 0...(starCount-1){
             let x = starMarginScale * Float(s) * starRadius + starRadius * (0.5 + Float(s))
@@ -205,14 +205,14 @@ public final class StarReview: UIControl {
         }
         ctx?.setFillColor(starFillColor.cgColor)
         ctx?.setBlendMode(CGBlendMode.sourceIn)
-//        print(offsetX)
-//        print(level)
-//        print(starValue)
-//        print(starValue * starLength * ( 1 + gapStarLengthScale))
-//        print(starLength)
-//        print(gapStarLengthScale * starLength)
-            let temp = starRadius * ( 1 + starMarginScale) * starPixelValue
-           ctx?.fill(CGRect(x: CGFloat(offsetX), y: CGFloat(offsetY), width: CGFloat(temp), height: CGFloat(starRadius)))
+        //        print(offsetX)
+        //        print(level)
+        //        print(starValue)
+        //        print(starValue * starLength * ( 1 + gapStarLengthScale))
+        //        print(starLength)
+        //        print(gapStarLengthScale * starLength)
+        let temp = starRadius * ( 1 + starMarginScale) * starPixelValue
+        ctx?.fill(CGRect(x: CGFloat(offsetX), y: CGFloat(offsetY), width: CGFloat(temp), height: CGFloat(starRadius)))
     }
     
     override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -220,12 +220,12 @@ public final class StarReview: UIControl {
             let point = touch.location(in: self)
             let temp = (Float(point.x) - offsetX) / (starRadius * ( 1 + starMarginScale))
             if allowAccruteStars{
-                 starPixelValue = temp
+                starPixelValue = temp
             }
             else{
-               starPixelValue = Float(Int(temp) + 1)
+                starPixelValue = Float(Int(temp) + 1)
             }
-           // print("starPicelValue:\(starPixelValue)")
+            // print("starPicelValue:\(starPixelValue)")
         }
     }
     
@@ -238,12 +238,12 @@ public final class StarReview: UIControl {
             let point = touch.location(in: self)
             let temp = (Float(point.x) - offsetX) / (starRadius * ( 1 + starMarginScale))
             if allowAccruteStars{
-               starPixelValue = temp
+                starPixelValue = temp
             }
             else{
-                 starPixelValue = Float(Int(temp) + 1)
+                starPixelValue = Float(Int(temp) + 1)
             }
-           // print("starPicelValue:\(starPixelValue)")
+            // print("starPicelValue:\(starPixelValue)")
         }
     }
     override public func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
@@ -263,15 +263,3 @@ public final class StarReview: UIControl {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
