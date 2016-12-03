@@ -16,7 +16,7 @@ class LocationProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("PLAYGROUND = \(playground?.playgroundID) ")
+        print("PLAYGROUND = \(playground!.playgroundID) ")
 
         FirebaseData.getLocation(with: playground!.playgroundID) { (firebaseLocation) in
             print("FIREBASE LOCATION \(firebaseLocation)")
@@ -67,7 +67,7 @@ class LocationProfileViewController: UIViewController {
         
         guard let location = locationProfileView.location else { return }
         let name = location.name
-        
+        print("SUBMIT REVIEW button \(location.playgroundID) WITH NAME \(name)")
         let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
         
         alert.addTextField { (reviewTextField) in

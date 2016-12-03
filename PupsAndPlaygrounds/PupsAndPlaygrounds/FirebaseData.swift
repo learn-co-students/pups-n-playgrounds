@@ -101,7 +101,7 @@ class FirebaseData {
     
     static func getLocation(with locationID: String, completion: @escaping (Location?) -> ()) {
         let ref = FIRDatabase.database().reference().root
-        
+
         let locationKey = ref.child("locations").child("playgrounds").child(locationID)
         
         locationKey.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -119,7 +119,6 @@ class FirebaseData {
             
             for iterReview in reviewsDict {
                 let reviewID = iterReview.key
-                print("ITER REVIEW RUNNING")
                 let reviewsKey = ref.child("reviews").child("visible").child(reviewID)
                 
                 reviewsKey.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -132,11 +131,10 @@ class FirebaseData {
                     let newReview = Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
                     
                     reviewsArray.append(newReview)
-                    print("REVIEW ARRAY COUNT \(reviewsArray.count)")
                 })
             }
                     
-            completion(Playground(ID: "\(locationKey)", name: name, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: [], isFlagged: isFlagged))
+            completion(Playground(ID: locationID, name: name, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: [], isFlagged: isFlagged))
 
         })
     }
@@ -145,7 +143,8 @@ class FirebaseData {
     // MARK: Adds Review
     
     static func addReview(comment: String, locationID: String) {
-        let ref = FIRDatabase.database().reference().root
+//        print("LOCATION ID in ADD Review \(locationID)")
+let ref = FIRDatabase.database().reference().root
         
         let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
         
@@ -153,7 +152,7 @@ class FirebaseData {
         
         if locationID.hasPrefix("PG") {
             
-            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
+            ref.child("locations").child("playgrounds").child(locationID).child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
             
         } else if locationID.hasPrefix("DR") {
             
