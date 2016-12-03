@@ -74,28 +74,39 @@ class FirebaseData {
                     reviewsArray.append(newReview)
                 })
             }
-            completion(User(uniqueID: "\(userKey)", firstName: firstName, lastName: lastName, reviews: reviewsArray))
+            completion(User(uniqueID: userID, firstName: firstName, lastName: lastName, reviews: reviewsArray))
         })
     }
     
     static func getReview(with reviewID: String, completion: @escaping (Review) -> ()) {
-        /*let ref = FIRDatabase.database().reference().root
-         
-         let userKey = ref.child("reviews").child("visible").child(reviewID)
-         
-         userKey.observeSingleEvent(of: .value, with: { (snapshot) in
-         guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICT = \(snapshot.value as? [String : Any])"); return }
-         guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
-         guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
-         guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
-         
-         getLocation(with: locationID, completion: { (location) in
-         getUser(with: userID, completion: { (user) in
-         completion(Review(user: user!, location: location!, comment: comment, photos: []))
-         })
-         })
-         })
-         */
+        let ref = FIRDatabase.database().reference().root
+        
+        let visibleReviewKey = ref.child("reviews").child("visible").child(reviewID)
+        
+        let flaggedReviewKey = ref.child("reviews").child("flagged").child(reviewID)
+
+        visibleReviewKey.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let reviewDict = snapshot.value as? [String : Any] else { print("No such review in visible reviews"); return }
+            
+            
+            /*
+            guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
+            guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
+            guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
+            
+            getLocation(with: locationID, completion: { (location) in
+                getUser(with: userID, completion: { (user) in
+                    completion(Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
+                })
+            }) */
+        })
+        
+        
+        flaggedReviewKey.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let reviewDict = snapshot.value as? [String : Any] else { print("No such review in visible reviews"); return }
+        
+        })
+        
     }
     
     
@@ -130,7 +141,7 @@ class FirebaseData {
                     guard let reviewID = reviewDict["reviewID"] as? String else { print("ERROR #5"); return }
                     
                     let newReview = Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
-
+                    
                     reviewsArray.append(newReview)
                     
                     completion(Playground(ID: locationID, name: name, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: [], isFlagged: isFlagged))
@@ -165,6 +176,35 @@ class FirebaseData {
         
     }
     
+    // MARK: Get reviews exluding current users
+    
+    static func getVisibleReviewsForFeed(with completion: @escaping ([Review]) -> Void) {
+        
+        let reviewRef = FIRDatabase.database().reference().child("reviews").child("visible")
+        var reviewsArray = [Review]()
+        
+        reviewRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let snapshotValue = snapshot.value as? [String: Any] else {print("no reviews"); return}
+            
+            for review in snapshotValue {
+                guard
+                    let reviewInfo = review.value as? [String: Any],
+                    let comment = reviewInfo["comment"] as? String,
+                    let flagged = reviewInfo["flagged"] as? Bool,
+                    let locationID = reviewInfo["locationID"] as? String,
+                    let reviewID = reviewInfo["reviewID"] as? String,
+                    let userID = reviewInfo["userID"] as? String
+                    else { print("no review data"); return }
+                
+                let reviewToAdd = Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
+                
+                reviewsArray.append(reviewToAdd)
+            }
+            
+            completion(reviewsArray)
+            
+        })
+    }
     
     // MARK: Delete reviews
     
@@ -322,38 +362,6 @@ class FirebaseData {
         let uniqueLocationKey = FIRDatabase.database().reference().childByAutoId().key
         
         ref.child("locations").child("dogruns").updateChildValues( ["DR-\(uniqueLocationKey)":["name": name, "location": address, "isHandicap": isHandicap, "dogRunType": dogRunType, "notes": notes]])
-    }
-    
-    
-    // MARK: Get reviews exluding current users
-    
-    static func getVisibleReviewsForFeed(with completion: @escaping ([Review]) -> Void) {
-        
-        let reviewRef = FIRDatabase.database().reference().child("reviews").child("visible")
-        var reviewsArray = [Review]()
-        
-        reviewRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let snapshotValue = snapshot.value as? [String: Any] else {print("no reviews"); return}
-            
-            for review in snapshotValue {
-                guard
-                    let reviewInfo = review.value as? [String: Any],
-                    let comment = reviewInfo["comment"] as? String,
-                    let flagged = reviewInfo["flagged"] as? Bool,
-                    let locationID = reviewInfo["locationID"] as? String,
-                    let reviewID = reviewInfo["reviewID"] as? String,
-                    let userID = reviewInfo["userID"] as? String
-                    else { print("no review data"); return }
-                
-                let reviewToAdd = Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
-                
-                reviewsArray.append(reviewToAdd)
-            }
-            
-            completion(reviewsArray)
-            
-        })
-        
     }
     
     

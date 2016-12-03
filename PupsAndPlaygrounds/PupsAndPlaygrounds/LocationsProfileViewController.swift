@@ -16,7 +16,9 @@ class LocationProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        FirebaseData.getReview(with: "-KY-roOzPbav59psLwnz") { (review) in
+            
+        }
         FirebaseData.getLocation(with: playground!.playgroundID) { (firebaseLocation) in
 
             print("PLAYGROUND REVIEW COUNT = \(firebaseLocation?.reviews.count) ")
