@@ -20,14 +20,19 @@ class LocationProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationProfileView = LocationProfileView(playground: playground!)
-        view = locationProfileView
+        guard let unwrappedPlayground = playground else { return }
         
+
+            
+        self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
+        self.view = self.locationProfileView
+        
+        self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(self.submitReviewAlert), for: .touchUpInside)
+        
+        print("THIS PLAYGROUND HAS \(unwrappedPlayground.reviews.count) REVIEWS")
         navigationItem.title = "Location"
         navigationController?.isNavigationBarHidden = false
-        
-        locationProfileView.submitReviewButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
-        
+
         
     }
     

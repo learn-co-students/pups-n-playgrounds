@@ -50,7 +50,6 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("reviews count: \(reviews.count)")
         feedView.feedTableView.delegate = self
         feedView.feedTableView.dataSource = self
         feedView.feedTableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
@@ -65,8 +64,6 @@ class FeedViewController: UIViewController {
             self.feedView.feedTableView.reloadData()
             print("reviews count: \(reviews.count)")
         }
-        
-        print("reviews count: \(reviews.count)")
         
     }
 }
