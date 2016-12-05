@@ -48,7 +48,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         
         
         FirebaseData.calcAverageStarFor(location: location.playgroundID) { (averageStarValue) in
-            
+            print("AVERAGE STAR VALUE \(averageStarValue)")
             self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
             self.starReviews.starCount = 5
             self.starReviews.value = averageStarValue

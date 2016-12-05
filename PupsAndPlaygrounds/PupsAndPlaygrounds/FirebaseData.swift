@@ -153,16 +153,16 @@ class FirebaseData {
         
         if locationID.hasPrefix("PG") {
             
-            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false, "rating": rating]])
+            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": "false", "rating": rating]])
             
         } else if locationID.hasPrefix("DR") {
             
-            ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false, "rating": rating]])
+            ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": "false", "rating": rating]])
         }
         
-        ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
+        ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": "false"]])
         
-        ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": false, "reviewID": uniqueReviewKey]])
+        ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": "false", "reviewID": uniqueReviewKey]])
         
     }
     
@@ -389,7 +389,9 @@ class FirebaseData {
                 for value in playgroundRatings {
                     playgroundRatingsSum += value
                 }
-                
+                print("PLAYGROUND RATING SUM =\(playgroundRatingsSum)")
+                print("PLAYGROUND RATING count =\(playgroundRatings.count)")
+
                 averageStarValueToReturn = Float(playgroundRatingsSum / (playgroundRatings.count))
 
             })
