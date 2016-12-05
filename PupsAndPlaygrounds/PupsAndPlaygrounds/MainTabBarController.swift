@@ -24,7 +24,7 @@ class MainTabBarController: UITabBarController {
     feedNC.navigationBar.barTintColor = UIColor.themeMediumBlue
     feedNC.navigationBar.tintColor = UIColor.themeWhite
     feedNC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.themeWhite]
-    feedNC.tabBarItem = UITabBarItem(title: "Feed", image: #imageLiteral(resourceName: "Feed Tab Bar"), selectedImage: nil)
+    feedNC.tabBarItem = UITabBarItem(title: "Live Feed", image: #imageLiteral(resourceName: "Feed Tab Bar"), selectedImage: nil)
     
     let profileNC = UINavigationController(rootViewController: ProfileViewController())
     profileNC.navigationBar.isTranslucent = false

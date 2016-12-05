@@ -11,106 +11,96 @@ import UIKit
 class CreateAccountView: UIView {
   
   // MARK: Properties
-  var firstNameField = CustomTextField()
-  var lastNameField = CustomTextField()
-  var emailField = CustomTextField()
-  var passwordField = CustomTextField()
-  var retypePasswordField = CustomTextField()
-  var fieldStackView = UIStackView()
-  var createAccountButton = UIButton()
-  var cancelButton = UIButton()
+  lazy var scrollView = UIScrollView()
+  lazy var pageControl = UIPageControl()
+  lazy var stackView = UIStackView()
+  
+  lazy var firstNameField = UITextField()
+  lazy var lastNameField = UITextField()
+  lazy var emailField = UITextField()
+  lazy var passwordField = UITextField()
+  
+  lazy var finalView = UIView()
+  lazy var allSetLabel = UILabel()
+  lazy var checkButton = UIButton()
   
   // MARK: Initialization
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-  }
+  required init?(coder aDecoder: NSCoder) { super.init(coder: aDecoder) }
+  override init(frame: CGRect) { super.init(frame: frame) }
+  convenience init() { self.init(frame: CGRect.zero); configure(); constrain() }
   
-  convenience init() {
-    self.init(frame: CGRect.zero)
-    
-    configure()
-    constrain()
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
-  
-  // MARK: View Configuration
-  func configure() {
+  // MARK: Setup
+  private func configure() {
     backgroundColor = UIColor.themeLightBlue
     
+    scrollView.isPagingEnabled = true
+    scrollView.showsHorizontalScrollIndicator = false
+    scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 5, height: UIScreen.main.bounds.height)
+    
+    pageControl.numberOfPages = 5
+    
+    stackView.distribution = .fillEqually
+    stackView.alignment = .center
+    stackView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
+    
     firstNameField.placeholder = "First name"
-    firstNameField.textColor = UIColor.themeWhite
-    firstNameField.layer.cornerRadius = 10
-    firstNameField.layer.borderWidth = 1
-    firstNameField.layer.borderColor = UIColor.themeWhite.cgColor
+    firstNameField.font = UIFont.themeOversizeThin
+    firstNameField.textColor = UIColor.white
+    firstNameField.textAlignment = .center
     
     lastNameField.placeholder = "Last name"
-    lastNameField.textColor = UIColor.themeWhite
-    lastNameField.layer.cornerRadius = 10
-    lastNameField.layer.borderWidth = 1
-    lastNameField.layer.borderColor = UIColor.themeWhite.cgColor
+    lastNameField.font = UIFont.themeOversizeThin
+    lastNameField.textColor = UIColor.white
+    lastNameField.textAlignment = .center
     
     emailField.placeholder = "Email"
-    emailField.textColor = UIColor.themeWhite
-    emailField.layer.cornerRadius = 10
-    emailField.layer.borderWidth = 1
-    emailField.layer.borderColor = UIColor.themeWhite.cgColor
+    emailField.font = UIFont.themeOversizeThin
+    emailField.textColor = UIColor.white
+    emailField.textAlignment = .center
     
     passwordField.placeholder = "Password"
-    passwordField.textColor = UIColor.themeWhite
-    passwordField.layer.cornerRadius = 10
-    passwordField.layer.borderWidth = 1
-    passwordField.layer.borderColor = UIColor.themeWhite.cgColor
+    passwordField.font = UIFont.themeOversizeThin
+    passwordField.textColor = UIColor.white
+    passwordField.textAlignment = .center
     
-    retypePasswordField.placeholder = "Password"
-    retypePasswordField.textColor = UIColor.themeWhite
-    retypePasswordField.layer.cornerRadius = 10
-    retypePasswordField.layer.borderWidth = 1
-    retypePasswordField.layer.borderColor = UIColor.themeWhite.cgColor
+    allSetLabel.text = "You're all set."
+    allSetLabel.font = UIFont.themeSmallBold
+    allSetLabel.textColor = UIColor.white
+    allSetLabel.textAlignment = .center
     
-    fieldStackView.addArrangedSubview(firstNameField)
-    fieldStackView.addArrangedSubview(lastNameField)
-    fieldStackView.addArrangedSubview(emailField)
-    fieldStackView.addArrangedSubview(passwordField)
-    fieldStackView.addArrangedSubview(retypePasswordField)
-    fieldStackView.axis = .vertical
-    fieldStackView.distribution = .equalSpacing
-    
-    createAccountButton.contentEdgeInsets = UIEdgeInsetsMake(11, 16, 11, 16)
-    createAccountButton.setTitle("Create account", for: .normal)
-    createAccountButton.titleLabel?.font = UIFont.themeSmallBold
-    createAccountButton.setTitleColor(UIColor.themeWhite, for: .normal)
-    createAccountButton.layer.cornerRadius = 20
-    createAccountButton.layer.borderWidth = 2
-    createAccountButton.layer.borderColor = UIColor.themeWhite.cgColor
-    
-    cancelButton.setTitle("x", for: .normal)
-    cancelButton.titleLabel?.font = UIFont.themeMediumRegular
-    cancelButton.setTitleColor(UIColor.themeWhite, for: .normal)
+    checkButton.setImage(#imageLiteral(resourceName: "White Check"), for: .normal)
   }
   
-  // MARK: View Constraints
-  func constrain() {
-    addSubview(fieldStackView)
-    fieldStackView.snp.makeConstraints {
-      $0.centerX.equalToSuperview()
-      $0.top.equalToSuperview().offset(80)
-      $0.width.equalToSuperview().dividedBy(1.3)
-      $0.height.equalToSuperview().dividedBy(1.5)
+  private func constrain() {
+    addSubview(scrollView)
+    scrollView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
     }
     
-    addSubview(createAccountButton)
-    createAccountButton.snp.makeConstraints {
+    addSubview(pageControl)
+    pageControl.snp.makeConstraints {
       $0.centerX.equalToSuperview()
-      $0.top.equalTo(fieldStackView.snp.bottom).offset(40)
+      $0.centerY.equalToSuperview().multipliedBy(1.9)
     }
     
-    addSubview(cancelButton)
-    cancelButton.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(20)
-      $0.trailing.equalToSuperview().offset(-15)
+    scrollView.addSubview(stackView)
+    stackView.addArrangedSubview(firstNameField)
+    stackView.addArrangedSubview(lastNameField)
+    stackView.addArrangedSubview(emailField)
+    stackView.addArrangedSubview(passwordField)
+    stackView.addArrangedSubview(finalView)
+    
+    finalView.addSubview(checkButton)
+    checkButton.snp.makeConstraints {
+      $0.top.equalToSuperview()
+      $0.centerX.equalToSuperview()
+    }
+    
+    finalView.addSubview(allSetLabel)
+    allSetLabel.snp.makeConstraints {
+      $0.top.equalTo(checkButton.snp.bottom).offset(50)
+      $0.bottom.equalToSuperview()
+      $0.centerX.equalToSuperview()
     }
   }
 }
