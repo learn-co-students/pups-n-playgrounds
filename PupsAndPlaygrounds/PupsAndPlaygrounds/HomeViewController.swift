@@ -44,7 +44,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     private func configure() {
         title = "Map View"
-        
+        print("CONFIGURING")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Switch View"), style: .plain, target: self, action: #selector(switchView))
         
         listView.locationsTableView.delegate = self
@@ -56,8 +56,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         
         FirebaseData.getAllPlaygrounds { playgrounds in
             self.locations = playgrounds
-            self.listView.locationsTableView.reloadData()
-        }     
+//            self.listView.locationsTableView.reloadData()
+        }
 
         
         GeoFireMethods.getNearby(locations: longitude, latitude: latitude) { (coordinates) in

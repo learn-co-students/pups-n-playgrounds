@@ -22,8 +22,6 @@ class LocationProfileViewController: UIViewController {
         
         guard let unwrappedPlayground = playground else { return }
         
-
-            
         self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
         self.view = self.locationProfileView
         
