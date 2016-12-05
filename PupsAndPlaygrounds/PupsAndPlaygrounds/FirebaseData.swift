@@ -265,6 +265,7 @@ class FirebaseData {
     
     
     static func flagReviewWith(unique reviewID: String, locationID: String, comment: String, userID: String, completion: () -> Void) {
+        
         let rootRef = FIRDatabase.database().reference().root
         
         let reviewRef = rootRef.child("reviews")
@@ -292,7 +293,7 @@ class FirebaseData {
     // MARK: Generates Locations on the app FROM Firebase data source
     
     static func getAllPlaygrounds(with completion: @escaping ([Playground]) -> Void ) {
-        
+        print("GET ALL PLAYGROUNDS IS RUNNING")
         var playgroundArray: [Playground] = []
         
         let ref = FIRDatabase.database().reference().child("locations").child("playgrounds")
@@ -308,8 +309,8 @@ class FirebaseData {
                 guard let address = value["address"] as? String else { return }
                 guard let latitude = value["latitude"] as? String else { return }
                 guard let longitude = value["longitude"] as? String else { return }
-                guard let isHandicap = value["isHandicap"] as? Bool else { return }
-                guard let isFlagged = value["isFlagged"] as? Bool else { return }
+                guard let isHandicap = value["isHandicap"] as? String else { return }
+                guard let isFlagged = value["isFlagged"] as? String else { return }
                 
                 /*
                  guard let photos = value["photos"] as? [UIImage] else { return }
@@ -335,9 +336,21 @@ class FirebaseData {
                  }
                  }
                  */
-                let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: [], photos: [], isFlagged: isFlagged)
+                
+                var isHandicapBool = false
+                if isHandicap == "true" {
+                    isHandicapBool = true
+                }
+                
+                var isFlaggedBool = false
+                if isFlagged == "true" {
+                    isFlaggedBool = true
+                }
+                
+                let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicapBool, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: [], photos: [], isFlagged: isFlaggedBool)
                 
                 playgroundArray.append(newestPlayground)
+                print("PLAYGROUND ARRAY = \(playgroundArray.count)")
                 
             }
             completion(playgroundArray)
@@ -352,7 +365,7 @@ class FirebaseData {
         
         let uniqueLocationKey = FIRDatabase.database().reference().childByAutoId().key
         
-        ref.child("locations").child("playgrounds").updateChildValues(["PG-\(uniqueLocationKey)":["name": name, "address": address, "isHandicap": isHandicap, "latitude": latitude, "longitude": longitude, "isFlagged": false]])
+        ref.child("locations").child("playgrounds").updateChildValues(["PG-\(uniqueLocationKey)":["name": name, "address": address, "isHandicap": isHandicap, "latitude": latitude, "longitude": longitude, "isFlagged": "false"]])
     }
     
     static func addDogrunsToFirebase(name: String, address: String, isHandicap: String, dogRunType: String, notes: String) {
@@ -361,7 +374,7 @@ class FirebaseData {
         
         let uniqueLocationKey = FIRDatabase.database().reference().childByAutoId().key
         
-        ref.child("locations").child("dogruns").updateChildValues( ["DR-\(uniqueLocationKey)":["name": name, "location": address, "isHandicap": isHandicap, "dogRunType": dogRunType, "notes": notes]])
+        ref.child("locations").child("dogruns").updateChildValues( ["DR-\(uniqueLocationKey)":["name": name, "location": address, "isHandicap": isHandicap, "dogRunType": dogRunType, "notes": notes, "isFlagged": "false"]])
     }
     
     
