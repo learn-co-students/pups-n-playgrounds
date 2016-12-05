@@ -39,7 +39,7 @@ class LocationProfileViewController: UIViewController {
             
         }
         
-        title = "Location"
+        navigationItem.title = "Location"
         
     }
     

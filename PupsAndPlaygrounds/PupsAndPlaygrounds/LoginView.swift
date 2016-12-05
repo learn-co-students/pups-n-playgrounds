@@ -13,24 +13,20 @@ import FBSDKLoginKit
 class LoginView: UIView {
   
   // MARK: Properties
-  var topView: UIView!
-  var topMiddleDividerView: UIView!
-  var middleView: UIView!
-  var middleBottomDividerView: UIView!
-  var bottomView: UIView!
-  var titleLabel: UILabel!
-  var emailField: CustomTextField!
-  var passwordField: CustomTextField!
-  var loginButton: UIButton!
-  var orUseLabel: UILabel!
-  var facebookButton: FBSDKLoginButton!
-  //  var googleButton: UIButton!
-  //  var twitterButton: UIButton!
-  var loginOptionsStackView: UIStackView!
-  var loginStackView: UIStackView!
-  var createAccountButton: UIButton!
-  var skipButton: UIButton!
-  var noLoginStackView: UIStackView!
+  lazy var topView = UIView()
+  lazy var middleView = UIView()
+  lazy var bottomView = UIView()
+  lazy var titleLabel = UILabel()
+  lazy var emailField: CustomTextField = CustomTextField()
+  lazy var passwordField: CustomTextField = CustomTextField()
+  lazy var loginButton = UIButton()
+  lazy var orUseLabel = UILabel()
+  lazy var facebookButton = FBSDKLoginButton()
+  lazy var loginOptionsStackView = UIStackView()
+  lazy var loginStackView = UIStackView()
+  lazy var createAccountButton = UIButton()
+  lazy var skipButton = UIButton()
+  lazy var noLoginStackView = UIStackView()
   
   // MARK: Initialization
   required init?(coder aDecoder: NSCoder) {
@@ -50,44 +46,28 @@ class LoginView: UIView {
   
   // MARK: View Configuration
   private func configure() {
-    
-    topView = UIView()
     topView.backgroundColor = UIColor.themeMediumBlue
-    
-    topMiddleDividerView = UIView()
-    topMiddleDividerView.backgroundColor = UIColor.themeWhite
-    
-    middleView = UIView()
     middleView.backgroundColor = UIColor.themeLightBlue
-    
-    middleBottomDividerView = UIView()
-    middleBottomDividerView.backgroundColor = UIColor.themeWhite
-    
-    bottomView = UIView()
     bottomView.backgroundColor = UIColor.themeRed
     
-    titleLabel = UILabel()
     titleLabel.text = "Pups &\nPlaygrounds"
     titleLabel.numberOfLines = 2
     titleLabel.textAlignment = .center
     titleLabel.font = UIFont.themeOversizeThin
     titleLabel.textColor = UIColor.themeWhite
     
-    emailField = CustomTextField()
     emailField.placeholder = "Email"
     emailField.textColor = UIColor.themeWhite
     emailField.layer.cornerRadius = 10
     emailField.layer.borderWidth = 1
     emailField.layer.borderColor = UIColor.themeWhite.cgColor
     
-    passwordField = CustomTextField()
     passwordField.placeholder = "Password"
     passwordField.textColor = UIColor.themeWhite
     passwordField.layer.cornerRadius = 10
     passwordField.layer.borderWidth = 1
     passwordField.layer.borderColor = UIColor.themeWhite.cgColor
     
-    loginButton = UIButton()
     loginButton.contentEdgeInsets = UIEdgeInsetsMake(11, 16, 11, 16)
     loginButton.setTitle("Log in", for: .normal)
     loginButton.titleLabel?.font = UIFont.themeSmallBold
@@ -96,34 +76,34 @@ class LoginView: UIView {
     loginButton.layer.borderWidth = 2
     loginButton.layer.borderColor = UIColor.themeWhite.cgColor
     
-    orUseLabel = UILabel()
     orUseLabel.text = "or use"
     orUseLabel.font = UIFont.themeSmallBold
     orUseLabel.textColor = UIColor.themeWhite
     
-    facebookButton = FBSDKLoginButton()
-    
-    loginOptionsStackView = UIStackView(arrangedSubviews: [loginButton, orUseLabel, facebookButton])
+    loginOptionsStackView.addArrangedSubview(loginButton)
+    loginOptionsStackView.addArrangedSubview(orUseLabel)
+    loginOptionsStackView.addArrangedSubview(facebookButton)
     loginOptionsStackView.distribution = .equalSpacing
     loginOptionsStackView.alignment = .fill
     loginOptionsStackView.spacing = 10
     
-    loginStackView = UIStackView(arrangedSubviews: [emailField, passwordField, loginOptionsStackView])
+    loginStackView.addArrangedSubview(emailField)
+    loginStackView.addArrangedSubview(passwordField)
+    loginStackView.addArrangedSubview(loginOptionsStackView)
     loginStackView.axis = .vertical
     loginStackView.spacing = 40
     loginStackView.alignment = .center
     
-    createAccountButton = UIButton()
     createAccountButton.setTitle("Create account", for: .normal)
     createAccountButton.titleLabel?.font = UIFont.themeTinyBold
     createAccountButton.setTitleColor(UIColor.themeWhite, for: .normal)
     
-    skipButton = UIButton()
     skipButton.setTitle("Skip for now", for: .normal)
     skipButton.titleLabel?.font = UIFont.themeTinyBold
     skipButton.setTitleColor(UIColor.themeWhite, for: .normal)
     
-    noLoginStackView = UIStackView(arrangedSubviews: [createAccountButton, skipButton])
+    noLoginStackView.addArrangedSubview(createAccountButton)
+    noLoginStackView.addArrangedSubview(skipButton)
     noLoginStackView.axis = .vertical
     noLoginStackView.spacing = 3
   }
@@ -131,7 +111,7 @@ class LoginView: UIView {
   // MARK: View Constraints
   private func constrain() {
     
-    // Top View
+    // Top view
     addSubview(topView)
     topView.snp.makeConstraints {
       $0.leading.trailing.top.equalToSuperview()
@@ -143,7 +123,7 @@ class LoginView: UIView {
       $0.center.equalToSuperview()
     }
     
-    // Middle View
+    // Middle view
     addSubview(middleView)
     middleView.snp.makeConstraints {
       $0.leading.trailing.equalToSuperview()
@@ -174,15 +154,8 @@ class LoginView: UIView {
     //      $0.width.equalTo(facebookButton.snp.height)
     //    }
     
-    //    googleButton.snp.makeConstraints {
-    //      $0.width.equalTo(googleButton.snp.height)
-    //    }
-    //
-    //    twitterButton.snp.makeConstraints {
-    //      $0.width.equalTo(twitterButton.snp.height)
-    //    }
     
-    // Bottom View
+    // Bottom view
     addSubview(bottomView)
     bottomView.snp.makeConstraints {
       $0.leading.trailing.bottom.equalToSuperview()
