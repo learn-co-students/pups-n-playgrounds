@@ -11,50 +11,24 @@ import Firebase
 
 
 class LocationProfileViewController: UIViewController {
+    
     var playground: Playground?
     var locationProfileView: LocationProfileView!
+    var reviewsTableView: UITableView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("PLAYGROUND = \(playground?.playgroundID) ")
-
-        FirebaseData.getLocation(with: playground!.playgroundID) { (firebaseLocation) in
-            print("FIREBASE LOCATION \(firebaseLocation)")
-            print("FIREBASE NAME \(firebaseLocation?.name)")
-            print("PLAYGROUND COUNT = \(firebaseLocation?.reviews.count) ")
-            self.playground = firebaseLocation as! Playground?
-            
-            self.locationProfileView = LocationProfileView(playground: self.playground!)
-            self.locationProfileView.reviewsTableView.delegate = self
-            self.locationProfileView.reviewsTableView.dataSource = self
-            self.locationProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "reviewsCell")
-            
-           self.view.addSubview(self.locationProfileView)
-            self.locationProfileView.snp.makeConstraints {
-                $0.edges.equalToSuperview()
-            }
-            
-            self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(self.submitReviewAlert), for: .touchUpInside)
-            
-        }
         
-        title = "Location"
+        locationProfileView = LocationProfileView(playground: playground!)
+        view = locationProfileView
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("VIEW IS WILL APPEARING")
+        navigationItem.title = "Location"
+        navigationController?.isNavigationBarHidden = true
         
-        let ref = FIRDatabase.database().reference().root
+        locationProfileView.submitReviewButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
         
-        ref.observe(FIRDataEventType.value, with: { (snapshot) in
-            let postDict = snapshot.value as? [String:Any] ?? [:]
-            
-            print("SNAPSHOT = \(postDict)")
-//            var newReview: Review!
-            self.locationProfileView.reviewsTableView.reloadData()
-            
-        })
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,8 +38,9 @@ class LocationProfileViewController: UIViewController {
     
     func submitReviewAlert() {
         
+        guard let name = locationProfileView.locationNameLabel.text else { return }
         guard let location = locationProfileView.location else { return }
-        let name = location.name
+        print("LOCATION ID IS \(location.playgroundID)")
         
         let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
         
@@ -75,9 +50,9 @@ class LocationProfileViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
             let reviewTextField = alert.textFields![0]
             
-            FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID, rating: String(self.locationProfileView.starReviews.value))
-
+            FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID, rating: "\(self.locationProfileView.starReviews.value)")
         }))
+        
         self.present(alert, animated: true, completion: nil)
     }
     
