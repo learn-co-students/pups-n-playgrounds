@@ -11,10 +11,12 @@
 		B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */; };
 		C405AE131DF0BCD30044D9C8 /* GeoFireMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = C405AE121DF0BCD30044D9C8 /* GeoFireMethods.swift */; };
 		C411BBB21DDF706E0090335B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C411BBB11DDF706E0090335B /* GoogleService-Info.plist */; };
+		C4129E9E1DF577E6009706E6 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4129E9D1DF577E6009706E6 /* CustomAnnotationView.swift */; };
+		C4129EA11DF57B66009706E6 /* CustomCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4129EA01DF57B66009706E6 /* CustomCalloutView.swift */; };
 		C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C4401DDF9A140020F10F /* LoginViewController.swift */; };
 		C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C4421DDFB69F0020F10F /* CustomColors.swift */; };
 		C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C44B1DDFC4660020F10F /* CustomFonts.swift */; };
-		C4283EB51DF10C570052580A /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4283EB41DF10C570052580A /* LocationAnnotation.swift */; };
+		C4283EB51DF10C570052580A /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4283EB41DF10C570052580A /* CustomAnnotation.swift */; };
 		C4283EB71DF1DD8E0052580A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */; };
 		C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1A1DE36C3A00A652DB /* HomeView.swift */; };
 		C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */; };
@@ -53,10 +55,12 @@
 		B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		C405AE121DF0BCD30044D9C8 /* GeoFireMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeoFireMethods.swift; path = PupsAndPlaygrounds/GeoFireMethods.swift; sourceTree = "<group>"; };
 		C411BBB11DDF706E0090335B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C4129E9D1DF577E6009706E6 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
+		C4129EA01DF57B66009706E6 /* CustomCalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalloutView.swift; sourceTree = "<group>"; };
 		C413C4401DDF9A140020F10F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C413C4421DDFB69F0020F10F /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		C413C44B1DDFC4660020F10F /* CustomFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
-		C4283EB41DF10C570052580A /* LocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
+		C4283EB41DF10C570052580A /* CustomAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PupsAndPlaygrounds.entitlements; sourceTree = "<group>"; };
 		C4810D1A1DE36C3A00A652DB /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -128,7 +132,6 @@
 				E84199D01DE38FE400522C8A /* Reviews.swift */,
 				E84199C81DE37EB000522C8A /* Locations.swift */,
 				E809BA101DE4FF9D00E7BF03 /* User.swift */,
-				C4283EB41DF10C570052580A /* LocationAnnotation.swift */,
 				C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */,
 			);
 			name = Model;
@@ -137,11 +140,14 @@
 		C413C4451DDFB9C90020F10F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E813A3A91DECA4E4006D9725 /* LocationsProfileView.swift */,
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
 				C4810D1A1DE36C3A00A652DB /* HomeView.swift */,
 				C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */,
+				C4283EB41DF10C570052580A /* CustomAnnotation.swift */,
+				E813A3A91DECA4E4006D9725 /* LocationsProfileView.swift */,
+				C4129E9D1DF577E6009706E6 /* CustomAnnotationView.swift */,
+				C4129EA01DF57B66009706E6 /* CustomCalloutView.swift */,
 				C4B6ED7E1DEDEB8D00F28C04 /* ListView.swift */,
 				C4AEC6201DEDD47E0095DC47 /* FeedView.swift */,
 				B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */,
@@ -220,7 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */,
-				E84199BE1DE37E5100522C8A /* Data - Local and Firebase */,
+				E84199BE1DE37E5100522C8A /* Data */,
 				C413C4441DDFB9C40020F10F /* Model */,
 				C413C4451DDFB9C90020F10F /* View */,
 				C413C4461DDFB9CE0020F10F /* Controller */,
@@ -229,7 +235,7 @@
 			path = PupsAndPlaygrounds;
 			sourceTree = "<group>";
 		};
-		E84199BE1DE37E5100522C8A /* Data - Local and Firebase */ = {
+		E84199BE1DE37E5100522C8A /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				E84199C51DE37E8F00522C8A /* FirebaseData.swift */,
@@ -239,7 +245,7 @@
 				E84199BF1DE37E7800522C8A /* dogrunsnyc.json */,
 				E84199C11DE37E7800522C8A /* playgroundsnyc.json */,
 			);
-			name = "Data - Local and Firebase";
+			name = Data;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -380,8 +386,9 @@
 				C405AE131DF0BCD30044D9C8 /* GeoFireMethods.swift in Sources */,
 				E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */,
 				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
-				C4283EB51DF10C570052580A /* LocationAnnotation.swift in Sources */,
+				C4283EB51DF10C570052580A /* CustomAnnotation.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
+				C4129EA11DF57B66009706E6 /* CustomCalloutView.swift in Sources */,
 				E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */,
 				C4B6ED7D1DEDDF8700F28C04 /* MapView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
@@ -397,6 +404,7 @@
 				C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */,
 				B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,
+				C4129E9E1DF577E6009706E6 /* CustomAnnotationView.swift in Sources */,
 				C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */,
 				C4283EB71DF1DD8E0052580A /* ContainerViewController.swift in Sources */,
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
@@ -511,6 +519,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = PupsAndPlaygrounds/PupsAndPlaygrounds.entitlements;
 				DEVELOPMENT_TEAM = TWPE6ND5AF;
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
@@ -527,6 +536,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = PupsAndPlaygrounds/PupsAndPlaygrounds.entitlements;
 				DEVELOPMENT_TEAM = TWPE6ND5AF;
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;

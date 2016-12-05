@@ -16,7 +16,7 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
   
   // MARK: Properties
   let loginView = LoginView()
-  let appDelegate = UIApplication.shared.delegate as? AppDelegate
+  let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
   
   // MARK: Override Methods
   override func viewDidLoad() {
@@ -50,19 +50,22 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     FIRAuth.auth()?.signIn(withEmail: email, password: password) { user, error in
       guard error == nil else { print("error signing user in via email"); return }
-      self.appDelegate?.window?.rootViewController = MainTabBarController()
+      
+      let mainTBC = MainTabBarController()
+      self.containerVC?.childVC = mainTBC
+      self.containerVC?.setup(forAnimation: .slideDown)
     }
   }
   
   func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-    
     let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
     
     FIRAuth.auth()?.signIn(with: credential) { user, error in
       guard error == nil else { print("error logging using in via facebook"); return }
       
-      self.appDelegate?.window?.rootViewController = MainTabBarController()
-    }
+      let mainTBC = MainTabBarController()
+      self.containerVC?.childVC = mainTBC
+      self.containerVC?.setup(forAnimation: .slideDown)    }
   }
   
   func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
@@ -70,13 +73,18 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
   }
   
   func createAccountButtonTouched() {
-    self.appDelegate?.window?.rootViewController = CreateAccountViewController()
+    let createAccountVC = CreateAccountViewController()
+    self.containerVC?.childVC = createAccountVC
+    self.containerVC?.setup(forAnimation: .slideLeft)
   }
   
   func skipButtonTouched() {
     FIRAuth.auth()?.signInAnonymously { user, error in
       guard error == nil else  { print("error signing user in anonymously"); return }
-      self.appDelegate?.window?.rootViewController = MainTabBarController()
+      
+      let mainTBC = MainTabBarController()
+      self.containerVC?.childVC = mainTBC
+      self.containerVC?.setup(forAnimation: .slideDown)
     }
   }
 }

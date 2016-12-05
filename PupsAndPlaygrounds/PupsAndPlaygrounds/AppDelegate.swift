@@ -29,11 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Check user authorization status
     FIRAuth.auth()?.addStateDidChangeListener { _, user in userAuthenticated = (user != nil) }
     
-    print(userAuthenticated)
     
     // ContainerViewController setup
     containerViewController.childVC = userAuthenticated ? HomeViewController() : LoginViewController()
-    containerViewController.setup(forAnimation: .none)
+    containerViewController.setup(forAnimation: .slideUp)
     
     // Window setup
     window = UIWindow(frame: UIScreen.main.bounds)
@@ -51,11 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
   }
   
-  // MARK: Save data on app quit
+  // MARK: Save data on app termination
   func applicationWillTerminate(_ application: UIApplication) { self.saveContext() }
   
-  // MARK: - Core Data stack
-  
+  // MARK: Core Data stack
   lazy var persistentContainer: NSPersistentContainer = {
     /*
      The persistent container for the application. This implementation
@@ -84,7 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }()
   
   // MARK: - Core Data Saving support
-  
   func saveContext () {
     let context = persistentContainer.viewContext
     if context.hasChanges {

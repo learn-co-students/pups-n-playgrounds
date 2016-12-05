@@ -35,6 +35,13 @@ class HomeViewController: UIViewController {
     mapView.map.delegate = self
     mapView.map.showsUserLocation = true
     
+    let annotation = CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 48.856614, longitude: 2.3522219000000177))
+    annotation.title = "Test Title"
+    annotation.rating = "10"
+    annotation.distance = "0.95"
+    
+    mapView.map.addAnnotation(annotation)
+    
     listView.locationsTableView.delegate = self
     listView.locationsTableView.dataSource = self
     listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
@@ -100,46 +107,41 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - MKMapViewDelegate and Methods
 extension HomeViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    guard let annotation = annotation as? LocationAnnotation else { return nil }
+    guard let annotation = annotation as? CustomAnnotation else { return nil }
     
-    let identifier = "locationAnnotation"
-    var annotationView: MKPinAnnotationView
+    let identifier = "customAnnotationView"
+    var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
     
-    if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
-      dequeuedView.annotation = annotation
-      annotationView = dequeuedView
+    if view != nil {
+      view?.annotation = annotation
     } else {
-      annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-      annotationView.canShowCallout = true
-      annotationView.calloutOffset = CGPoint(x: -8, y: -4)
-      
-      let rating = UILabel()
-      rating.text = "••••••••••\n••••••••••\n••••••••••"
-      rating.numberOfLines = 3
-      
-      let locationProfileButton = UIButton()
-      locationProfileButton.setTitle("Checkout", for: .normal)
-      locationProfileButton.setImage(#imageLiteral(resourceName: "Black Arrow"), for: .normal)
-      
-      let accessoryView = UIView()
-      
-      accessoryView.addSubview(rating)
-      rating.snp.makeConstraints {
-        $0.leading.equalToSuperview()
-      }
-      
-      accessoryView.addSubview(locationProfileButton)
-      locationProfileButton.snp.makeConstraints {
-        $0.leading.equalTo(rating.snp.trailing)
-        $0.trailing.equalToSuperview()
-      }
-    
-      annotationView.detailCalloutAccessoryView = accessoryView
+      view = CustomAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+      view?.image = #imageLiteral(resourceName: "Location")
+      view?.canShowCallout = false
     }
     
-    annotationView.pinTintColor = UIColor.white
+    return view
+  }
+  
+  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    guard let annotation = view.annotation as? CustomAnnotation else { print("error unwrapping custom annotation"); return }
+    centerMap(on: annotation.coordinate)
     
-    return annotationView
+    let callout = CustomCalloutView()
+    callout.titleLabel.text = annotation.title
+    callout.ratingLabel.text = "Rating: \(annotation.rating ?? "")"
+    callout.distanceLabel.text = "\(annotation.distance ?? "") mi"
+    
+    callout.center = CGPoint(x: view.bounds.size.width / 2, y: -callout.bounds.size.height * 0.52)
+    view.addSubview(callout)
+  }
+  
+  func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+    if view is CustomAnnotationView {
+      for subview in view.subviews {
+        subview.removeFromSuperview()
+      }
+    }
   }
   
   func centerMap(on coordinate: CLLocationCoordinate2D) {

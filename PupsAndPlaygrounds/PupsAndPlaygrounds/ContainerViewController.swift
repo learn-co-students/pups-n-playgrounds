@@ -13,7 +13,7 @@ class ContainerViewController: UIViewController {
   
   // MARK: Transition Animation Type
   enum Animation {
-    case none, slideUp
+    case none, slideUp, slideDown, slideLeft, slideRight
   }
   
   // MARK: Properties
@@ -31,6 +31,13 @@ class ContainerViewController: UIViewController {
   var previousChildCenterXConstraint: Constraint?
   var previousChildCenterYConstraint: Constraint?
   
+  // MARK: Override Methods
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    view.backgroundColor = UIColor.themeMediumBlue
+  }
+  
   // MARK: Setup
   func setup(forAnimation animation: Animation) {
     guard let childVC = childVC else { print("error unwrapping child view controller"); return }
@@ -47,6 +54,18 @@ class ContainerViewController: UIViewController {
       case .slideUp:
         childCenterXConstraint = $0.centerX.equalToSuperview().constraint
         childCenterYConstraint = $0.centerY.equalToSuperview().offset(view.frame.height).constraint
+        $0.width.height.equalToSuperview()
+      case .slideDown:
+        childCenterXConstraint = $0.centerX.equalToSuperview().constraint
+        childCenterYConstraint = $0.centerY.equalToSuperview().offset(-view.frame.height).constraint
+        $0.width.height.equalToSuperview()
+      case .slideLeft:
+        childCenterXConstraint = $0.centerX.equalToSuperview().offset(view.frame.width).constraint
+        childCenterYConstraint = $0.centerY.equalToSuperview().constraint
+        $0.width.height.equalToSuperview()
+      case .slideRight:
+        childCenterXConstraint = $0.centerX.equalToSuperview().offset(-view.frame.width).constraint
+        childCenterYConstraint = $0.centerY.equalToSuperview().constraint
         $0.width.height.equalToSuperview()
       default:
         childCenterXConstraint = $0.centerX.equalToSuperview().constraint
@@ -70,6 +89,27 @@ class ContainerViewController: UIViewController {
       UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
         self.previousChildCenterYConstraint?.update(offset: -self.view.frame.height)
         self.childCenterYConstraint?.update(offset: 0)
+        self.view.layoutIfNeeded()
+      }) { _ in self.removePreviousChild() }
+    case .slideDown:
+      view.layoutIfNeeded()
+      UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+        self.previousChildCenterYConstraint?.update(offset: self.view.frame.height)
+        self.childCenterYConstraint?.update(offset: 0)
+        self.view.layoutIfNeeded()
+      }) { _ in self.removePreviousChild() }
+    case .slideLeft:
+      view.layoutIfNeeded()
+      UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+        self.previousChildCenterXConstraint?.update(offset: -self.view.frame.width)
+        self.childCenterXConstraint?.update(offset: 0)
+        self.view.layoutIfNeeded()
+      }) { _ in self.removePreviousChild() }
+    case .slideRight:
+      view.layoutIfNeeded()
+      UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+        self.previousChildCenterXConstraint?.update(offset: self.view.frame.width)
+        self.childCenterXConstraint?.update(offset: 0)
         self.view.layoutIfNeeded()
       }) { _ in self.removePreviousChild() }
     default:

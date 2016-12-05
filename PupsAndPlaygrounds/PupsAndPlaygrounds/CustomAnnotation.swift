@@ -1,5 +1,5 @@
 //
-//  LocationAnnotation.swift
+//  CustomAnnotation.swift
 //  MapTest
 //
 //  Created by William Robinson on 12/1/16.
@@ -9,13 +9,13 @@
 import Foundation
 import MapKit
 
-class LocationAnnotation: NSObject, MKAnnotation {
+class CustomAnnotation: NSObject, MKAnnotation {
   
   // MARK: Properties
   let coordinate: CLLocationCoordinate2D
   var title: String?
-  var rating: Int?
-  var distance: Double?
+  var rating: String?
+  var distance: String?
   var image: UIImage?
   
   // MARK: Initialization

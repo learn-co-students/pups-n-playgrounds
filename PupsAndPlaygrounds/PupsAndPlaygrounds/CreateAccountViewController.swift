@@ -13,21 +13,21 @@ import Firebase
 class CreateAccountViewController: UIViewController {
   
   // MARK: Properties
-  var createAccountView: CreateAccountView!
-  let appDelegate = UIApplication.shared.delegate as? AppDelegate
+  lazy var createAccountView = CreateAccountView()
+  let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
   
   // MARK: Override Methods
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    createAccountView = CreateAccountView()
-    createAccountView.createAccountButton.addTarget(self, action: #selector(createButtonTouched), for: .touchUpInside)
-    createAccountView.cancelButton.addTarget(self, action: #selector(cancelButtonTouched), for: .touchUpInside)
+    createAccountView.scrollView.delegate = self
+    
     createAccountView.firstNameField.delegate = self
     createAccountView.lastNameField.delegate = self
     createAccountView.emailField.delegate = self
     createAccountView.passwordField.delegate = self
-    createAccountView.retypePasswordField.delegate = self
+    
+    createAccountView.checkButton.addTarget(self, action: #selector(checkButtonTouched), for: .touchUpInside)
     
     view.addSubview(createAccountView)
     createAccountView.snp.makeConstraints {
@@ -35,18 +35,13 @@ class CreateAccountViewController: UIViewController {
     }
   }
   
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    _ = view.endEditing(true)
-  }
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { _ = view.endEditing(true) }
   
-  func createButtonTouched() {
+  func checkButtonTouched() {
     guard let firstName = createAccountView.firstNameField.text else { print("error unwrapping first name"); return }
     guard let lastName = createAccountView.lastNameField.text else { print("error unwrapping last name"); return }
     guard let email = createAccountView.emailField.text else { print("error unwrapping email"); return }
     guard let password = createAccountView.passwordField.text else { print("error unwrapping password"); return }
-    guard let retypePassword = createAccountView.retypePasswordField.text else { print("error unwrapping retyped password"); return }
-    
-    guard password == retypePassword else { print("passwords do not match"); return }
     
     FIRAuth.auth()?.createUser(withEmail: email, password: password) { user, error in
       guard error == nil else { print("error creating firebase user"); return }
@@ -61,12 +56,17 @@ class CreateAccountViewController: UIViewController {
       newUserRef.child("photos")
       newUserRef.child("visitedLocations")
       
-      self.appDelegate?.window?.rootViewController = MainTabBarController()
+      let mainTBC = MainTabBarController()
+      self.containerVC?.childVC = mainTBC
+      self.containerVC?.setup(forAnimation: .slideLeft)
     }
   }
-  
-  func cancelButtonTouched() {
-    appDelegate?.window?.rootViewController = LoginViewController()
+}
+
+// MARK: - UIScrollViewDelegate
+extension CreateAccountViewController: UIScrollViewDelegate {
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    createAccountView.pageControl.currentPage = Int(round(scrollView.contentOffset.x / scrollView.frame.width))
   }
 }
 
