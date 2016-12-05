@@ -260,7 +260,7 @@ class FirebaseData {
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let playgroundDict = snapshot.value as? [String : Any] else { return }
-            print("PLAYGROUND DICTIONARY = \(playgroundDict)")
+
             
             for newPlayground in playgroundDict {
                 
@@ -300,7 +300,7 @@ class FirebaseData {
                 let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: [], photos: [], isFlagged:isFlagged)
                 
                 playgroundArray.append(newestPlayground)
-                print("FOR IN PLAYGROUNDS COUNT = \(playgroundArray.count)")
+
 //                if playgroundDict.count == playgroundArray.count {
 //                    print("PLAYGROUND ARRAY: \(playgroundArray.count)")
 //                    completion(playgroundArray)

@@ -24,7 +24,7 @@ class LocationProfileViewController: UIViewController {
         view = locationProfileView
         
         navigationItem.title = "Location"
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = false
         
         locationProfileView.submitReviewButton.addTarget(self, action: #selector(submitReviewAlert), for: .touchUpInside)
         
@@ -40,7 +40,6 @@ class LocationProfileViewController: UIViewController {
         
         guard let name = locationProfileView.locationNameLabel.text else { return }
         guard let location = locationProfileView.location else { return }
-        print("LOCATION ID IS \(location.playgroundID)")
         
         let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
         
