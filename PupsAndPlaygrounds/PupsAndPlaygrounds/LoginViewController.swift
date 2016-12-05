@@ -25,9 +25,6 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         
         
-        store.getDogrunsAndPlaygroundsFromJSON()
-        store.addDogrunsAndPlaygroundsToFirebase()
-        
         loginView.emailField.delegate = self
         loginView.passwordField.delegate = self
         

@@ -111,8 +111,8 @@ class FirebaseData {
             guard let address = locationDict["address"] as? String else { print("ERROR #3"); return }
             guard let latitude = locationDict["latitude"] as? String else { print("ERROR #4"); return }
             guard let longitude = locationDict["longitude"] as? String else { print("ERROR #5"); return }
-            guard let isHandicap = locationDict["isHandicap"] as? Bool else { print("ERROR #6"); return }
-            guard let isFlagged = locationDict["isFlagged"] as? Bool else { print("ERROR #7"); return }
+            guard let isHandicap = locationDict["isHandicap"] as? String else { print("ERROR #6"); return }
+            guard let isFlagged = locationDict["isFlagged"] as? String else { print("ERROR #7"); return }
             //            guard let photos = locationDict["photos"] as? [UIImage] else { return }
             guard let reviewsDict = locationDict["reviews"] as? [String:Any] else { print("ERROR #8"); return }
             
@@ -257,22 +257,21 @@ class FirebaseData {
         var playgroundArray: [Playground] = []
         
         let ref = FIRDatabase.database().reference().child("locations").child("playgrounds")
-        print("RUNNING GET ALL PLAYGROUNDS")
-        
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let playgroundDict = snapshot.value as? [String : Any] else { return }
+            print("PLAYGROUND DICTIONARY = \(playgroundDict)")
             
             for newPlayground in playgroundDict {
                 
                 let ID = newPlayground.key
                 let value = newPlayground.value as! [String:Any]
-                guard let locationName = value["name"] as? String else { return }
-                guard let address = value["address"] as? String else { return }
-                guard let latitude = value["latitude"] as? String else { return }
-                guard let longitude = value["longitude"] as? String else { return }
-                guard let isHandicap = value["isHandicap"] as? Bool else { return }
-                guard let isFlagged = value["isFlagged"] as? Bool else { return }
+                guard let locationName = value["name"] as? String else { print("locationName \(value["name"])"); return }
+                guard let address = value["address"] as? String else { print("address \(value["address"])"); return }
+                guard let latitude = value["latitude"] as? String else { print("latitude \(value["latitude"])"); return }
+                guard let longitude = value["longitude"] as? String else { print("longitude = \(value["longitude"])"); return }
+                guard let isHandicap = value["isHandicap"] as? String else { print("isHandicap = \(value["isHandicap"])"); return }
+                guard let isFlagged = value["isFlagged"] as? String else { print("isFlagged = \(value["isFlagged"])"); return }
                 
                 /*
                  guard let photos = value["photos"] as? [UIImage] else { return }
@@ -301,7 +300,7 @@ class FirebaseData {
                 let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: [], photos: [], isFlagged:isFlagged)
                 
                 playgroundArray.append(newestPlayground)
-                
+                print("FOR IN PLAYGROUNDS COUNT = \(playgroundArray.count)")
 //                if playgroundDict.count == playgroundArray.count {
 //                    print("PLAYGROUND ARRAY: \(playgroundArray.count)")
 //                    completion(playgroundArray)

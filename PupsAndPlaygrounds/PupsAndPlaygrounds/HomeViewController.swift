@@ -56,6 +56,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         
         FirebaseData.getAllPlaygrounds { playgrounds in
             self.locations = playgrounds
+            print("LOCATIONS COUNT IS \(self.locations.count)")
             self.listView.locationsTableView.reloadData()
         }     
 
