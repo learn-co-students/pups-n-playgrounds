@@ -23,7 +23,11 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     // MARK: Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        
+        store.getDogrunsAndPlaygroundsFromJSON()
+        store.addDogrunsAndPlaygroundsToFirebase()
+        
         loginView.emailField.delegate = self
         loginView.passwordField.delegate = self
         

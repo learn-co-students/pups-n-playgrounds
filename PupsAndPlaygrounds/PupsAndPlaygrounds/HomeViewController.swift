@@ -39,6 +39,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         super.viewDidAppear(animated)
         
         determineCurrentLocation()
+        
     }
     
     private func configure() {
@@ -176,6 +177,11 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         listView.isHidden = !listView.isHidden
         
         isMapView = !isMapView
+        
+        FirebaseData.getAllPlaygrounds { playgrounds in
+            self.locations = playgrounds
+            self.listView.locationsTableView.reloadData()
+        }
     }
 }
 
