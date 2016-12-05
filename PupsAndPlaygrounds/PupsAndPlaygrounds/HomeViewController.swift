@@ -191,6 +191,12 @@ class HomeViewController: UIViewController {
     listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
     listView.isHidden = true
     
+    
+    FirebaseData.getAllPlaygrounds { playgrounds in
+        self.locations = playgrounds
+        self.listView.locationsTableView.reloadData()
+    }
+    
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestWhenInUseAuthorization()
@@ -228,24 +234,24 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return locations.count
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath)
-    cell.textLabel?.text = locations[indexPath.row].name
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return locations.count
+    }
     
-    return cell
-  }
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let locationProfileVC = LocationProfileViewController()
-    guard let playground = locations[indexPath.row] as? Playground else { print("error downcasting to playground"); return }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath)
+        cell.textLabel?.text = locations[indexPath.row].name
+        
+        return cell
+    }
     
-    locationProfileVC.playground = playground
-    navigationController?.pushViewController(locationProfileVC, animated: true)
-  }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let locationProfileVC = LocationProfileViewController()
+        guard let playground = locations[indexPath.row] as? Playground else { print("error downcasting to playground"); return }
+        
+        locationProfileVC.playground = playground
+        navigationController?.pushViewController(locationProfileVC, animated: true)
+    }
 }
 
 // MARK: - MKMapViewDelegate and Methods

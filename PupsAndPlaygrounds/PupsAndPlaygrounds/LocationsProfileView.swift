@@ -22,6 +22,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     var streetView: UIView!
     var panoView: GMSPanoramaView!
     var starReviews: StarReview!
+    var rating: String?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,13 +46,19 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     
     func configure() {
         
-        starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
-        starReviews.starCount = 5
-        starReviews.value = 1
-        starReviews.allowAccruteStars = false
-        starReviews.starFillColor = UIColor.red
-        starReviews.starBackgroundColor = UIColor.black
-        starReviews.starMarginScale = 0.3
+        
+        FirebaseData.calcAverageStarFor(location: location.playgroundID) { (averageStarValue) in
+            print("AVERAGE STAR VALUE \(averageStarValue)")
+            self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
+            self.starReviews.starCount = 5
+            self.starReviews.value = averageStarValue
+            self.starReviews.allowAccruteStars = false
+            self.starReviews.starFillColor = UIColor.red
+            self.starReviews.starBackgroundColor = UIColor.black
+            self.starReviews.starMarginScale = 0.3
+        }
+        
+        
         
         backgroundColor = UIColor.themeLightBlue
         

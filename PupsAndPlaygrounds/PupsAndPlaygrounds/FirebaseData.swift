@@ -100,6 +100,7 @@ class FirebaseData {
     
     
     static func getLocation(with locationID: String, completion: @escaping (Location?) -> ()) {
+        
         let ref = FIRDatabase.database().reference().root
         
         let locationKey = ref.child("locations").child("playgrounds").child(locationID)
@@ -110,41 +111,43 @@ class FirebaseData {
             guard let address = locationDict["address"] as? String else { print("ERROR #3"); return }
             guard let latitude = locationDict["latitude"] as? String else { print("ERROR #4"); return }
             guard let longitude = locationDict["longitude"] as? String else { print("ERROR #5"); return }
-            guard let isHandicap = locationDict["isHandicap"] as? Bool else { print("ERROR #6"); return }
-            guard let isFlagged = locationDict["isFlagged"] as? Bool else { print("ERROR #7"); return }
+            guard let isHandicap = locationDict["isHandicap"] as? String else { print("ERROR #6"); return }
+            guard let isFlagged = locationDict["isFlagged"] as? String else { print("ERROR #7"); return }
             //            guard let photos = locationDict["photos"] as? [UIImage] else { return }
-            guard let reviewsDict = locationDict["reviews"] as? [String:Any] else { print("ERROR #8"); return }
-            
             var reviewsArray = [Review]()
             
-            for iterReview in reviewsDict {
-                let reviewID = iterReview.key
-                print("ITER REVIEW RUNNING")
-                let reviewsKey = ref.child("reviews").child("visible").child(reviewID)
+            if let reviewsDict = locationDict["reviews"] as? [String:Any] {
                 
-                reviewsKey.observeSingleEvent(of: .value, with: { (snapshot) in
-                    guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICT = \(snapshot.value as? [String : Any])"); return }
-                    guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
-                    guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
-                    guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
-                    guard let reviewID = reviewDict["reviewID"] as? String else { print("ERROR #5"); return }
+                for iterReview in reviewsDict {
+                    let reviewID = iterReview.key
+                    let reviewsKey = ref.child("reviews").child("visible").child(reviewID)
                     
-                    let newReview = Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
-                    
-                    reviewsArray.append(newReview)
-                    print("REVIEW ARRAY COUNT \(reviewsArray.count)")
-                })
+                    reviewsKey.observeSingleEvent(of: .value, with: { (snapshot) in
+                        
+                        guard let reviewDict = snapshot.value as? [String : Any] else { print("ERROR #1"); return }
+                        guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
+                        guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
+                        guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
+                        guard let reviewID = reviewDict["reviewID"] as? String else { print("ERROR #5"); return }
+                        
+                        let newReview = Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
+                        
+                        reviewsArray.append(newReview)
+                        
+                    })
+                }
+                
+                completion(Playground(ID: locationID, name: name, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: [], isFlagged: isFlagged))
+                
             }
-                    
-            completion(Playground(ID: "\(locationKey)", name: name, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: [], isFlagged: isFlagged))
-
         })
+        
     }
     
     
     // MARK: Adds Review
     
-    static func addReview(comment: String, locationID: String) {
+    static func addReview(comment: String, locationID: String, rating: String) {
         let ref = FIRDatabase.database().reference().root
         
         let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
@@ -153,16 +156,16 @@ class FirebaseData {
         
         if locationID.hasPrefix("PG") {
             
-            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
+            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": "false", "rating": rating]])
             
         } else if locationID.hasPrefix("DR") {
             
-            ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
+            ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": "false", "rating": rating]])
         }
         
-        ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
+        ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": "false"]])
         
-        ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": false, "reviewID": uniqueReviewKey]])
+        ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": "false", "reviewID": uniqueReviewKey]])
         
     }
     
@@ -255,9 +258,8 @@ class FirebaseData {
     static func getAllPlaygrounds(with completion: @escaping ([Playground]) -> Void ) {
         
         var playgroundArray: [Playground] = []
-        
+        let root = FIRDatabase.database().reference().root
         let ref = FIRDatabase.database().reference().child("locations").child("playgrounds")
-        print("RUNNING GET ALL PLAYGROUNDS")
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let playgroundDict = snapshot.value as? [String : Any] else { return }
@@ -266,43 +268,44 @@ class FirebaseData {
                 
                 let ID = newPlayground.key
                 let value = newPlayground.value as! [String:Any]
-                guard let locationName = value["name"] as? String else { return }
-                guard let address = value["address"] as? String else { return }
-                guard let latitude = value["latitude"] as? String else { return }
-                guard let longitude = value["longitude"] as? String else { return }
-                guard let isHandicap = value["isHandicap"] as? Bool else { return }
-                guard let isFlagged = value["isFlagged"] as? Bool else { return }
+                guard let locationName = value["name"] as? String else { print("locationName \(value["name"])"); return }
+                guard let address = value["address"] as? String else { print("address \(value["address"])"); return }
+                guard let latitude = value["latitude"] as? String else { print("latitude \(value["latitude"])"); return }
+                guard let longitude = value["longitude"] as? String else { print("longitude = \(value["longitude"])"); return }
+                guard let isHandicap = value["isHandicap"] as? String else { print("isHandicap = \(value["isHandicap"])"); return }
+                guard let isFlagged = value["isFlagged"] as? String else { print("isFlagged = \(value["isFlagged"])"); return }
                 
-                /*
-                 guard let photos = value["photos"] as? [UIImage] else { return }
-                 guard let reviewsDict = value["reviews"] as? [String:Any] else { return }
-                 var reviewsArray = [Review]()
-                 
-                 let photos = [UIImage]()
-                 if let playgroundReviews = value["reviews"] as? [String:Any] {
-                 
-                 
-                 for review in playgroundReviews {
-                 
-                 ref.child(ID).child("reviews").child(review.key).removeValue()
-                 
-                 
-                 /*
-                 getReview(with: review.key, completion: { (reviewComp) in
-                 let newReview = reviewComp
-                 reviewsArray.append(newReview)
-                 })
-                 */
-                 
-                 }
-                 }
-                 */
-                let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: [], photos: [], isFlagged: isFlagged)
+                var reviewsArray = [Review]()
                 
+                if let reviewsDict = value["reviews"] as? [String:Any] {
+                    if reviewsDict.count > 0 {
+                        for iterReview in reviewsDict {
+                            let reviewID = iterReview.key
+                            let reviewsKey = root.child("reviews").child("visible").child(reviewID)
+                            
+                            reviewsKey.observeSingleEvent(of: .value, with: { (snapshot) in
+                                
+                                guard let reviewDict = snapshot.value as? [String : Any] else { print("ERROR #1"); return }
+                                guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
+                                guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
+                                guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
+                                guard let reviewID = reviewDict["reviewID"] as? String else { print("ERROR #5"); return }
+                                
+                                let newReview = Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
+
+                                print("NEWEST REVIEW IS \(newReview.comment)")
+                                
+                                reviewsArray.append(newReview)
+                                
+                                
+                            })
+                        }
+                    }
+                }
+                let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: [], isFlagged:isFlagged)
                 playgroundArray.append(newestPlayground)
-                
+                completion(playgroundArray)
             }
-            completion(playgroundArray)
         })
     }
     
@@ -314,7 +317,7 @@ class FirebaseData {
         
         let uniqueLocationKey = FIRDatabase.database().reference().childByAutoId().key
         
-        ref.child("locations").child("playgrounds").updateChildValues(["PG-\(uniqueLocationKey)":["name": name, "address": address, "isHandicap": isHandicap, "latitude": latitude, "longitude": longitude, "isFlagged": false]])
+        ref.child("locations").child("playgrounds").updateChildValues(["PG-\(uniqueLocationKey)":["name": name, "address": address, "isHandicap": isHandicap, "latitude": latitude, "longitude": longitude, "isFlagged": "false"]])
     }
     
     static func addDogrunsToFirebase(name: String, address: String, isHandicap: String, dogRunType: String, notes: String) {
@@ -323,7 +326,7 @@ class FirebaseData {
         
         let uniqueLocationKey = FIRDatabase.database().reference().childByAutoId().key
         
-        ref.child("locations").child("dogruns").updateChildValues( ["DR-\(uniqueLocationKey)":["name": name, "location": address, "isHandicap": isHandicap, "dogRunType": dogRunType, "notes": notes]])
+        ref.child("locations").child("dogruns").updateChildValues( ["DR-\(uniqueLocationKey)":["name": name, "location": address, "isHandicap": isHandicap, "dogRunType": dogRunType, "notes": notes, "isFlagged": "false"]])
     }
     
     
@@ -355,8 +358,68 @@ class FirebaseData {
             completion(reviewsArray)
             
         })
-        
     }
     
+    
+    static func calcAverageStarFor(location uniqueID: String, completion: @escaping (Float) -> Void) {
+        
+        let ref = FIRDatabase.database().reference().root
+        
+        var playgroundRatings = [Int]()
+        var playgroundRatingsSum = Int()
+        var dogrunRatingsSum = Int()
+        var dogrunRatings = [Int]()
+        var averageStarValueToReturn = Float()
+        
+        if uniqueID.hasPrefix("PG") {
+            
+            ref.child("locations").child("playgrounds").child("\(uniqueID)").child("reviews")
+            
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let snapshotValue = snapshot.value as? [String: Any] else { print("error returning playground reviews"); return}
+                
+                for snap in snapshotValue {
+                    guard let playgroundInfo = snap.value as? [String: Any] else {print("error returning playground info"); return}
+                    guard let ratingString = playgroundInfo["rating"] as? String else { print("error returning rating string values"); return }
+                    guard let ratingValue = Int(ratingString) else { return }
+                    playgroundRatings.append(ratingValue)
+                }
+                
+                for value in playgroundRatings {
+                    playgroundRatingsSum += value
+                }
+                print("PLAYGROUND RATING SUM =\(playgroundRatingsSum)")
+                print("PLAYGROUND RATING count =\(playgroundRatings.count)")
+                
+                averageStarValueToReturn = Float(playgroundRatingsSum / (playgroundRatings.count))
+                
+            })
+            
+        } else if uniqueID.hasPrefix("DR") {
+            
+            ref.child("locations").child("dogruns").child("\(uniqueID)").child("reviews")
+            
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let snapshotValue = snapshot.value as? [String: Any] else { print("error returning playground reviews"); return}
+                
+                for snap in snapshotValue {
+                    guard let dogrunInfo = snap.value as? [String: Any] else {print("error returning playground info"); return}
+                    guard let ratingString = dogrunInfo["rating"] as? String else { print("error returning rating string values"); return }
+                    guard let ratingValue = Int(ratingString) else { return }
+                    dogrunRatings.append(ratingValue)
+                }
+                
+                for value in dogrunRatings {
+                    dogrunRatingsSum += value
+                }
+                
+                averageStarValueToReturn = Float(dogrunRatingsSum / (dogrunRatings.count))
+                
+            })
+        }
+        
+        completion(averageStarValueToReturn)
+        
+    }
     
 }
