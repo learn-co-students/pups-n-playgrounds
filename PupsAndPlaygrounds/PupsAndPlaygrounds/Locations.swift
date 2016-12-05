@@ -21,6 +21,8 @@ protocol Location: class {
     
     var isFlagged: Bool { get }
     var photos: [UIImage?] { get }
+    var rating: String { get }
+    
     
 }
 
@@ -36,6 +38,7 @@ class Playground: Location {
     var reviews = [Review?]()
     var photos = [UIImage?]()
     var isFlagged = false
+    var rating = String(1)
     
     init(citydata: [String : Any]) {
         

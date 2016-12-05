@@ -35,7 +35,6 @@ class LocationProfileViewController: UIViewController {
             }
             
             self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(self.submitReviewAlert), for: .touchUpInside)
-
             
         }
         
@@ -76,10 +75,8 @@ class LocationProfileViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
             let reviewTextField = alert.textFields![0]
             
-            FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID)
-            
+            FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID, rating: String(self.locationProfileView.starReviews.value))
 
-            
         }))
         self.present(alert, animated: true, completion: nil)
     }

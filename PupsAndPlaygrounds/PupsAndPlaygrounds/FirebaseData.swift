@@ -144,7 +144,7 @@ class FirebaseData {
     
     // MARK: Adds Review
     
-    static func addReview(comment: String, locationID: String) {
+    static func addReview(comment: String, locationID: String, rating: String) {
         let ref = FIRDatabase.database().reference().root
         
         let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
@@ -153,11 +153,11 @@ class FirebaseData {
         
         if locationID.hasPrefix("PG") {
             
-            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
+            ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false, "rating": rating]])
             
         } else if locationID.hasPrefix("DR") {
             
-            ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
+            ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false, "rating": rating]])
         }
         
         ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": false]])
@@ -355,8 +355,66 @@ class FirebaseData {
             completion(reviewsArray)
             
         })
-        
     }
     
+    
+    static func calcAverageStarFor(location uniqueID: String, completion: @escaping (Float) -> Void) {
+        
+        let ref = FIRDatabase.database().reference().root
+        
+        var playgroundRatings = [Int]()
+        var playgroundRatingsSum = Int()
+        var dogrunRatingsSum = Int()
+        var dogrunRatings = [Int]()
+        var averageStarValueToReturn = Float()
+        
+        if uniqueID.hasPrefix("PG") {
+            
+            ref.child("locations").child("playgrounds").child("\(uniqueID)").child("reviews")
+            
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let snapshotValue = snapshot.value as? [String: Any] else { print("error returning playground reviews"); return}
+                
+                for snap in snapshotValue {
+                    guard let playgroundInfo = snap.value as? [String: Any] else {print("error returning playground info"); return}
+                    guard let ratingString = playgroundInfo["rating"] as? String else { print("error returning rating string values"); return }
+                    guard let ratingValue = Int(ratingString) else { return }
+                    playgroundRatings.append(ratingValue)
+                }
+                
+                for value in playgroundRatings {
+                    playgroundRatingsSum += value
+                }
+                
+                averageStarValueToReturn = Float(playgroundRatingsSum / (playgroundRatings.count))
+
+            })
+        
+        } else if uniqueID.hasPrefix("DR") {
+            
+            ref.child("locations").child("dogruns").child("\(uniqueID)").child("reviews")
+            
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let snapshotValue = snapshot.value as? [String: Any] else { print("error returning playground reviews"); return}
+                
+                for snap in snapshotValue {
+                    guard let dogrunInfo = snap.value as? [String: Any] else {print("error returning playground info"); return}
+                    guard let ratingString = dogrunInfo["rating"] as? String else { print("error returning rating string values"); return }
+                    guard let ratingValue = Int(ratingString) else { return }
+                    dogrunRatings.append(ratingValue)
+                }
+                
+                for value in dogrunRatings {
+                    dogrunRatingsSum += value
+                }
+                
+                averageStarValueToReturn = Float(dogrunRatingsSum / (dogrunRatings.count))
+            
+            })
+        }
+        
+        completion(averageStarValueToReturn)
+        
+    }
     
 }
