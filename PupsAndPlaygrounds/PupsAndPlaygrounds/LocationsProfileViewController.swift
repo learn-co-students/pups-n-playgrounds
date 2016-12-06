@@ -20,7 +20,13 @@ class LocationProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         configure()
+
+        FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
+            self.currentUser = currentFirebaseUser
+            self.configure()
+        }
         
         print("THIS PLAYGROUND HAS \(playground?.reviews.count) REVIEWS")
         
@@ -33,18 +39,6 @@ class LocationProfileViewController: UIViewController {
     }
     
     func configure() {
-        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
-        FirebaseData.getUser(with: firebaseUserID) { (currentFBUser) in
-            self.currentUser = currentFBUser
-        
-            guard let unwrappedPlayground = self.playground else { return }
-            self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
-            
-            self.locationProfileView.reviewsTableView.delegate = self
-            self.locationProfileView.reviewsTableView.dataSource = self
-            self.locationProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
-        
-        }
         
         guard let unwrappedPlayground = playground else { return }
         self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
@@ -59,6 +53,8 @@ class LocationProfileViewController: UIViewController {
         }
         
         self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(self.submitReviewAlert), for: .touchUpInside)
+        
+        
         
         navigationItem.title = "Location"
         navigationController?.isNavigationBarHidden = false
@@ -121,13 +117,17 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         if let currentReview = playground?.reviews[indexPath.row] {
             cell.review = currentReview
             cell.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
-            self.view.bringSubview(toFront: cell.deleteReviewButton)
-            self.view.bringSubview(toFront: cell.flagButton)
-            cell.deleteReviewButton.isHidden = true
-            print("CURRENT USER ID IS \(currentUser?.userID) AND CURRENT REVIEW'S USER ID IS \(currentReview.userID)")
-            if currentReview.userID == currentUser?.userID {
-                cell.deleteReviewButton.isHidden = false
-            }
+
+            
+
+            
+            /*
+            if let currentUserID = currentUser?.userID {
+                print("REVIEW'S USER ID IS \(currentReview.userID) AND CURRENT USER ID IS \(currentUserID)")
+                if currentReview.userID == currentUserID {
+                    cell.deleteReviewButton.isHidden = false
+                }
+            } */
         }
         return cell
     }
