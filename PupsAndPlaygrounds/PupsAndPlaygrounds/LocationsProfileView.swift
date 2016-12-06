@@ -108,7 +108,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         addSubview(locationProfileImage)
         locationProfileImage.snp.makeConstraints {
             $0.leadingMargin.equalToSuperview().offset(10)
-            $0.topMargin.equalToSuperview().offset(10)
+            $0.topMargin.equalToSuperview().offset(20)
             $0.width.equalToSuperview().dividedBy(3)
             $0.height.equalTo(locationProfileImage.snp.width)
         }
@@ -140,7 +140,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
             $0.leading.equalTo(locationProfileImage.snp.trailing).offset(30)
             $0.trailing.equalToSuperview().offset(-30)
             $0.top.equalTo(locationAddressLabel.snp.bottom).offset(5)
-            $0.bottom.equalTo(submitReviewButton.snp.top).offset(5)
+            $0.bottom.equalTo(submitReviewButton.snp.top)
 
         }
 
@@ -148,13 +148,13 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         streetView.snp.makeConstraints {
             $0.top.equalTo(locationProfileImage.snp.bottom)
             $0.height.equalToSuperview().dividedBy(2)
-            $0.leading.equalToSuperview().offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
         }
         
         streetView.addSubview(panoView)
         panoView.snp.makeConstraints {
-            $0.edges.equalTo(UIEdgeInsetsMake(20, 10, 10, 10))
+            $0.edges.equalTo(UIEdgeInsetsMake(20, 20, 20, 10))
         }
         
         
