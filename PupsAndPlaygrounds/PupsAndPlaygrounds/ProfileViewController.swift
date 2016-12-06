@@ -11,14 +11,12 @@ import Firebase
 import SnapKit
 
 class ProfileViewController: UIViewController {
-  
-    
-  // MARK: Properties
-  var profileView: ProfileView!
-  var profileImage: UIImage!
-  var imagePicker: UIImagePickerController!
-  var imagePickerView: ImagePickerView!
-  var user: FIRUser!
+
+  lazy var profileView = ProfileView()
+  lazy var imagePicker = UIImagePickerController()
+  lazy var imagePickerView = ImagePickerView()
+  lazy var user = FIRAuth.auth()?.currentUser
+  var profileImage: UIImage?
   
   let appDelegate = UIApplication.shared.delegate as? AppDelegate
   
@@ -27,8 +25,7 @@ class ProfileViewController: UIViewController {
     
     navigationItem.title = "Profile"
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logOutButtonTouched))
-    
-    profileView = ProfileView()
+  
     profileView.profileButton.addTarget(self, action: #selector(profileButtonTouched), for: .touchUpInside)
     profileView.locationsTableView.delegate = self
     profileView.locationsTableView.dataSource = self
@@ -39,24 +36,10 @@ class ProfileViewController: UIViewController {
       $0.edges.equalToSuperview()
     }
     
-    if UIImagePickerController.isSourceTypeAvailable(.camera) {
-      imagePicker = UIImagePickerController()
-      imagePicker.delegate = self
-      imagePicker.sourceType = .camera
-      imagePicker.cameraCaptureMode = .photo
-      imagePicker.showsCameraControls = false
-      imagePicker.allowsEditing = false
-      
-      imagePickerView = ImagePickerView()
-      imagePickerView.captureButton.addTarget(self, action: #selector(captureButtonTouched), for: .touchUpInside)
-      
-      imagePicker.view.addSubview(imagePickerView)
-      imagePickerView.snp.makeConstraints {
-        $0.edges.equalToSuperview()
-      }
+    guard let user = user else {
+      print("error unrwapping current user")
+      return
     }
-    
-    guard let user = FIRAuth.auth()?.currentUser else { return }
     let userRef = FIRDatabase.database().reference().child("users").child(user.uid)
     
     userRef.observeSingleEvent(of: .value, with: { snapshot in
@@ -74,7 +57,39 @@ class ProfileViewController: UIViewController {
   
   // MARK: Action Methods
   func profileButtonTouched() {
-    present(imagePicker, animated: true, completion: nil)
+    let alert = UIAlertController(title: "Update Profile Photo", message: nil, preferredStyle: .alert)
+    let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { _ in
+      if UIImagePickerController.isSourceTypeAvailable(.camera) {
+        self.imagePicker.delegate = self
+        self.imagePicker.sourceType = .camera
+        self.imagePicker.cameraCaptureMode = .photo
+        self.imagePicker.showsCameraControls = false
+        self.imagePicker.allowsEditing = false
+        
+        self.imagePickerView.captureButton.addTarget(self, action: #selector(self.captureButtonTouched), for: .touchUpInside)
+        
+        self.imagePicker.view.addSubview(self.imagePickerView)
+        self.imagePickerView.snp.makeConstraints {
+          $0.edges.equalToSuperview()
+        }
+        
+        self.present(self.imagePicker, animated: true, completion: nil)
+      }
+    }
+    let cameraRoll = UIAlertAction(title: "Camera roll", style: .default) { _ in
+      if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+        self.imagePicker.delegate = self
+        self.imagePicker.sourceType = .photoLibrary
+        self.present(self.imagePicker, animated: true, completion: nil)
+      }
+    }
+    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    
+    alert.addAction(takePhoto)
+    alert.addAction(cameraRoll)
+    alert.addAction(cancel)
+    
+    present(alert, animated: true, completion: nil)
   }
   
   func captureButtonTouched() {
