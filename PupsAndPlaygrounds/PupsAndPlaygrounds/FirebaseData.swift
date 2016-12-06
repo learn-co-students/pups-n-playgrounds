@@ -64,17 +64,20 @@ class FirebaseData {
             guard let userDict = snapshot.value as? [String : Any] else { return }
             guard let firstName = userDict["firstName"] as? String else { return }
             guard let lastName = userDict["lastName"] as? String else { return }
-            guard let userReviews = userDict["reviews"] as? [String:Any] else { return }
             
-            var reviewsArray = [Review]()
-            for review in userReviews {
-                
-                getReview(with: review.key, completion: { (reviewComp) in
-                    let newReview = reviewComp
-                    reviewsArray.append(newReview)
-                })
+            
+            let newestUser = User(userID: userID, firstName: firstName, lastName: lastName, reviews: [])
+            
+            if let reviewsDict = userDict["reviews"] as? [String:Any] {
+                for iterReview in reviewsDict {
+                    let reviewID = iterReview.key
+                    getReview(with: reviewID, completion: { (newReview) in
+                        newestUser.reviews.append(newReview)
+                        print("APPENDING NEW REVIEW WITH COMMENT \(newReview.comment)")
+                    })
+                }
             }
-            completion(User(uniqueID: "\(userKey)", firstName: firstName, lastName: lastName, reviews: reviewsArray))
+            completion(User(userID: userID, firstName: firstName, lastName: lastName, reviews: []))
         })
     }
     
@@ -84,7 +87,7 @@ class FirebaseData {
         let userKey = ref.child("reviews").child("visible").child(reviewID)
         
         userKey.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICT = \(snapshot.value as? [String : Any])"); return }
+            guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICTIONARY = \(snapshot.value as? [String : Any])"); return }
             guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
             guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
             guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
@@ -272,24 +275,21 @@ class FirebaseData {
                 guard let isHandicap = value["isHandicap"] as? String else { print("isHandicap = \(value["isHandicap"])"); return }
                 guard let isFlagged = value["isFlagged"] as? String else { print("isFlagged = \(value["isFlagged"])"); return }
                 
-                var reviewsArray = [Review]()
+                
+                let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: [], photos: [], isFlagged:isFlagged)
+                playgroundArray.append(newestPlayground)
                 
                 if let reviewsDict = value["reviews"] as? [String:Any] {
                     for iterReview in reviewsDict {
                         let reviewID = iterReview.key
-                        
                         getReview(with: reviewID, completion: { (newReview) in
-                            reviewsArray.append(newReview)
-                            print("COMPLETION REVIEW IS \(newReview.comment)")
+                            newestPlayground.reviews.append(newReview)
                         })
                     }
                 }
-                
-                let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: [], isFlagged:isFlagged)
-                playgroundArray.append(newestPlayground)
-                completion(playgroundArray)
-                
             }
+            completion(playgroundArray)
+            
         })
     }
     

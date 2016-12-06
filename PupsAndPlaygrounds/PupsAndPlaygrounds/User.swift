@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class User {
-    let uniqueID: String
+    let userID: String
     var firstName: String
     var lastName: String?
     var profilePhoto: UIImage?
@@ -18,13 +18,13 @@ class User {
     var photos = [UIImage?]()
     
     init(firebaseData: [String : Any]) {
-        self.uniqueID = firebaseData[""] as! String
+        self.userID = firebaseData[""] as! String
         self.firstName = firebaseData[""] as! String
         self.lastName = firebaseData[""] as! String
     }
     
-    init(uniqueID: String, firstName: String, lastName: String?, reviews: [Review?]) {
-        self.uniqueID = uniqueID
+    init(userID: String, firstName: String, lastName: String?, reviews: [Review?]) {
+        self.userID = userID
         self.firstName = firstName
         self.lastName = lastName
         self.reviews = reviews as! [Review]

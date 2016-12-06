@@ -195,7 +195,6 @@ class HomeViewController: UIViewController {
         FirebaseData.getAllPlaygrounds { playgrounds in
             self.locations = playgrounds
             self.listView.locationsTableView.reloadData()
-            print("PLAYGROUND ARRAY COUNT IS \(self.locations.count)")
         }
         
         locationManager.delegate = self

@@ -15,28 +15,53 @@ class LocationProfileViewController: UIViewController {
     var playground: Playground?
     var locationProfileView: LocationProfileView!
     var reviewsTableView: UITableView!
+    var currentUser: User?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configure()
         
-        guard let unwrappedPlayground = playground else { return }
-        
-        self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
-        self.view = self.locationProfileView
-        
-        self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(self.submitReviewAlert), for: .touchUpInside)
-        
-        print("THIS PLAYGROUND HAS \(unwrappedPlayground.reviews.count) REVIEWS")
-        navigationItem.title = "Location"
-        navigationController?.isNavigationBarHidden = false
-
+        print("THIS PLAYGROUND HAS \(playground?.reviews.count) REVIEWS")
         
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func configure() {
+        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+        FirebaseData.getUser(with: firebaseUserID) { (currentFBUser) in
+            self.currentUser = currentFBUser
+        
+            guard let unwrappedPlayground = self.playground else { return }
+            self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
+            
+            self.locationProfileView.reviewsTableView.delegate = self
+            self.locationProfileView.reviewsTableView.dataSource = self
+            self.locationProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
+        
+        }
+        
+        guard let unwrappedPlayground = playground else { return }
+        self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
+        
+        locationProfileView.reviewsTableView.delegate = self
+        locationProfileView.reviewsTableView.dataSource = self
+        locationProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
+        
+        self.view.addSubview(locationProfileView)
+        locationProfileView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(self.submitReviewAlert), for: .touchUpInside)
+        
+        navigationItem.title = "Location"
+        navigationController?.isNavigationBarHidden = false
     }
     
     func submitReviewAlert() {
@@ -58,6 +83,27 @@ class LocationProfileViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func flagButtonTouched(sender: UIButton) {
+        let cellContent = sender.superview!
+        let cell = cellContent.superview! as! UITableViewCell
+        let indexPath = locationProfileView.reviewsTableView.indexPath(for: cell)
+        
+        if let flaggedReview = playground?.reviews[(indexPath?.row)!] {
+            
+            FirebaseData.flagReviewWith(unique: flaggedReview.reviewID, locationID: flaggedReview.locationID, comment: flaggedReview.comment, userID: flaggedReview.userID) {
+                let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    FirebaseData.getVisibleReviewsForFeed { reviews in
+                        self.playground?.reviews = reviews
+                        self.locationProfileView.reviewsTableView.reloadData()
+                    }
+                })
+                
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
 }
 
 extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSource {
@@ -70,16 +116,20 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewsCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewsTableViewCell
         
-        if let review = playground?.reviews[indexPath.row] {
-            cell.textLabel?.text = review.comment
-            cell.textLabel?.textColor = UIColor.blue
-            cell.textLabel?.font = UIFont.themeTinyRegular
-            cell.textLabel?.numberOfLines = 3
-            cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-            
+        if let currentReview = playground?.reviews[indexPath.row] {
+            cell.review = currentReview
+            cell.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
+            self.view.bringSubview(toFront: cell.deleteReviewButton)
+            self.view.bringSubview(toFront: cell.flagButton)
+            cell.deleteReviewButton.isHidden = true
+            print("CURRENT USER ID IS \(currentUser?.userID) AND CURRENT REVIEW'S USER ID IS \(currentReview.userID)")
+            if currentReview.userID == currentUser?.userID {
+                cell.deleteReviewButton.isHidden = false
+            }
         }
         return cell
     }
+    
 }

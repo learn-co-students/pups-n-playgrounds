@@ -154,7 +154,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         
         streetView.addSubview(panoView)
         panoView.snp.makeConstraints {
-            $0.edges.equalTo(UIEdgeInsetsMake(20, 20, 20, 10))
+            $0.edges.equalTo(UIEdgeInsetsMake(20, 20, 20, 20))
         }
         
         
@@ -166,7 +166,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         
         reviewsView.addSubview(reviewsTableView)
         reviewsTableView.snp.makeConstraints {
-            $0.edges.equalTo(UIEdgeInsetsMake(10, 20, 20, 20))
+            $0.edges.equalTo(UIEdgeInsetsMake(0, 20, 20, 20))
         }
         
     }
