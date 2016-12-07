@@ -150,8 +150,8 @@
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
 				C4810D1A1DE36C3A00A652DB /* HomeView.swift */,
 				C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */,
-				C4283EB41DF10C570052580A /* CustomAnnotation.swift */,
 				E813A3A91DECA4E4006D9725 /* LocationsProfileView.swift */,
+				C4283EB41DF10C570052580A /* CustomAnnotation.swift */,
 				C4129E9D1DF577E6009706E6 /* CustomAnnotationView.swift */,
 				C4129EA01DF57B66009706E6 /* CustomCalloutView.swift */,
 				C4B6ED7E1DEDEB8D00F28C04 /* ListView.swift */,
@@ -199,18 +199,27 @@
 			children = (
 				E89EE2131DEE141B00CAEACF /* Secrets.swift */,
 				C413C4471DDFB9DC0020F10F /* Extensions */,
-				C4DECFD61DE3474C001CE1A2 /* Preference Files */,
+				C4DECFD61DE3474C001CE1A2 /* Property List */,
+				C486C0621DF7927D0093132D /* Entitlements */,
 			);
 			name = Other;
 			sourceTree = "<group>";
 		};
-		C4DECFD61DE3474C001CE1A2 /* Preference Files */ = {
+		C486C0621DF7927D0093132D /* Entitlements */ = {
+			isa = PBXGroup;
+			children = (
+				C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */,
+			);
+			name = Entitlements;
+			sourceTree = "<group>";
+		};
+		C4DECFD61DE3474C001CE1A2 /* Property List */ = {
 			isa = PBXGroup;
 			children = (
 				C4EAE2E01DDF65E20069C15E /* Info.plist */,
 				C411BBB11DDF706E0090335B /* GoogleService-Info.plist */,
 			);
-			name = "Preference Files";
+			name = "Property List";
 			sourceTree = "<group>";
 		};
 		C4EAE2C51DDF65E20069C15E = {
@@ -234,11 +243,10 @@
 		C4EAE2D01DDF65E20069C15E /* PupsAndPlaygrounds */ = {
 			isa = PBXGroup;
 			children = (
-				C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */,
-				E84199BE1DE37E5100522C8A /* Data */,
 				C413C4441DDFB9C40020F10F /* Model */,
 				C413C4451DDFB9C90020F10F /* View */,
 				C413C4461DDFB9CE0020F10F /* Controller */,
+				E84199BE1DE37E5100522C8A /* Data */,
 				C413C4481DDFBA360020F10F /* Other */,
 			);
 			path = PupsAndPlaygrounds;

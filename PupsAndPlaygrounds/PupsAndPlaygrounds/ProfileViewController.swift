@@ -9,201 +9,156 @@
 import UIKit
 import Firebase
 import SnapKit
-import FirebaseStorage
 
 class ProfileViewController: UIViewController {
+  lazy var profileView = ProfileView()
+  lazy var imagePicker = UIImagePickerController()
+  lazy var user = FIRAuth.auth()?.currentUser
+  var profileImage: UIImage?
+  
+  let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
+    navigationItem.title = "Profile"
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logOutButtonTouched))
     
-    // MARK: Properties
-    var currentUser: User?
-    var userReviews: [Review?] = []
-    var userProfileView: ProfileView!
-    var profileImage: UIImage!
-    var imagePicker: UIImagePickerController!
-    var imagePickerView: ImagePickerView!
+    profileView.profileButton.addTarget(self, action: #selector(profileButtonTouched), for: .touchUpInside)
     
-    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    profileView.locationsTableView.delegate = self
+    profileView.locationsTableView.dataSource = self
+    profileView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+    retrieveUserInfo {
+      DispatchQueue.main.async {
+        self.view.addSubview(self.profileView)
+        self.profileView.snp.makeConstraints { $0.edges.equalToSuperview() }
+      }
+    }
+  }
+  
+  // MARK: Retrieve User Information from Firebase
+  // TODO: Factor Into FirebaseData File
+  private func retrieveUserInfo(completion: @escaping () -> Void) {
+    guard let user = user else { print("error unrwapping current user"); completion(); return }
+    let userRef = FIRDatabase.database().reference().child("users").child(user.uid)
+    
+    userRef.observeSingleEvent(of: .value, with: { snapshot in
+      guard let userInfo = snapshot.value as? [String : String] else { completion(); return }
+      let firstName = userInfo["firstName"] ?? ""
+      let lastName = userInfo["lastName"] ?? ""
+      
+      self.profileView.userNameLabel.text = "\(firstName) \(lastName)"
+      
+      if let profilePhotoURL = URL(string: userInfo["profilePicURL"] ?? "") {
+        URLSession.shared.dataTask(with: profilePhotoURL) { data, response, error in
+          guard let data = data else { print("error unwrapping data"); completion(); return }
+          self.profileImage = UIImage(data: data)
+          self.profileView.profileButton.setImage(self.profileImage, for: .normal)
+          completion()
+          }.resume()
+      } else {
+        self.profileImage = #imageLiteral(resourceName: "AddPhoto")
+        self.profileView.profileButton.setImage(self.profileImage, for: .normal)
+        completion()
+      }
+    })
+  }
+  
+  // MARK: Action Methods
+  func profileButtonTouched() {
+    let alert = UIAlertController(title: "Update Profile Photo", message: nil, preferredStyle: .alert)
+    let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { _ in
+      if UIImagePickerController.isSourceTypeAvailable(.camera) {
+        self.imagePicker.delegate = self
+        self.imagePicker.sourceType = .camera
+        self.imagePicker.cameraCaptureMode = .photo
+        self.imagePicker.allowsEditing = true
         
-        FirebaseData.getUser(with: firebaseUserID) { (currentFBUser) in
-            
-            self.currentUser = currentFBUser
-            self.configure()
-            
-        }
+        self.present(self.imagePicker, animated: true, completion: nil)
+      }
+    }
+    let cameraRoll = UIAlertAction(title: "Camera roll", style: .default) { _ in
+      if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+        self.imagePicker.delegate = self
+        self.imagePicker.sourceType = .photoLibrary
+        self.imagePicker.allowsEditing = true
         
-        
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = .camera
-            imagePicker.cameraCaptureMode = .photo
-            imagePicker.showsCameraControls = false
-            imagePicker.allowsEditing = false
-            
-            imagePickerView = ImagePickerView()
-            imagePickerView.captureButton.addTarget(self, action: #selector(captureButtonTouched), for: .touchUpInside)
-            
-            imagePicker.view.addSubview(imagePickerView)
-            imagePickerView.snp.makeConstraints {
-                $0.edges.equalToSuperview()
-            }
-        }
+        self.present(self.imagePicker, animated: true, completion: nil)
+      }
+    }
+    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    
+    alert.addAction(takePhoto)
+    alert.addAction(cameraRoll)
+    alert.addAction(cancel)
+    
+    present(alert, animated: true, completion: nil)
+  }
+  
+  func logOutButtonTouched() {
+    do {
+      try FIRAuth.auth()?.signOut()
+    } catch {
+      print("error signing user out")
     }
     
-    func configure() {
-        guard let unwrappedCurrentUser = currentUser else { return }
-        userProfileView = ProfileView(user: unwrappedCurrentUser)
-        
-        self.userProfileView.reviewsTableView.delegate = self
-        self.userProfileView.reviewsTableView.dataSource = self
-        self.userProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
-
-        self.view.addSubview(userProfileView)
-        userProfileView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        self.userProfileView.profileButton.addTarget(self, action: #selector(self.profileButtonTouched), for: .touchUpInside)
-        
-        
-        if let userReviewIDs = currentUser?.reviewsID {
-            
-            for reviewID in userReviewIDs {
-                guard let reviewIDUnwrapped = reviewID else { return }
-                FirebaseData.getReview(with: reviewIDUnwrapped, completion: { (FirebaseReview) in
-                    self.userReviews.append(FirebaseReview)
-                    
-                    self.userProfileView.reviewsTableView.reloadData()
-                    
-                })
-            }
-        }
-        
-        navigationItem.title = "Profile"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logOutButtonTouched))
-        
-    }
-    
-    /*
-     guard let user = FIRAuth.auth()?.currentUser else { return }
-     let userRef = FIRDatabase.database().reference().child("users").child(user.uid)
-     
-     userRef.observeSingleEvent(of: .value, with: { snapshot in
-     guard let value = snapshot.value as? [String : String] else { return }
-     guard let firstName = value["firstName"],
-     let lastName = value["lastName"] else { return }
-     self.profileView.userNameLabel.text = "\(firstName) \(lastName)"
-     })
-     
-     guard let photoURL = user.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
-     guard let photoData = try? Data(contentsOf: photoURL) else { print("error retrieving image data"); return }
-     
-     profileView.profileButton.setImage(UIImage(data: photoData), for: .normal)
-     */
-    
-    
-    
-    // MARK: Action Methods
-    func profileButtonTouched() {
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func captureButtonTouched() {
-        imagePicker.takePicture()
-    }
-    
-    func logOutButtonTouched() {
-        do {
-            try FIRAuth.auth()?.signOut()
-        } catch {
-            print("error signing user out")
-        }
-        
-        appDelegate?.window?.rootViewController = LoginViewController()
-    }
+    containerVC?.childVC = LoginViewController()
+    containerVC?.setup(forAnimation: .slideUp)
+  }
 }
 
 // MARK: UIImagePickerControllerDelegate and UINavigationControllerDelegate
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        profileImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-        userProfileView.profileButton.setImage(profileImage, for: .normal)
-        
-        dismiss(animated: true, completion: nil)
-    }
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    profileImage = info[UIImagePickerControllerEditedImage] as? UIImage
+    profileView.profileButton.setImage(profileImage, for: .normal)
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
+    handleSavingPic()
+    
+    dismiss(animated: true, completion: nil)
+  }
 }
 
 // MARK: UITableViewDelegate and UITableViewDataSource
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return userReviews.count
-        
-    }
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 5
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell")!
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewsTableViewCell
-        
-        if let currentReview = userReviews[indexPath.row] {
-            cell.review = currentReview
-            
-            if let currentUserID = currentUser?.userID {
-                
-                if currentUserID != currentReview.userID {
-                    cell.deleteReviewButton.isHidden = true
-                    
-                }
-                
-            }
-
-            
-        }
-        return cell
-    }
+    cell.textLabel?.text = "Test Location \(indexPath.row + 1)"
+    cell.textLabel?.textColor = UIColor.themeWhite
+    cell.backgroundColor = UIColor.clear
+    
+    return cell
+  }
 }
 
-// MARK: Firebase Storage Methods 
-
+// MARK: Save User Photos to Firebase
 extension ProfileViewController {
+  func handleSavingPic() {
+    guard let user = user else { print("error unrwapping current user"); return }
     
-    func handleSavingPic() {
+    let imageName = NSUUID().uuidString
+    let storageRef = FIRStorage.storage().reference().child("profilePics").child("\(imageName).png")
+    guard let imageToUpload = profileImage else { print("no image"); return }
+    
+    if let uploadData = UIImagePNGRepresentation(imageToUpload) {
+      storageRef.put(uploadData, metadata: nil) { (metadata, error) in
+        if let error = error { print(error); return }
         
-        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
-        let userRef = FIRDatabase.database().reference().child("users").child(currentUser)
-        
-        let imageName = NSUUID().uuidString
-        let storageRef = FIRStorage.storage().reference().child("profilePics").child("\(imageName).png")
-        guard let imageToUpload = profileImage else { print("no image"); return }
-        
-        if let uploadData = UIImagePNGRepresentation(imageToUpload) {
-            
-            storageRef.put(uploadData, metadata: nil) { (metadata, error) in
-                
-                if error != nil {
-                    print(error ?? String())
-                    return
-                }
-                
-                guard let metaDataURL = metadata?.downloadURL()?.absoluteString else { print("no profile image URL"); return }
-                
-                userRef.updateChildValues(["profilePicURL": metaDataURL])
-                
-            }
-            
-        }
-        
+        guard let metaDataURL = metadata?.downloadURL()?.absoluteString else { print("no profile image URL"); return }
+        FIRDatabase.database().reference().child("users").child(user.uid).updateChildValues(["profilePicURL" : metaDataURL])
+      }
     }
-    
-    
+  }
 }
+
+
 
 
 
