@@ -62,22 +62,20 @@ class FirebaseData {
         
         userKey.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let userDict = snapshot.value as? [String : Any] else { return }
+            
             guard let firstName = userDict["firstName"] as? String else { return }
             guard let lastName = userDict["lastName"] as? String else { return }
             
+            var reviewsArray = [String]()
             
-            let newestUser = User(userID: userID, firstName: firstName, lastName: lastName, reviews: [])
-            
-            if let reviewsDict = userDict["reviews"] as? [String:Any] {
-                for iterReview in reviewsDict {
-                    let reviewID = iterReview.key
-                    getReview(with: reviewID, completion: { (newReview) in
-                        newestUser.reviews.append(newReview)
-                        print("APPENDING NEW REVIEW WITH COMMENT \(newReview.comment)")
-                    })
+            if let reviewsDictionary = userDict["reviews"] as? [String:Any] {
+                for iterReview in reviewsDictionary {
+                    guard let reviewID = iterReview.key as? String else { return }
+                    reviewsArray.append(reviewID)
                 }
             }
-            completion(User(userID: userID, firstName: firstName, lastName: lastName, reviews: []))
+            let newestUser = User(userID: userID, firstName: firstName, lastName: lastName, reviewsID: reviewsArray)
+            completion(newestUser)
         })
     }
     
@@ -279,8 +277,8 @@ class FirebaseData {
                 let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: [], photos: [], isFlagged:isFlagged)
                 playgroundArray.append(newestPlayground)
                 
-                if let reviewsDict = value["reviews"] as? [String:Any] {
-                    for iterReview in reviewsDict {
+                if let reviewsDictionary = value["reviews"] as? [String:Any] {
+                    for iterReview in reviewsDictionary {
                         let reviewID = iterReview.key
                         getReview(with: reviewID, completion: { (newReview) in
                             newestPlayground.reviews.append(newReview)

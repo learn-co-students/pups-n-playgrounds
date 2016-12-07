@@ -14,7 +14,7 @@ class User {
     var firstName: String
     var lastName: String?
     var profilePhoto: UIImage?
-    var reviews = [Review]()
+    var reviewsID = [String?]()
     var photos = [UIImage?]()
     
     init(firebaseData: [String : Any]) {
@@ -23,10 +23,10 @@ class User {
         self.lastName = firebaseData[""] as! String
     }
     
-    init(userID: String, firstName: String, lastName: String?, reviews: [Review?]) {
+    init(userID: String, firstName: String, lastName: String?, reviewsID: [String?]) {
         self.userID = userID
         self.firstName = firstName
         self.lastName = lastName
-        self.reviews = reviews as! [Review]
+        self.reviewsID = reviewsID
     }
 }

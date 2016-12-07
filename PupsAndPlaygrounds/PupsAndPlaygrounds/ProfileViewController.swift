@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController {
     
     // MARK: Properties
     var currentUser: User!
+    var userReviews: [Review?] = []
     var userProfileView: ProfileView!
     var profileImage: UIImage!
     var imagePicker: UIImagePickerController!
@@ -24,7 +25,20 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        FirebaseData.getUser(with: firebaseUserID) { (currentFBUser) in
+            
+            self.currentUser = currentFBUser
+            self.configure()
+            
+        }
+        
+        
+        
+        
+        navigationItem.title = "Profile"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logOutButtonTouched))
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker = UIImagePickerController()
@@ -42,6 +56,34 @@ class ProfileViewController: UIViewController {
                 $0.edges.equalToSuperview()
             }
         }
+    }
+    
+        func configure() {
+            userProfileView = ProfileView(user: currentUser!)
+            
+            userProfileView.reviewsTableView.delegate = self
+            userProfileView.reviewsTableView.dataSource = self
+            userProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
+            
+            self.view.addSubview(userProfileView)
+            userProfileView.snp.makeConstraints {
+                $0.edges.equalToSuperview()
+            }
+            
+            self.userProfileView.profileButton.addTarget(self, action: #selector(self.profileButtonTouched), for: .touchUpInside)
+            
+            print("CURRENT USER REVIEW COUNT IS \(self.currentUser.reviewsID.count)")
+            
+            if self.currentUser.reviewsID.count > 0 {
+                
+                for reviewID in self.currentUser.reviewsID {
+                    FirebaseData.getReview(with: reviewID!, completion: { (FirebaseReview) in
+                        self.userReviews.append(FirebaseReview)
+                    })
+                }
+            }
+        }
+        
         /*
          guard let user = FIRAuth.auth()?.currentUser else { return }
          let userRef = FIRDatabase.database().reference().child("users").child(user.uid)
@@ -58,34 +100,8 @@ class ProfileViewController: UIViewController {
          
          profileView.profileButton.setImage(UIImage(data: photoData), for: .normal)
          */
-    }
     
-    func configure() {
-        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
-        
-        FirebaseData.getUser(with: firebaseUserID) { (currentFBUser) in
-            print("FIREBASE USER IS RUNNING WITH CURRENT USER \(currentFBUser?.firstName)")
- 
-            self.currentUser = currentFBUser
-            self.userProfileView = ProfileView(user: self.currentUser!)
-            self.userProfileView.profileButton.addTarget(self, action: #selector(self.profileButtonTouched), for: .touchUpInside)
-            self.userProfileView.reviewsTableView.delegate = self
-            self.userProfileView.reviewsTableView.dataSource = self
-            self.userProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "reviewCell")
-            
-            self.view.addSubview(self.userProfileView)
-            self.userProfileView.snp.makeConstraints {
-                $0.edges.equalToSuperview()
-            }
-            
-            print("END OF COMPLETION USER REVIEW COUNT IS \(self.currentUser.reviews.count)")
-            
-        }
-        
-        navigationItem.title = "Profile"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logOutButtonTouched))
-
-    }
+    
     
     // MARK: Action Methods
     func profileButtonTouched() {
@@ -124,7 +140,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
 // MARK: UITableViewDelegate and UITableViewDataSource
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let reviews = currentUser?.reviews {
+        if let reviews = currentUser?.reviewsID {
             return reviews.count
         }
         return 0
@@ -133,16 +149,18 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewsTableViewCell
         
-        if let currentReview = currentUser?.reviews[indexPath.row] {
+        if let currentReview = userReviews[indexPath.row] {
+            
             cell.review = currentReview
-            // buttons have no actions
-            self.view.bringSubview(toFront: cell.deleteReviewButton)
-            self.view.bringSubview(toFront: cell.flagButton)
-            cell.deleteReviewButton.isHidden = true
-            if currentReview.userID == currentUser?.userID {
-                cell.deleteReviewButton.isHidden = false
-            }
+            
+            
+            // if currentUser.userID != self.currentUser?.userID {
+            //    cell.deleteReviewButton.isHidden = false
+            //}
+            
+            
         }
+        
         return cell
     }
 }

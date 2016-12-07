@@ -116,9 +116,8 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         
         if let currentReview = playground?.reviews[indexPath.row] {
             cell.review = currentReview
-            cell.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
+//            cell.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
 
-            
 
             
             /*

@@ -48,8 +48,9 @@ class ReviewsTableViewCell: UITableViewCell {
         
         contentView.addSubview(flagButton)
         flagButton.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
             $0.trailing.equalToSuperview().offset(10)
+            $0.width.greaterThanOrEqualTo(60)
         }
         
         deleteReviewButton.setTitle("❌", for: .normal)
@@ -57,12 +58,12 @@ class ReviewsTableViewCell: UITableViewCell {
         
         contentView.addSubview(deleteReviewButton)
         deleteReviewButton.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
             $0.trailing.equalTo(flagButton.snp.leading).offset(5)
+            $0.width.greaterThanOrEqualTo(60)
         }
         
-        contentView.bringSubview(toFront: deleteReviewButton)
-        contentView.bringSubview(toFront: flagButton)
+//        contentView.bringSubview(toFront: deleteReviewButton)
 
 
     }
