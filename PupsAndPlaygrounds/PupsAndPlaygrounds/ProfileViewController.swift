@@ -35,11 +35,6 @@ class ProfileViewController: UIViewController {
         }
         
         
-        
-        
-        navigationItem.title = "Profile"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logOutButtonTouched))
-        
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker = UIImagePickerController()
             imagePicker.delegate = self
@@ -62,6 +57,10 @@ class ProfileViewController: UIViewController {
         guard let unwrappedCurrentUser = currentUser else { return }
         userProfileView = ProfileView(user: unwrappedCurrentUser)
         
+        self.userProfileView.reviewsTableView.delegate = self
+        self.userProfileView.reviewsTableView.dataSource = self
+        self.userProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
+
         self.view.addSubview(userProfileView)
         userProfileView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -69,7 +68,6 @@ class ProfileViewController: UIViewController {
         
         self.userProfileView.profileButton.addTarget(self, action: #selector(self.profileButtonTouched), for: .touchUpInside)
         
-        print("CURRENT USER REVIEW COUNT IS \(self.currentUser?.reviewsID.count)")
         
         if let userReviewIDs = currentUser?.reviewsID {
             
@@ -78,18 +76,15 @@ class ProfileViewController: UIViewController {
                 FirebaseData.getReview(with: reviewIDUnwrapped, completion: { (FirebaseReview) in
                     self.userReviews.append(FirebaseReview)
                     
-                    self.userProfileView.reviewsTableView.delegate = self
-                    self.userProfileView.reviewsTableView.dataSource = self
-                    self.userProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
-                    
-                    self.view.addSubview(self.userProfileView)
-                    self.userProfileView.snp.makeConstraints {
-                        $0.edges.equalToSuperview()
-                    }
+                    self.userProfileView.reviewsTableView.reloadData()
                     
                 })
             }
         }
+        
+        navigationItem.title = "Profile"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logOutButtonTouched))
+        
     }
     
     /*
@@ -163,9 +158,11 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 if currentUserID != currentReview.userID {
                     cell.deleteReviewButton.isHidden = true
+                    
                 }
                 
             }
+
             
         }
         return cell

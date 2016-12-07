@@ -170,7 +170,7 @@ class FirebaseData {
     
     // MARK: Delete reviews
     
-    static func deleteUsersOwnReview(with userID: String, reviewID: String, locationID: String, completion: () -> ()) {
+    static func deleteUsersOwnReview(with userID: String, reviewID: String, locationID: String) {
         
         let ref = FIRDatabase.database().reference().root
         
@@ -191,9 +191,7 @@ class FirebaseData {
             
             
             ref.child("reviews").child("visible").child(reviewID).removeValue()
-            
-            completion()
-            
+    
         }
     }
     
