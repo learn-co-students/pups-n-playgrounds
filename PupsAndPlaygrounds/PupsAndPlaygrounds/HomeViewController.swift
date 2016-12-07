@@ -170,14 +170,13 @@ class HomeViewController: UIViewController {
     
     configure()
     constrain()
-//    pullData()
+    pullData()
   }
   
   private func configure() {
     navigationItem.title = "Map View"
     navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: .plain, target: self, action: #selector(switchView))
     
-    mapView.map.delegate = self
     mapView.map.showsUserLocation = true
     
     listView.locationsTableView.delegate = self
@@ -206,13 +205,34 @@ class HomeViewController: UIViewController {
   }
   
   private func pullData() {
-    FirebaseData.getAllPlaygrounds {
-      self.mapView.map.addAnnotations($0.map {
-        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude))
-      })
-      
-      self.locations = $0
-      self.listView.locationsTableView.reloadData()
+    DispatchQueue.global(qos: .background).async {
+      FirebaseData.getAllPlaygrounds { playgrounds in
+        self.locations = playgrounds
+        
+        self.mapView.map.addAnnotations(playgrounds.map { playground -> MKPointAnnotation in
+          let annotation = CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: playground.latitude, longitude: playground.longitude))
+          
+          annotation.title = playground.name
+          annotation.rating = playground.rating
+          
+          
+          annotation.coordinate = CLLocationCoordinate2D(latitude: playground.latitude, longitude: playground.longitude)
+          annotation.title = playground.name
+          
+          return annotation
+        })
+        
+//        for (index, playground) in playgrounds.enumerated() {
+//          guard index < 100 else { return }
+//          
+//          let annotation = MKPointAnnotation()
+//          
+//          annotation.coordinate = CLLocationCoordinate2D(latitude: playground.latitude, longitude: playground.longitude)
+//          annotation.title = playground.name
+//          
+//          self.mapView.map.addAnnotation(annotation)
+//        }
+      }
     }
   }
   
@@ -254,45 +274,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - MKMapViewDelegate and Methods
-extension HomeViewController: MKMapViewDelegate {
-  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    guard let annotation = annotation as? CustomAnnotation else { return nil }
-    
-    let identifier = "customAnnotationView"
-    var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-    
-    if view != nil {
-      view?.annotation = annotation
-    } else {
-      view = CustomAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-      view?.image = #imageLiteral(resourceName: "Location")
-      view?.canShowCallout = false
-    }
-    
-    return view
-  }
-  
-  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-    guard let annotation = view.annotation as? CustomAnnotation else { print("error unwrapping custom annotation"); return }
-    centerMap(on: annotation.coordinate)
-    
-    let callout = CustomCalloutView()
-    callout.titleLabel.text = annotation.title
-    callout.ratingLabel.text = "Rating: \(annotation.rating ?? "")"
-    callout.distanceLabel.text = "\(annotation.distance ?? "") mi"
-    
-    callout.center = CGPoint(x: view.bounds.size.width / 2, y: -callout.bounds.size.height * 0.52)
-    view.addSubview(callout)
-  }
-  
-  func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-    if view is CustomAnnotationView {
-      for subview in view.subviews {
-        subview.removeFromSuperview()
-      }
-    }
-  }
-  
+extension HomeViewController {
   func centerMap(on coordinate: CLLocationCoordinate2D) {
     let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, regionRadius * 2, regionRadius * 2)
     mapView.map.setRegion(coordinateRegion, animated: true)
