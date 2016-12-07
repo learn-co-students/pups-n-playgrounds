@@ -82,7 +82,7 @@ class GeoFireMethods {
     
     let center = CLLocation(latitude: latitude, longitude: longitude)
     // Query locations at [self.latitude, self.longitude] with a radius of 1 km
-    var circleQuery = geoFire?.query(at: center, withRadius: 1.0)
+    let circleQuery = geoFire?.query(at: center, withRadius: 1.0)
     guard let unwrappedCircleQuery = circleQuery else { print("no query"); return }
     print("CIRCLE QUERY: \(unwrappedCircleQuery)")
     
@@ -91,7 +91,6 @@ class GeoFireMethods {
       
       let latitude = locationValue.latitude
       let longitude = locationValue.longitude
-      let coordinate = CLLocation(latitude: latitude, longitude: longitude)
       
       coordinatesArray.append(locationValue)
       print("COORDINATES ARRAY: \(coordinatesArray)")

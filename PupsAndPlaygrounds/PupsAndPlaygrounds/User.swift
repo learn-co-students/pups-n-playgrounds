@@ -14,6 +14,7 @@ class User {
     var firstName: String
     var lastName: String?
     var profilePhoto: UIImage?
+    var profilePicURL: String?
     var reviews = [Review]()
     var photos = [UIImage?]()
     

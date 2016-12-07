@@ -170,6 +170,7 @@ class HomeViewController: UIViewController {
     
     configure()
     constrain()
+//    pullData()
   }
   
   private func configure() {
@@ -179,23 +180,10 @@ class HomeViewController: UIViewController {
     mapView.map.delegate = self
     mapView.map.showsUserLocation = true
     
-    let annotation = CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 48.856614, longitude: 2.3522219000000177))
-    annotation.title = "Test Title"
-    annotation.rating = "10"
-    annotation.distance = "0.95"
-    
-    mapView.map.addAnnotation(annotation)
-    
     listView.locationsTableView.delegate = self
     listView.locationsTableView.dataSource = self
     listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
     listView.isHidden = true
-    
-    
-    FirebaseData.getAllPlaygrounds { playgrounds in
-        self.locations = playgrounds
-        self.listView.locationsTableView.reloadData()
-    }
     
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -217,6 +205,17 @@ class HomeViewController: UIViewController {
     }
   }
   
+  private func pullData() {
+    FirebaseData.getAllPlaygrounds {
+      self.mapView.map.addAnnotations($0.map {
+        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude))
+      })
+      
+      self.locations = $0
+      self.listView.locationsTableView.reloadData()
+    }
+  }
+  
   func switchView() {
     if isMapView {
       navigationItem.title = "List View"
@@ -234,24 +233,24 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locations.count
-    }
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return locations.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath)
+    cell.textLabel?.text = locations[indexPath.row].name
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath)
-        cell.textLabel?.text = locations[indexPath.row].name
-        
-        return cell
-    }
+    return cell
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let locationProfileVC = LocationProfileViewController()
+    guard let playground = locations[indexPath.row] as? Playground else { print("error downcasting to playground"); return }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let locationProfileVC = LocationProfileViewController()
-        guard let playground = locations[indexPath.row] as? Playground else { print("error downcasting to playground"); return }
-        
-        locationProfileVC.playground = playground
-        navigationController?.pushViewController(locationProfileVC, animated: true)
-    }
+    locationProfileVC.playground = playground
+    navigationController?.pushViewController(locationProfileVC, animated: true)
+  }
 }
 
 // MARK: - MKMapViewDelegate and Methods
