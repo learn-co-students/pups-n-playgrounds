@@ -107,13 +107,17 @@ class FirebaseData {
             guard let locationDict = snapshot.value as? [String : Any] else { print("ERROR #1"); return }
             guard let name = locationDict["name"] as? String else { print("ERROR #2"); return }
             guard let address = locationDict["address"] as? String else { print("ERROR #3"); return }
-            guard let latitude = locationDict["latitude"] as? String else { print("ERROR #4"); return }
-            guard let longitude = locationDict["longitude"] as? String else { print("ERROR #5"); return }
+            guard let latitudeString = locationDict["latitude"] as? String else { print("ERROR #4"); return }
+            guard let longitudeString = locationDict["longitude"] as? String else { print("ERROR #5"); return }
             guard let isHandicap = locationDict["isHandicap"] as? String else { print("ERROR #6"); return }
             guard let isFlagged = locationDict["isFlagged"] as? String else { print("ERROR #7"); return }
             //            guard let photos = locationDict["photos"] as? [UIImage] else { return }
             
             var reviewsIDArray = [String?]()
+            
+            
+            guard let latitude = Double(latitudeString) else { return }
+            guard let longitude = Double(longitudeString) else { return }
             
             
             if let reviewsDictionary = locationDict["reviews"] as? [String:Any] {
@@ -123,9 +127,9 @@ class FirebaseData {
                 }
             }
             
-            completion(Playground(ID: locationID, name: name, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviewsID: reviewsIDArray, photos: [], isFlagged: isFlagged))
+            let newestPlayground = Playground(ID: locationID, name: name, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewsID: reviewsIDArray, photos: [], isFlagged:isFlagged)
             
-            
+            completion(newestPlayground)
         })
         
     }
