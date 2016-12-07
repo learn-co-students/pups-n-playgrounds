@@ -12,6 +12,7 @@ import MapKit
 class CustomAnnotation: NSObject, MKAnnotation {
   
   // MARK: Properties
+  let location: Location
   let coordinate: CLLocationCoordinate2D
   var title: String?
   var rating: String?
@@ -19,5 +20,8 @@ class CustomAnnotation: NSObject, MKAnnotation {
   var image: UIImage?
   
   // MARK: Initialization
-  init(coordinate: CLLocationCoordinate2D) { self.coordinate = coordinate }
+  init(withPlayground playground: Playground) {
+    location = playground
+    coordinate = CLLocationCoordinate2D(latitude: playground.latitude, longitude: playground.longitude)
+  }
 }

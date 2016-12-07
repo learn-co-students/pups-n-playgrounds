@@ -111,7 +111,7 @@ class ProfileViewController: UIViewController {
 
 // MARK: UIImagePickerControllerDelegate and UINavigationControllerDelegate
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     profileImage = info[UIImagePickerControllerEditedImage] as? UIImage
     profileView.profileButton.setImage(profileImage, for: .normal)
     

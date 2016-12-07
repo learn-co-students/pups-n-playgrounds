@@ -11,7 +11,6 @@ import Firebase
 
 
 class LocationProfileViewController: UIViewController {
-    
     var playground: Playground?
     var locationProfileView: LocationProfileView!
     var reviewsTableView: UITableView!
