@@ -15,7 +15,7 @@ protocol Location: class {
     var address: String { get }
     var isHandicap: String { get }
     
-    var reviews: [Review?] { get }
+//    var reviews: [Review?] { get }
     //  var coordinates: CLLocationCoordinate2D {get set}
     //    var photos: [UIImage] { get }
     
@@ -35,7 +35,7 @@ class Playground: Location {
     let latitude: Double
     let longitude: Double
     var profileImage: UIImage = #imageLiteral(resourceName: "playgroundTemplate")
-    var reviews = [Review?]()
+    var reviewsID = [String?]()
     var photos = [UIImage?]()
     var isFlagged = "false"
     var rating = String(1)
@@ -52,13 +52,13 @@ class Playground: Location {
         
     }
     
-    init(ID: String, name: String, address: String, isHandicap: String, latitude: Double, longitude: Double, reviews: [Review?], photos: [UIImage?], isFlagged: String) {
+    init(ID: String, name: String, address: String, isHandicap: String, latitude: Double, longitude: Double, reviewsID: [String?], photos: [UIImage?], isFlagged: String) {
         self.playgroundID = ID
         self.name = name
         self.address = address
         self.latitude = latitude
         self.longitude = longitude
-        self.reviews = reviews
+        self.reviewsID = reviewsID
         self.photos = photos
         self.isFlagged = isFlagged
         self.isHandicap = isHandicap

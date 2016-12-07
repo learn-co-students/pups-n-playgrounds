@@ -13,6 +13,7 @@ class FeedTableViewCell: UITableViewCell {
     let flagButton = UIButton()
     let titleLabel = UILabel()
     
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         cellConfig()
