@@ -22,17 +22,17 @@ class LocationProfileViewController: UIViewController {
         
         guard let unwrappedPlayground = playground else { return }
         
-
-            
+        
+        
         self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
         self.view = self.locationProfileView
         
-        self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(self.submitReviewAlert), for: .touchUpInside)
+        self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
         
         print("THIS PLAYGROUND HAS \(unwrappedPlayground.reviews.count) REVIEWS")
         navigationItem.title = "Location"
         navigationController?.isNavigationBarHidden = false
-
+        
         
     }
     
@@ -41,25 +41,28 @@ class LocationProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func submitReviewAlert() {
-        
-        guard let name = locationProfileView.locationNameLabel.text else { return }
-        guard let location = locationProfileView.location else { return }
-        
-        let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addTextField { (reviewTextField) in
-            reviewTextField.text = "" }
-        
-        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
-            let reviewTextField = alert.textFields![0]
-            
-            FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID, rating: "\(self.locationProfileView.starReviews.value)")
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
+    func writeReview() {
+        setup()
     }
     
+    // MARK: Setup ReviewVC Child
+    func setup() {
+        print("CLICKED REVIEW BUTTON")
+        let childVC = ReviewViewController()
+        childVC.location = playground
+
+        addChildViewController(childVC)
+        
+        view.addSubview(childVC.view)
+        childVC.view.snp.makeConstraints {
+            childVC.centerConstraint = $0.center.equalToSuperview().constraint
+            childVC.widthHeightConstraint = $0.width.height.equalToSuperview().dividedBy(1.5).constraint
+        }
+        childVC.didMove(toParentViewController: self)
+        
+        view.layoutIfNeeded()
+
+    }
 }
 
 extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSource {

@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SnapKit
+import FirebaseStorage
 
 class ProfileViewController: UIViewController {
   
@@ -123,7 +124,40 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
   }
 }
 
+// MARK: Firebase Storage Methods 
 
+extension ProfileViewController {
+    
+    func handleSavingPic() {
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
+        let userRef = FIRDatabase.database().reference().child("users").child(currentUser)
+        
+        let imageName = NSUUID().uuidString
+        let storageRef = FIRStorage.storage().reference().child("profilePics").child("\(imageName).png")
+        guard let imageToUpload = profileImage else { print("no image"); return }
+        
+        if let uploadData = UIImagePNGRepresentation(imageToUpload) {
+            
+            storageRef.put(uploadData, metadata: nil) { (metadata, error) in
+                
+                if error != nil {
+                    print(error ?? String())
+                    return
+                }
+                
+                guard let metaDataURL = metadata?.downloadURL()?.absoluteString else { print("no profile image URL"); return }
+                
+                userRef.updateChildValues(["profilePicURL": metaDataURL])
+                
+            }
+            
+        }
+        
+    }
+    
+    
+}
 
 
 

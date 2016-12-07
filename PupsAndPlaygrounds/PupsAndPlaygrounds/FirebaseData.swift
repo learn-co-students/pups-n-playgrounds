@@ -65,6 +65,7 @@ class FirebaseData {
             guard let firstName = userDict["firstName"] as? String else { return }
             guard let lastName = userDict["lastName"] as? String else { return }
             guard let userReviews = userDict["reviews"] as? [String:Any] else { return }
+            guard let profilePicURL = userDict["profilePicURL"] as? String else { return }
             
             var reviewsArray = [Review]()
             for review in userReviews {

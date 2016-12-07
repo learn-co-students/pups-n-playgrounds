@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6EA3EE3560F8D7CCF450E2B4 /* Pods_PupsAndPlaygrounds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */; };
 		B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */; };
+		B5CB82EB1DF86B4800B373B5 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */; };
+		B5CB82ED1DF8714D00B373B5 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB82EC1DF8714D00B373B5 /* ReviewViewController.swift */; };
 		C405AE131DF0BCD30044D9C8 /* GeoFireMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = C405AE121DF0BCD30044D9C8 /* GeoFireMethods.swift */; };
 		C411BBB21DDF706E0090335B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C411BBB11DDF706E0090335B /* GoogleService-Info.plist */; };
 		C4129E9E1DF577E6009706E6 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4129E9D1DF577E6009706E6 /* CustomAnnotationView.swift */; };
@@ -53,6 +55,8 @@
 		06127B45D1FA197E42D189AB /* Pods-PupsAndPlaygrounds.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.debug.xcconfig"; sourceTree = "<group>"; };
 		4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PupsAndPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		B5CB82EC1DF8714D00B373B5 /* ReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		C405AE121DF0BCD30044D9C8 /* GeoFireMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeoFireMethods.swift; path = PupsAndPlaygrounds/GeoFireMethods.swift; sourceTree = "<group>"; };
 		C411BBB11DDF706E0090335B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C4129E9D1DF577E6009706E6 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 				C4AEC6201DEDD47E0095DC47 /* FeedView.swift */,
 				B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */,
 				C4810D1E1DE36F9E00A652DB /* ProfileView.swift */,
+				B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */,
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
 				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
@@ -168,6 +173,7 @@
 				C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */,
 				C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */,
 				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
+				B5CB82EC1DF8714D00B373B5 /* ReviewViewController.swift */,
 				E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */,
 				C49C67821DE77E0800163CD9 /* FeedViewController.swift */,
 				C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */,
@@ -369,7 +375,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -380,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */,
+				B5CB82ED1DF8714D00B373B5 /* ReviewViewController.swift in Sources */,
 				E84199D11DE38FE400522C8A /* Reviews.swift in Sources */,
 				C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */,
 				E813A3A81DECA4BA006D9725 /* LocationsProfileViewController.swift in Sources */,
@@ -407,6 +414,7 @@
 				C4129E9E1DF577E6009706E6 /* CustomAnnotationView.swift in Sources */,
 				C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */,
 				C4283EB71DF1DD8E0052580A /* ContainerViewController.swift in Sources */,
+				B5CB82EB1DF86B4800B373B5 /* ReviewView.swift in Sources */,
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
 				C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */,
 				C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */,

@@ -16,6 +16,7 @@ class User {
     var profilePhoto: UIImage?
     var reviews = [Review]()
     var photos = [UIImage?]()
+    var profilePicURL: String?
     
     init(firebaseData: [String : Any]) {
         self.uniqueID = firebaseData[""] as! String
