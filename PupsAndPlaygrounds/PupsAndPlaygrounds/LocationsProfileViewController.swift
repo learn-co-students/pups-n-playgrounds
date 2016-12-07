@@ -15,73 +15,131 @@ class LocationProfileViewController: UIViewController {
     var playground: Playground?
     var locationProfileView: LocationProfileView!
     var reviewsTableView: UITableView!
+    var currentUser: User?
+    var reviewsArray: [Review?] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let unwrappedPlayground = playground else { return }
+        configure()
         
-
+        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
+        
+        if let playgroundReviewsIDs = playground?.reviewsID {
             
-        self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
-        self.view = self.locationProfileView
+            for reviewID in playgroundReviewsIDs {
+                guard let unwrappedReviewID = reviewID else { return }
+                
+                FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
+                    
+                    self.reviewsArray.append(firebaseReview)
+                    
+                    print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS")
+                    self.locationProfileView.reviewsTableView.reloadData()
+                    
+                })
+                
+            }
+        }
         
-        self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(self.submitReviewAlert), for: .touchUpInside)
-        
-        print("THIS PLAYGROUND HAS \(unwrappedPlayground.reviews.count) REVIEWS")
-        navigationItem.title = "Location"
-        navigationController?.isNavigationBarHidden = false
-
+        FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
+            self.currentUser = currentFirebaseUser
+        }
+        print("THIS PLAYGROUND HAS \(playground?.reviewsID.count) REVIEWS")
         
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func submitReviewAlert() {
+    
+    
+    
+    // MARK: Setup ReviewVC Child
+    func writeReview() {
+        navigationController?.navigationBar.isUserInteractionEnabled = false
+        tabBarController?.tabBar.isUserInteractionEnabled = false
         
-        guard let name = locationProfileView.locationNameLabel.text else { return }
-        guard let location = locationProfileView.location else { return }
+        print("CLICKED REVIEW BUTTON")
+        let childVC = ReviewViewController()
+        childVC.location = playground
         
-        let alert = UIAlertController(title: "\(name)", message: "Type your review here!", preferredStyle: UIAlertControllerStyle.alert)
+        addChildViewController(childVC)
         
-        alert.addTextField { (reviewTextField) in
-            reviewTextField.text = "" }
+        view.addSubview(childVC.view)
+        childVC.view.snp.makeConstraints {
+            childVC.edgesConstraint = $0.edges.equalToSuperview().constraint
+        }
+        childVC.didMove(toParentViewController: self)
         
-        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
-            let reviewTextField = alert.textFields![0]
-            
-            FirebaseData.addReview(comment: reviewTextField.text!, locationID: location.playgroundID, rating: "\(self.locationProfileView.starReviews.value)")
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
+        view.layoutIfNeeded()
     }
     
+    func configure() {
+        guard let unwrappedPlayground = playground else { return }
+        self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
+        
+        reviewsTableView = locationProfileView.reviewsTableView
+        locationProfileView.reviewsTableView.delegate = self
+        locationProfileView.reviewsTableView.dataSource = self
+        locationProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
+        
+        self.view.addSubview(locationProfileView)
+        locationProfileView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+    
+    
+    func flagButtonTouched(sender: UIButton) {
+        let cellContent = sender.superview!
+        let cell = cellContent.superview! as! UITableViewCell
+        let indexPath = locationProfileView.reviewsTableView.indexPath(for: cell)
+        
+        if let flaggedReview = reviewsArray[(indexPath?.row)!] {
+            
+            FirebaseData.flagReviewWith(unique: flaggedReview.reviewID, locationID: flaggedReview.locationID, comment: flaggedReview.comment, userID: flaggedReview.userID) {
+                let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    FirebaseData.getVisibleReviewsForFeed { reviews in
+                        self.reviewsArray = reviews
+                        self.locationProfileView.reviewsTableView.reloadData()
+                    }
+                })
+                
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
 }
 
 extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let reviews = playground?.reviews {
-            return reviews.count
-        }
-        return 0
+        return reviewsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewsCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewsTableViewCell
         
-        if let review = playground?.reviews[indexPath.row] {
-            cell.textLabel?.text = review.comment
-            cell.textLabel?.textColor = UIColor.blue
-            cell.textLabel?.font = UIFont.themeTinyRegular
-            cell.textLabel?.numberOfLines = 3
-            cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        if let currentReview = reviewsArray[indexPath.row] {
+            cell.review = currentReview
+            //            cell.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
             
+            
+            if let currentUserID = currentUser?.userID {
+                if currentReview.userID != currentUserID {
+                    cell.deleteReviewButton.isHidden = true
+                }
+            }
         }
         return cell
     }
+    
 }
