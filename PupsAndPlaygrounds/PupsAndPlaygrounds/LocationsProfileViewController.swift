@@ -25,7 +25,11 @@ class LocationProfileViewController: UIViewController {
         
         
         self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
-        self.view = self.locationProfileView
+        
+        view.addSubview(locationProfileView)
+        locationProfileView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
         self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
         
@@ -47,6 +51,9 @@ class LocationProfileViewController: UIViewController {
     
     // MARK: Setup ReviewVC Child
     func setup() {
+        navigationController?.navigationBar.isUserInteractionEnabled = false
+        tabBarController?.tabBar.isUserInteractionEnabled = false
+        
         print("CLICKED REVIEW BUTTON")
         let childVC = ReviewViewController()
         childVC.location = playground
@@ -55,8 +62,7 @@ class LocationProfileViewController: UIViewController {
         
         view.addSubview(childVC.view)
         childVC.view.snp.makeConstraints {
-            childVC.centerConstraint = $0.center.equalToSuperview().constraint
-            childVC.widthHeightConstraint = $0.width.height.equalToSuperview().dividedBy(1.5).constraint
+            childVC.edgesConstraint = $0.edges.equalToSuperview().constraint
         }
         childVC.didMove(toParentViewController: self)
         

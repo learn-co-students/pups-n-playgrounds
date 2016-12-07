@@ -17,8 +17,7 @@ class ReviewViewController: UIViewController {
             configReviewView()
         }
     }
-    var centerConstraint: Constraint?
-    var widthHeightConstraint: Constraint?
+    var edgesConstraint: Constraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,23 +38,28 @@ class ReviewViewController: UIViewController {
         }
         
         reviewView.submitReviewButton.addTarget(self, action: #selector(submitReview), for: .touchUpInside)
+        reviewView.cancelButton.addTarget(self, action: #selector(closeReviewWindow), for: .touchUpInside)
     }
     
     func submitReview() {
         print("LOCATION ID \(location?.playgroundID)")
         FirebaseData.addReview(comment: reviewView.reviewTextField.text!, locationID: reviewView.location.playgroundID, rating: String(reviewView.starReviews.value))
+        
+        closeReviewWindow()
+    }
+    
+    func closeReviewWindow() {
         guard let parent = parent as? LocationProfileViewController else { print("problem with parent VC as Location Prof VC"); return }
         parent.locationProfileView.reviewsTableView.reloadData()
         // Remove from ContainerVC
         willMove(toParentViewController: nil)
         
-        centerConstraint = nil
-        widthHeightConstraint = nil
+        edgesConstraint = nil
         
         view.removeFromSuperview()
-        
         removeFromParentViewController()
+        
+        parent.navigationController?.navigationBar.isUserInteractionEnabled = true
+        parent.tabBarController?.tabBar.isUserInteractionEnabled = true
     }
-    
-    
 }
