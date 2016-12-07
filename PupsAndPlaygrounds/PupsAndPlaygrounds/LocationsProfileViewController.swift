@@ -16,19 +16,36 @@ class LocationProfileViewController: UIViewController {
     var locationProfileView: LocationProfileView!
     var reviewsTableView: UITableView!
     var currentUser: User?
+    var reviewsArray: [Review?] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
         configure()
+        
+        if let playgroundReviewsIDs = playground?.reviewsID {
+            
+            for reviewID in playgroundReviewsIDs {
+                guard let unwrappedReviewID = reviewID else { return }
+                
+                FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
+                    
+                    self.reviewsArray.append(firebaseReview)
+                    
+                    print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS")
+                    self.locationProfileView.reviewsTableView.reloadData()
+                    
+                })
+                
+            }
+        }
         
         FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
             self.currentUser = currentFirebaseUser
-            self.configure()
         }
-        
-        print("THIS PLAYGROUND HAS \(playground?.reviews.count) REVIEWS")
+        print("THIS PLAYGROUND HAS \(playground?.reviewsID.count) REVIEWS")
         
     }
     
@@ -43,6 +60,7 @@ class LocationProfileViewController: UIViewController {
         guard let unwrappedPlayground = playground else { return }
         self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
         
+        reviewsTableView = locationProfileView.reviewsTableView
         locationProfileView.reviewsTableView.delegate = self
         locationProfileView.reviewsTableView.dataSource = self
         locationProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
@@ -84,13 +102,13 @@ class LocationProfileViewController: UIViewController {
         let cell = cellContent.superview! as! UITableViewCell
         let indexPath = locationProfileView.reviewsTableView.indexPath(for: cell)
         
-        if let flaggedReview = playground?.reviews[(indexPath?.row)!] {
+        if let flaggedReview = reviewsArray[(indexPath?.row)!] {
             
             FirebaseData.flagReviewWith(unique: flaggedReview.reviewID, locationID: flaggedReview.locationID, comment: flaggedReview.comment, userID: flaggedReview.userID) {
                 let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
                     FirebaseData.getVisibleReviewsForFeed { reviews in
-                        self.playground?.reviews = reviews
+                        self.reviewsArray = reviews
                         self.locationProfileView.reviewsTableView.reloadData()
                     }
                 })
@@ -105,20 +123,17 @@ class LocationProfileViewController: UIViewController {
 extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let reviews = playground?.reviews {
-            return reviews.count
-        }
-        return 0
+        return reviewsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewsTableViewCell
         
-        if let currentReview = playground?.reviews[indexPath.row] {
+        if let currentReview = reviewsArray[indexPath.row] {
             cell.review = currentReview
             //            cell.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
             
-
+            
             if let currentUserID = currentUser?.userID {
                 if currentReview.userID != currentUserID {
                     cell.deleteReviewButton.isHidden = true

@@ -112,32 +112,20 @@ class FirebaseData {
             guard let isHandicap = locationDict["isHandicap"] as? String else { print("ERROR #6"); return }
             guard let isFlagged = locationDict["isFlagged"] as? String else { print("ERROR #7"); return }
             //            guard let photos = locationDict["photos"] as? [UIImage] else { return }
-            var reviewsArray = [Review]()
             
-            if let reviewsDict = locationDict["reviews"] as? [String:Any] {
-                
-                for iterReview in reviewsDict {
+            var reviewsIDArray = [String?]()
+            
+            
+            if let reviewsDictionary = locationDict["reviews"] as? [String:Any] {
+                for iterReview in reviewsDictionary {
                     let reviewID = iterReview.key
-                    let reviewsKey = ref.child("reviews").child("visible").child(reviewID)
-                    
-                    reviewsKey.observeSingleEvent(of: .value, with: { (snapshot) in
-                        
-                        guard let reviewDict = snapshot.value as? [String : Any] else { print("ERROR #1"); return }
-                        guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
-                        guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
-                        guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
-                        guard let reviewID = reviewDict["reviewID"] as? String else { print("ERROR #5"); return }
-                        
-                        let newReview = Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
-                        
-                        reviewsArray.append(newReview)
-                        
-                    })
+                    reviewsIDArray.append(reviewID)
                 }
-                
-                completion(Playground(ID: locationID, name: name, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: reviewsArray, photos: [], isFlagged: isFlagged))
-                
             }
+            
+            completion(Playground(ID: locationID, name: name, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviewsID: reviewsIDArray, photos: [], isFlagged: isFlagged))
+            
+            
         })
         
     }
@@ -191,7 +179,7 @@ class FirebaseData {
             
             
             ref.child("reviews").child("visible").child(reviewID).removeValue()
-    
+            
         }
     }
     
@@ -271,18 +259,19 @@ class FirebaseData {
                 guard let isHandicap = value["isHandicap"] as? String else { print("isHandicap = \(value["isHandicap"])"); return }
                 guard let isFlagged = value["isFlagged"] as? String else { print("isFlagged = \(value["isFlagged"])"); return }
                 
+                var reviewsIDArray = [String?]()
                 
-                let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviews: [], photos: [], isFlagged:isFlagged)
-                playgroundArray.append(newestPlayground)
+                
                 
                 if let reviewsDictionary = value["reviews"] as? [String:Any] {
                     for iterReview in reviewsDictionary {
                         let reviewID = iterReview.key
-                        getReview(with: reviewID, completion: { (newReview) in
-                            newestPlayground.reviews.append(newReview)
-                        })
+                        reviewsIDArray.append(reviewID)
                     }
                 }
+                
+                let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviewsID: reviewsIDArray, photos: [], isFlagged:isFlagged)
+                playgroundArray.append(newestPlayground)
             }
             completion(playgroundArray)
             
