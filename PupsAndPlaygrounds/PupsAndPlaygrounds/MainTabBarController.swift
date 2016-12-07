@@ -36,7 +36,7 @@ class MainTabBarController: UITabBarController {
         
         if isAnonymous == true {
 //          will change to a sign in page
-            let profileNC = UINavigationController(rootViewController: ProfileViewController())
+            let profileNC = UINavigationController(rootViewController: CreateAccountViewController())
             profileNC.navigationBar.isTranslucent = false
             profileNC.navigationBar.barTintColor = UIColor.themeMediumBlue
             profileNC.navigationBar.tintColor = UIColor.themeWhite
