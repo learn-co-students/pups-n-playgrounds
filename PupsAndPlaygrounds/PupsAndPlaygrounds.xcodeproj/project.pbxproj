@@ -50,6 +50,7 @@
 		E87758A21DF8701200823089 /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */; };
 		E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EE2131DEE141B00CAEACF /* Secrets.swift */; };
 		E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */; };
+		F6B3EE891DF8BAB40010468E /* DogRunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B3EE881DF8BAB40010468E /* DogRunViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +102,7 @@
 		E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		E89EE2131DEE141B00CAEACF /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
+		F6B3EE881DF8BAB40010468E /* DogRunViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogRunViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
 				B5CB82EC1DF8714D00B373B5 /* ReviewViewController.swift */,
 				E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */,
+				F6B3EE881DF8BAB40010468E /* DogRunViewController.swift */,
 				C49C67821DE77E0800163CD9 /* FeedViewController.swift */,
 				C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */,
 			);
@@ -391,6 +394,7 @@
 				C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */,
 				B5CB82ED1DF8714D00B373B5 /* ReviewViewController.swift in Sources */,
 				E84199D11DE38FE400522C8A /* Reviews.swift in Sources */,
+				F6B3EE891DF8BAB40010468E /* DogRunViewController.swift in Sources */,
 				C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */,
 				E813A3A81DECA4BA006D9725 /* LocationsProfileViewController.swift in Sources */,
 				C405AE131DF0BCD30044D9C8 /* GeoFireMethods.swift in Sources */,
