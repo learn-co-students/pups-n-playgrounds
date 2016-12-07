@@ -21,8 +21,11 @@ class LocationProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configure()
+        
         guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
-
+        
         self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
         
         if let playgroundReviewsIDs = playground?.reviewsID {
@@ -56,12 +59,10 @@ class LocationProfileViewController: UIViewController {
     }
     
     
-    func writeReview() {
-        setup()
-    }
+    
     
     // MARK: Setup ReviewVC Child
-    func setup() {
+    func writeReview() {
         navigationController?.navigationBar.isUserInteractionEnabled = false
         tabBarController?.tabBar.isUserInteractionEnabled = false
         
@@ -78,7 +79,9 @@ class LocationProfileViewController: UIViewController {
         childVC.didMove(toParentViewController: self)
         
         view.layoutIfNeeded()
-        
+    }
+    
+    func configure() {
         guard let unwrappedPlayground = playground else { return }
         self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
         
