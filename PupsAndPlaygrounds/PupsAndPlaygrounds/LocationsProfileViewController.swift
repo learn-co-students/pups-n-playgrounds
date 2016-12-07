@@ -25,8 +25,13 @@ class LocationProfileViewController: UIViewController {
         configure()
         
         guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+        FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
+            self.currentUser = currentFirebaseUser
+        }
         
-        self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
+        if FIRAuth.auth()?.currentUser?.isAnonymous == false {
+            self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
+        }
         
         if let playgroundReviewsIDs = playground?.reviewsID {
             
@@ -44,12 +49,7 @@ class LocationProfileViewController: UIViewController {
                 
             }
         }
-        
-        FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
-            self.currentUser = currentFirebaseUser
-        }
-        print("THIS PLAYGROUND HAS \(playground?.reviewsID.count) REVIEWS")
-        
+
     }
     
     

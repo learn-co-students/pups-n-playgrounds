@@ -22,7 +22,6 @@ class DataStore {
     
     var playgrounds: [PlaygroundJSON] = []
     var dogRuns: [DogrunJSON] = []
-    var user: User?
     
     static let sharedInstance = DataStore()
     
