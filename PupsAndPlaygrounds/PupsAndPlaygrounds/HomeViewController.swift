@@ -157,6 +157,9 @@ import MapKit
 class HomeViewController: UIViewController {
     
     // MARK: Properties
+    
+    let store = DataStore.sharedInstance
+    
     lazy var mapView = MapView()
     lazy var listView = ListView()
     var isMapView = true
@@ -171,6 +174,18 @@ class HomeViewController: UIViewController {
         configure()
         constrain()
         //    pullData()
+        
+        if let userID = FIRAuth.auth()?.currentUser?.uid {
+            print("USER ID IS \(userID)")
+            FirebaseData.getUser(with: userID, completion: { (user) in
+                print("FIREBASE USER IS \(user?.firstName)")
+                self.store.user = user
+                print("IS USER DATA STORE ANONYMOUS?? \(self.store.user?.isAnonymous)")
+
+            })
+        }
+        
+        
     }
     
     private func configure() {
