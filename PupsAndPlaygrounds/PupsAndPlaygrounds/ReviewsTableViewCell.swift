@@ -52,7 +52,7 @@ class ReviewsTableViewCell: UITableViewCell {
             $0.trailing.equalToSuperview().offset(10)
             $0.width.greaterThanOrEqualTo(60)
         }
-        
+
         deleteReviewButton.setTitle("❌", for: .normal)
         deleteReviewButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
         
@@ -62,7 +62,6 @@ class ReviewsTableViewCell: UITableViewCell {
             $0.trailing.equalTo(flagButton.snp.leading).offset(5)
             $0.width.greaterThanOrEqualTo(60)
         }
-        
 //        contentView.bringSubview(toFront: deleteReviewButton)
 
 

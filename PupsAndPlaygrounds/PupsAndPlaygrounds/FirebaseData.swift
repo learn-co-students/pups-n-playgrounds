@@ -85,7 +85,7 @@ class FirebaseData {
         let userKey = ref.child("reviews").child("visible").child(reviewID)
         
         userKey.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICTIONARY = \(snapshot.value as? [String : Any])"); return }
+            guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICTIONARY = \(snapshot.value as? [String : Any]): review was flagged"); return }
             guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
             guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
             guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }

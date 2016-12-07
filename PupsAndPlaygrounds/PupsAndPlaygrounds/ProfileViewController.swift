@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController {
     
     
     // MARK: Properties
-    var currentUser: User!
+    var currentUser: User?
     var userReviews: [Review?] = []
     var userProfileView: ProfileView!
     var profileImage: UIImage!
@@ -58,48 +58,56 @@ class ProfileViewController: UIViewController {
         }
     }
     
-        func configure() {
-            userProfileView = ProfileView(user: currentUser!)
-            
-            userProfileView.reviewsTableView.delegate = self
-            userProfileView.reviewsTableView.dataSource = self
-            userProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
-            
-            self.view.addSubview(userProfileView)
-            userProfileView.snp.makeConstraints {
-                $0.edges.equalToSuperview()
-            }
-            
-            self.userProfileView.profileButton.addTarget(self, action: #selector(self.profileButtonTouched), for: .touchUpInside)
-            
-            print("CURRENT USER REVIEW COUNT IS \(self.currentUser.reviewsID.count)")
-            
-            if self.currentUser.reviewsID.count > 0 {
-                
-                for reviewID in self.currentUser.reviewsID {
-                    FirebaseData.getReview(with: reviewID!, completion: { (FirebaseReview) in
-                        self.userReviews.append(FirebaseReview)
-                    })
-                }
-            }
+    func configure() {
+        guard let unwrappedCurrentUser = currentUser else { return }
+        userProfileView = ProfileView(user: unwrappedCurrentUser)
+        
+        self.view.addSubview(userProfileView)
+        userProfileView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         
-        /*
-         guard let user = FIRAuth.auth()?.currentUser else { return }
-         let userRef = FIRDatabase.database().reference().child("users").child(user.uid)
-         
-         userRef.observeSingleEvent(of: .value, with: { snapshot in
-         guard let value = snapshot.value as? [String : String] else { return }
-         guard let firstName = value["firstName"],
-         let lastName = value["lastName"] else { return }
-         self.profileView.userNameLabel.text = "\(firstName) \(lastName)"
-         })
-         
-         guard let photoURL = user.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
-         guard let photoData = try? Data(contentsOf: photoURL) else { print("error retrieving image data"); return }
-         
-         profileView.profileButton.setImage(UIImage(data: photoData), for: .normal)
-         */
+        self.userProfileView.profileButton.addTarget(self, action: #selector(self.profileButtonTouched), for: .touchUpInside)
+        
+        print("CURRENT USER REVIEW COUNT IS \(self.currentUser?.reviewsID.count)")
+        
+        if let userReviewIDs = currentUser?.reviewsID {
+            
+            for reviewID in userReviewIDs {
+                guard let reviewIDUnwrapped = reviewID else { return }
+                FirebaseData.getReview(with: reviewIDUnwrapped, completion: { (FirebaseReview) in
+                    self.userReviews.append(FirebaseReview)
+                    
+                    self.userProfileView.reviewsTableView.delegate = self
+                    self.userProfileView.reviewsTableView.dataSource = self
+                    self.userProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
+                    
+                    self.view.addSubview(self.userProfileView)
+                    self.userProfileView.snp.makeConstraints {
+                        $0.edges.equalToSuperview()
+                    }
+                    
+                })
+            }
+        }
+    }
+    
+    /*
+     guard let user = FIRAuth.auth()?.currentUser else { return }
+     let userRef = FIRDatabase.database().reference().child("users").child(user.uid)
+     
+     userRef.observeSingleEvent(of: .value, with: { snapshot in
+     guard let value = snapshot.value as? [String : String] else { return }
+     guard let firstName = value["firstName"],
+     let lastName = value["lastName"] else { return }
+     self.profileView.userNameLabel.text = "\(firstName) \(lastName)"
+     })
+     
+     guard let photoURL = user.photoURL else { profileView.profileButton.setTitle("Add\nphoto", for: .normal); return }
+     guard let photoData = try? Data(contentsOf: photoURL) else { print("error retrieving image data"); return }
+     
+     profileView.profileButton.setImage(UIImage(data: photoData), for: .normal)
+     */
     
     
     
@@ -140,27 +148,26 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
 // MARK: UITableViewDelegate and UITableViewDataSource
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let reviews = currentUser?.reviewsID {
-            return reviews.count
-        }
-        return 0
+        
+        return userReviews.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewsTableViewCell
         
         if let currentReview = userReviews[indexPath.row] {
-            
             cell.review = currentReview
             
-            
-            // if currentUser.userID != self.currentUser?.userID {
-            //    cell.deleteReviewButton.isHidden = false
-            //}
-            
+            if let currentUserID = currentUser?.userID {
+                
+                if currentUserID != currentReview.userID {
+                    cell.deleteReviewButton.isHidden = true
+                }
+                
+            }
             
         }
-        
         return cell
     }
 }

@@ -22,7 +22,7 @@ class LocationProfileViewController: UIViewController {
         super.viewDidLoad()
         guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         configure()
-
+        
         FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
             self.currentUser = currentFirebaseUser
             self.configure()
@@ -116,17 +116,14 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         
         if let currentReview = playground?.reviews[indexPath.row] {
             cell.review = currentReview
-//            cell.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
-
-
+            //            cell.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
             
-            /*
+
             if let currentUserID = currentUser?.userID {
-                print("REVIEW'S USER ID IS \(currentReview.userID) AND CURRENT USER ID IS \(currentUserID)")
-                if currentReview.userID == currentUserID {
-                    cell.deleteReviewButton.isHidden = false
+                if currentReview.userID != currentUserID {
+                    cell.deleteReviewButton.isHidden = true
                 }
-            } */
+            }
         }
         return cell
     }
