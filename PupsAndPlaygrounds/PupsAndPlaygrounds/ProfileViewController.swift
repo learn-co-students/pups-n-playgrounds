@@ -142,7 +142,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 extension ProfileViewController {
   func handleSavingPic() {
     guard let user = user else { print("error unrwapping current user"); return }
-    let userRef = FIRDatabase.database().reference().child("users").child(user.uid)
     
     let imageName = NSUUID().uuidString
     let storageRef = FIRStorage.storage().reference().child("profilePics").child("\(imageName).png")
@@ -153,7 +152,7 @@ extension ProfileViewController {
         if let error = error { print(error); return }
         
         guard let metaDataURL = metadata?.downloadURL()?.absoluteString else { print("no profile image URL"); return }
-        userRef.setValue(["profilePicURL": metaDataURL])
+        FIRDatabase.database().reference().child("users").child(user.uid).updateChildValues(["profilePicURL" : metaDataURL])
       }
     }
   }
