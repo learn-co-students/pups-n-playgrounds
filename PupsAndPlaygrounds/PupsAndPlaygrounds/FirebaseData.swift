@@ -254,14 +254,16 @@ class FirebaseData {
                 let value = newPlayground.value as! [String:Any]
                 guard let locationName = value["name"] as? String else { print("locationName \(value["name"])"); return }
                 guard let address = value["address"] as? String else { print("address \(value["address"])"); return }
-                guard let latitude = value["latitude"] as? String else { print("latitude \(value["latitude"])"); return }
-                guard let longitude = value["longitude"] as? String else { print("longitude = \(value["longitude"])"); return }
+                guard let latitudeString = value["latitude"] as? String else { print("latitude \(value["latitude"])"); return }
+                guard let longitudeString = value["longitude"] as? String else { print("longitude = \(value["longitude"])"); return }
                 guard let isHandicap = value["isHandicap"] as? String else { print("isHandicap = \(value["isHandicap"])"); return }
                 guard let isFlagged = value["isFlagged"] as? String else { print("isFlagged = \(value["isFlagged"])"); return }
                 
                 var reviewsIDArray = [String?]()
                 
-                
+                guard let latitude = Double(latitudeString) else { return }
+                guard let longitude = Double(longitudeString) else { return }
+
                 
                 if let reviewsDictionary = value["reviews"] as? [String:Any] {
                     for iterReview in reviewsDictionary {
@@ -270,7 +272,7 @@ class FirebaseData {
                     }
                 }
                 
-                let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: Double(latitude)!, longitude: Double(longitude)!, reviewsID: reviewsIDArray, photos: [], isFlagged:isFlagged)
+                let newestPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewsID: reviewsIDArray, photos: [], isFlagged:isFlagged)
                 playgroundArray.append(newestPlayground)
             }
             completion(playgroundArray)

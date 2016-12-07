@@ -44,7 +44,7 @@ class ReviewsTableViewCell: UITableViewCell {
         print("CONFIGURING CELL")
         
         flagButton.setTitle("⚠️", for: .normal)
-        flagButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+//        flagButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
         
         contentView.addSubview(flagButton)
         flagButton.snp.makeConstraints {
@@ -54,7 +54,7 @@ class ReviewsTableViewCell: UITableViewCell {
         }
 
         deleteReviewButton.setTitle("❌", for: .normal)
-        deleteReviewButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+//        deleteReviewButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
         
         contentView.addSubview(deleteReviewButton)
         deleteReviewButton.snp.makeConstraints {

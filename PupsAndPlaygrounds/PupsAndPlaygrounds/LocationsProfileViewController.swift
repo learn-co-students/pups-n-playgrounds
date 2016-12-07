@@ -130,8 +130,7 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         
         if let currentReview = reviewsArray[indexPath.row] {
             cell.review = currentReview
-            //            cell.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
-            
+
             
             if let currentUserID = currentUser?.userID {
                 if currentReview.userID != currentUserID {
