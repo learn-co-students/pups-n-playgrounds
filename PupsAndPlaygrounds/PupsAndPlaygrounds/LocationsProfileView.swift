@@ -31,11 +31,8 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     convenience init(playground: Playground) {
         self.init(frame: CGRect.zero)
         location = playground
-        
         configure()
         constrain()
-        
-        
     }
     
     
@@ -46,19 +43,24 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     
     func configure() {
         
+        self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
+        self.starReviews.starCount = 5
+        self.starReviews.allowAccruteStars = false
+        self.starReviews.allowEdit = false
+        self.starReviews.starFillColor = UIColor.themeWhite
+        self.starReviews.starBackgroundColor = UIColor.themeDarkBlue
+        self.starReviews.starMarginScale = 0.3
+        self.starReviews.isHidden = true
         
         FirebaseData.calcAverageStarFor(location: location.playgroundID) { (averageStarValue) in
-            print("AVERAGE STAR VALUE \(averageStarValue)")
-            self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
-            self.starReviews.starCount = 5
-            self.starReviews.value = averageStarValue
-            self.starReviews.allowAccruteStars = false
-            self.starReviews.starFillColor = UIColor.red
-            self.starReviews.starBackgroundColor = UIColor.black
-            self.starReviews.starMarginScale = 0.3
+            
+            OperationQueue.main.addOperation {
+                print("AVERAGE STAR VALUE \(averageStarValue)")
+                print(self.location.playgroundID)
+                self.starReviews.value = averageStarValue
+                self.starReviews.isHidden = false
+            }
         }
-        
-        
         
         backgroundColor = UIColor.themeLightBlue
         
