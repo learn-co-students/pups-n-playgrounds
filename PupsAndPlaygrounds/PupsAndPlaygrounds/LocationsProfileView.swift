@@ -125,7 +125,15 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
 //            $0.height.equalTo(streetView.snp.width)
 //        }
         
+        scrollView.addSubview(streetView)
+        streetView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(scrollView.snp.top)
+            $0.width.equalToSuperview()
+            $0.height.equalTo(streetView.snp.width)
+        }
         
+        /*
         scrollView.addSubview(locationProfileImage)
         locationProfileImage.snp.makeConstraints {
             $0.leadingMargin.equalToSuperview().offset(10)
@@ -189,7 +197,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         reviewsTableView.snp.makeConstraints {
             $0.edges.equalTo(UIEdgeInsetsMake(0, 20, 20, 20))
         }
-    
+    */
     }
     
     
