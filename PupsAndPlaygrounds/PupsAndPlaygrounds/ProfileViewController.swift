@@ -21,7 +21,8 @@ class ProfileViewController: UIViewController {
     var profileImage: UIImage!
     var imagePicker: UIImagePickerController!
     var imagePickerView: ImagePickerView!
-    
+    var blueGradient: CAGradientLayer!
+
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     override func viewDidLoad() {
@@ -55,6 +56,9 @@ class ProfileViewController: UIViewController {
     }
     
     func configure() {
+        blueGradient = CAGradientLayer()
+        blueGradient.colors = [ UIColor.themeLightBlue, UIColor.themeDarkBlue ]
+        blueGradient.locations = [ 0.0, 1.0 ]
         guard let unwrappedCurrentUser = currentUser else { return }
         userProfileView = ProfileView(user: unwrappedCurrentUser)
         

@@ -75,7 +75,6 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         streetView = UIView()
         panoView = GMSPanoramaView()
         panoView.moveNearCoordinate(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
-        panoView.layer.cornerRadius = 5
         
         locationNameLabel = UILabel()
         locationNameLabel.font = UIFont.themeMediumBold
@@ -97,7 +96,6 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         submitReviewButton.setTitle("Review This Location", for: .normal)
         submitReviewButton.titleLabel?.font = UIFont.themeSmallBold
         submitReviewButton.setTitleColor(UIColor.themeWhite, for: .normal)
-        submitReviewButton.layer.cornerRadius = 4
         submitReviewButton.layer.borderWidth = 2
         submitReviewButton.layer.borderColor = UIColor.themeWhite.cgColor
         
@@ -105,7 +103,6 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         reviewsTableView = UITableView()
         reviewsTableView.rowHeight = 40
         reviewsTableView.backgroundColor = UIColor.white
-        reviewsTableView.layer.cornerRadius = 5
         
     }
     
@@ -150,7 +147,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         locationAddressLabel.snp.makeConstraints {
             $0.leading.equalTo(locationProfileImage.snp.trailing).offset(10)
             $0.top.equalTo(locationNameLabel.snp.bottom).offset(10)
-            $0.height.equalTo(locationProfileImage.snp.height).dividedBy(2)
+            $0.height.equalTo(locationNameLabel.snp.height)
             $0.width.equalToSuperview().multipliedBy(0.66)
         }
         

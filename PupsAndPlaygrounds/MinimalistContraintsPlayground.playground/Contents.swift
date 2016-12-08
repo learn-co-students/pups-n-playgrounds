@@ -28,7 +28,7 @@ class LocationView: UIView {
 
         locationProfileImage = UIView()
         locationProfileImage.backgroundColor = UIColor.magenta
-        locationProfileImage.layer.cornerRadius = 10
+        locationProfileImage.layer.cornerRadius = 80
         
         locationNameLabel = UILabel()
         locationNameLabel.text = "American Playground"
