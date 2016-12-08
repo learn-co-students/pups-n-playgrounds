@@ -41,7 +41,7 @@ class MainTabBarController: UITabBarController {
             profileNC.navigationBar.barTintColor = UIColor.themeMediumBlue
             profileNC.navigationBar.tintColor = UIColor.themeWhite
             profileNC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.themeWhite]
-            profileNC.tabBarItem = UITabBarItem(title: "Profile", image: #imageLiteral(resourceName: "Profile Tab Bar"), selectedImage: nil)
+            profileNC.tabBarItem = UITabBarItem(title: "Create Account", image: #imageLiteral(resourceName: "Profile Tab Bar"), selectedImage: nil)
             
             viewControllers = [homeNC, feedNC, profileNC]
             tabBar.tintColor = UIColor.themeRed

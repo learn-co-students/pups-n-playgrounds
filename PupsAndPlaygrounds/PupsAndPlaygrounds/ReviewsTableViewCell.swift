@@ -12,15 +12,15 @@ class ReviewsTableViewCell: UITableViewCell {
     
     let deleteReviewButton = UIButton()
     let flagButton = UIButton()
-
+    let reviewLabel = UILabel()
     
     weak var review: Review! {
         didSet {
-            textLabel?.text = review.comment
-            textLabel?.textColor = UIColor.blue
-            textLabel?.font = UIFont.themeTinyBold
-            textLabel?.numberOfLines = 3
-            textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+            reviewLabel.text = review.comment
+            reviewLabel.textColor = UIColor.blue
+            reviewLabel.font = UIFont.themeTinyRegular
+            reviewLabel.numberOfLines = 3
+            reviewLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         }
     }
     
@@ -44,27 +44,28 @@ class ReviewsTableViewCell: UITableViewCell {
         print("CONFIGURING CELL")
         
         flagButton.setTitle("⚠️", for: .normal)
-//        flagButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
-        
         contentView.addSubview(flagButton)
         flagButton.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(10)
-//            $0.width.lessThanOrEqualTo(30)
+            $0.trailing.equalToSuperview()
+            $0.width.lessThanOrEqualTo(50)
         }
 
         deleteReviewButton.setTitle("❌", for: .normal)
-//        deleteReviewButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
-        
         contentView.addSubview(deleteReviewButton)
         deleteReviewButton.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.trailing.equalTo(flagButton.snp.leading).offset(5)
-//            $0.width.lessThanOrEqualTo(30)
+            $0.trailing.equalTo(flagButton.snp.leading)
+            $0.width.lessThanOrEqualTo(50)
         }
-//        contentView.bringSubview(toFront: deleteReviewButton)
 
 
+        contentView.addSubview(reviewLabel)
+        reviewLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(5)
+            $0.top.bottom.equalToSuperview()
+            $0.trailing.equalTo(deleteReviewButton.snp.leading)
+        }
     }
     
 }

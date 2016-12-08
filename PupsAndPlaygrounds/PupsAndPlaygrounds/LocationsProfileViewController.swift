@@ -131,8 +131,10 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         if let currentReview = reviewsArray[indexPath.row] {
             cell.review = currentReview
 
-            
+            print("CURRENT USER ID IS \(currentUser?.userID)")
+            print("CURRENT REVIEW ID IS \(currentReview.userID)")
             if let currentUserID = currentUser?.userID {
+
                 if currentReview.userID != currentUserID {
                     cell.deleteReviewButton.isHidden = true
                 }
