@@ -69,7 +69,6 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         locationProfileImage.clipsToBounds = true
         
         streetView = UIView()
-        streetView.backgroundColor = UIColor.cyan
         panoView = GMSPanoramaView()
         panoView.moveNearCoordinate(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
         panoView.layer.cornerRadius = 5
@@ -107,37 +106,11 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     }
     
     func constrain() {
-//
-//        scrollView.addSubview(streetView)
-//        streetView.snp.makeConstraints {
-//            $0.top.leading.trailing.equalToSuperview()
-//
-//        }
         
-        addSubview(scrollView)
-        scrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-//        scrollView.addSubview(streetView)
-//        streetView.snp.makeConstraints {
-//            $0.top.leading.trailing.equalTo(scrollView)
-//            $0.height.equalTo(streetView.snp.width)
-//        }
-        
-        scrollView.addSubview(streetView)
-        streetView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(scrollView.snp.top)
-            $0.width.equalToSuperview()
-            $0.height.equalTo(streetView.snp.width)
-        }
-        
-        /*
-        scrollView.addSubview(locationProfileImage)
+        addSubview(locationProfileImage)
         locationProfileImage.snp.makeConstraints {
             $0.leadingMargin.equalToSuperview().offset(10)
-            $0.topMargin.equalTo(scrollView.snp.top).offset(20)
+            $0.topMargin.equalToSuperview().offset(20)
             $0.width.equalToSuperview().dividedBy(3)
             $0.height.equalTo(locationProfileImage.snp.width)
         }
@@ -146,7 +119,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         locationNameLabel.snp.makeConstraints {
             $0.leading.equalTo(locationProfileImage.snp.trailing).offset(5)
             $0.trailing.equalToSuperview()
-            $0.topMargin.equalTo(scrollView).offset(10)
+            $0.topMargin.equalToSuperview().offset(10)
             $0.bottom.equalTo(locationProfileImage).dividedBy(3)
         }
         
@@ -197,7 +170,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         reviewsTableView.snp.makeConstraints {
             $0.edges.equalTo(UIEdgeInsetsMake(0, 20, 20, 20))
         }
-    */
+ 
     }
     
     

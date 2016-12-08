@@ -134,8 +134,8 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
             
             
             if let currentUserID = currentUser?.userID {
-                if currentReview.userID != currentUserID {
-                    cell.deleteReviewButton.isHidden = true
+                if currentReview.userID == currentUserID {
+                    cell.deleteReviewButton.isHidden = false
                 }
             }
         }

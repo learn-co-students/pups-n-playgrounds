@@ -156,12 +156,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.review = currentReview
             
             if let currentUserID = currentUser?.userID {
-                
-                if currentUserID != currentReview.userID {
-                    cell.deleteReviewButton.isHidden = true
-                    
+                if currentReview.userID == currentUserID {
+                    cell.deleteReviewButton.isHidden = false
                 }
-                
             }
 
             
