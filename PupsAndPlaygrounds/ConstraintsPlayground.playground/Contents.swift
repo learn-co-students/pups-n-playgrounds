@@ -391,7 +391,7 @@ class LocationProfileView: UIView {
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
+        /*
         scrollView.addSubview(locationProfileImage)
         locationProfileImage.snp.makeConstraints {
             $0.leadingMargin.equalTo(scrollView.snp.leading).offset(20)
@@ -407,7 +407,7 @@ class LocationProfileView: UIView {
             $0.topMargin.equalTo(locationProfileImage.snp.top).offset(10)
 
         }
-        /*
+        
         addSubview(locationAddressLabel)
         locationAddressLabel.snp.makeConstraints {
             $0.leading.equalTo(locationProfileImage.snp.trailing).offset(5)
@@ -482,6 +482,7 @@ var VC = LocationProfileViewController()
 PlaygroundPage.current.liveView = container
 
 PlaygroundPage.current.needsIndefiniteExecution = true
+
 
 //XCPlaygroundPage.currentPage.liveView = locationView
 

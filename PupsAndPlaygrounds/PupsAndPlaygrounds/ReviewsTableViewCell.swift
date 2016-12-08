@@ -58,7 +58,7 @@ class ReviewsTableViewCell: UITableViewCell {
             $0.trailing.equalTo(flagButton.snp.leading)
             $0.width.lessThanOrEqualTo(50)
         }
-
+        deleteReviewButton.isHidden = true
 
         contentView.addSubview(reviewLabel)
         reviewLabel.snp.makeConstraints {
