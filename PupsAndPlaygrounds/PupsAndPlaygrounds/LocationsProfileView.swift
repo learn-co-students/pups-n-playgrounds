@@ -23,6 +23,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     var panoView: GMSPanoramaView!
     var starReviews: StarReview!
     var rating: String?
+    var scrollView: UIScrollView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,8 +32,11 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     convenience init(playground: Playground) {
         self.init(frame: CGRect.zero)
         location = playground
+        
         configure()
         constrain()
+        
+        
     }
     
     
@@ -43,24 +47,19 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     
     func configure() {
         
-        self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
-        self.starReviews.starCount = 5
-        self.starReviews.allowAccruteStars = false
-        self.starReviews.allowEdit = false
-        self.starReviews.starFillColor = UIColor.themeWhite
-        self.starReviews.starBackgroundColor = UIColor.themeDarkBlue
-        self.starReviews.starMarginScale = 0.3
-        self.starReviews.isHidden = true
         
         FirebaseData.calcAverageStarFor(location: location.playgroundID) { (averageStarValue) in
-            
-            OperationQueue.main.addOperation {
-                print("AVERAGE STAR VALUE \(averageStarValue)")
-                print(self.location.playgroundID)
-                self.starReviews.value = averageStarValue
-                self.starReviews.isHidden = false
-            }
+            print("AVERAGE STAR VALUE \(averageStarValue)")
+            self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
+            self.starReviews.starCount = 5
+            self.starReviews.value = averageStarValue
+            self.starReviews.allowAccruteStars = false
+            self.starReviews.starFillColor = UIColor.red
+            self.starReviews.starBackgroundColor = UIColor.black
+            self.starReviews.starMarginScale = 0.3
         }
+        scrollView = UIScrollView()
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 1.5)
         
         backgroundColor = UIColor.themeLightBlue
         
@@ -70,6 +69,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         locationProfileImage.clipsToBounds = true
         
         streetView = UIView()
+        streetView.backgroundColor = UIColor.cyan
         panoView = GMSPanoramaView()
         panoView.moveNearCoordinate(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
         panoView.layer.cornerRadius = 5
@@ -107,10 +107,37 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     }
     
     func constrain() {
-        addSubview(locationProfileImage)
+//
+//        scrollView.addSubview(streetView)
+//        streetView.snp.makeConstraints {
+//            $0.top.leading.trailing.equalToSuperview()
+//
+//        }
+        
+        addSubview(scrollView)
+        scrollView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+//        scrollView.addSubview(streetView)
+//        streetView.snp.makeConstraints {
+//            $0.top.leading.trailing.equalTo(scrollView)
+//            $0.height.equalTo(streetView.snp.width)
+//        }
+        
+        scrollView.addSubview(streetView)
+        streetView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(scrollView.snp.top)
+            $0.width.equalToSuperview()
+            $0.height.equalTo(streetView.snp.width)
+        }
+        
+        /*
+        scrollView.addSubview(locationProfileImage)
         locationProfileImage.snp.makeConstraints {
             $0.leadingMargin.equalToSuperview().offset(10)
-            $0.topMargin.equalToSuperview().offset(20)
+            $0.topMargin.equalTo(scrollView.snp.top).offset(20)
             $0.width.equalToSuperview().dividedBy(3)
             $0.height.equalTo(locationProfileImage.snp.width)
         }
@@ -119,7 +146,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         locationNameLabel.snp.makeConstraints {
             $0.leading.equalTo(locationProfileImage.snp.trailing).offset(5)
             $0.trailing.equalToSuperview()
-            $0.topMargin.equalToSuperview().offset(10)
+            $0.topMargin.equalTo(scrollView).offset(10)
             $0.bottom.equalTo(locationProfileImage).dividedBy(3)
         }
         
@@ -170,7 +197,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         reviewsTableView.snp.makeConstraints {
             $0.edges.equalTo(UIEdgeInsetsMake(0, 20, 20, 20))
         }
-        
+    */
     }
     
     
