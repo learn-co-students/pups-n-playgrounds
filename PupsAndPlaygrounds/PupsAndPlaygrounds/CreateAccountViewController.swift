@@ -67,6 +67,7 @@ class CreateAccountViewController: UIViewController {
 extension CreateAccountViewController: UIScrollViewDelegate {
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     createAccountView.pageControl.currentPage = Int(round(scrollView.contentOffset.x / scrollView.frame.width))
+    print(createAccountView.pageControl.currentPage)
   }
 }
 
