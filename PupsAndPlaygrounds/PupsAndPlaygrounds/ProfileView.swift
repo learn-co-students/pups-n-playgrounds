@@ -10,82 +10,80 @@ import UIKit
 import SnapKit
 
 final class ProfileView: UIView {
+  
+  // MARK: Properties
+  var profileButton: UIButton!
+  let profileButtonWidth: CGFloat = 120
+  var userNameLabel: UILabel!
+  var locationsView: UIView!
+  var locationsTableView: UITableView!
+  
+  // MARK: Initialization
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+  }
+  
+  convenience init() {
+    self.init(frame: CGRect.zero)
     
-    // MARK: Properties
-//    var currentUser: User!
-    var profileButton: UIButton!
-    let profileButtonWidth: CGFloat = 120
-    var userNameLabel: UILabel!
-    var reviewsView: UIView!
-    var reviewsTableView: UITableView!
+    configure()
+    constrain()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+  
+  // MARK: View Configuration
+  private func configure() {
+    backgroundColor = UIColor.themeLightBlue
     
-    // MARK: Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    profileButton = UIButton()
+    profileButton.titleLabel?.font = UIFont.themeMediumBold
+    profileButton.titleLabel?.numberOfLines = 2
+    profileButton.titleLabel?.textAlignment = .center
+    profileButton.imageView?.contentMode = .scaleAspectFill
+    profileButton.layer.cornerRadius = profileButtonWidth / 2
+    profileButton.layer.borderWidth = 4
+    profileButton.layer.borderColor = UIColor.themeWhite.cgColor
+    profileButton.clipsToBounds = true
+    
+    userNameLabel = UILabel()
+    userNameLabel.font = UIFont.themeMediumLight
+    userNameLabel.textColor = UIColor.themeWhite
+    
+    locationsView = UIView()
+    locationsTableView = UITableView()
+    locationsTableView.rowHeight = 80
+    locationsTableView.backgroundColor = UIColor.clear
+  }
+  
+  // MARK: View Constraints
+  private func constrain() {
+    addSubview(profileButton)
+    profileButton.snp.makeConstraints {
+      $0.top.equalToSuperview().offset(40)
+      $0.width.height.equalTo(profileButtonWidth)
+      $0.centerX.equalToSuperview()
     }
     
-    convenience init(user: User) {
-        self.init(frame: CGRect.zero)
-//        currentUser = user
-        configure()
-        constrain()
+    addSubview(userNameLabel)
+    userNameLabel.snp.makeConstraints {
+      $0.top.equalTo(profileButton.snp.bottom).offset(20)
+      $0.centerX.equalToSuperview()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    addSubview(locationsView)
+    locationsView.snp.makeConstraints {
+      $0.leading.trailing.bottom.equalToSuperview()
+      $0.top.equalTo(userNameLabel.snp.bottom)
     }
     
-    // MARK: View Configuration
-    private func configure() {
-        backgroundColor = UIColor.themeLightBlue
-        
-        profileButton = UIButton()
-        profileButton.titleLabel?.font = UIFont.themeMediumBold
-        profileButton.titleLabel?.numberOfLines = 2
-        profileButton.titleLabel?.textAlignment = .center
-        profileButton.imageView?.contentMode = .scaleAspectFill
-        profileButton.layer.cornerRadius = profileButtonWidth / 2
-        profileButton.layer.borderWidth = 4
-        profileButton.layer.borderColor = UIColor.themeWhite.cgColor
-        profileButton.clipsToBounds = true
-        
-        userNameLabel = UILabel()
-        userNameLabel.font = UIFont.themeMediumLight
-        userNameLabel.textColor = UIColor.themeWhite
-//        userNameLabel.text = currentUser.firstName
-      
-        reviewsView = UIView()
-        reviewsTableView = UITableView()
-        reviewsTableView.rowHeight = 80
-        reviewsTableView.backgroundColor = UIColor.clear
+    locationsView.addSubview(locationsTableView)
+    locationsTableView.snp.makeConstraints {
+      $0.edges.equalTo(UIEdgeInsetsMake(40, 40, 40, 40))
     }
-    
-    // MARK: View Constraints
-    private func constrain() {
-        addSubview(profileButton)
-        profileButton.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(40)
-            $0.width.height.equalTo(profileButtonWidth)
-            $0.centerX.equalToSuperview()
-        }
-        
-        addSubview(userNameLabel)
-        userNameLabel.snp.makeConstraints {
-            $0.top.equalTo(profileButton.snp.bottom).offset(20)
-            $0.centerX.equalToSuperview()
-        }
-        
-        addSubview(reviewsView)
-        reviewsView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(userNameLabel.snp.bottom)
-        }
-        
-        reviewsView.addSubview(reviewsTableView)
-        reviewsTableView.snp.makeConstraints {
-            $0.edges.equalTo(UIEdgeInsetsMake(40, 40, 40, 40))
-        }
-    }
+  }
 }
 
 
