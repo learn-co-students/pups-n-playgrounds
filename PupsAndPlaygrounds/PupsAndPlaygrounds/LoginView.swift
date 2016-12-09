@@ -27,6 +27,7 @@ class LoginView: UIView {
   lazy var createAccountButton = UIButton()
   lazy var skipButton = UIButton()
   lazy var noLoginStackView = UIStackView()
+    lazy var forgotPasswordButton = UIButton()
   
   // MARK: Initialization
   required init?(coder aDecoder: NSCoder) {
@@ -86,6 +87,10 @@ class LoginView: UIView {
     loginOptionsStackView.distribution = .equalSpacing
     loginOptionsStackView.alignment = .fill
     loginOptionsStackView.spacing = 10
+    
+    forgotPasswordButton.setTitle("Forgot password?", for: .normal)
+    forgotPasswordButton.titleLabel?.font = UIFont.themeTinyBold
+    forgotPasswordButton.setTitleColor(UIColor.themeWhite, for: .normal)
     
     loginStackView.addArrangedSubview(emailField)
     loginStackView.addArrangedSubview(passwordField)
@@ -149,6 +154,13 @@ class LoginView: UIView {
       $0.width.equalToSuperview()
       $0.height.equalTo(40)
     }
+
+    middleView.addSubview(forgotPasswordButton)
+    forgotPasswordButton.snp.makeConstraints {
+        $0.top.equalTo(loginOptionsStackView.snp.bottom).offset(10)
+        $0.centerX.equalToSuperview()
+    }
+    
     
     //    facebookButton.snp.makeConstraints {
     //      $0.width.equalTo(facebookButton.snp.height)
