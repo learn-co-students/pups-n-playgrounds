@@ -25,14 +25,6 @@ class LocationProfileViewController: UIViewController {
         
         configure()
         
-        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
-        FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
-            self.currentUser = currentFirebaseUser
-        }
-        
-        if FIRAuth.auth()?.currentUser?.isAnonymous == false {
-            self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
-        }
         
         if let playgroundReviewsIDs = playground?.reviewsID {
             
@@ -60,14 +52,36 @@ class LocationProfileViewController: UIViewController {
     }
     
     
-    
+    func configure() {
+        guard let unwrappedPlayground = playground else { return }
+        self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
+        
+        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+        FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
+            self.currentUser = currentFirebaseUser
+        }
+        
+        if FIRAuth.auth()?.currentUser?.isAnonymous == false {
+            self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
+        }
+        
+        reviewsTableView = locationProfileView.reviewsTableView
+        locationProfileView.reviewsTableView.delegate = self
+        locationProfileView.reviewsTableView.dataSource = self
+        locationProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
+        locationProfileView.reviewsView.alpha = 0.6
+        
+        self.view.addSubview(locationProfileView)
+        locationProfileView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
     
     // MARK: Setup ReviewVC Child
     func writeReview() {
         navigationController?.navigationBar.isUserInteractionEnabled = false
         tabBarController?.tabBar.isUserInteractionEnabled = false
         
-        print("CLICKED REVIEW BUTTON")
         let childVC = ReviewViewController()
         childVC.location = playground
         
@@ -82,30 +96,7 @@ class LocationProfileViewController: UIViewController {
         view.layoutIfNeeded()
     }
     
-    func configure() {
-        guard let unwrappedPlayground = playground else { return }
-        self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
-        
-        let color1 = UIColor(red: 34/255.0, green: 91/255.0, blue: 102/255.0, alpha: 1.0)
-        let color2 = UIColor(red: 141/255.0, green: 191/255.9, blue: 103/255.0, alpha: 1.0)
-        
-        let backgroundGradient = CALayer.makeGradient(firstColor: color1, secondColor: color2)
-        
-        backgroundGradient.frame = view.frame
-        self.view.layer.insertSublayer(backgroundGradient, at: 0)
-        
-        
-        reviewsTableView = locationProfileView.reviewsTableView
-        locationProfileView.reviewsTableView.delegate = self
-        locationProfileView.reviewsTableView.dataSource = self
-        locationProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
-        locationProfileView.reviewsView.alpha = 0.6
-        
-        self.view.addSubview(locationProfileView)
-        locationProfileView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
+
     
     
     func flagButtonTouched(sender: UIButton) {

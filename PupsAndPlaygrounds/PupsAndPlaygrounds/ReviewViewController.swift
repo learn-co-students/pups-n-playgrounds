@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Firebase
 
 class ReviewViewController: UIViewController {
 
@@ -44,6 +45,26 @@ class ReviewViewController: UIViewController {
     func submitReview() {
         print("LOCATION ID \(location?.playgroundID)")
         FirebaseData.addReview(comment: reviewView.reviewTextField.text!, locationID: reviewView.location.playgroundID, rating: String(reviewView.starReviews.value))
+        
+        let ref = FIRDatabase.database().reference().child("reviews").child("visible")
+        
+        ref.observe(FIRDataEventType.value, with: { (snapshot) in
+            
+            var newReviews = [Review]()
+            
+            for item in snapshot.children {
+                
+                print("SNAPSHOT = \(snapshot)")
+                
+//                let reviewItem = Review(snapshot: item as! FIRDataSnapshot)
+//                newReviews.append(reviewItem)
+                
+            }
+//            LocationProfileViewController.reviewsArray = newReviews
+//            LocationProfileViewController.reviewsRableView.reloadData()
+
+            
+        })
         
         closeReviewWindow()
     }
