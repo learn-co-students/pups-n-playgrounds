@@ -162,11 +162,19 @@ class FirebaseData {
     
     // MARK: Delete reviews
     
-    static func deleteUsersOwnReview(with userID: String, reviewID: String, locationID: String) {
-        
+    static func deleteUsersOwnReview(userID: String, reviewID: String, locationID: String, completion: () -> ()) {
+        print("DELETE IS RUNNING!")
+        print("USER ID IS \(userID)")
+
+        print("REVIEW ID IS \(reviewID)")
+
+        print("LOCATION ID IS \(locationID)")
+
         let ref = FIRDatabase.database().reference().root
         
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        print("CURRENT USER ID IS \(userUniqueID)")
         
         if userID == userUniqueID {
             
@@ -185,6 +193,7 @@ class FirebaseData {
             ref.child("reviews").child("visible").child(reviewID).removeValue()
             
         }
+    completion()
     }
     
     static func deleteCommentAdmin(userID: String, reviewID: String, locationID: String, completion: () -> ()) {

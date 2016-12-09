@@ -50,7 +50,7 @@ class LocationProfileViewController: UIViewController {
                 
             }
         }
-
+        
     }
     
     
@@ -141,15 +141,66 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         
         if let currentReview = reviewsArray[indexPath.row] {
             cell.review = currentReview
-
-            if let currentUserID = currentUser?.userID {
-
-                if currentReview.userID == currentUserID {
-                    cell.deleteReviewButton.isHidden = false
-                }
-            }
         }
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        guard let userID = reviewsArray[indexPath.row]?.userID else { print("trouble casting userID");return [] }
+        guard let reviewID = reviewsArray[indexPath.row]?.reviewID else { print("trouble casting reviewID");return [] }
+        guard let locationID = reviewsArray[indexPath.row]?.locationID else { print("trouble casting locationID");return [] }
+        guard let reviewComment = reviewsArray[indexPath.row]?.comment else { print("trouble casting reviewComment"); return [] }
+        
+        
+        if userID == currentUser?.userID {
+            
+            
+            let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+
+                self.reviewsArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                FirebaseData.deleteUsersOwnReview(userID: userID, reviewID: reviewID, locationID: locationID) {
+                    
+                    let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                        FirebaseData.getVisibleReviewsForFeed { reviews in
+                            self.reviewsArray = reviews
+                            self.locationProfileView.reviewsTableView.reloadData()
+                        }
+                    })
+                }
+            }
+            return [delete]
+            
+        } else {
+            
+            let flag = UITableViewRowAction(style: .destructive, title: "Flag") { (action, indexPath) in
+                
+                self.reviewsArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                FirebaseData.flagReviewWith(unique: reviewID, locationID: locationID, comment: reviewComment, userID: userID) {
+                    let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                        FirebaseData.getVisibleReviewsForFeed { reviews in
+                            self.reviewsArray = reviews
+                            self.locationProfileView.reviewsTableView.reloadData()
+                        }
+                    })
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+            flag.backgroundColor = UIColor.yellow
+            return [flag]
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
     }
     
 }

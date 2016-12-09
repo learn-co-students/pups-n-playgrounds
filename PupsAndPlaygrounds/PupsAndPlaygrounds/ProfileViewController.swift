@@ -21,12 +21,12 @@ class ProfileViewController: UIViewController {
     var profileImage: UIImage!
     var imagePicker: UIImagePickerController!
     var imagePickerView: ImagePickerView!
-
+    
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     
     var blueGradient: CAGradientLayer!
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class ProfileViewController: UIViewController {
             
             self.currentUser = currentFBUser
             self.configure()
-
+            
         }
         
         
@@ -60,14 +60,14 @@ class ProfileViewController: UIViewController {
     }
     
     func configure() {
-
+        
         guard let unwrappedCurrentUser = currentUser else { return }
         userProfileView = ProfileView(user: unwrappedCurrentUser)
         
         self.userProfileView.reviewsTableView.delegate = self
         self.userProfileView.reviewsTableView.dataSource = self
         self.userProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
-
+        
         self.view.addSubview(userProfileView)
         userProfileView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -131,6 +131,8 @@ class ProfileViewController: UIViewController {
         
         appDelegate?.window?.rootViewController = LoginViewController()
     }
+    
+    
 }
 
 // MARK: UIImagePickerControllerDelegate and UINavigationControllerDelegate
@@ -148,11 +150,10 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
 }
 
 // MARK: UITableViewDelegate and UITableViewDataSource
+
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return userReviews.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -161,22 +162,65 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if let currentReview = userReviews[indexPath.row] {
             cell.review = currentReview
             
-            if let currentUserID = currentUser?.userID {
-                
-                if currentUserID != currentReview.userID {
-                    cell.deleteReviewButton.isHidden = true
-                    
-                }
-                
-            }
-
-            
         }
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        guard let userID = userReviews[indexPath.row]?.userID else { print("trouble casting userID");return [] }
+        guard let reviewID = userReviews[indexPath.row]?.reviewID else { print("trouble casting reviewID");return [] }
+        guard let locationID = userReviews[indexPath.row]?.locationID else { print("trouble casting locationID");return [] }
+        guard let reviewComment = userReviews[indexPath.row]?.comment else { print("trouble casting reviewComment"); return [] }
+        
+        if userID == currentUser?.userID {
+            
+            
+            let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+                
+                self.userReviews.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                FirebaseData.deleteUsersOwnReview(userID: userID, reviewID: reviewID, locationID: locationID) {
+                    
+                    let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                        FirebaseData.getVisibleReviewsForFeed { reviews in
+                            self.userReviews = reviews
+                            self.userProfileView.reviewsTableView.reloadData()
+                        }
+                    })
+                }
+            }
+            return [delete]
+        } else {
+            
+            let flag = UITableViewRowAction(style: .destructive, title: "Flag") { (action, indexPath) in
+                
+                self.userReviews.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                FirebaseData.flagReviewWith(unique: reviewID, locationID: locationID, comment: reviewComment, userID: userID) {
+                    let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                        FirebaseData.getVisibleReviewsForFeed { reviews in
+                            self.userReviews = reviews
+                            self.userProfileView.reviewsTableView.reloadData()
+                        }
+                    })
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+            flag.backgroundColor = UIColor.yellow
+            return [flag]
+        }
+    }
+    
 }
 
-// MARK: Firebase Storage Methods 
+// MARK: Firebase Storage Methods
 
 extension ProfileViewController {
     
