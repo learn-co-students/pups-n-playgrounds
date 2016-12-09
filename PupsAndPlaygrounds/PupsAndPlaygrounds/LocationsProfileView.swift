@@ -37,9 +37,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         configure()
         constrain()
         
-        
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -124,8 +122,9 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         panoView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
+      
         scrollView.addSubview(locationProfileImage)
+        
         locationProfileImage.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(10)
             $0.top.equalTo(streetView.snp.bottom).offset(10)

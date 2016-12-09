@@ -16,7 +16,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
     
     
     var location: Dogrun!
-    //var dogrunProfileImage: UIImageView!
+    var dogRunProfileImage: UIImageView!
     var isDogRunIcon: UIImageView!
     var isOffLeashIcon: UIImageView!
     var dogStreetView: UIView!
@@ -26,8 +26,8 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
     var dogRunAddressLabel: UILabel!
     var dogNotesView: UIView!
     var dogNotesLabel: UILabel!
-    var dogReviewView: UIView!
-    var dogReviewTableView: UITableView!
+    var reviewView: UIView!
+    var reviewsTableView: UITableView!
     var submitReviewButton: UIButton!
     var starReviews: StarReview!
     var rating: String?
@@ -59,7 +59,8 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        configure()
+        constrain()
     }
     
     
@@ -134,34 +135,61 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         submitReviewButton.setTitleColor(UIColor.themeWhite, for: .normal)
         
         
-        
-        
         //configure() function finished
     }
     
     
     func constrain() {
       
+        //constrain scrollView
         addSubview(scrollView)
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
+        //constrain dogStreetView
         scrollView.addSubview(dogStreetView)
         dogStreetView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(scrollView.snp.top)
             $0.width.equalTo(scrollView.snp.width)
-            $0.height.equalTo(streetView.snp.width).multipliedBy(0.6)
+            $0.height.equalTo(dogStreetView.snp.width).multipliedBy(0.6)
         }
         
+        // constrain dogPanoView
         dogStreetView.addSubview(dogPanoView)
         dogPanoView.snp.makeConstraints {
-            $0.edges.equalToSuperview() 
-            
+            $0.edges.equalToSuperview()
         }
         
     
+        scrollView.addSubview(dogDetailView) {
+           $0.centerX.equalToSuperview()
+           $0.top.equalTo(dogStreetView.snp.bottom)
+           $0.width.equalTo(scrollView.snp.width)
+           $0.height.equalTo(20)
+            
+        }
+            
+            
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //constrain dogProfileImage 
+        scrollView.addSubview(dogRunProfileImage) {
+            
+            // TODO: Implement these constraints
+            
+        }
+    
+        
         
         
         
