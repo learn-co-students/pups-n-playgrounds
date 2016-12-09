@@ -49,6 +49,8 @@
 		E87758A21DF8701200823089 /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */; };
 		E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EE2131DEE141B00CAEACF /* Secrets.swift */; };
 		E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */; };
+		F686D83F1DFB354C00B3F2C9 /* DogrunReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F686D83E1DFB354C00B3F2C9 /* DogrunReviewView.swift */; };
+		F686D8411DFB434900B3F2C9 /* DogrunReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F686D8401DFB434900B3F2C9 /* DogrunReviewViewController.swift */; };
 		F6B3EE891DF8BAB40010468E /* DogRunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B3EE881DF8BAB40010468E /* DogRunViewController.swift */; };
 		F6B3EE8D1DFA25060010468E /* LocationsProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B3EE8C1DFA25060010468E /* LocationsProfileView.swift */; };
 		F6B3EE8F1DFA252B0010468E /* DogRunProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B3EE8E1DFA252B0010468E /* DogRunProfileView.swift */; };
@@ -102,6 +104,8 @@
 		E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		E89EE2131DEE141B00CAEACF /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
+		F686D83E1DFB354C00B3F2C9 /* DogrunReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogrunReviewView.swift; sourceTree = "<group>"; };
+		F686D8401DFB434900B3F2C9 /* DogrunReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogrunReviewViewController.swift; sourceTree = "<group>"; };
 		F6B3EE881DF8BAB40010468E /* DogRunViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogRunViewController.swift; sourceTree = "<group>"; };
 		F6B3EE8C1DFA25060010468E /* LocationsProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsProfileView.swift; sourceTree = "<group>"; };
 		F6B3EE8E1DFA252B0010468E /* DogRunProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogRunProfileView.swift; sourceTree = "<group>"; };
@@ -162,8 +166,9 @@
 				B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */,
 				F6B3EE8C1DFA25060010468E /* LocationsProfileView.swift */,
 				F6B3EE8E1DFA252B0010468E /* DogRunProfileView.swift */,
-				C4810D1E1DE36F9E00A652DB /* ProfileView.swift */,
+				F686D83E1DFB354C00B3F2C9 /* DogrunReviewView.swift */,
 				B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */,
+				C4810D1E1DE36F9E00A652DB /* ProfileView.swift */,
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
 				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
 				E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */,
@@ -182,6 +187,7 @@
 				C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */,
 				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
 				B5CB82EC1DF8714D00B373B5 /* ReviewViewController.swift */,
+				F686D8401DFB434900B3F2C9 /* DogrunReviewViewController.swift */,
 				E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */,
 				F6B3EE881DF8BAB40010468E /* DogRunViewController.swift */,
 				C49C67821DE77E0800163CD9 /* FeedViewController.swift */,
@@ -409,6 +415,8 @@
 				E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */,
 				C4B6ED7D1DEDDF8700F28C04 /* MapView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
+				F686D83F1DFB354C00B3F2C9 /* DogrunReviewView.swift in Sources */,
+				F686D8411DFB434900B3F2C9 /* DogrunReviewViewController.swift in Sources */,
 				E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */,
 				C49C67811DE77D6D00163CD9 /* MainTabBarController.swift in Sources */,
 				E84199CA1DE37EB000522C8A /* Locations.swift in Sources */,

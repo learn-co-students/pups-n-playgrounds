@@ -16,31 +16,31 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
     
     
     var location: Dogrun!
+    var scrollView: UIScrollView!
     var dogRunProfileImage: UIImageView!
     var isDogRunIcon: UIImageView!
     var isOffLeashIcon: UIImageView!
+    
     var dogStreetView: UIView!
     var dogPanoView: GMSPanoramaView!
+    
     var dogDetailView: UIView!
     var dogRunNameLabel: UILabel!
     var dogRunAddressLabel: UILabel!
+    
     var dogNotesView: UIView!
     var dogNotesLabel: UILabel!
+   
     var reviewView: UIView!
     var reviewsTableView: UITableView!
     var submitReviewButton: UIButton!
     var starReviews: StarReview!
     var rating: String?
-   
-    var scrollView: UIScrollView!
-    var currentUser: User?
-    var dogReviewsArray: [Review?] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
     }
-    
+
     convenience init(dogrun: Dogrun) {
         self.init(frame: CGRect.zero)
         location = dogrun
@@ -49,25 +49,35 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         //TODO:  call constrain() to constrain view objects here
         
     }
-    
+  
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         fatalError("init(coder:) has not been implemented")
     }
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        configure()
-        constrain()
-    }
-    
-    
-    
     func configure() {
         
-        //TODO:  call calculate average star for location here
+        FirebaseData.calcAverageStarFor(location: location.dogRunID) { (averageStarValue) in
+            print("AVERAGE STAR VALUE \(averageStarValue)")
+            self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
+            self.starReviews.starCount = 5
+            self.starReviews.value = averageStarValue
+            self.starReviews.allowAccruteStars = false
+            self.starReviews.starFillColor = 
+            self.starReviews.starBackgroundColor = UIColor.black
+            self.starReviews.starMarginScale = 0.3
+            self.starReviews.contentMode = .scaleAspectFit
+        }
+        
+        
+        
+        
+        
+        
+    
+        
+        
         
         
         backgroundColor = UIColor.themeWhite
@@ -211,34 +221,6 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         
         // constrain() function finsihed
     }
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

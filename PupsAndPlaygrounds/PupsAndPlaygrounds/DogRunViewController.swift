@@ -7,16 +7,16 @@
 //
 
 import UIKit
-import Firebase
 import SnapKit
-import GoogleMaps
+import Firebase
+
 
 class DogRunViewController: UIViewController, GMSMapViewDelegate {
 
     
     var dogrun: Dogrun?
     var dogRunProfileView: DogRunProfileView!
-    var reviewsTableView: UITableView!
+    var dogReviewsTableView: UITableView!
     var currentUser: User?
     var reviewsArray: [Review?] = []
     
@@ -25,7 +25,7 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
         
         configure()
         
-        guard let firebaseUserID = FIRAuth.auth()?.currentUser.uid else {return}
+        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else {return}
         
         self.dogRunProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
         
@@ -40,9 +40,7 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
                     print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS.")
                     self.dogRunProfileView.reviewsTableView.reloadData()
                 
-                
                 })
-                
             }
 
     }
@@ -68,7 +66,7 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
         tabBarController?.tabBar.isUserInteractionEnabled = false
  
         print("CLICKED REVIEW BUTTON")
-        let childVC = ReviewViewController()
+        let childVC = DogrunReviewViewController
         childVC.location = dogrun
         
         addChildViewController(childVC)
@@ -146,7 +144,7 @@ extension DogRunViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         return cell
-    }    
+    }
 }
         
         
