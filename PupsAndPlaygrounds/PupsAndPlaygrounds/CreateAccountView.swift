@@ -13,6 +13,7 @@ class CreateAccountView: UIView {
   // MARK: Properties
   lazy var scrollView = UIScrollView()
   lazy var pageControl = UIPageControl()
+  lazy var cancelButton = UIButton()
   lazy var stackView = UIStackView()
   
   lazy var firstNameField = UITextField()
@@ -38,6 +39,9 @@ class CreateAccountView: UIView {
     scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 5, height: UIScreen.main.bounds.height)
     
     pageControl.numberOfPages = 5
+    
+    cancelButton.setImage(#imageLiteral(resourceName: "Close"), for: .normal)
+    cancelButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     
     stackView.distribution = .fillEqually
     stackView.alignment = .center
@@ -81,6 +85,12 @@ class CreateAccountView: UIView {
     pageControl.snp.makeConstraints {
       $0.centerX.equalToSuperview()
       $0.centerY.equalToSuperview().multipliedBy(1.9)
+    }
+    
+    addSubview(cancelButton)
+    cancelButton.snp.makeConstraints {
+      $0.top.equalToSuperview().offset(16)
+      $0.trailing.equalToSuperview().offset(-6)
     }
     
     scrollView.addSubview(stackView)

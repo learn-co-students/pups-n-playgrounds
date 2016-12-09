@@ -63,8 +63,8 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
+  - IQKeyboardManagerSwift (4.0.7)
   - SnapKit (3.0.2)
-  - SWXMLHash (3.0.3)
 
 DEPENDENCIES:
   - FBSDKCoreKit
@@ -76,8 +76,8 @@ DEPENDENCIES:
   - Firebase/Storage
   - GeoFire (from `https://github.com/firebase/geofire-objc.git`)
   - GoogleMaps
+  - IQKeyboardManagerSwift
   - SnapKit (~> 3.0)
-  - SWXMLHash
 
 EXTERNAL SOURCES:
   GeoFire:
@@ -106,9 +106,9 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
+  IQKeyboardManagerSwift: 58bbcf46b5cf9fd4ed625d28a60cb2fbae4ab0f4
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
-  SWXMLHash: 80d2529d74891bb2f15305a0b9e08f2a4f229ee7
 
-PODFILE CHECKSUM: 8ca76591f6ebaf42f5106eae610d0fa4ae5d5528
+PODFILE CHECKSUM: 9f8864d95f6f1d5ea77248cdb2d496b3dcf7040a
 
 COCOAPODS: 1.1.1

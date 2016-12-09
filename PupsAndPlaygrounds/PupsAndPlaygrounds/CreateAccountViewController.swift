@@ -22,6 +22,8 @@ class CreateAccountViewController: UIViewController {
     
     createAccountView.scrollView.delegate = self
     
+    createAccountView.cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+    
     createAccountView.firstNameField.delegate = self
     createAccountView.lastNameField.delegate = self
     createAccountView.emailField.delegate = self
@@ -36,6 +38,12 @@ class CreateAccountViewController: UIViewController {
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { _ = view.endEditing(true) }
+  
+  
+  func cancel() {
+    containerVC?.childVC = LoginViewController()
+    containerVC?.setup(forAnimation: .slideUp)
+  }
   
   func checkButtonTouched() {
     guard let firstName = createAccountView.firstNameField.text else { print("error unwrapping first name"); return }

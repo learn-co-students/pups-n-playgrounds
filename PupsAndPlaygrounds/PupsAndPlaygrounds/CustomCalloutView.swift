@@ -22,7 +22,7 @@ class CustomCalloutView: UIView {
   override init(frame: CGRect) { super.init(frame: frame) }
   convenience init() {
     let width = UIScreen.main.bounds.width / 1.1
-    let height = width / 1.55
+    let height = width / 2.5
     self.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
     
     configure()
@@ -33,7 +33,7 @@ class CustomCalloutView: UIView {
   func configure() {
     
     // View
-    backgroundColor = UIColor.themeDarkBlue.withAlphaComponent(0.7)
+    backgroundColor = UIColor.themeDarkBlue.withAlphaComponent(0.8)
     layer.cornerRadius = 20
     
     // Name
@@ -52,7 +52,7 @@ class CustomCalloutView: UIView {
     ratingLabel.numberOfLines = 0
     
     // Distance
-    distanceLabel.font = UIFont.themeTinyLight
+    distanceLabel.font = UIFont.themeTinyBold
     distanceLabel.textColor = UIColor.themeMediumBlue
   }
   
