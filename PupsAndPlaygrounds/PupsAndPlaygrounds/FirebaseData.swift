@@ -35,6 +35,14 @@ class FirebaseData {
         
     }
     
+    
+    static func changeEmail(with newEmail: String, completion: () -> Void) {
+        guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        let ref = FIRDatabase.database().reference().child("users").child(userKey)
+        ref.updateChildValues(["email": newEmail])
+    }
+    
     static func addUserToBranch(firstName: String, lastName: String, email:String, password: String) {
         let ref = FIRDatabase.database().reference().root
         guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
@@ -394,6 +402,16 @@ class FirebaseData {
         
         completion(averageStarValueToReturn)
         
+    }
+    
+    
+    static func sendFeedbackToPP(with comment: String) {
+        
+        let ref = FIRDatabase.database().reference().child("userFeedback")
+        let commentUniqueID = FIRDatabase.database().reference().childByAutoId().key
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        ref.updateChildValues([commentUniqueID: ["userUniqueID": currentUser, "comment": comment]])
     }
     
     

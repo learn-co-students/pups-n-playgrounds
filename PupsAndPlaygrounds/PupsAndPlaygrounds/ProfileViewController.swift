@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController {
     var profileImage: UIImage!
     var imagePicker: UIImagePickerController!
     var imagePickerView: ImagePickerView!
+    var settingsDropDownView: SettingsDropDownView!
     
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
@@ -61,7 +62,7 @@ class ProfileViewController: UIViewController {
         self.userProfileView.reviewsTableView.delegate = self
         self.userProfileView.reviewsTableView.dataSource = self
         self.userProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
-
+        
         self.view.addSubview(userProfileView)
         userProfileView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -85,6 +86,133 @@ class ProfileViewController: UIViewController {
         
         navigationItem.title = "Profile"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logOutButtonTouched))
+        
+        settingsDropDownView = SettingsDropDownView()
+        view.addSubview(settingsDropDownView)
+        settingsDropDownView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.height.width.equalToSuperview().multipliedBy(0.3)
+        }
+        
+        settingsDropDownView.settingsDropDownStackView.isHidden = true
+        settingsDropDownView.settingsButton.addTarget(self, action: #selector(onSettingsButtonTap), for: .touchUpInside)
+        settingsDropDownView.changePasswordButton.addTarget(self, action: #selector(changePassword), for: .touchUpInside)
+        settingsDropDownView.changeEmailButton.addTarget(self, action: #selector(changeEmail), for: .touchUpInside)
+        settingsDropDownView.contactPPButton.addTarget(self, action: #selector(contactPP), for: .touchUpInside)
+        
+    }
+    
+    
+    func onSettingsButtonTap() {
+        
+        UIView.animate(withDuration: 0.3) {
+            self.settingsDropDownView.settingsDropDownStackView.isHidden = false
+            
+        }
+    }
+    
+    func changeEmail() {
+     
+        let alert = UIAlertController(title: "Want to change your email?", message: "Type new email here!", preferredStyle: UIAlertControllerStyle.alert)
+        
+        
+        alert.addTextField { (emailTextField) in
+            emailTextField.text = "" }
+        
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
+            let emailTextField = alert.textFields![0]
+            
+            FirebaseData.changeEmail(with: emailTextField.text!, completion: {
+                let alertController = UIAlertController(title: "Success", message: "Successfully updated email", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                    self.dismiss(animated: true, completion: nil)
+                })
+                alertController.addAction(okAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+            })
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        self.settingsDropDownView.settingsDropDownStackView.isHidden = true
+    }
+    
+    func changePassword() {
+        let alertController = UIAlertController(title: "Enter E-Mail", message: "We'll send you a password reset e-mail", preferredStyle: .alert)
+        
+        let submitAction = UIAlertAction(title: "Send", style: .default) { (action) in
+            let emailField = alertController.textFields![0]
+            if let email = emailField.text {
+                
+                FIRAuth.auth()?.sendPasswordReset(withEmail: email, completion: { (error) in
+                    // Handle error
+                    if let error = error {
+                        
+                        let alertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        })
+                        alertController.addAction(okAction)
+                        self.present(alertController, animated: true, completion: nil)
+                        // Success
+                    } else {
+                        let alertController = UIAlertController(title: "Success", message: "Password reset e-mail sent", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        })
+                        alertController.addAction(okAction)
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                        
+                    }
+                })
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(submitAction)
+        alertController.addAction(cancelAction)
+        alertController.addTextField { (textfield) in
+            textfield.placeholder = "Enter E-mail"
+        }
+        
+        self.present(alertController, animated: true, completion: nil)
+        self.settingsDropDownView.settingsDropDownStackView.isHidden = true
+    }
+    
+    
+    
+    func contactPP() {
+        
+        guard (FIRAuth.auth()?.currentUser?.uid) != nil else { return }
+        
+        let alert = UIAlertController(title: "Feedback for P&P?", message: "Type your comments or questions here!", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addTextField { (reviewTextField) in
+            reviewTextField.text = "" }
+        
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
+            let reviewTextField = alert.textFields![0]
+            
+            FirebaseData.sendFeedbackToPP(with: reviewTextField.text!)
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        self.settingsDropDownView.settingsDropDownStackView.isHidden = true
         
     }
     
@@ -160,14 +288,14 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.deleteReviewButton.isHidden = false
                 }
             }
-
+            
             
         }
         return cell
     }
 }
 
-// MARK: Firebase Storage Methods 
+// MARK: Firebase Storage Methods
 
 extension ProfileViewController {
     
