@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import MapKit
+import SnapKit
 
 //class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 //
@@ -160,6 +161,7 @@ class HomeViewController: UIViewController {
   lazy var mapView = MapView()
   lazy var listView = ListView()
   var isMapView = true
+  var selectedAnnotation: CustomAnnotation?
   var locations = [Location]()
   let locationManager = CLLocationManager()
   let regionRadius: CLLocationDistance = 1000
@@ -170,7 +172,7 @@ class HomeViewController: UIViewController {
     
     configure()
     constrain()
-    pullData()
+    presentLocations()
   }
   
   private func configure() {
@@ -179,6 +181,7 @@ class HomeViewController: UIViewController {
     
     mapView.map.delegate = self
     mapView.map.showsUserLocation = true
+    mapView.goToLocationButton.addTarget(self, action: #selector(goToLocation), for: .touchUpInside)
     
     listView.locationsTableView.delegate = self
     listView.locationsTableView.dataSource = self
@@ -190,7 +193,11 @@ class HomeViewController: UIViewController {
     locationManager.requestWhenInUseAuthorization()
     locationManager.startUpdatingLocation()
     
-    if let userCoordinate = mapView.map.userLocation.location?.coordinate { centerMap(on: userCoordinate) } else { print("no"); return }
+    if let userCoordinate = locationManager.location?.coordinate {
+      centerMap(on: userCoordinate)
+    } else {
+      print("no user location"); return
+    }
   }
   
   private func constrain() {
@@ -205,12 +212,18 @@ class HomeViewController: UIViewController {
     }
   }
   
-  private func pullData() {
-    DispatchQueue.global(qos: .background).async {
-      FirebaseData.getAllPlaygrounds { playgrounds in
-        self.locations = playgrounds
-        self.mapView.map.addAnnotations(playgrounds.map { CustomAnnotation(withPlayground: $0) })
-      }
+  private func presentLocations() {
+    DataStore.shared.getLocations {
+      guard let dogRuns = DataStore.shared.dogRuns else { print("error typecasting dogRuns"); return }
+      guard let playgrounds = DataStore.shared.playgrounds else { print("error typecasting playgrounds"); return }
+      
+      self.mapView.map.addAnnotations(dogRuns.map { CustomAnnotation(withDogRun: $0) })
+      self.mapView.map.addAnnotations(playgrounds.map { CustomAnnotation(withPlayground: $0) })
+      
+      self.locations.append(contentsOf: dogRuns as [Location])
+      self.locations.append(contentsOf: playgrounds as [Location])
+      
+      self.listView.locationsTableView.reloadData()
     }
   }
   
@@ -243,11 +256,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let locationProfileVC = LocationProfileViewController()
-    guard let playground = locations[indexPath.row] as? Playground else { print("error downcasting to playground"); return }
-    
-    locationProfileVC.playground = playground
-    navigationController?.pushViewController(locationProfileVC, animated: true)
+    if let dogRun = locations[indexPath.row] as? Dogrun {
+      return
+    } else if let playground = locations[indexPath.row] as? Playground {
+      let locationProfileVC = LocationProfileViewController()
+      locationProfileVC.playground = playground
+      
+      navigationController?.pushViewController(locationProfileVC, animated: true)
+    } else {
+      print("error downcasting location")
+    }
   }
 }
 
@@ -255,16 +273,26 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 extension HomeViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard let annotation = annotation as? CustomAnnotation else { return nil }
-    
     let identifier = "customAnnotationView"
+    
     var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? CustomAnnotationView
     
     if view != nil {
       view?.annotation = annotation
     } else {
       view = CustomAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-      view?.pinTintColor = UIColor.themeRed
       view?.canShowCallout = false
+    }
+    
+    switch annotation.location {
+    case is Dogrun:
+      view?.annotationType = .dogRun
+      view?.pinTintColor = UIColor.themeMediumBlue
+    case is Playground:
+      view?.annotationType = .playground
+      view?.pinTintColor = UIColor.themeLightBlue
+    default:
+      print("annotation location type error")
     }
     
     return view
@@ -272,24 +300,62 @@ extension HomeViewController: MKMapViewDelegate {
   
   func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
     guard let annotation = view.annotation as? CustomAnnotation else { print("error unwrapping custom annotation"); return }
+    selectedAnnotation = annotation
+    
+    guard let view = view as? CustomAnnotationView else { print("error unwrapping custom annotation view"); return }
+    
     centerMap(on: annotation.coordinate)
     
     let callout = CustomCalloutView()
-    callout.titleLabel.text = annotation.location.name
+    callout.nameLabel.text = annotation.location.name
+    callout.addressLabel.text = annotation.location.address
     callout.ratingLabel.text = "Rating: \(annotation.location.rating)"
-    callout.center = CGPoint(x: view.bounds.size.width / 2, y: -callout.bounds.size.height * 0.52)
+    callout.center = CGPoint(x: view.bounds.width / 2 - 8, y: -callout.frame.height / 1.95)
     
+    view.pinTintColor = UIColor.themeRed
     view.addSubview(callout)
+    
+    view.layoutIfNeeded()
+    UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+      self.mapView.goToLocationButtonTopConstraint?.update(offset: -self.view.bounds.height / 5)
+      self.view.layoutIfNeeded()
+    }, completion: nil)
+  }
+  
+  func goToLocation() {
+    
+    print("touched")
+    
+    guard let playground = selectedAnnotation?.location as? Playground else { print("error unwrapping playground from selected location"); return }
+    
+    let locationProfileVC = LocationProfileViewController()
+    locationProfileVC.playground = playground
+    
+    navigationController?.pushViewController(locationProfileVC, animated: true)
   }
   
   func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-    if view is CustomAnnotationView {
-      for subview in view.subviews {
-        subview.removeFromSuperview()
-      }
+    guard let view = view as? CustomAnnotationView else { print("error unwrapping custom annotation view during deselect"); return }
+    guard let annotationType = view.annotationType else { print("error unwrapping annotationType"); return }
+    
+    switch annotationType {
+    case .dogRun:
+      view.pinTintColor = UIColor.themeMediumBlue
+    case .playground:
+      view.pinTintColor = UIColor.themeLightBlue
     }
+    
+    for subview in view.subviews {
+      subview.removeFromSuperview()
+    }
+    
+    view.layoutIfNeeded()
+    UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+      self.mapView.goToLocationButtonTopConstraint?.update(offset: 0)
+      self.view.layoutIfNeeded()
+    }, completion: nil)
   }
-
+  
   func centerMap(on coordinate: CLLocationCoordinate2D) {
     let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, regionRadius * 2, regionRadius * 2)
     mapView.map.setRegion(coordinateRegion, animated: true)

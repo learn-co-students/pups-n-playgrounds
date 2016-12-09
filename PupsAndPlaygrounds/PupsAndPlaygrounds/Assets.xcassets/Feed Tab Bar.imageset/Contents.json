@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Feed1x.png",
+      "filename" : "ic_filter_list_36pt.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Feed2x.png",
+      "filename" : "ic_filter_list_36pt_2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Feed3x.png",
+      "filename" : "ic_filter_list_36pt_3x.png",
       "scale" : "3x"
     }
   ],

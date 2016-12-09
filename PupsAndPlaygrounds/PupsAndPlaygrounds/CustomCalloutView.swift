@@ -1,6 +1,6 @@
 //
 //  CustomCalloutView.swift
-//  
+//
 //
 //  Created by William Robinson on 12/5/16.
 //
@@ -12,20 +12,19 @@ import SnapKit
 class CustomCalloutView: UIView {
   
   // MARK: Properties
-  lazy var titleLabel = UILabel()
+  lazy var nameLabel = UILabel()
+  lazy var addressLabel = UILabel()
   lazy var ratingLabel = UILabel()
   lazy var distanceLabel = UILabel()
-  lazy var goToLocationButton = UIButton()
-  lazy var image = UIImage()
   
   // MARK: Initialization
   required init?(coder aDecoder: NSCoder) { super.init(coder: aDecoder) }
   override init(frame: CGRect) { super.init(frame: frame) }
   convenience init() {
-    let width = UIScreen.main.bounds.width / 1.5
-    let height = width / 2
+    let width = UIScreen.main.bounds.width / 1.1
+    let height = width / 1.55
     self.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
-      
+    
     configure()
     constrain()
   }
@@ -34,47 +33,55 @@ class CustomCalloutView: UIView {
   func configure() {
     
     // View
-    backgroundColor = UIColor.themeWhite
+    backgroundColor = UIColor.themeDarkBlue.withAlphaComponent(0.7)
     layer.cornerRadius = 20
     
-    // Title
-    titleLabel.font = UIFont.themeMediumLight
-    titleLabel.textColor = UIColor.themeDarkBlue
+    // Name
+    nameLabel.font = UIFont.themeMediumLight
+    nameLabel.textColor = UIColor.themeWhite
+    nameLabel.numberOfLines = 0
+    
+    // Address
+    addressLabel.font = UIFont.themeTinyBold
+    addressLabel.textColor = UIColor.themeWhite
+    addressLabel.numberOfLines = 0
     
     // Rating
-    ratingLabel.font = UIFont.themeTinyLight
-    ratingLabel.textColor = UIColor.themeRed
+    ratingLabel.font = UIFont.themeTinyBold
+    ratingLabel.textColor = UIColor.themeWhite
+    ratingLabel.numberOfLines = 0
     
     // Distance
     distanceLabel.font = UIFont.themeTinyLight
     distanceLabel.textColor = UIColor.themeMediumBlue
-    
-    // Button
-    goToLocationButton.setImage(#imageLiteral(resourceName: "Black Arrow"), for: .normal)
   }
   
   // MARK: Constrain
   func constrain() {
-    addSubview(titleLabel)
-    titleLabel.snp.makeConstraints {
+    addSubview(nameLabel)
+    nameLabel.snp.makeConstraints {
       $0.leading.top.equalToSuperview().offset(20)
+      $0.trailing.equalToSuperview().offset(-20)
     }
     
-    addSubview(goToLocationButton)
-    goToLocationButton.snp.makeConstraints {
+    addSubview(addressLabel)
+    addressLabel.snp.makeConstraints {
+      $0.leading.equalToSuperview().offset(20)
       $0.trailing.equalToSuperview().offset(-20)
-      $0.top.equalToSuperview().offset(20)
+      $0.top.equalTo(nameLabel.snp.bottom)
     }
     
     addSubview(ratingLabel)
     ratingLabel.snp.makeConstraints {
       $0.leading.equalToSuperview().offset(20)
-      $0.top.equalTo(titleLabel.snp.bottom)
+      $0.trailing.equalToSuperview().offset(-20)
+      $0.top.equalTo(addressLabel.snp.bottom)
     }
     
     addSubview(distanceLabel)
     distanceLabel.snp.makeConstraints {
       $0.leading.equalToSuperview().offset(20)
+      $0.trailing.equalToSuperview().offset(-20)
       $0.top.equalTo(ratingLabel.snp.bottom)
     }
   }

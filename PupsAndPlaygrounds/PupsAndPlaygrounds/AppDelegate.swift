@@ -24,14 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // Firebase configuration
     FIRApp.configure()
-    var userAuthenticated = false
-    
-    // Check user authorization status
-    FIRAuth.auth()?.addStateDidChangeListener { _, user in userAuthenticated = (user != nil) }
-    
     
     // ContainerViewController setup
-    containerViewController.childVC = userAuthenticated ? HomeViewController() : LoginViewController()
+    containerViewController.childVC = FIRAuth.auth()?.currentUser != nil ? MainTabBarController() : LoginViewController()
     containerViewController.setup(forAnimation: .slideUp)
     
     // Window setup
