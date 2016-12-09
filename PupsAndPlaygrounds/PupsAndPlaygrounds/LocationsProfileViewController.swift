@@ -14,10 +14,11 @@ class LocationProfileViewController: UIViewController {
     
     var playgroundID: String?
     var playground: Location?
-    var locationProfileView: LocationProfileView!
-    var reviewsTableView: UITableView!
     var currentUser: User?
     var reviewsArray: [Review?] = []
+
+    var locationProfileView: LocationProfileView!
+    var reviewsTableView: UITableView!
     
     
     override func viewDidLoad() {
@@ -42,11 +43,8 @@ class LocationProfileViewController: UIViewController {
                     
                 }
             }
+            print("THIS PLAYGROUND IS \(self.playground?.name) and has \(self.playground?.reviewsID) reviewIDs")
         }
-        
-        
-        print("THIS PLAYGROUND IS \(playground?.name) and has \(playground?.reviewsID) reviewIDs")
-
         
     }
     
@@ -167,7 +165,7 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
             
             
             let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-
+                
                 self.reviewsArray.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 
@@ -203,7 +201,7 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
                     self.present(alert, animated: true, completion: nil)
                 }
             }
-            flag.backgroundColor = UIColor.yellow
+            flag.backgroundColor = UIColor.themeSunshine
             return [flag]
         }
     }

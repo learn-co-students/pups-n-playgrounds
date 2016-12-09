@@ -41,29 +41,13 @@ class ReviewsTableViewCell: UITableViewCell {
     }
     
     func cellConfig() {
-        print("CONFIGURING CELL")
-        
-        flagButton.setTitle("⚠️", for: .normal)
-        contentView.addSubview(flagButton)
-        flagButton.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.width.lessThanOrEqualTo(50)
-        }
 
         contentView.addSubview(reviewLabel)
         reviewLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(5)
+            $0.leading.trailing.equalToSuperview().offset(5)
             $0.top.bottom.equalToSuperview()
-            $0.trailing.equalTo(flagButton.snp.leading)
         }
     }
     
 }
 
-
-extension ReviewsTableViewCell {
-    
-
-    
-}
