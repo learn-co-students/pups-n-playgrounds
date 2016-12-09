@@ -55,11 +55,11 @@ final class ProfileView: UIView {
         reviewsTableView = UITableView()
         reviewsTableView.rowHeight = 40
         reviewsTableView.layer.cornerRadius = 5
-        reviewsTableView.backgroundColor = UIColor.clear
     }
     
     // MARK: View Constraints
     private func constrain() {
+        print("CONSTRAIN IS RUNNING")
         addSubview(profileButton)
         profileButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(40)
@@ -75,13 +75,16 @@ final class ProfileView: UIView {
         
         addSubview(reviewsView)
         reviewsView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview()
             $0.top.equalTo(userNameLabel.snp.bottom)
+            $0.height.equalToSuperview()
+            
         }
         
         reviewsView.addSubview(reviewsTableView)
         reviewsTableView.snp.makeConstraints {
-            $0.edges.equalTo(UIEdgeInsetsMake(40, 40, 40, 40))
+            $0.edges.equalTo(UIEdgeInsetsMake(10, 10, 10, 10))
         }
     }
 }

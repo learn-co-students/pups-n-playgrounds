@@ -22,7 +22,6 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configure()
         
         guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { print("trouble unwrapping user id"); return }
         
@@ -45,16 +44,16 @@ class ProfileViewController: UIViewController {
                 }
             }
             
-            self.retrieveUserPhoto {
-                DispatchQueue.main.async {
-                    
-                    self.view.addSubview(self.profileView)
-                    self.profileView.snp.makeConstraints {
-                        $0.edges.equalToSuperview()
-                    }
-                    
-                }
-            }
+//            self.retrieveUserPhoto {
+//                DispatchQueue.main.async {
+//                    
+//                    self.view.addSubview(self.profileView)
+//                    self.profileView.snp.makeConstraints {
+//                        $0.edges.equalToSuperview()
+//                    }
+//                    
+//                }
+//            }
         }
         
     }
