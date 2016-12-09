@@ -109,20 +109,50 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
         
         if let flaggedReview = reviewsArray[(indexPath?.row)!] {
             
-            FirebaseData.flagReviewWith(unique: flaggedReview.reviewID, locationID: flaggedReview.reviewID, comment: flaggedReview.comment, userID: flaggedReview.userID, completion: {
+            FirebaseData.flagReviewWith(unique: flaggedReview.reviewID, locationID: flaggedReview.locationID, comment: flaggedReview.comment, userID: flaggedReview.userID) {
+                let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    FirebaseData.getVisibleReviewsForFeed { reviews in
+                        self.reviewsArray = reviews
+                        self.locationProfileView.reviewsTableView.reloadData()
+                    }
+                })
                 
-                
-                
-            })
-            
-            
+                self.present(alert, animated: true, completion: nil)
+            }
         }
-        
-        
-        
-        
-        
     }
+}
+
+extension DogRunViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+         return  reviewsArray.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewsTableViewCell
+        
+        if let currentReview = reviewsArray[indexPath.row] {
+            cell.review = currentReview
+            
+            if let currentUserID = currentUser?.userID {
+                if currentReview.userID != currentUserID {
+                    cell.deleteReviewButton.isHidden = true
+                }
+            }
+        }
+        return cell
+    }    
+}
+        
+        
+        
+        
+   
     
         
             
@@ -134,10 +164,8 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
             
             
 
-    }
     
     
     
     
-    
-    
+
