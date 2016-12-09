@@ -21,19 +21,23 @@ class ProfileViewController: UIViewController {
     var profileImage: UIImage!
     var imagePicker: UIImagePickerController!
     var imagePickerView: ImagePickerView!
-    var blueGradient: CAGradientLayer!
 
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
+    
+    var blueGradient: CAGradientLayer!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         
         FirebaseData.getUser(with: firebaseUserID) { (currentFBUser) in
             
             self.currentUser = currentFBUser
             self.configure()
-            
+
         }
         
         
@@ -56,9 +60,7 @@ class ProfileViewController: UIViewController {
     }
     
     func configure() {
-        blueGradient = CAGradientLayer()
-        blueGradient.colors = [ UIColor.themeLightBlue, UIColor.themeDarkBlue ]
-        blueGradient.locations = [ 0.0, 1.0 ]
+
         guard let unwrappedCurrentUser = currentUser else { return }
         userProfileView = ProfileView(user: unwrappedCurrentUser)
         

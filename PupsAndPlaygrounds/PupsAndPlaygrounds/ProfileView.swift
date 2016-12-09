@@ -37,7 +37,7 @@ final class ProfileView: UIView {
     
     // MARK: View Configuration
     private func configure() {
-        backgroundColor = UIColor.themeLightBlue
+
         
         profileButton = UIButton()
         profileButton.titleLabel?.font = UIFont.themeMediumBold
@@ -62,6 +62,9 @@ final class ProfileView: UIView {
     
     // MARK: View Constraints
     private func constrain() {
+        
+        
+        
         addSubview(profileButton)
         profileButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(40)

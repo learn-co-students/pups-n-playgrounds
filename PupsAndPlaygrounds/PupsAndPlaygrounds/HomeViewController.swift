@@ -172,12 +172,19 @@ class HomeViewController: UIViewController {
         configure()
         constrain()
         
-        
-        
-        
     }
     
     private func configure() {
+        
+        let color1 = UIColor(red: 34/255.0, green: 91/255.0, blue: 102/255.0, alpha: 1.0)
+        let color2 = UIColor(red: 141/255.0, green: 191/255.9, blue: 103/255.0, alpha: 1.0)
+        
+        let backgroundGradient = CALayer.makeGradient(firstColor: color1, secondColor: color2)
+        
+        backgroundGradient.frame = view.frame
+        self.view.layer.insertSublayer(backgroundGradient, at: 0)
+        
+        
         navigationItem.title = "Map View"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: .plain, target: self, action: #selector(switchView))
         
@@ -188,6 +195,7 @@ class HomeViewController: UIViewController {
         listView.locationsTableView.dataSource = self
         listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
         listView.isHidden = true
+        listView.locationsTableView.alpha = 0.6
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
