@@ -90,7 +90,6 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func forgotPasswordTouched() {
-        print("FORGOT PASSWORD TOUCHED")
         let alertController = UIAlertController(title: "Enter E-Mail", message: "We'll send you a password reset e-mail", preferredStyle: .alert)
         
         let submitAction = UIAlertAction(title: "Send", style: .default) { (action) in
@@ -110,6 +109,12 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                         // Success
                     } else {
                         let alertController = UIAlertController(title: "Success", message: "Password reset e-mail sent", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        })
+                        alertController.addAction(okAction)
+
+                        self.present(alertController, animated: true, completion: nil)
                     }
                 })
             }
