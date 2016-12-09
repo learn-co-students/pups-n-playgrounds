@@ -16,12 +16,22 @@ class FeedViewController: UIViewController {
     var locations = [Location]()
     var feedView = FeedView()
     var reviews = [Review]()
+    var backgroundGradient: CAGradientLayer!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Live Feed"
+        let color1 = UIColor(red: 34/255.0, green: 91/255.0, blue: 102/255.0, alpha: 1.0)
+        let color2 = UIColor(red: 141/255.0, green: 191/255.9, blue: 103/255.0, alpha: 1.0)
         
+        let backgroundGradient = CALayer.makeGradient(firstColor: color1, secondColor: color2)
+
+        backgroundGradient.frame = view.frame
+        self.view.layer.insertSublayer(backgroundGradient, at: 0)
+        
+        navigationItem.title = "Live Feed"
+        /*
         print("reviews count: \(reviews.count)")
         feedView.feedTableView.delegate = self
         feedView.feedTableView.dataSource = self
@@ -36,7 +46,7 @@ class FeedViewController: UIViewController {
             self.reviews = reviews
             self.feedView.feedTableView.reloadData()
             print("reviews count: \(reviews.count)")
-        }
+        } */
     }
     
     func flagButtonTouched(sender: UIButton) {
