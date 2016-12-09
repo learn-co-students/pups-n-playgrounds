@@ -12,7 +12,7 @@ import SnapKit
 final class ProfileView: UIView {
     
     // MARK: Properties
-    var currentUser: User!
+//    var currentUser: User!
     var profileButton: UIButton!
     let profileButtonWidth: CGFloat = 120
     var userNameLabel: UILabel!
@@ -26,7 +26,7 @@ final class ProfileView: UIView {
     
     convenience init(user: User) {
         self.init(frame: CGRect.zero)
-        currentUser = user
+//        currentUser = user
         configure()
         constrain()
     }
@@ -52,8 +52,8 @@ final class ProfileView: UIView {
         userNameLabel = UILabel()
         userNameLabel.font = UIFont.themeMediumLight
         userNameLabel.textColor = UIColor.themeWhite
-        userNameLabel.text = currentUser.firstName
-        
+//        userNameLabel.text = currentUser.firstName
+      
         reviewsView = UIView()
         reviewsTableView = UITableView()
         reviewsTableView.rowHeight = 80
