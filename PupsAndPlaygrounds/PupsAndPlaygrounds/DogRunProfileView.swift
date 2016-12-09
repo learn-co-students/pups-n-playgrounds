@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 import GoogleMaps
 
 
@@ -113,18 +114,16 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         // display dogRun.offLeash icon
         // else //
         // display dogRun.Run icon
-        
-        
+    
         
         //configure reviews view
-         dogReviewView = UIView() 
-        
+         dogReviewView = UIView()
         
         //configure reviews tableview
-        reviewsTableView = UITableView()
-        reviewsTableView.rowHeight = 40
-        reviewsTableView.backgroundColor = UIColor.themeLightBlue
-        reviewsTableView.layer.cornerRadius = 5
+        dogReviewTableView = UITableView()
+        dogReviewTableView .rowHeight = 40
+        dogReviewTableView .backgroundColor = UIColor.themeLightBlue
+        dogReviewTableView .layer.cornerRadius = 5
         
         //configure submitReviewButton
         submitReviewButton = UIButton(frame: CGRect(x: 0, y: 0, width:700 , height: 120))
@@ -142,17 +141,27 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
     
     
     func constrain() {
-        
-        //addSubview(nameOfObject)
-        // nameOfObject.snp.makeConstraints {
-        //leadingMargin
-        // topMargin
-        // width
-        // height
       
+        addSubview(scrollView)
+        scrollView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
+        scrollView.addSubview(dogStreetView)
+        dogStreetView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(scrollView.snp.top)
+            $0.width.equalTo(scrollView.snp.width)
+            $0.height.equalTo(streetView.snp.width).multipliedBy(0.6)
+        }
         
+        dogStreetView.addSubview(dogPanoView)
+        dogPanoView.snp.makeConstraints {
+            $0.edges.equalToSuperview() 
+            
+        }
         
+    
         
         
         
