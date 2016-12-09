@@ -5,9 +5,6 @@
       location = "group:MinimalistContraintsPlayground.playground">
    </FileRef>
    <FileRef
-      location = "group:ConstraintsPlayground.playground">
-   </FileRef>
-   <FileRef
       location = "group:PupsAndPlaygrounds.xcodeproj">
    </FileRef>
    <FileRef

@@ -267,7 +267,7 @@ class FirebaseData {
                 
                 guard let latitude = Double(latitudeString) else { return }
                 guard let longitude = Double(longitudeString) else { return }
-
+                
                 
                 if let reviewsDictionary = value["reviews"] as? [String:Any] {
                     for iterReview in reviewsDictionary {
@@ -396,9 +396,20 @@ class FirebaseData {
         
     }
     
+    // MARK: Firebase real-time observer
+    
+    static func realtimeFirebaseObserver() {
+        let ref = FIRDatabase.database().reference().child("reviews")
+        
+        ref.observe(FIRDataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : Any] ?? [:]
+            
+        })
+    }
+    
     
 }
 
 
 
- 
+
