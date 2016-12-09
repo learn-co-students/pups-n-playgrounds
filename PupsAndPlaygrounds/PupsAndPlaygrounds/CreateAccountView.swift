@@ -84,7 +84,7 @@ class CreateAccountView: UIView {
     addSubview(pageControl)
     pageControl.snp.makeConstraints {
       $0.centerX.equalToSuperview()
-      $0.centerY.equalToSuperview().multipliedBy(1.9)
+      $0.centerY.equalToSuperview().multipliedBy(1.8)
     }
     
     addSubview(cancelButton)
