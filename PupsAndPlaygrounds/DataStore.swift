@@ -9,11 +9,11 @@
 import Foundation
 import Firebase
 
-final class DataStore {
+final class WSRDataStore {
   var dogRuns: [Dogrun]?
   var playgrounds: [Playground]?
   private let ref = FIRDatabase.database().reference()
-  static let shared = DataStore()
+  static let shared = WSRDataStore()
   
   private init() {}
   

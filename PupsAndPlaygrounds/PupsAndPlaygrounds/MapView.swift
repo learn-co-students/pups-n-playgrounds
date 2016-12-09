@@ -40,13 +40,13 @@ class MapView: UIView {
   func configure() {
     goToLocationButtonLabel.text = "Go to location"
     goToLocationButtonLabel.font = UIFont.themeSmallBold
-    goToLocationButtonLabel.textColor = UIColor.themeWhite
+    goToLocationButtonLabel.textColor = UIColor.white
     
     goToLocationButtonImageView.contentMode = .scaleAspectFit
     
     goToLocationButtonView.isUserInteractionEnabled = false
     
-    goToLocationButton.backgroundColor = UIColor.themeRed
+    goToLocationButton.backgroundColor = UIColor.themeCoral
     goToLocationButton.contentEdgeInsets = UIEdgeInsetsMake(20, 0, 20, 0)
   }
   
@@ -77,7 +77,7 @@ class MapView: UIView {
     goToLocationButton.snp.makeConstraints {
       self.goToLocationButtonTopConstraint = $0.top.equalTo(snp.bottom).constraint
       $0.centerX.equalToSuperview()
-      $0.width.equalToSuperview().dividedBy(1.1)
+      $0.width.equalToSuperview().dividedBy(1.5)
     }
   }
 }
