@@ -1,42 +1,39 @@
 //
-//  DogRunViewController.swift
+//  DogRunProfileView.swift
 //  PupsAndPlaygrounds
 //
-//  Created by Missy Allan on 12/7/16.
+//  Created by Missy Allan on 12/8/16.
 //  Copyright © 2016 Flatiron School. All rights reserved.
 //
 
+import Foundation
 import UIKit
-import Firebase
-import SnapKit
 import GoogleMaps
 
-class DogRunViewController: UIView, UIViewController, GMSMapViewDelegate {
 
+class DogRunProfileView: UIView, GMSMapViewDelegate {
+    
     
     var location: Dogrun!
-    var dogRunProfileView: DogRunViewController!
-    var dogReviewTableView: UITableView!
-    var currentUser: User?
-    var dogReviewsArray: [Review?] = []
-    
-
-    
-    var dogRunNameLabel: UILabel!
-    var dogRunAddressLabel: UILabel!
-    var submitReviewButton: UIButton!
-    var reviewsView: UIView!
-    var reviewsTableView: UIView!
+    //var dogrunProfileImage: UIImageView!
+    var isDogRunIcon: UIImageView!
+    var isOffLeashIcon: UIImageView!
     var dogStreetView: UIView!
     var dogPanoView: GMSPanoramaView!
+    var dogDetailView: UIView!
+    var dogRunNameLabel: UILabel!
+    var dogRunAddressLabel: UILabel!
+    var dogNotesView: UIView!
+    var dogNotesLabel: UILabel!
+    var dogReviewView: UIView!
+    var dogReviewTableView: UITableView!
+    var submitReviewButton: UIButton!
     var starReviews: StarReview!
     var rating: String?
-    var dogNotes: String
-    var dogDetailView: UIView!
-    var dogNotesView: UIView!
-    
-    
-    
+   
+    var scrollView: UIScrollView!
+    var currentUser: User?
+    var dogReviewsArray: [Review?] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,12 +48,11 @@ class DogRunViewController: UIView, UIViewController, GMSMapViewDelegate {
         //TODO:  call constrain() to constrain view objects here
         
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     
     override func viewDidLoad() {
@@ -80,8 +76,11 @@ class DogRunViewController: UIView, UIViewController, GMSMapViewDelegate {
         dogPanoView.moveNearCoordinate(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
         dogPanoView.layer.cornerRadius = 5
         
+        //configure dogDetailView 
+        dogDetailView = UIView()
         
-        //configure dogRunNameLabel 
+        
+        //configure dogRunNameLabel
         dogRunNameLabel = UILabel()
         dogRunNameLabel.font = UIFont.themeMediumThin
         dogRunNameLabel.textColor = UIColor.themeDarkBlue
@@ -98,26 +97,36 @@ class DogRunViewController: UIView, UIViewController, GMSMapViewDelegate {
         dogRunAddressLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         
-        //configure dogRunTypeIcon 
+        //configure dogNotesView 
+        dogNotesView = UIView()
         
-        //if dogrun.isOffLeash = true 
-          // display dogRun.offLeash icon 
-        // else // 
-            // display dogRun.Run icon 
-        
-    
-        
-        //configure reviews view 
-        reviewsView = UIView()
+        //configure dogNotesLabel
+        dogNotesLabel = UILabel()
         
         
-        //configure reviews tableview 
+        //configure dogReviewView 
+        dogReviewView = UIView()
+        
+        
+        // TODO: Add dogRun icons
+        //if dogrun.isOffLeash = true
+        // display dogRun.offLeash icon
+        // else //
+        // display dogRun.Run icon
+        
+        
+        
+        //configure reviews view
+         dogReviewView = UIView() 
+        
+        
+        //configure reviews tableview
         reviewsTableView = UITableView()
         reviewsTableView.rowHeight = 40
         reviewsTableView.backgroundColor = UIColor.themeLightBlue
         reviewsTableView.layer.cornerRadius = 5
         
-        //configure submitReviewButton 
+        //configure submitReviewButton
         submitReviewButton = UIButton(frame: CGRect(x: 0, y: 0, width:700 , height: 120))
         submitReviewButton.setTitle("Submit a Review", for: .normal)
         submitReviewButton.layer.cornerRadius = 2
@@ -125,111 +134,77 @@ class DogRunViewController: UIView, UIViewController, GMSMapViewDelegate {
         submitReviewButton.backgroundColor = UIColor.themeRed
         submitReviewButton.setTitleColor(UIColor.themeWhite, for: .normal)
         
-    
         
-     
-    //configure() function finished
+        
+        
+        //configure() function finished
     }
     
     
-        func constrain() {
-            
-            //addSubview(nameOfObject)
-            // nameOfObject.snp.makeConstraints {
-               //leadingMargin
-               // topMargin 
-               // width 
-               // height
-            
-            addSubview(streetView)
-            streetView.snp.makeConstraints {
-                $0.top.equalTo(locationProfileImage.snp.bottom)
-                $0.height.equalToSuperview().dividedBy(2)
-                $0.leading.equalToSuperview()
-                $0.trailing.equalToSuperview()
-            }
-            
-            
-            
-            
-            //streetView
-            
-            //panoView
-            
-            //dogAddressLabel
-            
-            //reviewsView 
-            
-            //submitReviwButton 
-            
-            //reviewsTableView
-            
-            //starReviews
-            
-            
-            
-            
-       // }
+    func constrain() {
         
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        //addSubview(nameOfObject)
+        // nameOfObject.snp.makeConstraints {
+        //leadingMargin
+        // topMargin
+        // width
+        // height
+      
+        
+        
+        
+        
+        
+        
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         // constrain() function finsihed
-        }
-        
-            
-        
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        
-        
-        
-        
-        
-        
-        
-        
-    
-        
-        
-        
-        
     }
     
     
     
     
     
+
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
