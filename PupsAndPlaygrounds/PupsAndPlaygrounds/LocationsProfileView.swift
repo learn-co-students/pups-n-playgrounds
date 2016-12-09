@@ -23,6 +23,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     var panoView: GMSPanoramaView!
     var starReviews: StarReview!
     var rating: String?
+    var scrollView: UIScrollView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,8 +58,8 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
             self.starReviews.starBackgroundColor = UIColor.black
             self.starReviews.starMarginScale = 0.3
         }
-        
-        
+        scrollView = UIScrollView()
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 1.5)
         
         backgroundColor = UIColor.themeLightBlue
         
@@ -105,6 +106,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     }
     
     func constrain() {
+        
         addSubview(locationProfileImage)
         locationProfileImage.snp.makeConstraints {
             $0.leadingMargin.equalToSuperview().offset(10)
@@ -168,7 +170,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         reviewsTableView.snp.makeConstraints {
             $0.edges.equalTo(UIEdgeInsetsMake(0, 20, 20, 20))
         }
-        
+ 
     }
     
     
