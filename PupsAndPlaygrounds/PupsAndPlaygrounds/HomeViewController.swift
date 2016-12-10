@@ -286,7 +286,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let dogRun = locations[indexPath.row] as? Dogrun {
-            return
+            let dogRunVC = DogRunViewController()
+            dogRunVC.dogrun = dogRun
+            
+            navigationController?.pushViewController(dogRunVC, animated: true)
         } else if let playground = locations[indexPath.row] as? Playground {
             let locationProfileVC = LocationProfileViewController()
             locationProfileVC.playgroundID = playground.playgroundID
