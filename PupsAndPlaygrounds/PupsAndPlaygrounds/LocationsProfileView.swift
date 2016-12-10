@@ -37,7 +37,9 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         configure()
         constrain()
         
+        
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -60,10 +62,6 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         }
         scrollView = UIScrollView()
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 1.5)
-        
-        contentView = UIView()
-        
-        backgroundColor = UIColor.themeLightBlue
         
         locationProfileImage = UIImageView()
         locationProfileImage.image = location.profileImage
@@ -100,7 +98,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         reviewsView = UIView()
         reviewsTableView = UITableView()
         reviewsTableView.rowHeight = 40
-        reviewsTableView.backgroundColor = UIColor.white
+        reviewsTableView.layer.cornerRadius = 5
         
     }
     
@@ -122,9 +120,8 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         panoView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-      
-        scrollView.addSubview(locationProfileImage)
         
+        scrollView.addSubview(locationProfileImage)
         locationProfileImage.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(10)
             $0.top.equalTo(streetView.snp.bottom).offset(10)
@@ -177,7 +174,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         
         reviewsView.addSubview(reviewsTableView)
         reviewsTableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(UIEdgeInsetsMake(10, 10, 10, 10))
         }
         
     }

@@ -12,7 +12,6 @@ import SnapKit
 final class ProfileView: UIView {
     
     // MARK: Properties
-    var currentUser: User!
     var profileButton: UIButton!
     let profileButtonWidth: CGFloat = 120
     var userNameLabel: UILabel!
@@ -24,9 +23,9 @@ final class ProfileView: UIView {
         super.init(frame: frame)
     }
     
-    convenience init(user: User) {
+    convenience init() {
         self.init(frame: CGRect.zero)
-        currentUser = user
+        
         configure()
         constrain()
     }
@@ -37,7 +36,6 @@ final class ProfileView: UIView {
     
     // MARK: View Configuration
     private func configure() {
-        backgroundColor = UIColor.themeLightBlue
         
         profileButton = UIButton()
         profileButton.titleLabel?.font = UIFont.themeMediumBold
@@ -52,16 +50,16 @@ final class ProfileView: UIView {
         userNameLabel = UILabel()
         userNameLabel.font = UIFont.themeMediumLight
         userNameLabel.textColor = UIColor.themeWhite
-        userNameLabel.text = currentUser.firstName
         
         reviewsView = UIView()
         reviewsTableView = UITableView()
-        reviewsTableView.rowHeight = 80
-        reviewsTableView.backgroundColor = UIColor.clear
+        reviewsTableView.rowHeight = 40
+        reviewsTableView.layer.cornerRadius = 5
     }
     
     // MARK: View Constraints
     private func constrain() {
+        print("CONSTRAIN IS RUNNING")
         addSubview(profileButton)
         profileButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(40)
@@ -77,13 +75,16 @@ final class ProfileView: UIView {
         
         addSubview(reviewsView)
         reviewsView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview()
             $0.top.equalTo(userNameLabel.snp.bottom)
+            $0.height.equalToSuperview()
+            
         }
         
         reviewsView.addSubview(reviewsTableView)
         reviewsTableView.snp.makeConstraints {
-            $0.edges.equalTo(UIEdgeInsetsMake(40, 40, 40, 40))
+            $0.edges.equalTo(UIEdgeInsetsMake(10, 10, 10, 10))
         }
     }
 }

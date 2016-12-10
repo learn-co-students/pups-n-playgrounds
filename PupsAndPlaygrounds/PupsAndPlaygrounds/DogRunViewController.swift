@@ -26,18 +26,18 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
         
         configure()
         
-        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else {return}
+        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else {print("error retrieving current user"); return }
         
         self.dogRunProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
         
         if let dogrunReviewsID = dogrun?.reviewsID {
             
             for reviewID in dogrunReviewsID {
-                guard let unwrappedReviewID = reviewID else { return }
+                guard let unwrappedReviewID = reviewID else { print("error unwrapping review id"); return }
                 
                 FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
                     
-                    self.reviewsArray.apped(firebaseReview)
+                    self.reviewsArray.append(firebaseReview)
                     print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS.")
                    self.dogRunProfileView.dogReviewsTableView.reloadData()
                 
@@ -84,7 +84,7 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
     
     func configure() {
         
-        guard let unwrappedDogRun = dogrun else { return }
+        guard let unwrappedDogRun = dogrun else { print("error unwrapping dogrun"); return }
         self.dogRunProfileView = DogRunProfileView(dogrun: unwrappedDogRun)
         
          dogReviewsTableView = dogRunProfileView.dogReviewsTableView
@@ -96,6 +96,10 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
         dogRunProfileView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        dogRunProfileView.dogRunNameLabel.text = dogrun?.name
+        dogRunProfileView.dogRunAddressLabel.text = dogrun?.address
+        dogRunProfileView.dogNotesLabel.text = dogrun?.notes
     }
     
     func flagButtonTouched(sender: UIButton) {

@@ -16,6 +16,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
     
     var location: Dogrun!
     var scrollView: UIScrollView!
+    var contentView: UIView!
     var dogRunProfileImage: UIImageView!
     var isDogRunIcon: UIImageView!
     var isOffLeashIcon: UIImageView!
@@ -72,6 +73,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 1.5)
         backgroundColor = UIColor.themeWhite
         
+        contentView = UIView(frame: CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height))
         
         dogStreetView = UIView()
         dogPanoView = GMSPanoramaView()
@@ -87,7 +89,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         dogRunNameLabel.font = UIFont.themeMediumThin
         dogRunNameLabel.textColor = UIColor.themeGrass
         dogRunNameLabel.adjustsFontSizeToFitWidth = true
-        dogRunNameLabel.numberOfLines = 2
+        dogRunNameLabel.numberOfLines = 0
         dogRunNameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         // configure dogRunAddressLabel
@@ -95,7 +97,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         dogRunAddressLabel.font = UIFont.themeMediumLight
         dogRunAddressLabel.textColor = UIColor.themeGrass
         dogRunAddressLabel.adjustsFontSizeToFitWidth = true
-        dogRunAddressLabel.numberOfLines = 2
+        dogRunAddressLabel.numberOfLines = 0
         dogRunAddressLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         
@@ -105,10 +107,10 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         
         //configure dogNotesLabel
         dogNotesLabel = UILabel()
-        dogNotesLabel.font = UIFont.themeMediumBold
-        dogNotesLabel.textColor = UIColor.themeGrass
+        dogNotesLabel.font = UIFont.themeSmallThin
+        dogNotesLabel.textColor = UIColor.themeMarine
         dogNotesLabel.adjustsFontSizeToFitWidth = true
-        dogNotesLabel.numberOfLines = 3
+        dogNotesLabel.numberOfLines = 0
         dogNotesLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
 
         
@@ -141,18 +143,20 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
     }
     
     func constrain() {
+        let leadingTopOffset = 10
+        let trailingBottomOffset = -10
         
         addSubview(scrollView)
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
-        scrollView.addSubview(dogStreetView)
+        scrollView.addSubview(contentView)
+              
+        contentView.addSubview(dogStreetView)
         dogStreetView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(scrollView.snp.top)
-            $0.width.equalTo(scrollView.snp.width)
-            $0.height.equalTo(dogStreetView.snp.width).multipliedBy(0.6)
+            $0.leading.trailing.top.equalToSuperview()
+            $0.height.equalToSuperview().dividedBy(4)
         }
         
         dogStreetView.addSubview(dogPanoView)
@@ -160,40 +164,37 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
             $0.edges.equalToSuperview()
         }
         
-        scrollView.addSubview(dogDetailView)
+        contentView.addSubview(dogDetailView)
         dogDetailView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.centerX.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(dogStreetView.snp.bottom)
-            $0.width.equalTo(scrollView.snp.width)
-            $0.height.equalTo(dogStreetView.snp.width).multipliedBy(0.2)
         }
         
         dogDetailView.addSubview(dogRunNameLabel)
         dogRunNameLabel.snp.makeConstraints {
-            $0.top.equalTo(dogDetailView.snp.top).offset(20)
-            $0.leading.equalToSuperview().offset(20)
-            $0.width.equalTo(scrollView.snp.width)
+            $0.leading.top.equalToSuperview().offset(leadingTopOffset)
+            $0.trailing.equalToSuperview().offset(trailingBottomOffset)
         }
 
         dogDetailView.addSubview(dogRunAddressLabel)
         dogRunAddressLabel.snp.makeConstraints {
-            $0.top.equalTo(dogRunNameLabel.snp.bottom).offset(10)
-            $0.bottom.equalTo(dogDetailView.snp.bottom)
-            $0.width.equalTo(scrollView.snp.width)
+            $0.leading.equalToSuperview().offset(leadingTopOffset)
+            $0.trailing.equalToSuperview().offset(trailingBottomOffset)
+            $0.top.equalTo(dogRunNameLabel.snp.bottom).offset(leadingTopOffset)
+            $0.bottom.equalToSuperview().offset(trailingBottomOffset)
         }
      
-        scrollView.addSubview(dogNotesView)
+        contentView.addSubview(dogNotesView)
         dogNotesView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.centerX.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(dogDetailView.snp.bottom)
+            $0.height.equalTo(dogDetailView)
         }
         
-        
-        
-
-    
+        dogNotesView.addSubview(dogNotesLabel)
+        dogNotesLabel.snp.makeConstraints {
+            $0.edges.equalTo(UIEdgeInsetsMake(10, 10, 10, 10))
+        }
             
             
 

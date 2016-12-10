@@ -12,12 +12,17 @@ import MapKit
 class CustomAnnotation: NSObject, MKAnnotation {
   
   // MARK: Properties
+  let location: Location
   let coordinate: CLLocationCoordinate2D
-  var title: String?
-  var rating: String?
-  var distance: String?
-  var image: UIImage?
   
   // MARK: Initialization
-  init(coordinate: CLLocationCoordinate2D) { self.coordinate = coordinate }
+  init(withPlayground playground: Playground) {
+    location = playground
+    coordinate = CLLocationCoordinate2D(latitude: playground.latitude, longitude: playground.longitude)
+  }
+  
+  init(withDogRun dogRun: Dogrun) {
+    location = dogRun
+    coordinate = CLLocationCoordinate2D(latitude: dogRun.latitude, longitude: dogRun.longitude)
+  }
 }

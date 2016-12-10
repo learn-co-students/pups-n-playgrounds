@@ -35,7 +35,7 @@ class FeedView: UIView {
   // MARK: View Configuration
   func configure() {
     feedTableView.rowHeight = 80
-    
+    feedTableView.backgroundColor = UIColor.clear
     
 //    flagButton = UIButton()
 //    flagButton.contentEdgeInsets = UIEdgeInsetsMake(11, 16, 11, 16)

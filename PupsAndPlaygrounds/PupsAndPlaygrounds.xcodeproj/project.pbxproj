@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		111C1FA245D020DB75ADC880 /* Pods_PupsAndPlaygrounds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58642D101BE829F81A703E2A /* Pods_PupsAndPlaygrounds.framework */; };
 		6EA3EE3560F8D7CCF450E2B4 /* Pods_PupsAndPlaygrounds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */; };
 		B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */; };
 		B5CB82EB1DF86B4800B373B5 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */; };
@@ -20,7 +21,6 @@
 		C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C44B1DDFC4660020F10F /* CustomFonts.swift */; };
 		C4283EB51DF10C570052580A /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4283EB41DF10C570052580A /* CustomAnnotation.swift */; };
 		C4283EB71DF1DD8E0052580A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */; };
-		C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1A1DE36C3A00A652DB /* HomeView.swift */; };
 		C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */; };
 		C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1E1DE36F9E00A652DB /* ProfileView.swift */; };
 		C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */; };
@@ -37,8 +37,11 @@
 		C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */; };
 		C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */; };
 		C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */; };
+		C4F09A821DFB0F3700C47F9F /* CustomAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F09A811DFB0F3700C47F9F /* CustomAnimations.swift */; };
+		C4F09A841DFB188200C47F9F /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F09A831DFB188200C47F9F /* FilterView.swift */; };
 		E809BA111DE4FF9D00E7BF03 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E809BA101DE4FF9D00E7BF03 /* User.swift */; };
 		E813A3A81DECA4BA006D9725 /* LocationsProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */; };
+		E813A3AA1DECA4E4006D9725 /* LocationsProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E813A3A91DECA4E4006D9725 /* LocationsProfileView.swift */; };
 		E84199C21DE37E7800522C8A /* dogrunsnyc.json in Resources */ = {isa = PBXBuildFile; fileRef = E84199BF1DE37E7800522C8A /* dogrunsnyc.json */; };
 		E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C01DE37E7800522C8A /* JSONParser.swift */; };
 		E84199C41DE37E7800522C8A /* playgroundsnyc.json in Resources */ = {isa = PBXBuildFile; fileRef = E84199C11DE37E7800522C8A /* playgroundsnyc.json */; };
@@ -49,16 +52,17 @@
 		E87758A21DF8701200823089 /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */; };
 		E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EE2131DEE141B00CAEACF /* Secrets.swift */; };
 		E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */; };
-		F686D83F1DFB354C00B3F2C9 /* DogrunReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F686D83E1DFB354C00B3F2C9 /* DogrunReviewView.swift */; };
-		F686D8411DFB434900B3F2C9 /* DogrunReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F686D8401DFB434900B3F2C9 /* DogrunReviewViewController.swift */; };
-		F6B3EE891DF8BAB40010468E /* DogRunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B3EE881DF8BAB40010468E /* DogRunViewController.swift */; };
-		F6B3EE8D1DFA25060010468E /* LocationsProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B3EE8C1DFA25060010468E /* LocationsProfileView.swift */; };
-		F6B3EE8F1DFA252B0010468E /* DogRunProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B3EE8E1DFA252B0010468E /* DogRunProfileView.swift */; };
+		F63C00211DFB86980073EA03 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63C00201DFB86980073EA03 /* DataStore.swift */; };
+		F63C00231DFB86B30073EA03 /* DogRunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63C00221DFB86B30073EA03 /* DogRunViewController.swift */; };
+		F63C00251DFB86BC0073EA03 /* DogrunReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63C00241DFB86BC0073EA03 /* DogrunReviewViewController.swift */; };
+		F63C00281DFB86D50073EA03 /* DogRunProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63C00261DFB86D50073EA03 /* DogRunProfileView.swift */; };
+		F63C00291DFB86D50073EA03 /* DogrunReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63C00271DFB86D50073EA03 /* DogrunReviewView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		06127B45D1FA197E42D189AB /* Pods-PupsAndPlaygrounds.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.debug.xcconfig"; sourceTree = "<group>"; };
 		4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PupsAndPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		58642D101BE829F81A703E2A /* Pods_PupsAndPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PupsAndPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		B5CB82EC1DF8714D00B373B5 /* ReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
@@ -72,7 +76,6 @@
 		C4283EB41DF10C570052580A /* CustomAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PupsAndPlaygrounds.entitlements; sourceTree = "<group>"; };
-		C4810D1A1DE36C3A00A652DB /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C4810D1E1DE36F9E00A652DB /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
@@ -91,9 +94,12 @@
 		C4EAE2D91DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PupsAndPlaygrounds.xcdatamodel; sourceTree = "<group>"; };
 		C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4EAE2E01DDF65E20069C15E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4F09A811DFB0F3700C47F9F /* CustomAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnimations.swift; sourceTree = "<group>"; };
+		C4F09A831DFB188200C47F9F /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.release.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.release.xcconfig"; sourceTree = "<group>"; };
 		E809BA101DE4FF9D00E7BF03 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsProfileViewController.swift; sourceTree = "<group>"; };
+		E813A3A91DECA4E4006D9725 /* LocationsProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsProfileView.swift; sourceTree = "<group>"; };
 		E84199BF1DE37E7800522C8A /* dogrunsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = dogrunsnyc.json; path = PupsAndPlaygrounds/dogrunsnyc.json; sourceTree = "<group>"; };
 		E84199C01DE37E7800522C8A /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONParser.swift; path = PupsAndPlaygrounds/JSONParser.swift; sourceTree = "<group>"; };
 		E84199C11DE37E7800522C8A /* playgroundsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = playgroundsnyc.json; path = PupsAndPlaygrounds/playgroundsnyc.json; sourceTree = "<group>"; };
@@ -104,11 +110,11 @@
 		E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		E89EE2131DEE141B00CAEACF /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
-		F686D83E1DFB354C00B3F2C9 /* DogrunReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogrunReviewView.swift; sourceTree = "<group>"; };
-		F686D8401DFB434900B3F2C9 /* DogrunReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogrunReviewViewController.swift; sourceTree = "<group>"; };
-		F6B3EE881DF8BAB40010468E /* DogRunViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogRunViewController.swift; sourceTree = "<group>"; };
-		F6B3EE8C1DFA25060010468E /* LocationsProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsProfileView.swift; sourceTree = "<group>"; };
-		F6B3EE8E1DFA252B0010468E /* DogRunProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogRunProfileView.swift; sourceTree = "<group>"; };
+		F63C00201DFB86980073EA03 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataStore.swift; path = PupsAndPlaygrounds/DataStore.swift; sourceTree = "<group>"; };
+		F63C00221DFB86B30073EA03 /* DogRunViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogRunViewController.swift; sourceTree = "<group>"; };
+		F63C00241DFB86BC0073EA03 /* DogrunReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogrunReviewViewController.swift; sourceTree = "<group>"; };
+		F63C00261DFB86D50073EA03 /* DogRunProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogRunProfileView.swift; sourceTree = "<group>"; };
+		F63C00271DFB86D50073EA03 /* DogrunReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogrunReviewView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,12 +123,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EA3EE3560F8D7CCF450E2B4 /* Pods_PupsAndPlaygrounds.framework in Frameworks */,
+				111C1FA245D020DB75ADC880 /* Pods_PupsAndPlaygrounds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A93AF457E22AB4CBB528074 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				58642D101BE829F81A703E2A /* Pods_PupsAndPlaygrounds.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3AAC3F68BDE70F5034EFD53D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +149,7 @@
 		9BF12558C8182FC9BC2B515A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				3AAC3F68BDE70F5034EFD53D /* Frameworks */,
 				06127B45D1FA197E42D189AB /* Pods-PupsAndPlaygrounds.debug.xcconfig */,
 				DE3F3980132B9AA038E051E8 /* Pods-PupsAndPlaygrounds.release.xcconfig */,
 			);
@@ -156,19 +172,19 @@
 			children = (
 				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
 				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
-				C4810D1A1DE36C3A00A652DB /* HomeView.swift */,
+				C4F09A831DFB188200C47F9F /* FilterView.swift */,
 				C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */,
+				C4B6ED7E1DEDEB8D00F28C04 /* ListView.swift */,
+				E813A3A91DECA4E4006D9725 /* LocationsProfileView.swift */,
 				C4283EB41DF10C570052580A /* CustomAnnotation.swift */,
 				C4129E9D1DF577E6009706E6 /* CustomAnnotationView.swift */,
 				C4129EA01DF57B66009706E6 /* CustomCalloutView.swift */,
-				C4B6ED7E1DEDEB8D00F28C04 /* ListView.swift */,
 				C4AEC6201DEDD47E0095DC47 /* FeedView.swift */,
 				B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */,
-				F6B3EE8C1DFA25060010468E /* LocationsProfileView.swift */,
-				F6B3EE8E1DFA252B0010468E /* DogRunProfileView.swift */,
-				F686D83E1DFB354C00B3F2C9 /* DogrunReviewView.swift */,
-				B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */,
 				C4810D1E1DE36F9E00A652DB /* ProfileView.swift */,
+				B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */,
+				F63C00261DFB86D50073EA03 /* DogRunProfileView.swift */,
+				F63C00271DFB86D50073EA03 /* DogrunReviewView.swift */,
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
 				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
 				E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */,
@@ -187,9 +203,9 @@
 				C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */,
 				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
 				B5CB82EC1DF8714D00B373B5 /* ReviewViewController.swift */,
-				F686D8401DFB434900B3F2C9 /* DogrunReviewViewController.swift */,
-				F6B3EE881DF8BAB40010468E /* DogRunViewController.swift */,
 				E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */,
+				F63C00221DFB86B30073EA03 /* DogRunViewController.swift */,
+				F63C00241DFB86BC0073EA03 /* DogrunReviewViewController.swift */,
 				C49C67821DE77E0800163CD9 /* FeedViewController.swift */,
 				C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */,
 			);
@@ -202,6 +218,7 @@
 				E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */,
 				C413C4421DDFB69F0020F10F /* CustomColors.swift */,
 				C413C44B1DDFC4660020F10F /* CustomFonts.swift */,
+				C4F09A811DFB0F3700C47F9F /* CustomAnimations.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -211,18 +228,27 @@
 			children = (
 				E89EE2131DEE141B00CAEACF /* Secrets.swift */,
 				C413C4471DDFB9DC0020F10F /* Extensions */,
-				C4DECFD61DE3474C001CE1A2 /* Preference Files */,
+				C4DECFD61DE3474C001CE1A2 /* Property List */,
+				C486C0621DF7927D0093132D /* Entitlements */,
 			);
 			name = Other;
 			sourceTree = "<group>";
 		};
-		C4DECFD61DE3474C001CE1A2 /* Preference Files */ = {
+		C486C0621DF7927D0093132D /* Entitlements */ = {
+			isa = PBXGroup;
+			children = (
+				C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */,
+			);
+			name = Entitlements;
+			sourceTree = "<group>";
+		};
+		C4DECFD61DE3474C001CE1A2 /* Property List */ = {
 			isa = PBXGroup;
 			children = (
 				C4EAE2E01DDF65E20069C15E /* Info.plist */,
 				C411BBB11DDF706E0090335B /* GoogleService-Info.plist */,
 			);
-			name = "Preference Files";
+			name = "Property List";
 			sourceTree = "<group>";
 		};
 		C4EAE2C51DDF65E20069C15E = {
@@ -231,7 +257,7 @@
 				C4EAE2D01DDF65E20069C15E /* PupsAndPlaygrounds */,
 				C4EAE2CF1DDF65E20069C15E /* Products */,
 				9BF12558C8182FC9BC2B515A /* Pods */,
-				3AAC3F68BDE70F5034EFD53D /* Frameworks */,
+				1A93AF457E22AB4CBB528074 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -246,11 +272,10 @@
 		C4EAE2D01DDF65E20069C15E /* PupsAndPlaygrounds */ = {
 			isa = PBXGroup;
 			children = (
-				C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */,
-				E84199BE1DE37E5100522C8A /* Data */,
 				C413C4441DDFB9C40020F10F /* Model */,
 				C413C4451DDFB9C90020F10F /* View */,
 				C413C4461DDFB9CE0020F10F /* Controller */,
+				E84199BE1DE37E5100522C8A /* Data */,
 				C413C4481DDFBA360020F10F /* Other */,
 			);
 			path = PupsAndPlaygrounds;
@@ -261,6 +286,7 @@
 			children = (
 				E84199C51DE37E8F00522C8A /* FirebaseData.swift */,
 				C405AE121DF0BCD30044D9C8 /* GeoFireMethods.swift */,
+				F63C00201DFB86980073EA03 /* DataStore.swift */,
 				E84199C91DE37EB000522C8A /* LocationsDataStore.swift */,
 				E84199C01DE37E7800522C8A /* JSONParser.swift */,
 				E84199BF1DE37E7800522C8A /* dogrunsnyc.json */,
@@ -402,12 +428,13 @@
 			files = (
 				C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */,
 				B5CB82ED1DF8714D00B373B5 /* ReviewViewController.swift in Sources */,
+				F63C00231DFB86B30073EA03 /* DogRunViewController.swift in Sources */,
 				E84199D11DE38FE400522C8A /* Reviews.swift in Sources */,
-				F6B3EE891DF8BAB40010468E /* DogRunViewController.swift in Sources */,
 				C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */,
 				E813A3A81DECA4BA006D9725 /* LocationsProfileViewController.swift in Sources */,
 				C405AE131DF0BCD30044D9C8 /* GeoFireMethods.swift in Sources */,
 				E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */,
+				C4F09A821DFB0F3700C47F9F /* CustomAnimations.swift in Sources */,
 				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
 				C4283EB51DF10C570052580A /* CustomAnnotation.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
@@ -415,23 +442,22 @@
 				E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */,
 				C4B6ED7D1DEDDF8700F28C04 /* MapView.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
-				F686D83F1DFB354C00B3F2C9 /* DogrunReviewView.swift in Sources */,
-				F686D8411DFB434900B3F2C9 /* DogrunReviewViewController.swift in Sources */,
+				F63C00251DFB86BC0073EA03 /* DogrunReviewViewController.swift in Sources */,
+				F63C00211DFB86980073EA03 /* DataStore.swift in Sources */,
 				E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */,
 				C49C67811DE77D6D00163CD9 /* MainTabBarController.swift in Sources */,
 				E84199CA1DE37EB000522C8A /* Locations.swift in Sources */,
 				C4AEC6211DEDD47E0095DC47 /* FeedView.swift in Sources */,
 				E809BA111DE4FF9D00E7BF03 /* User.swift in Sources */,
 				C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */,
-				F6B3EE8F1DFA252B0010468E /* DogRunProfileView.swift in Sources */,
+				F63C00281DFB86D50073EA03 /* DogRunProfileView.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
-				F6B3EE8D1DFA25060010468E /* LocationsProfileView.swift in Sources */,
-				C4810D1B1DE36C3A00A652DB /* HomeView.swift in Sources */,
 				B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,
 				C4129E9E1DF577E6009706E6 /* CustomAnnotationView.swift in Sources */,
+				C4F09A841DFB188200C47F9F /* FilterView.swift in Sources */,
 				C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */,
 				C4283EB71DF1DD8E0052580A /* ContainerViewController.swift in Sources */,
 				B5CB82EB1DF86B4800B373B5 /* ReviewView.swift in Sources */,
@@ -441,7 +467,9 @@
 				C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */,
 				C4B6ED7F1DEDEB8D00F28C04 /* ListView.swift in Sources */,
 				C49C67831DE77E0800163CD9 /* FeedViewController.swift in Sources */,
+				F63C00291DFB86D50073EA03 /* DogrunReviewView.swift in Sources */,
 				C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */,
+				E813A3AA1DECA4E4006D9725 /* LocationsProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

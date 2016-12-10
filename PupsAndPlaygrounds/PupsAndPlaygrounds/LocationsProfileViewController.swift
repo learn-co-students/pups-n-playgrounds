@@ -12,43 +12,39 @@ import Firebase
 
 class LocationProfileViewController: UIViewController {
     
-    var playground: Playground?
-    var locationProfileView: LocationProfileView!
-    var reviewsTableView: UITableView!
+    var playgroundID: String?
+    var playground: Location?
     var currentUser: User?
     var reviewsArray: [Review?] = []
+
+    var locationProfileView: LocationProfileView!
+    var reviewsTableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let unwrappedLocationID = playgroundID else { print("trouble unwrapping location ID"); return }
         
-        configure()
-        
-        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
-        
-        self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
-        
-        if let playgroundReviewsIDs = playground?.reviewsID {
+        FirebaseData.getLocation(with: unwrappedLocationID) { (firebaseLocation) in
+            self.playground = firebaseLocation
+            self.configure()
             
-            for reviewID in playgroundReviewsIDs {
-                guard let unwrappedReviewID = reviewID else { return }
-                
-                FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
+            if let playgroundReviewsIDs = self.playground?.reviewsID {
+                for reviewID in playgroundReviewsIDs {
+                    guard let unwrappedReviewID = reviewID else { return }
                     
-                    self.reviewsArray.append(firebaseReview)
+                    FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
+                        
+                        self.reviewsArray.append(firebaseReview)
+                        print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS")
+                        self.locationProfileView.reviewsTableView.reloadData()
+                        
+                    })
                     
-                    print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS")
-                    self.locationProfileView.reviewsTableView.reloadData()
-                    
-                })
-                
+                }
             }
+            print("THIS PLAYGROUND IS \(self.playground?.name) and has \(self.playground?.reviewsID) reviewIDs")
         }
-        
-        FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
-            self.currentUser = currentFirebaseUser
-        }
-        print("THIS PLAYGROUND HAS \(playground?.reviewsID.count) REVIEWS")
         
     }
     
@@ -68,7 +64,10 @@ class LocationProfileViewController: UIViewController {
         
         print("CLICKED REVIEW BUTTON")
         let childVC = ReviewViewController()
-        childVC.location = playground
+        
+        guard let downcastPlayground = playground as? Playground else { print("trouble casting location as playground"); return }
+        
+        childVC.location = downcastPlayground
         
         addChildViewController(childVC)
         
@@ -82,13 +81,32 @@ class LocationProfileViewController: UIViewController {
     }
     
     func configure() {
-        guard let unwrappedPlayground = playground else { return }
+        guard let unwrappedPlayground = playground as? Playground else { print("trouble casting location as playground"); return }
         self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
+        
+        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+        FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
+            self.currentUser = currentFirebaseUser
+        }
+        
+        if FIRAuth.auth()?.currentUser?.isAnonymous == false {
+            self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
+        }
+        
+        let color1 = UIColor(red: 34/255.0, green: 91/255.0, blue: 102/255.0, alpha: 1.0)
+        let color2 = UIColor(red: 141/255.0, green: 191/255.9, blue: 103/255.0, alpha: 1.0)
+        
+        let backgroundGradient = CALayer.makeGradient(firstColor: color1, secondColor: color2)
+        
+        backgroundGradient.frame = view.frame
+        self.view.layer.insertSublayer(backgroundGradient, at: 0)
+        
         
         reviewsTableView = locationProfileView.reviewsTableView
         locationProfileView.reviewsTableView.delegate = self
         locationProfileView.reviewsTableView.dataSource = self
         locationProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
+        locationProfileView.reviewsView.alpha = 0.6
         
         self.view.addSubview(locationProfileView)
         locationProfileView.snp.makeConstraints {
@@ -130,16 +148,66 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         
         if let currentReview = reviewsArray[indexPath.row] {
             cell.review = currentReview
-            //            cell.flagButton.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
-            
-            
-            if let currentUserID = currentUser?.userID {
-                if currentReview.userID != currentUserID {
-                    cell.deleteReviewButton.isHidden = true
-                }
-            }
         }
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        guard let userID = reviewsArray[indexPath.row]?.userID else { print("trouble casting userID");return [] }
+        guard let reviewID = reviewsArray[indexPath.row]?.reviewID else { print("trouble casting reviewID");return [] }
+        guard let locationID = reviewsArray[indexPath.row]?.locationID else { print("trouble casting locationID");return [] }
+        guard let reviewComment = reviewsArray[indexPath.row]?.comment else { print("trouble casting reviewComment"); return [] }
+        
+        
+        if userID == currentUser?.userID {
+            
+            
+            let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+                
+                self.reviewsArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                FirebaseData.deleteUsersOwnReview(userID: userID, reviewID: reviewID, locationID: locationID) {
+                    
+                    let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                        FirebaseData.getVisibleReviewsForFeed { reviews in
+                            self.reviewsArray = reviews
+                            self.locationProfileView.reviewsTableView.reloadData()
+                        }
+                    })
+                }
+            }
+            return [delete]
+            
+        } else {
+            
+            let flag = UITableViewRowAction(style: .destructive, title: "Flag") { (action, indexPath) in
+                
+                self.reviewsArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                FirebaseData.flagReviewWith(unique: reviewID, locationID: locationID, comment: reviewComment, userID: userID) {
+                    let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                        FirebaseData.getVisibleReviewsForFeed { reviews in
+                            self.reviewsArray = reviews
+                            self.locationProfileView.reviewsTableView.reloadData()
+                        }
+                    })
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+            flag.backgroundColor = UIColor.themeSunshine
+            return [flag]
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
     }
     
 }

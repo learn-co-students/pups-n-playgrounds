@@ -85,7 +85,7 @@ class DogrunReviewView: UIView {
     
     private func constrain() {
         addSubview(doginnerView)
-        doginnerView.snp.makeConstratints {
+        doginnerView.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalToSuperview()
             $0.height.equalToSuperview().dividedBy(1.5)

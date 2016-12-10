@@ -162,11 +162,19 @@ class FirebaseData {
     
     // MARK: Delete reviews
     
-    static func deleteUsersOwnReview(with userID: String, reviewID: String, locationID: String) {
-        
+    static func deleteUsersOwnReview(userID: String, reviewID: String, locationID: String, completion: () -> ()) {
+        print("DELETE IS RUNNING!")
+        print("USER ID IS \(userID)")
+
+        print("REVIEW ID IS \(reviewID)")
+
+        print("LOCATION ID IS \(locationID)")
+
         let ref = FIRDatabase.database().reference().root
         
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        print("CURRENT USER ID IS \(userUniqueID)")
         
         if userID == userUniqueID {
             
@@ -185,6 +193,7 @@ class FirebaseData {
             ref.child("reviews").child("visible").child(reviewID).removeValue()
             
         }
+    completion()
     }
     
     static func deleteCommentAdmin(userID: String, reviewID: String, locationID: String, completion: () -> ()) {
@@ -267,7 +276,7 @@ class FirebaseData {
                 
                 guard let latitude = Double(latitudeString) else { return }
                 guard let longitude = Double(longitudeString) else { return }
-
+                
                 
                 if let reviewsDictionary = value["reviews"] as? [String:Any] {
                     for iterReview in reviewsDictionary {
@@ -396,9 +405,20 @@ class FirebaseData {
         
     }
     
+    // MARK: Firebase real-time observer
+    
+    static func realtimeFirebaseObserver() {
+        let ref = FIRDatabase.database().reference().child("reviews")
+        
+        ref.observe(FIRDataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : Any] ?? [:]
+            
+        })
+    }
+    
     
 }
 
 
 
- 
+

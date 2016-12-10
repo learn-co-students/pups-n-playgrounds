@@ -13,7 +13,12 @@ import SnapKit
 class MapView: UIView {
   
   // MARK: Properties
-  let map = MKMapView()
+  lazy var map = MKMapView()
+  lazy var goToLocationButton = UIButton()
+  lazy var goToLocationButtonView = UIView()
+  lazy var goToLocationButtonLabel = UILabel()
+  lazy var goToLocationButtonImageView = UIImageView(image: #imageLiteral(resourceName: "Go"))
+  var goToLocationButtonTopConstraint: Constraint?
   
   // MARK: Initialization
   required init?(coder aDecoder: NSCoder) {
@@ -33,7 +38,16 @@ class MapView: UIView {
   
   // MARK: View Configuration
   func configure() {
+    goToLocationButtonLabel.text = "Go to location"
+    goToLocationButtonLabel.font = UIFont.themeSmallBold
+    goToLocationButtonLabel.textColor = UIColor.white
     
+    goToLocationButtonImageView.contentMode = .scaleAspectFit
+    
+    goToLocationButtonView.isUserInteractionEnabled = false
+    
+    goToLocationButton.backgroundColor = UIColor.themeCoral
+    goToLocationButton.contentEdgeInsets = UIEdgeInsetsMake(20, 0, 20, 0)
   }
   
   // MARK: View Constraints
@@ -41,6 +55,29 @@ class MapView: UIView {
     addSubview(map)
     map.snp.makeConstraints {
       $0.edges.equalToSuperview()
+    }
+    
+    goToLocationButtonView.addSubview(goToLocationButtonLabel)
+    goToLocationButtonLabel.snp.makeConstraints {
+      $0.leading.top.bottom.equalToSuperview()
+    }
+    
+    goToLocationButtonView.addSubview(goToLocationButtonImageView)
+    goToLocationButtonImageView.snp.makeConstraints {
+      $0.leading.equalTo(goToLocationButtonLabel.snp.trailing).offset(10)
+      $0.trailing.top.bottom.equalToSuperview()
+    }
+    
+    goToLocationButton.addSubview(goToLocationButtonView)
+    goToLocationButtonView.snp.makeConstraints {
+      $0.center.equalToSuperview()
+    }
+    
+    addSubview(goToLocationButton)
+    goToLocationButton.snp.makeConstraints {
+      self.goToLocationButtonTopConstraint = $0.top.equalTo(snp.bottom).constraint
+      $0.centerX.equalToSuperview()
+      $0.width.equalToSuperview().dividedBy(1.5)
     }
   }
 }

@@ -18,12 +18,12 @@
 
 import Foundation
 
-class LocationsDataStore {
+class DataStore {
     
     var playgrounds: [PlaygroundJSON] = []
     var dogRuns: [DogrunJSON] = []
     
-    static let sharedInstance = LocationsDataStore()
+    static let sharedInstance = DataStore()
     
     // MARK: populates local arrays with data from JSON files
     
