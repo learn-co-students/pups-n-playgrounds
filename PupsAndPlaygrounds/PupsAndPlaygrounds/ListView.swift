@@ -32,7 +32,7 @@ class ListView: UIView {
   
   // MARK: View Configuration
   func configure() {
-    
+    locationsTableView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
   }
   
   // MARK: View Constraints

@@ -41,7 +41,7 @@ class ReviewView: UIView {
         
         backgroundColor = UIColor.themeDarkBlue.withAlphaComponent(0.7)
         
-        innerView.backgroundColor = UIColor.themeLightBlue
+        innerView.backgroundColor = UIColor.themeTeal
         innerView.layer.cornerRadius = 20
         
         submitReviewButton = UIButton()
@@ -58,6 +58,7 @@ class ReviewView: UIView {
         reviewTextField.placeholder = "Please write review here"
         reviewTextField.font = UIFont.themeSmallLight
         reviewTextField.textColor = UIColor.themeWhite
+        reviewTextField.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         
         starReviews = StarReview()
         self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))

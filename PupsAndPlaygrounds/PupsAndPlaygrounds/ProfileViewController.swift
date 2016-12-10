@@ -205,6 +205,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                     })
                 }
             }
+            delete.backgroundColor = UIColor.themeCoral
             return [delete]
             
         } else {

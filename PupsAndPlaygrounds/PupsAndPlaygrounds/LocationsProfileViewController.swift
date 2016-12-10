@@ -106,7 +106,8 @@ class LocationProfileViewController: UIViewController {
         locationProfileView.reviewsTableView.delegate = self
         locationProfileView.reviewsTableView.dataSource = self
         locationProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
-        locationProfileView.reviewsView.alpha = 0.6
+        locationProfileView.reviewsTableView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+        
         
         self.view.addSubview(locationProfileView)
         locationProfileView.snp.makeConstraints {
@@ -148,6 +149,8 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         
         if let currentReview = reviewsArray[indexPath.row] {
             cell.review = currentReview
+            cell.backgroundColor = UIColor.clear
+
         }
         return cell
     }
@@ -180,6 +183,7 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
                     })
                 }
             }
+            delete.backgroundColor = UIColor.themeCoral
             return [delete]
             
         } else {
