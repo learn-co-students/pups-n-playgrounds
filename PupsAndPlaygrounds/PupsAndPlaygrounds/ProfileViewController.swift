@@ -85,20 +85,17 @@ class ProfileViewController: UIViewController {
         }
         
         navigationItem.title = "Profile"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logOutButtonTouched))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Settings"), style: .plain, target: self, action: #selector(onSettingsButtonTap))
         
         settingsDropDownView = SettingsDropDownView()
-        view.addSubview(settingsDropDownView)
+        self.view.addSubview(settingsDropDownView)
         settingsDropDownView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview()
             $0.height.width.equalToSuperview().multipliedBy(0.3)
         }
         
         settingsDropDownView.settingsDropDownStackView.isHidden = true
-        settingsDropDownView.settingsButton.addTarget(self, action: #selector(onSettingsButtonTap), for: .touchUpInside)
         settingsDropDownView.changePasswordButton.addTarget(self, action: #selector(changePassword), for: .touchUpInside)
-        settingsDropDownView.changeEmailButton.addTarget(self, action: #selector(changeEmail), for: .touchUpInside)
+        settingsDropDownView.logoutButton.addTarget(self, action: #selector(logOutButtonTouched), for: .touchUpInside)
         settingsDropDownView.contactPPButton.addTarget(self, action: #selector(contactPP), for: .touchUpInside)
         
     }
@@ -110,37 +107,6 @@ class ProfileViewController: UIViewController {
             self.settingsDropDownView.settingsDropDownStackView.isHidden = false
             
         }
-    }
-    
-    func changeEmail() {
-     
-        let alert = UIAlertController(title: "Want to change your email?", message: "Type new email here!", preferredStyle: UIAlertControllerStyle.alert)
-        
-        
-        alert.addTextField { (emailTextField) in
-            emailTextField.text = "" }
-        
-        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
-            let emailTextField = alert.textFields![0]
-            
-            FirebaseData.changeEmail(with: emailTextField.text!, completion: {
-                let alertController = UIAlertController(title: "Success", message: "Successfully updated email", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-                    self.dismiss(animated: true, completion: nil)
-                })
-                alertController.addAction(okAction)
-                
-                self.present(alertController, animated: true, completion: nil)
-            })
-            
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-            
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
-        self.settingsDropDownView.settingsDropDownStackView.isHidden = true
     }
     
     func changePassword() {
