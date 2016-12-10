@@ -126,7 +126,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         //configure dogReviews tableview
         dogReviewsTableView = UITableView()
         dogReviewsTableView.rowHeight = 40
-        dogReviewsTableView.backgroundColor = UIColor.themeWhite.cgColor
+        dogReviewsTableView.backgroundColor = UIColor.themeWhite
         dogReviewsTableView.layer.cornerRadius = 5
         
         
@@ -136,7 +136,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         submitReviewButton.layer.cornerRadius = 2
         submitReviewButton.titleLabel?.font = UIFont.themeSmallThin
         submitReviewButton.backgroundColor = UIColor.themeCoral
-        submitReviewButton.setTitleColor(UIColor.themeWhite.cgColor, for: .normal)
+        submitReviewButton.setTitleColor(UIColor.themeWhite , for: .normal)
         
     }
     
@@ -166,7 +166,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(dogStreetView.snp.bottom)
             $0.width.equalTo(scrollView.snp.width)
-            $0.height.equalTo(dogStreetView.snp.width).multipledBy(0.2)
+            $0.height.equalTo(dogStreetView.snp.width).multipliedBy(0.2)
         }
         
         dogDetailView.addSubview(dogRunNameLabel)

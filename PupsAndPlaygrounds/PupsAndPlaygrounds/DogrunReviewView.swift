@@ -111,7 +111,7 @@ class DogrunReviewView: UIView {
         }
         
         doginnerView.addSubview(cancelButton)
-        dogCancelButton.snp.makeConstraints {
+        cancelButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(10)
             $0.trailing.equalToSuperview().offset(-10)
         }
