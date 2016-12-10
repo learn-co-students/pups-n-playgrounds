@@ -176,6 +176,13 @@ class HomeViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filter))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: .plain, target: self, action: #selector(switchView))
         
+        let color1 = UIColor(red: 34/255.0, green: 91/255.0, blue: 102/255.0, alpha: 1.0)
+        let color2 = UIColor(red: 141/255.0, green: 191/255.9, blue: 103/255.0, alpha: 1.0)
+        
+        let backgroundGradient = CALayer.makeGradient(firstColor: color1, secondColor: color2)
+        backgroundGradient.frame = view.frame
+        self.view.layer.insertSublayer(backgroundGradient, at: 0)
+        
         mapView.map.delegate = self
         mapView.map.showsUserLocation = true
         mapView.goToLocationButton.addTarget(self, action: #selector(goToLocation), for: .touchUpInside)
@@ -183,6 +190,7 @@ class HomeViewController: UIViewController {
         listView.locationsTableView.delegate = self
         listView.locationsTableView.dataSource = self
         listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
+        
         listView.isHidden = true
         
         filterView.dogParksButton.addTarget(self, action: #selector(toggleDogParks), for: .touchUpInside)
@@ -272,7 +280,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath)
         cell.textLabel?.text = locations[indexPath.row].name
-        
+        cell.backgroundColor = UIColor.clear
         return cell
     }
     
@@ -347,7 +355,7 @@ extension HomeViewController: MKMapViewDelegate {
         guard let playground = selectedAnnotation?.location as? Playground else { print("error unwrapping playground from selected location"); return }
         
         let locationProfileVC = LocationProfileViewController()
-        locationProfileVC.playground = playground
+        locationProfileVC.playgroundID = playground.playgroundID
         
         navigationController?.pushViewController(locationProfileVC, animated: true)
     }

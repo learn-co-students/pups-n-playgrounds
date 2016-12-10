@@ -17,7 +17,7 @@ class ReviewsTableViewCell: UITableViewCell {
     weak var review: Review! {
         didSet {
             reviewLabel.text = review.comment
-            reviewLabel.textColor = UIColor.blue
+            reviewLabel.textColor = UIColor.themeMarine
             reviewLabel.font = UIFont.themeTinyRegular
             reviewLabel.numberOfLines = 3
             reviewLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
