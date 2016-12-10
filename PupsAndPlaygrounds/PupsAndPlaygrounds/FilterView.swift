@@ -27,7 +27,7 @@ class FilterView: UIView {
   func configure() {
     
     // View
-    backgroundColor = UIColor.white.withAlphaComponent(0.8)
+    backgroundColor = UIColor.white.withAlphaComponent(0.9)
     
     // Stack view
     stackView.distribution = .fillEqually

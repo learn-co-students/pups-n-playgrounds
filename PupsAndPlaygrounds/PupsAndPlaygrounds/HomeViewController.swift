@@ -282,9 +282,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
       locationProfileVC.playground = playground
       
       navigationController?.pushViewController(locationProfileVC, animated: true)
-    } else {
-      print("error downcasting location")
-    }
+    } else { print("error downcasting location") }
   }
 }
 
@@ -331,12 +329,18 @@ extension HomeViewController: MKMapViewDelegate {
     callout.ratingLabel.text = "Rating: \(annotation.location.rating)"
     callout.center = CGPoint(x: view.bounds.width / 2 - 8, y: -callout.frame.height / 1.6)
     
-    view.pinTintColor = UIColor.themeRed
+    view.pinTintColor = UIColor.themeCoral
     view.addSubview(callout)
     
+    var tabBarHeight: CGFloat = 49
+    if let height = tabBarController?.tabBar.frame.height {
+      tabBarHeight = height
+    }
+    
+    let offset = -(self.mapView.goToLocationButtonHeight + tabBarHeight)
     view.layoutIfNeeded()
     UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-      self.mapView.goToLocationButtonTopConstraint?.update(offset: -self.view.bounds.height / 4)
+      self.mapView.goToLocationButtonTopConstraint?.update(offset: offset)
       self.view.layoutIfNeeded()
     }, completion: nil)
   }

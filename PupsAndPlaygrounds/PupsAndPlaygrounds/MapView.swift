@@ -19,35 +19,21 @@ class MapView: UIView {
   lazy var goToLocationButtonLabel = UILabel()
   lazy var goToLocationButtonImageView = UIImageView(image: #imageLiteral(resourceName: "Go"))
   var goToLocationButtonTopConstraint: Constraint?
+  let goToLocationButtonHeight: CGFloat = 60
   
   // MARK: Initialization
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
-  
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-  }
-  
-  convenience init() {
-    self.init(frame: CGRect.zero)
-    
-    configure()
-    constrain()
-  }
+  required init?(coder aDecoder: NSCoder) { super.init(coder: aDecoder) }
+  override init(frame: CGRect) { super.init(frame: frame) }
+  convenience init() { self.init(frame: CGRect.zero); configure(); constrain() }
   
   // MARK: View Configuration
   func configure() {
     goToLocationButtonLabel.text = "Go to location"
     goToLocationButtonLabel.font = UIFont.themeSmallBold
     goToLocationButtonLabel.textColor = UIColor.white
-    
     goToLocationButtonImageView.contentMode = .scaleAspectFit
-    
     goToLocationButtonView.isUserInteractionEnabled = false
-    
     goToLocationButton.backgroundColor = UIColor.themeCoral
-    goToLocationButton.contentEdgeInsets = UIEdgeInsetsMake(20, 0, 20, 0)
   }
   
   // MARK: View Constraints
@@ -76,8 +62,8 @@ class MapView: UIView {
     addSubview(goToLocationButton)
     goToLocationButton.snp.makeConstraints {
       self.goToLocationButtonTopConstraint = $0.top.equalTo(snp.bottom).constraint
-      $0.centerX.equalToSuperview()
-      $0.width.equalToSuperview().dividedBy(1.5)
+      $0.centerX.width.equalToSuperview()
+      $0.height.equalTo(goToLocationButtonHeight)
     }
   }
 }
