@@ -18,7 +18,7 @@ class DogrunReviewView: UIView {
     var submitReviewButton: UIButton!
     var starReviews: StarReview!
     var rating: String?
-    var dogCancelButton: UIButton!
+    var cancelButton: UIButton!
     var dogReviewTextField: UITextField!
     var location: Dogrun!
     
@@ -72,13 +72,14 @@ class DogrunReviewView: UIView {
         self.starReviews.starBackgroundColor = UIColor.themeMarine
         self.starReviews.starMarginScale = 0.3
         
-        dogCancelButton = UIButton()
-        dogCancelButton.setTitle("X", for: .normal)
-        dogCancelButton.titleLabel?.font = UIFont.themeMediumBold
-        dogCancelButton.titleLabel?.textAlignment = .center
-        dogCancelButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        cancelButton = UIButton()
+        cancelButton.setTitle("X", for: .normal)
+        cancelButton.titleLabel?.font = UIFont.themeMediumBold
+        cancelButton.titleLabel?.textAlignment = .center
+        cancelButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
 
     }
+    
     
     //MARK: DogReview View Constraints
     
@@ -86,7 +87,8 @@ class DogrunReviewView: UIView {
         addSubview(doginnerView)
         doginnerView.snp.makeConstratints {
             $0.center.equalToSuperview()
-            $0.width.height.equalToSuperview().dividedBy(1.5)
+            $0.width.equalToSuperview()
+            $0.height.equalToSuperview().dividedBy(1.5)
         }
         
         doginnerView.addSubview(submitReviewButton)
@@ -108,7 +110,7 @@ class DogrunReviewView: UIView {
             $0.centerX.equalToSuperview()
         }
         
-        doginnerView.addSubview(dogCancelButton)
+        doginnerView.addSubview(cancelButton)
         dogCancelButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(10)
             $0.trailing.equalToSuperview().offset(-10)
@@ -118,30 +120,10 @@ class DogrunReviewView: UIView {
     
 }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
     
     
     

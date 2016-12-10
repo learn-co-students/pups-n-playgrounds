@@ -12,14 +12,12 @@ import UIKit
 
 class DogrunReviewViewController: UIViewController {
     
-    var dogrunReviewView: DogrunReviewView!
+    var dogReviewView: DogrunReviewView!
     var location: Dogrun? {
         didSet {
             configureDogrunReviewView()
-            
         }
     }
-    
     var edgesConstraint: Constraint?
     
     override func viewDidLoad() {
@@ -34,32 +32,32 @@ class DogrunReviewViewController: UIViewController {
     
     func configureDogrunReviewView() {
         guard let location = location else { print("error getting location."); return }
-        DogrunReviewView = DogrunReviewView(dogrun: location)
-        view.addSubview(DogrunReviewView)
-        DogrunReviewView.snp.makeConstraints {
+        dogReviewView = DogrunReviewView(dogrun: location)
+        view.addSubview(dogReviewView)
+        dogReviewView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
-        
-        DogrunReviewView.dogCancelButton.addTarget(self, action: #selector(submitDogReview), for: .touchUpInside)
-        
-        DogrunReviewView.dogCancelButton.addTarget(self, action: #selector(closeDogReviewWindow), for: .touchUpInside)
+        dogReviewView.submitReviewButton.addTarget(self, action: #selector(submitDogReview), for: .touchUpInside)
+        dogReviewView.cancelButton.addTarget(self, action: #selector(closeDogReviewWindow), for: .touchUpInside)
+       
     }
         
     
     func submitDogReview() {
         print("LOCATION ID: \(location?.dogRunID)")
-        FirebaseData.addReview(comment: DogrunReviewView.dogReviewTextField.text!, locationID: DogrunReviewView.location.dogrunID, rating: String(DogrunReviewView.starReviews.value))
+        FirebaseData.addReview(comment: dogReviewView.dogReviewTextField.text!, locationID: dogReviewView.location.dogRunID, rating: String(dogReviewView.starReviews.value))
     
+            closeDogReviewWindow()
     }
     
     func closeDogReviewWindow() {
         guard let parent = parent as? DogRunViewController else { print("problem with parent VC as DogrunProfVC"); return }
         parent.dogRunProfileView.dogReviewsTableView.reloadData()
+        
         //Remove from containerVC 
         willMove(toParentViewController: nil)
         
-        edgesConstraint = nil
+        edgesConstraint = nil 
         
         view.removeFromSuperview()
         removeFromParentViewController()
@@ -69,13 +67,8 @@ class DogrunReviewViewController: UIViewController {
     
        }
     }
-    
 
-    
-    
-    
-    
-    
-    
+
+
     
     

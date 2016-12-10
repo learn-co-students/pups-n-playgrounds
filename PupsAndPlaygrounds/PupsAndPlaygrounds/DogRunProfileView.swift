@@ -14,7 +14,6 @@ import GoogleMaps
 
 class DogRunProfileView: UIView, GMSMapViewDelegate {
     
-    
     var location: Dogrun!
     var scrollView: UIScrollView!
     var dogRunProfileImage: UIImageView!
@@ -31,8 +30,8 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
     var dogNotesView: UIView!
     var dogNotesLabel: UILabel!
    
-    var reviewView: UIView!
-    var reviewsTableView: UITableView!
+    var dogrunReviewView: UIView!
+    var dogReviewsTableView: UITableView!
     var submitReviewButton: UIButton!
     var starReviews: StarReview!
     var rating: String?
@@ -45,9 +44,8 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         self.init(frame: CGRect.zero)
         location = dogrun
         
-        // TODO: call configure() to configure view here
-        //TODO:  call constrain() to constrain view objects here
-        
+        configure()
+        constrain()
     }
   
     required init?(coder aDecoder: NSCoder) {
@@ -64,25 +62,17 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
             self.starReviews.starCount = 5
             self.starReviews.value = averageStarValue
             self.starReviews.allowAccruteStars = false
-            self.starReviews.starFillColor = 
-            self.starReviews.starBackgroundColor = UIColor.black
+            self.starReviews.starFillColor = UIColor.themeSunshine
+            self.starReviews.starBackgroundColor = UIColor.themeTeal
             self.starReviews.starMarginScale = 0.3
             self.starReviews.contentMode = .scaleAspectFit
         }
         
-        
-        
-        
-        
-        
-    
-        
-        
-        
-        
+        scrollView = UIScrollView()
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 1.5)
         backgroundColor = UIColor.themeWhite
         
-        //configure dogStreetView & dogPanoView
+        
         dogStreetView = UIView()
         dogPanoView = GMSPanoramaView()
         dogPanoView.moveNearCoordinate(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
@@ -95,7 +85,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         //configure dogRunNameLabel
         dogRunNameLabel = UILabel()
         dogRunNameLabel.font = UIFont.themeMediumThin
-        dogRunNameLabel.textColor = UIColor.themeDarkBlue
+        dogRunNameLabel.textColor = UIColor.themeGrass
         dogRunNameLabel.adjustsFontSizeToFitWidth = true
         dogRunNameLabel.numberOfLines = 2
         dogRunNameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -103,22 +93,24 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         // configure dogRunAddressLabel
         dogRunAddressLabel = UILabel()
         dogRunAddressLabel.font = UIFont.themeMediumLight
-        dogRunAddressLabel.textColor = UIColor.themeDarkBlue
+        dogRunAddressLabel.textColor = UIColor.themeGrass
         dogRunAddressLabel.adjustsFontSizeToFitWidth = true
-        dogRunAddressLabel.numberOfLines = 3
+        dogRunAddressLabel.numberOfLines = 2
         dogRunAddressLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         
         //configure dogNotesView 
         dogNotesView = UIView()
+        dogNotesView.backgroundColor = UIColor.themeSunshine
         
         //configure dogNotesLabel
         dogNotesLabel = UILabel()
-        
-        
-        //configure dogReviewView 
-        dogReviewView = UIView()
-        
+        dogNotesLabel.font = UIFont.themeMediumBold
+        dogNotesLabel.textColor = UIColor.themeGrass
+        dogNotesLabel.adjustsFontSizeToFitWidth = true
+        dogNotesLabel.numberOfLines = 3
+        dogNotesLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+
         
         // TODO: Add dogRun icons
         //if dogrun.isOffLeash = true
@@ -126,38 +118,35 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         // else //
         // display dogRun.Run icon
     
+        //configure dogReviewView
+        dogrunReviewView = UIView()
+        dogrunReviewView.backgroundColor = UIColor.themeCoral
         
-        //configure reviews view
-         dogReviewView = UIView()
         
-        //configure reviews tableview
-        dogReviewTableView = UITableView()
-        dogReviewTableView .rowHeight = 40
-        dogReviewTableView .backgroundColor = UIColor.themeLightBlue
-        dogReviewTableView .layer.cornerRadius = 5
+        //configure dogReviews tableview
+        dogReviewsTableView = UITableView()
+        dogReviewsTableView.rowHeight = 40
+        dogReviewsTableView.backgroundColor = UIColor.themeWhite.cgColor
+        dogReviewsTableView.layer.cornerRadius = 5
+        
         
         //configure submitReviewButton
         submitReviewButton = UIButton(frame: CGRect(x: 0, y: 0, width:700 , height: 120))
         submitReviewButton.setTitle("Submit a Review", for: .normal)
         submitReviewButton.layer.cornerRadius = 2
         submitReviewButton.titleLabel?.font = UIFont.themeSmallThin
-        submitReviewButton.backgroundColor = UIColor.themeRed
-        submitReviewButton.setTitleColor(UIColor.themeWhite, for: .normal)
+        submitReviewButton.backgroundColor = UIColor.themeCoral
+        submitReviewButton.setTitleColor(UIColor.themeWhite.cgColor, for: .normal)
         
-        
-        //configure() function finished
     }
     
-    
     func constrain() {
-      
-        //constrain scrollView
+        
         addSubview(scrollView)
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
-        //constrain dogStreetView
         scrollView.addSubview(dogStreetView)
         dogStreetView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -166,64 +155,51 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
             $0.height.equalTo(dogStreetView.snp.width).multipliedBy(0.6)
         }
         
-        // constrain dogPanoView
         dogStreetView.addSubview(dogPanoView)
         dogPanoView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
-    
-        scrollView.addSubview(dogDetailView) {
-           $0.centerX.equalToSuperview()
-           $0.top.equalTo(dogStreetView.snp.bottom)
-           $0.width.equalTo(scrollView.snp.width)
-           $0.height.equalTo(20)
-            
+        scrollView.addSubview(dogDetailView)
+        dogDetailView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(dogStreetView.snp.bottom)
+            $0.width.equalTo(scrollView.snp.width)
+            $0.height.equalTo(dogStreetView.snp.width).multipledBy(0.2)
         }
-            
-            
-            
         
-        
-        
-        
-        
-        
-        
-        
-        
-        //constrain dogProfileImage 
-        scrollView.addSubview(dogRunProfileImage) {
-            
-            // TODO: Implement these constraints
-            
+        dogDetailView.addSubview(dogRunNameLabel)
+        dogRunNameLabel.snp.makeConstraints {
+            $0.top.equalTo(dogDetailView.snp.top).offset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.width.equalTo(scrollView.snp.width)
         }
+
+        dogDetailView.addSubview(dogRunAddressLabel)
+        dogRunAddressLabel.snp.makeConstraints {
+            $0.top.equalTo(dogRunNameLabel.snp.bottom).offset(10)
+            $0.bottom.equalTo(dogDetailView.snp.bottom)
+            $0.width.equalTo(scrollView.snp.width)
+        }
+     
+        scrollView.addSubview(dogNotesView)
+        dogNotesView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(dogDetailView.snp.bottom)
+        }
+        
+        
+        
+
     
-        
-        
-        
-        
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+            
+            
+
         
         // constrain() function finsihed
     }
     
-    
-    
-    
-    
 }
+

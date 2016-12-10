@@ -29,16 +29,16 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
         
         self.dogRunProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
         
-        if let dogrunReviwsID = dogrun?.reviewsID {
+        if let dogrunReviewsID = dogrun?.reviewsID {
             
-            for reviewID in dogrunReviwsID {
+            for reviewID in dogrunReviewsID {
                 guard let unwrappedReviewID = reviewID else { return }
                 
                 FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
                     
                     self.reviewsArray.apped(firebaseReview)
                     print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS.")
-                    self.dogRunProfileView.reviewsTableView.reloadData()
+                   self.dogRunProfileView.dogReviewsTableView.reloadData()
                 
                 })
             }
@@ -66,7 +66,7 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
         tabBarController?.tabBar.isUserInteractionEnabled = false
  
         print("CLICKED REVIEW BUTTON")
-        let childVC = DogrunReviewViewController
+        let childVC = DogrunReviewViewController()
         childVC.location = dogrun
         
         addChildViewController(childVC)
@@ -83,27 +83,25 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
     
     func configure() {
         
-        guard let unwrappedDogRun = dogrun else {return}
+        guard let unwrappedDogRun = dogrun else { return }
         self.dogRunProfileView = DogRunProfileView(dogrun: unwrappedDogRun)
         
-         reviewsTableView = dogRunProfileView.reviewsTableView
-         dogRunProfileView.reviewsTableView.delegate = self
-         dogRunProfileView.reviewsTableView.dataSource = self
-         dogRunProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
+         dogReviewsTableView = dogRunProfileView.dogReviewsTableView
+         dogRunProfileView.dogReviewsTableView.delegate = self
+         dogRunProfileView.dogReviewsTableView.dataSource = self
+         dogRunProfileView.dogReviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "dogReviewCell")
         
         self.view.addSubview(dogRunProfileView)
         dogRunProfileView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-  
-    //configure() function finished
     }
     
     func flagButtonTouched(sender: UIButton) {
         
       let cellContent = sender.superview!
       let cell = cellContent.superview! as! UITableViewCell
-      let indexPath = dogRunProfileView.reviewsTableView.indexPath(for: cell)
+      let indexPath = dogRunProfileView.dogReviewsTableView.indexPath(for: cell)
         
         if let flaggedReview = reviewsArray[(indexPath?.row)!] {
             
@@ -112,7 +110,7 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
                 alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
                     FirebaseData.getVisibleReviewsForFeed { reviews in
                         self.reviewsArray = reviews
-                        self.locationProfileView.reviewsTableView.reloadData()
+                        self.dogRunProfileView.dogReviewsTableView.reloadData()
                     }
                 })
                 
@@ -125,14 +123,12 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
 extension DogRunViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-         return  reviewsArray.count
+         return reviewsArray.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "dogReviewCell", for: indexPath) as! ReviewsTableViewCell
         
         if let currentReview = reviewsArray[indexPath.row] {
             cell.review = currentReview
@@ -147,23 +143,3 @@ extension DogRunViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
         
-        
-        
-        
-   
-    
-        
-            
-            
-            
-            
-            
-            
-            
-            
-
-    
-    
-    
-    
-

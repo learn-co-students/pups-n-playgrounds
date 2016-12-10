@@ -188,8 +188,8 @@
 				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
 				B5CB82EC1DF8714D00B373B5 /* ReviewViewController.swift */,
 				F686D8401DFB434900B3F2C9 /* DogrunReviewViewController.swift */,
-				E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */,
 				F6B3EE881DF8BAB40010468E /* DogRunViewController.swift */,
+				E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */,
 				C49C67821DE77E0800163CD9 /* FeedViewController.swift */,
 				C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */,
 			);

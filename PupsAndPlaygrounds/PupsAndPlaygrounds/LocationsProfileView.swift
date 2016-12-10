@@ -93,7 +93,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         submitReviewButton.contentEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10)
         submitReviewButton.setTitle("Review This Location", for: .normal)
         submitReviewButton.titleLabel?.font = UIFont.themeSmallBold
-        submitReviewButton.setTitleColor(UIColor.themeWhite, for: .normal)
+        submitReviewButton.setTitleColor(UIColor.themeWhite.cgColor, for: .normal)
         submitReviewButton.layer.borderWidth = 2
         submitReviewButton.layer.borderColor = UIColor.themeWhite.cgColor
         
