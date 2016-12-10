@@ -43,7 +43,7 @@ class ReviewViewController: UIViewController {
     
     func submitReview() {
         print("LOCATION ID \(location?.playgroundID)")
-        FirebaseData.addReview(comment: reviewView.reviewTextField.text!, locationID: reviewView.location.playgroundID, rating: String(reviewView.starReviews.value))
+        FirebaseData.addReview(comment: reviewView.reviewTextView.text!, locationID: reviewView.location.playgroundID, rating: String(reviewView.starReviews.value))
         
         closeReviewWindow()
     }
