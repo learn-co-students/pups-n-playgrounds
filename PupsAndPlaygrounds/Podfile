@@ -19,7 +19,10 @@ target 'PupsAndPlaygrounds' do
   pod 'GoogleMaps'
 
   # XML Parser
-  pod 'SWXMLHash'
+  # pod 'SWXMLHash'
+
+  # IQKeyboardManager
+  pod 'IQKeyboardManagerSwift'
 
   # SnapKit
   pod 'SnapKit', '~> 3.0'

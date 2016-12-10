@@ -8,7 +8,16 @@
 
 import MapKit
 
-class CustomAnnotationView: MKAnnotationView {
+class CustomAnnotationView: MKPinAnnotationView {
+  
+  // MARK: Annotation Type
+  enum AnnotationType {
+    case dogRun, playground
+  }
+  
+  // MARK: Properties
+  var annotationType: AnnotationType?
+  
   override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
     let hitView = super.hitTest(point, with: event)
     if hitView != nil { superview?.bringSubview(toFront: self) }

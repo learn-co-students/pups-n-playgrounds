@@ -22,6 +22,12 @@ class ContainerViewController: UIViewController {
       previousChildVC = childVC
       previousChildCenterXConstraint = childCenterXConstraint
       previousChildCenterYConstraint = childCenterYConstraint
+      
+      previousChildFadeView = UIVisualEffectView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+      previousChildFadeView.effect = UIBlurEffect(style: .dark)
+      previousChildFadeView.alpha = 0
+      
+      previousChildVC?.view.addSubview(previousChildFadeView)
     }
   }
   var childCenterXConstraint: Constraint?
@@ -30,6 +36,7 @@ class ContainerViewController: UIViewController {
   var previousChildVC: UIViewController?
   var previousChildCenterXConstraint: Constraint?
   var previousChildCenterYConstraint: Constraint?
+  lazy var previousChildFadeView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
   
   // MARK: Override Methods
   override func viewDidLoad() {
@@ -54,24 +61,21 @@ class ContainerViewController: UIViewController {
       case .slideUp:
         childCenterXConstraint = $0.centerX.equalToSuperview().constraint
         childCenterYConstraint = $0.centerY.equalToSuperview().offset(view.frame.height).constraint
-        $0.width.height.equalToSuperview()
       case .slideDown:
         childCenterXConstraint = $0.centerX.equalToSuperview().constraint
         childCenterYConstraint = $0.centerY.equalToSuperview().offset(-view.frame.height).constraint
-        $0.width.height.equalToSuperview()
       case .slideLeft:
         childCenterXConstraint = $0.centerX.equalToSuperview().offset(view.frame.width).constraint
         childCenterYConstraint = $0.centerY.equalToSuperview().constraint
-        $0.width.height.equalToSuperview()
       case .slideRight:
         childCenterXConstraint = $0.centerX.equalToSuperview().offset(-view.frame.width).constraint
         childCenterYConstraint = $0.centerY.equalToSuperview().constraint
-        $0.width.height.equalToSuperview()
       default:
         childCenterXConstraint = $0.centerX.equalToSuperview().constraint
         childCenterYConstraint = $0.centerY.equalToSuperview().constraint
-        $0.width.height.equalToSuperview()
       }
+      
+      $0.width.height.equalToSuperview()
     }
     
     // Notify child of movement
@@ -83,38 +87,61 @@ class ContainerViewController: UIViewController {
   
   // MARK: Animate Transition
   private func animate(withAnimation animation: Animation) {
+    var previousChildCenterYConstraintOffset: CGFloat?
+    var childCenterYConstraintOffset: CGFloat?
+    
+    var previousChildCenterXConstraintOffset: CGFloat?
+    var childCenterXConstraintOffset: CGFloat?
+    
     switch animation {
     case .slideUp:
-      view.layoutIfNeeded()
-      UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-        self.previousChildCenterYConstraint?.update(offset: -self.view.frame.height)
-        self.childCenterYConstraint?.update(offset: 0)
-        self.view.layoutIfNeeded()
-      }) { _ in self.removePreviousChild() }
+      previousChildCenterYConstraintOffset = -self.view.frame.height
+      childCenterYConstraintOffset = 0
     case .slideDown:
-      view.layoutIfNeeded()
-      UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-        self.previousChildCenterYConstraint?.update(offset: self.view.frame.height)
-        self.childCenterYConstraint?.update(offset: 0)
-        self.view.layoutIfNeeded()
-      }) { _ in self.removePreviousChild() }
+      previousChildCenterYConstraintOffset = self.view.frame.height
+      childCenterYConstraintOffset = 0
     case .slideLeft:
-      view.layoutIfNeeded()
-      UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-        self.previousChildCenterXConstraint?.update(offset: -self.view.frame.width)
-        self.childCenterXConstraint?.update(offset: 0)
-        self.view.layoutIfNeeded()
-      }) { _ in self.removePreviousChild() }
+      previousChildCenterXConstraintOffset = -self.view.frame.width
+      childCenterXConstraintOffset = 0
     case .slideRight:
-      view.layoutIfNeeded()
-      UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-        self.previousChildCenterXConstraint?.update(offset: self.view.frame.width)
-        self.childCenterXConstraint?.update(offset: 0)
-        self.view.layoutIfNeeded()
-      }) { _ in self.removePreviousChild() }
+      previousChildCenterXConstraintOffset = -self.view.frame.width
+      childCenterXConstraintOffset = 0
     default:
       break
     }
+    
+    // Begin animation
+    view.layoutIfNeeded()
+    UIView.animateKeyframes(
+      withDuration: 0.4,
+      delay: 0,
+      options: UIViewKeyframeAnimationOptions(animationOptions: .curveEaseInOut),
+      animations: {
+        UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
+          
+          // Blur previous view
+          self.previousChildFadeView.alpha = 1
+          self.view.layoutIfNeeded()
+        }
+        
+        UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.7) {
+          
+          // Slide up and down
+          if let previousOffset = previousChildCenterYConstraintOffset,
+            let offset = childCenterYConstraintOffset {
+            self.previousChildCenterYConstraint?.update(offset: previousOffset)
+            self.childCenterYConstraint?.update(offset: offset)
+            
+            // Slide left and right
+          } else if let previousOffset = previousChildCenterXConstraintOffset,
+            let offset = childCenterXConstraintOffset {
+            self.previousChildCenterXConstraint?.update(offset: previousOffset)
+            self.childCenterXConstraint?.update(offset: offset)
+          }
+          
+          self.view.layoutIfNeeded()
+        }
+    }) { _ in self.removePreviousChild() }
   }
   
   // MARK: Remove Previous Child

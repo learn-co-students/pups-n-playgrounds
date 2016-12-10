@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class User {
     let userID: String
@@ -17,6 +18,12 @@ class User {
     var reviewsID = [String?]()
     var photos = [UIImage?]()
     var profilePicURL: String?
+    var isAnonymous: Bool {
+        if FIRAuth.auth()?.currentUser?.isAnonymous == true {
+            return true
+        }
+        return false
+    }
     
     init(firebaseData: [String : Any]) {
         self.userID = firebaseData[""] as! String
