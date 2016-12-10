@@ -17,7 +17,7 @@ class ReviewView: UIView {
     var starReviews: StarReview!
     var rating: String?
     var cancelButton: UIButton!
-    var reviewTextField: UITextField!
+    var reviewTextView: UITextView!
     var location: Playground!
     
     // MARK: Initialization
@@ -54,14 +54,15 @@ class ReviewView: UIView {
         submitReviewButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
         submitReviewButton.layer.cornerRadius = 10
         
-        reviewTextField = CustomTextField()
-        reviewTextField.placeholder = "Please write review here"
-        reviewTextField.font = UIFont.themeSmallLight
-        reviewTextField.textColor = UIColor.themeWhite
-        reviewTextField.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        reviewTextView = UITextView()
+        reviewTextView.placeholderText = "Please write review here"
+        reviewTextView.font = UIFont.themeSmallLight
+        reviewTextView.textColor = UIColor.themeWhite
+        reviewTextView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        reviewTextView.layer.cornerRadius = 15
         
         starReviews = StarReview()
-        self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
+        self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 300, height: 140))
         self.starReviews.starCount = 5
         self.starReviews.value = 1
         self.starReviews.allowAccruteStars = false
@@ -81,9 +82,22 @@ class ReviewView: UIView {
     private func constrain() {
         addSubview(innerView)
         innerView.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.width.height.equalToSuperview().dividedBy(1.5)
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().dividedBy(1.7)
+            $0.height.equalToSuperview().dividedBy(2)
+            $0.width.equalToSuperview().dividedBy(1.2)
         }
+        
+        innerView.addSubview(reviewTextView)
+        reviewTextView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(10)
+            $0.height.equalToSuperview().dividedBy(2)
+            $0.leading.equalToSuperview().offset(10)
+            $0.trailing.equalToSuperview().offset(-10)
+            
+        }
+
         
         innerView.addSubview(submitReviewButton)
         submitReviewButton.snp.makeConstraints {
@@ -91,15 +105,9 @@ class ReviewView: UIView {
             $0.centerX.equalToSuperview()
         }
         
-        innerView.addSubview(reviewTextField)
-        reviewTextField.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(150)
-            $0.centerX.equalToSuperview()
-        }
-        
         innerView.addSubview(starReviews)
         starReviews.snp.makeConstraints {
-            $0.top.equalTo(reviewTextField.snp.bottom).offset(20)
+            $0.top.equalTo(reviewTextView.snp.bottom).offset(20)
             $0.width.height.equalTo(submitReviewButton)
             $0.centerX.equalToSuperview()
         }
@@ -109,5 +117,6 @@ class ReviewView: UIView {
             $0.top.equalToSuperview().offset(10)
             $0.trailing.equalToSuperview().offset(-10)
         }
+        
     }
 }

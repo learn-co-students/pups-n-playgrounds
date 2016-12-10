@@ -48,17 +48,18 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     
     func configure() {
         
+        self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
+        self.starReviews.starCount = 5
+        self.starReviews.allowAccruteStars = false
+        self.starReviews.starFillColor = UIColor.themeSunshine
+        self.starReviews.starBackgroundColor = UIColor.lightGray
+        self.starReviews.starMarginScale = 0.3
+        self.starReviews.contentMode = .scaleAspectFit
         
         FirebaseData.calcAverageStarFor(location: location.playgroundID) { (averageStarValue) in
             print("AVERAGE STAR VALUE \(averageStarValue)")
-            self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
-            self.starReviews.starCount = 5
             self.starReviews.value = averageStarValue
-            self.starReviews.allowAccruteStars = false
-            self.starReviews.starFillColor = UIColor.red
-            self.starReviews.starBackgroundColor = UIColor.black
-            self.starReviews.starMarginScale = 0.3
-            self.starReviews.contentMode = .scaleAspectFit
+            self.starReviews.isHidden = false
         }
         scrollView = UIScrollView()
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 1.5)

@@ -325,8 +325,7 @@ class FirebaseData {
             guard let snapshotValue = snapshot.value as? [String: Any] else {print("no reviews"); return}
             
             for review in snapshotValue {
-                guard
-                    let reviewInfo = review.value as? [String: Any],
+                guard let reviewInfo = review.value as? [String: Any],
                     let comment = reviewInfo["comment"] as? String,
                     let flagged = reviewInfo["flagged"] as? Bool,
                     let locationID = reviewInfo["locationID"] as? String,
@@ -346,62 +345,68 @@ class FirebaseData {
     
     static func calcAverageStarFor(location uniqueID: String, completion: @escaping (Float) -> Void) {
         
-        let ref = FIRDatabase.database().reference().root
+        let ref = FIRDatabase.database().reference().child("locations")
         
-        var playgroundRatings = [Int]()
-        var playgroundRatingsSum = Int()
-        var dogrunRatingsSum = Int()
-        var dogrunRatings = [Int]()
+        var playgroundRatings = [Double]()
+        var playgroundRatingsSum = Double()
+        var dogrunRatingsSum = Double()
+        var dogrunRatings = [Double]()
         var averageStarValueToReturn = Float()
         
         if uniqueID.hasPrefix("PG") {
             
-            ref.child("locations").child("playgrounds").child("\(uniqueID)").child("reviews")
-            
-            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            ref.child("playgrounds").child("\(uniqueID)").child("reviews").observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let snapshotValue = snapshot.value as? [String: Any] else { print("error returning playground reviews"); return}
                 
                 for snap in snapshotValue {
                     guard let playgroundInfo = snap.value as? [String: Any] else {print("error returning playground info"); return}
-                    guard let ratingString = playgroundInfo["rating"] as? String else { print("error returning rating string values"); return }
-                    guard let ratingValue = Int(ratingString) else { return }
-                    playgroundRatings.append(ratingValue)
+                    guard let ratingString = playgroundInfo["rating"] as? String,
+                        let rating = Double(ratingString) else { print("error returning rating string values"); return }
+                    
+                    playgroundRatings.append(rating)
                 }
                 
                 for value in playgroundRatings {
                     playgroundRatingsSum += value
                 }
+                
                 print("PLAYGROUND RATING SUM =\(playgroundRatingsSum)")
                 print("PLAYGROUND RATING count =\(playgroundRatings.count)")
                 
-                averageStarValueToReturn = Float(playgroundRatingsSum / (playgroundRatings.count))
-                
+                averageStarValueToReturn = Float(playgroundRatingsSum / Double(playgroundRatings.count))
+                print("AVERAGE STARS: \(averageStarValueToReturn)")
+                completion(averageStarValueToReturn)
             })
             
         } else if uniqueID.hasPrefix("DR") {
             
-            ref.child("locations").child("dogruns").child("\(uniqueID)").child("reviews")
-            
-            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            ref.child("dogruns").child("\(uniqueID)").child("reviews").observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let snapshotValue = snapshot.value as? [String: Any] else { print("error returning playground reviews"); return}
                 
                 for snap in snapshotValue {
-                    guard let dogrunInfo = snap.value as? [String: Any] else {print("error returning playground info"); return}
-                    guard let ratingString = dogrunInfo["rating"] as? String else { print("error returning rating string values"); return }
-                    guard let ratingValue = Int(ratingString) else { return }
-                    dogrunRatings.append(ratingValue)
+                    guard let playgroundInfo = snap.value as? [String: Any] else {print("error returning playground info"); return}
+                    guard let ratingString = playgroundInfo["rating"] as? String,
+                        let rating = Double(ratingString) else { print("error returning rating string values"); return }
+                    
+                    playgroundRatings.append(rating)
+                    
+                    if playgroundRatings.count == snapshotValue.count {
+                        for value in playgroundRatings {
+                            playgroundRatingsSum += value
+                        }
+                        print("PLAYGROUND RATING SUM =\(playgroundRatingsSum)")
+                        print("PLAYGROUND RATING count =\(playgroundRatings.count)")
+                        
+                        averageStarValueToReturn = Float(playgroundRatingsSum / Double(playgroundRatings.count))
+                    }
+                    
                 }
                 
-                for value in dogrunRatings {
-                    dogrunRatingsSum += value
-                }
-                
-                averageStarValueToReturn = Float(dogrunRatingsSum / (dogrunRatings.count))
-                
+                completion(averageStarValueToReturn)
             })
         }
         
-        completion(averageStarValueToReturn)
+        
         
     }
     
