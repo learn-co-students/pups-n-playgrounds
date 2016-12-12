@@ -67,6 +67,7 @@ class LocationProfileViewController: UIViewController {
         print("CLICKED REVIEW BUTTON")
         let childVC = ReviewViewController()
         childVC.reviewDelegate = self
+        
         guard let downcastPlayground = playground as? Playground else { print("trouble casting location as playground"); return }
         
         childVC.location = downcastPlayground

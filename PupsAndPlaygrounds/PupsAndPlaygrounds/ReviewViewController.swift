@@ -46,10 +46,6 @@ class ReviewViewController: UIViewController {
     func submitReview() {
         print("LOCATION ID \(location?.playgroundID)")
         let newReview = FirebaseData.addReview(comment: reviewView.reviewTextView.text!, locationID: reviewView.location.playgroundID, rating: String(reviewView.starReviews.value))
-
-        // runs function
-        newReview
-        
         
         
         reviewDelegate?.addReview(with: newReview)
