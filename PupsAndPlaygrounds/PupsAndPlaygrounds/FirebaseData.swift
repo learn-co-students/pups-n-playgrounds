@@ -151,10 +151,9 @@ class FirebaseData {
         
         ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": "false", "reviewID": uniqueReviewKey]])
         
-        let newReview = Review(userID: userUniqueID, locationID: locationID, comment: comment, photos: [], reviewID: uniqueReviewKey)
-        
+        let newReview = Review(reviewID: uniqueReviewKey, userID: userUniqueID, locationID: locationID, rating: 5, comment: comment)
+  
         return newReview
-        
     }
     
     

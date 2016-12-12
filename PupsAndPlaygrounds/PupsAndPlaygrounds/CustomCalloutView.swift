@@ -36,19 +36,19 @@ class CustomCalloutView: UIView {
     clipsToBounds = true
   
     nameLabel.font = UIFont.themeMediumLight
-    nameLabel.textColor = UIColor.themeWhite
+    nameLabel.textColor = UIColor.white
     nameLabel.numberOfLines = 0
     
     addressLabel.font = UIFont.themeTinyBold
-    addressLabel.textColor = UIColor.themeWhite
+    addressLabel.textColor = UIColor.white
     addressLabel.numberOfLines = 0
     
     ratingLabel.font = UIFont.themeTinyBold
-    ratingLabel.textColor = UIColor.themeWhite
+    ratingLabel.textColor = UIColor.white
     ratingLabel.numberOfLines = 0
     
     distanceLabel.font = UIFont.themeTinyBold
-    distanceLabel.textColor = UIColor.themeMediumBlue
+    distanceLabel.textColor = UIColor.white
   }
   
   // MARK: Constrain
