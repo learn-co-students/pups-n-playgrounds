@@ -51,6 +51,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
     self.starReviews.starCount = 5
     self.starReviews.allowAccruteStars = false
+    self.starReviews.allowEdit = false
     self.starReviews.starFillColor = UIColor.themeSunshine
     self.starReviews.starBackgroundColor = UIColor.lightGray
     self.starReviews.starMarginScale = 0.3
