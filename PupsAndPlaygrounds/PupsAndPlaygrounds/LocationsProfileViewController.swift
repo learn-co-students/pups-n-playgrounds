@@ -49,6 +49,25 @@ class LocationProfileViewController: UIViewController {
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        print("VIEW WILL APPEAR HAPPENED")
+        if let playgroundReviewsIDs = self.playground?.reviewsID {
+            for reviewID in playgroundReviewsIDs {
+                guard let unwrappedReviewID = reviewID else { return }
+                
+                FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
+                    
+                    self.reviewsArray.append(firebaseReview)
+                    print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS")
+                    self.locationProfileView.reviewsTableView.reloadData()
+                    
+                })
+                
+            }
+        }
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -91,6 +110,9 @@ class LocationProfileViewController: UIViewController {
         
         if FIRAuth.auth()?.currentUser?.isAnonymous == false {
             self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
+        } else {
+
+            self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(anonymousReviewerAlert), for: .touchUpInside)
         }
         
         let color1 = UIColor(red: 34/255.0, green: 91/255.0, blue: 102/255.0, alpha: 1.0)
@@ -115,6 +137,12 @@ class LocationProfileViewController: UIViewController {
         }
     }
     
+    func anonymousReviewerAlert() {
+        let alert = UIAlertController(title: "Woof! Only users can submit reviews 🐶", message: "Head to profile to set one up!", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     func flagButtonTouched(sender: UIButton) {
         let cellContent = sender.superview!
@@ -210,8 +238,6 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
-    }
+
     
 }
