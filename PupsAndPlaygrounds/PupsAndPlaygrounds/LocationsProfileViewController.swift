@@ -62,8 +62,11 @@ class LocationProfileViewController: UIViewController {
         navigationController?.navigationBar.isUserInteractionEnabled = false
         tabBarController?.tabBar.isUserInteractionEnabled = false
         
+        
+        
         print("CLICKED REVIEW BUTTON")
         let childVC = ReviewViewController()
+        childVC.reviewDelegate = self
         
         guard let downcastPlayground = playground as? Playground else { print("trouble casting location as playground"); return }
         
@@ -91,6 +94,8 @@ class LocationProfileViewController: UIViewController {
         
         if FIRAuth.auth()?.currentUser?.isAnonymous == false {
             self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
+        } else {
+            self.locationProfileView.submitReviewButton.addTarget(self, action: #selector(anonymousReviewerAlert), for: .touchUpInside)
         }
         
         let color1 = UIColor(red: 34/255.0, green: 91/255.0, blue: 102/255.0, alpha: 1.0)
@@ -115,6 +120,12 @@ class LocationProfileViewController: UIViewController {
         }
     }
     
+    func anonymousReviewerAlert() {
+        let alert = UIAlertController(title: "Woof! Only users can submit reviews 🐶", message: "Head to profile to set one up!", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     func flagButtonTouched(sender: UIButton) {
         let cellContent = sender.superview!
@@ -215,3 +226,14 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
     }
     
 }
+
+protocol AddReviewProtocol {
+    func addReview(with newReview: Review?)
+}
+
+extension LocationProfileViewController: AddReviewProtocol {
+    func addReview(with newReview: Review?) {
+        reviewsArray.append(newReview)
+    }
+}
+

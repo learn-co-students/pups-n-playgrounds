@@ -339,10 +339,10 @@ extension HomeViewController: MKMapViewDelegate {
     switch annotation.location {
     case is Dogrun:
       view?.annotationType = .dogRun
-      view?.image = #imageLiteral(resourceName: "DogPark")
+      view?.image = #imageLiteral(resourceName: "DogParkColor")
     case is Playground:
       view?.annotationType = .playground
-      view?.image = #imageLiteral(resourceName: "Playground")
+      view?.image = #imageLiteral(resourceName: "PlaygroundColor")
     default:
       print("annotation location type error")
     }
@@ -398,7 +398,7 @@ extension HomeViewController: MKMapViewDelegate {
     guard let playground = selectedAnnotation?.location as? Playground else { print("error unwrapping playground from selected location"); return }
     
     let locationProfileVC = LocationProfileViewController()
-    locationProfileVC.playground = playground
+    locationProfileVC.playgroundID = playground.playgroundID
     
     navigationController?.pushViewController(locationProfileVC, animated: true)
   }

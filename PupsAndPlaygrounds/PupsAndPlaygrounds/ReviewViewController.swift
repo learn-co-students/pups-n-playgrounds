@@ -9,8 +9,10 @@
 import UIKit
 import SnapKit
 
-class ReviewViewController: UIViewController {
 
+class ReviewViewController: UIViewController {
+    
+    var reviewDelegate: AddReviewProtocol?
     var reviewView: ReviewView!
     var location: Playground? {
         didSet {
@@ -43,7 +45,10 @@ class ReviewViewController: UIViewController {
     
     func submitReview() {
         print("LOCATION ID \(location?.playgroundID)")
-        FirebaseData.addReview(comment: reviewView.reviewTextView.text!, locationID: reviewView.location.playgroundID, rating: String(reviewView.starReviews.value))
+        let newReview = FirebaseData.addReview(comment: reviewView.reviewTextView.text!, locationID: reviewView.location.playgroundID, rating: String(reviewView.starReviews.value))
+        
+        
+        reviewDelegate?.addReview(with: newReview)
         
         closeReviewWindow()
     }
