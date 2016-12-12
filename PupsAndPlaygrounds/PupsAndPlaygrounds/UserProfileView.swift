@@ -39,7 +39,6 @@ final class UserProfileView: UIView {
     profileButton.imageView?.contentMode = .scaleAspectFill
     profileButton.layer.borderWidth = 4
     profileButton.layer.borderColor = UIColor.themeWhite.cgColor
-    profileButton.clipsToBounds = true
     
     // User name label
     userNameLabel.font = UIFont.themeMediumLight

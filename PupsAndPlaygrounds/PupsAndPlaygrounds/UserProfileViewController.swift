@@ -18,6 +18,7 @@ class UserProfileViewController: UIViewController {
   var reviewsArray = [Review?]()
   
   let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
+  let store = WSRDataStore.shared
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -31,68 +32,69 @@ class UserProfileViewController: UIViewController {
     userProfileView.reviewsTableView.dataSource = self
     userProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
     
-    FIRClient.getUser(firUser: FIRAuth.auth()?.currentUser) { user in
-      DispatchQueue.main.async {
-        if let photo = user.profilePhoto {
-          self.userProfileView.profileButton.setImage(photo, for: .normal)
-        } else {
-          self.userProfileView.profileButton.setImage(#imageLiteral(resourceName: "AddPhoto"), for: .normal)
-        }
-        
-       
-      }
+    if let profilePhoto = store.user?.profilePhoto {
+      self.userProfileView.profileButton.setImage(profilePhoto, for: .normal)
+    } else {
+      self.userProfileView.profileButton.setImage(#imageLiteral(resourceName: "AddPhoto"), for: .normal)
     }
     
+    guard let firstName = store.user?.firstName, let lastName = store.user?.lastName else {
+      print("error unwrapping user name on profile")
+      return
+    }
+    
+    userProfileView.userNameLabel.text = "\(firstName) \(lastName)"
+      
     view.addSubview(userProfileView)
     userProfileView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
-    
-    
-    //    retrieveUserPhoto {
-    //      DispatchQueue.main.async {
-    //        self.view.addSubview(self.userProfileView)
-    //        self.userProfileView.snp.makeConstraints {
-    //          $0.edges.equalToSuperview()
-    //        }
-    //      }
-    //    }
-    
-    //    guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { print("trouble unwrapping user id"); return }
-    //
-    //    FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
-    //      self.currentUser = currentFirebaseUser
-    //      print("user first name is \(self.currentUser?.firstName)")
-    //      self.configure()
-    //
-    //      if let userReviewsIDs = self.currentUser?.reviewsID {
-    //        for reviewID in userReviewsIDs {
-    //          guard let unwrappedReviewID = reviewID else { print("trouble unwrapping IDS"); return }
-    //
-    //          FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
-    //
-    //            self.reviewsArray.append(firebaseReview)
-    //            print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS")
-    //            self.userProfileView.reviewsTableView.reloadData()
-    //          })
-    //
-    //        }
-    //      }
-    //
-    //      //            self.retrieveUserPhoto {
-    //      //                DispatchQueue.main.async {
-    //      //
-    //      //                    self.view.addSubview(self.profileView)
-    //      //                    self.profileView.snp.makeConstraints {
-    //      //                        $0.edges.equalToSuperview()
-    //      //                    }
-    //      //
-    //      //                }
-    //      //            }
-    //    }
-    //
-    //    configure()
   }
+  
+  
+  //    retrieveUserPhoto {
+  //      DispatchQueue.main.async {
+  //        self.view.addSubview(self.userProfileView)
+  //        self.userProfileView.snp.makeConstraints {
+  //          $0.edges.equalToSuperview()
+  //        }
+  //      }
+  //    }
+  
+  //    guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { print("trouble unwrapping user id"); return }
+  //
+  //    FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
+  //      self.currentUser = currentFirebaseUser
+  //      print("user first name is \(self.currentUser?.firstName)")
+  //      self.configure()
+  //
+  //      if let userReviewsIDs = self.currentUser?.reviewsID {
+  //        for reviewID in userReviewsIDs {
+  //          guard let unwrappedReviewID = reviewID else { print("trouble unwrapping IDS"); return }
+  //
+  //          FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
+  //
+  //            self.reviewsArray.append(firebaseReview)
+  //            print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS")
+  //            self.userProfileView.reviewsTableView.reloadData()
+  //          })
+  //
+  //        }
+  //      }
+  //
+  //      //            self.retrieveUserPhoto {
+  //      //                DispatchQueue.main.async {
+  //      //
+  //      //                    self.view.addSubview(self.profileView)
+  //      //                    self.profileView.snp.makeConstraints {
+  //      //                        $0.edges.equalToSuperview()
+  //      //                    }
+  //      //
+  //      //                }
+  //      //            }
+  //    }
+  //
+  //    configure()
   
   override func viewDidLayoutSubviews() {
     userProfileView.layer.sublayers?.first?.frame = userProfileView.bounds

@@ -51,14 +51,14 @@ class AnonymousUserView: UIView {
   func constrain() {
     addSubview(anonymousLabel)
     anonymousLabel.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(100)
       $0.centerX.equalToSuperview()
+      $0.centerY.equalToSuperview().dividedBy(2.2)
       $0.width.equalToSuperview().dividedBy(1.2)
     }
     
     addSubview(createAccountButton)
     createAccountButton.snp.makeConstraints {
-      $0.bottom.equalToSuperview().offset(-120)
+      $0.bottom.equalToSuperview().offset(-110)
       $0.centerX.equalToSuperview()
       $0.width.equalToSuperview().dividedBy(1.6)
     }
