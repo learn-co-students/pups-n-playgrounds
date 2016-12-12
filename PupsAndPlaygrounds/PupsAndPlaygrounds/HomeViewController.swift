@@ -405,7 +405,7 @@ extension HomeViewController: MKMapViewDelegate {
     guard let playground = selectedAnnotation?.location as? Playground else { print("error unwrapping playground from selected location"); return }
     
     let locationProfileVC = LocationProfileViewController()
-    locationProfileVC.playground = playground
+    locationProfileVC.playgroundID = playground.playgroundID
     
     navigationController?.pushViewController(locationProfileVC, animated: true)
   }
