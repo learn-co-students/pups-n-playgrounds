@@ -56,7 +56,7 @@ class ReviewView: UIView {
         
         reviewTextView = UITextView()
         reviewTextView.placeholderText = "Please write review here"
-        reviewTextView.font = UIFont.themeSmallLight
+        reviewTextView.font = UIFont.themeSmallRegular
         reviewTextView.textColor = UIColor.themeWhite
         reviewTextView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         reviewTextView.layer.cornerRadius = 15

@@ -62,9 +62,11 @@ class LocationProfileViewController: UIViewController {
         navigationController?.navigationBar.isUserInteractionEnabled = false
         tabBarController?.tabBar.isUserInteractionEnabled = false
         
+        
+        
         print("CLICKED REVIEW BUTTON")
         let childVC = ReviewViewController()
-        
+        childVC.reviewDelegate = self
         guard let downcastPlayground = playground as? Playground else { print("trouble casting location as playground"); return }
         
         childVC.location = downcastPlayground
@@ -223,3 +225,14 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
     }
     
 }
+
+protocol AddReviewProtocol {
+    func addReview(with newReview: Review?)
+}
+
+extension LocationProfileViewController: AddReviewProtocol {
+    func addReview(with newReview: Review?) {
+        reviewsArray.append(newReview)
+    }
+}
+

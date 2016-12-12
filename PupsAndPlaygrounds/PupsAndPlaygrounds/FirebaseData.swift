@@ -131,12 +131,12 @@ class FirebaseData {
     
     // MARK: Adds Review
     
-    static func addReview(comment: String, locationID: String, rating: String) {
+    static func addReview(comment: String, locationID: String, rating: String) -> Review? {
         let ref = FIRDatabase.database().reference().root
         
         let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
         
-        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
+        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return nil }
         
         if locationID.hasPrefix("PG") {
             
@@ -150,6 +150,10 @@ class FirebaseData {
         ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": "false"]])
         
         ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": "false", "reviewID": uniqueReviewKey]])
+        
+        let newReview = Review(userID: userUniqueID, locationID: locationID, comment: comment, photos: [], reviewID: uniqueReviewKey)
+        
+        return newReview
         
     }
     
@@ -417,7 +421,6 @@ class FirebaseData {
     
     
 }
-
 
 
 
