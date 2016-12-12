@@ -72,6 +72,14 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
     guard let unwrappedDogRun = dogrun else { print("error unwrapping dogrun"); return }
     self.dogRunProfileView = DogRunProfileView(dogrun: unwrappedDogRun)
     
+    let color1 = UIColor(red: 34/255.0, green: 91/255.0, blue: 102/255.0, alpha: 1.0)
+    let color2 = UIColor(red: 141/255.0, green: 191/255.9, blue: 103/255.0, alpha: 1.0)
+    
+    let backgroundGradient = CALayer.makeGradient(firstColor: color1, secondColor: color2)
+    
+    backgroundGradient.frame = view.frame
+    self.view.layer.insertSublayer(backgroundGradient, at: 0)
+    
     dogReviewsTableView = dogRunProfileView.dogReviewsTableView
     dogRunProfileView.dogReviewsTableView.delegate = self
     dogRunProfileView.dogReviewsTableView.dataSource = self
