@@ -14,7 +14,8 @@ class MainTabBarController: UITabBarController {
   // MARK: Properties
   lazy var homeNC = UINavigationController(rootViewController: HomeViewController())
   lazy var feedNC = UINavigationController(rootViewController: FeedViewController())
-  lazy var profileNC = UINavigationController()
+  var profileNC: UINavigationController?
+  
   var currentTag = 0
   
   // MARK: Override Methods
@@ -34,37 +35,16 @@ class MainTabBarController: UITabBarController {
     feedNC.tabBarItem = UITabBarItem(title: "Live Feed", image: #imageLiteral(resourceName: "Feed Tab Bar"), tag: 1)
     
     if let anonymousUser = FIRAuth.auth()?.currentUser?.isAnonymous, !anonymousUser {
-      profileNC.viewControllers = [ProfileViewController()]
+      profileNC = UINavigationController(rootViewController: UserProfileViewController())
     } else {
-      let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-      
-      let createAccount = UIAlertAction(title: "Create account", style: .default) {
-        _ in
-      }
-      
-      let facebookSignIn = UIAlertAction(title: "Sign in with Facebook", style: .default) {
-        _ in
-      }
-      
-      let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-        self.selectedViewController = self.viewControllers?[self.currentTag]
-      }
-      
-      alert.addAction(createAccount)
-      alert.addAction(facebookSignIn)
-      alert.addAction(cancel)
-      
-      profileNC.viewControllers = [alert]
+      profileNC = UINavigationController(rootViewController: AnyonymousUserViewController())
     }
-    
-   
-
+  
+    guard let profileNC = profileNC else { print("error unwrapping profileNC"); return }
     profileNC.navigationBar.isTranslucent = false
     profileNC.navigationBar.barTintColor = UIColor.themeMarine
     profileNC.navigationBar.tintColor = UIColor.white
     profileNC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
-    
-    
     profileNC.tabBarItem = UITabBarItem(title: "Profile", image: #imageLiteral(resourceName: "Profile Tab Bar"), tag: 2)
     
     viewControllers = [homeNC, feedNC, profileNC]

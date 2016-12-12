@@ -31,17 +31,11 @@ class FirebaseData {
             }
         }
         
-        addUserToBranch(firstName: firstName, lastName: lastName, email: email, password: password)
-        
+//        addUserToBranch(firstName: firstName, lastName: lastName, email: email, password: password)
+      
     }
     
-    static func addUserToBranch(firstName: String, lastName: String, email:String, password: String) {
-        let ref = FIRDatabase.database().reference().root
-        guard let userKey = FIRAuth.auth()?.currentUser?.uid else { return }
         
-        ref.child("users").updateChildValues([userKey: ["firstName": firstName, "lastName": lastName, "email": email, "password": password]])
-    }
-    
     
     static func signIn(email: String, password: String) {
         
@@ -74,8 +68,8 @@ class FirebaseData {
                     reviewsArray.append(reviewID)
                 }
             }
-            let newestUser = User(userID: userID, firstName: firstName, lastName: lastName, reviewsID: reviewsArray)
-            completion(newestUser)
+//            let newestUser = User(userID: userID, firstName: firstName, lastName: lastName, reviewsID: reviewsArray)
+//            completion(newestUser)
         })
     }
     

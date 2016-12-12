@@ -24,6 +24,14 @@ extension UIColor {
 }
 
 // MARK: Gradients
+extension CAGradientLayer {
+  convenience init(_ colors: [UIColor]) {
+    self.init()
+    
+    self.colors = colors.map { $0.cgColor }
+  }
+}
+
 extension CALayer {
   public static func makeGradient(firstColor: UIColor, secondColor: UIColor) -> CAGradientLayer {
     let backgroundGradient = CAGradientLayer()

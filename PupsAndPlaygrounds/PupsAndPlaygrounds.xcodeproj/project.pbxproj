@@ -21,11 +21,18 @@
 		C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C413C44B1DDFC4660020F10F /* CustomFonts.swift */; };
 		C4283EB51DF10C570052580A /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4283EB41DF10C570052580A /* CustomAnnotation.swift */; };
 		C4283EB71DF1DD8E0052580A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */; };
-		C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */; };
-		C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1E1DE36F9E00A652DB /* ProfileView.swift */; };
+		C43CB5BD1DFE2D0F00FEF719 /* FIRClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43CB5BC1DFE2D0F00FEF719 /* FIRClient.swift */; };
+		C43CB5BF1DFE6C1D00FEF719 /* ListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43CB5BE1DFE6C1D00FEF719 /* ListViewTableViewCell.swift */; };
+		C4810D1D1DE36EE600A652DB /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1C1DE36EE600A652DB /* UserProfileViewController.swift */; };
+		C4810D1F1DE36F9E00A652DB /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1E1DE36F9E00A652DB /* UserProfileView.swift */; };
 		C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */; };
+		C492A0D91DFC88CA0063AB0F /* DogRunProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C492A0D81DFC88CA0063AB0F /* DogRunProfileView.swift */; };
+		C492A0DD1DFC89750063AB0F /* DogRunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C492A0DC1DFC89750063AB0F /* DogRunViewController.swift */; };
 		C49C67811DE77D6D00163CD9 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */; };
 		C49C67831DE77E0800163CD9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C67821DE77E0800163CD9 /* FeedViewController.swift */; };
+		C49C6AE11DFCB433007D98AC /* CustomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C6AE01DFCB433007D98AC /* CustomBorder.swift */; };
+		C49CB6311DFC996B00D6DCBF /* AnonymousUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49CB6301DFC996B00D6DCBF /* AnonymousUserView.swift */; };
+		C49CB6341DFC9C2700D6DCBF /* AnyonymousUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49CB6331DFC9C2700D6DCBF /* AnyonymousUserViewController.swift */; };
 		C4AEC6211DEDD47E0095DC47 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AEC6201DEDD47E0095DC47 /* FeedView.swift */; };
 		C4B6ED7D1DEDDF8700F28C04 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */; };
 		C4B6ED7F1DEDEB8D00F28C04 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B6ED7E1DEDEB8D00F28C04 /* ListView.swift */; };
@@ -72,11 +79,18 @@
 		C4283EB41DF10C570052580A /* CustomAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PupsAndPlaygrounds.entitlements; sourceTree = "<group>"; };
-		C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		C4810D1E1DE36F9E00A652DB /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		C43CB5BC1DFE2D0F00FEF719 /* FIRClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRClient.swift; sourceTree = "<group>"; };
+		C43CB5BE1DFE6C1D00FEF719 /* ListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewTableViewCell.swift; sourceTree = "<group>"; };
+		C4810D1C1DE36EE600A652DB /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		C4810D1E1DE36F9E00A652DB /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		C492A0D81DFC88CA0063AB0F /* DogRunProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogRunProfileView.swift; sourceTree = "<group>"; };
+		C492A0DC1DFC89750063AB0F /* DogRunViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogRunViewController.swift; sourceTree = "<group>"; };
 		C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		C49C67821DE77E0800163CD9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		C49C6AE01DFCB433007D98AC /* CustomBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomBorder.swift; sourceTree = "<group>"; };
+		C49CB6301DFC996B00D6DCBF /* AnonymousUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnonymousUserView.swift; sourceTree = "<group>"; };
+		C49CB6331DFC9C2700D6DCBF /* AnyonymousUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyonymousUserViewController.swift; sourceTree = "<group>"; };
 		C4AEC6201DEDD47E0095DC47 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C4B6ED7E1DEDEB8D00F28C04 /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -162,22 +176,16 @@
 		C413C4451DDFB9C90020F10F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
-				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
-				C4F09A831DFB188200C47F9F /* FilterView.swift */,
-				C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */,
-				C4B6ED7E1DEDEB8D00F28C04 /* ListView.swift */,
+				C492A0DE1DFC95B10063AB0F /* Onboard */,
+				C492A0DF1DFC95BD0063AB0F /* Home View */,
 				E813A3A91DECA4E4006D9725 /* LocationsProfileView.swift */,
-				C4283EB41DF10C570052580A /* CustomAnnotation.swift */,
-				C4129E9D1DF577E6009706E6 /* CustomAnnotationView.swift */,
-				C4129EA01DF57B66009706E6 /* CustomCalloutView.swift */,
+				C492A0D81DFC88CA0063AB0F /* DogRunProfileView.swift */,
 				C4AEC6201DEDD47E0095DC47 /* FeedView.swift */,
-				B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */,
-				C4810D1E1DE36F9E00A652DB /* ProfileView.swift */,
+				C4810D1E1DE36F9E00A652DB /* UserProfileView.swift */,
+				C49CB6301DFC996B00D6DCBF /* AnonymousUserView.swift */,
 				B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */,
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
-				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
-				E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */,
+				C492A0E41DFC963D0063AB0F /* Custom Elements */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
 			);
 			name = View;
@@ -186,16 +194,12 @@
 		C413C4461DDFB9CE0020F10F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
-				C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */,
-				C413C4401DDF9A140020F10F /* LoginViewController.swift */,
-				C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */,
-				C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */,
-				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
+				C492A0E01DFC95D60063AB0F /* Managers */,
+				C492A0E11DFC95EF0063AB0F /* Onboard */,
+				C492A0E21DFC95FD0063AB0F /* Main App */,
 				B5CB82EC1DF8714D00B373B5 /* ReviewViewController.swift */,
 				E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */,
-				C49C67821DE77E0800163CD9 /* FeedViewController.swift */,
-				C4810D1C1DE36EE600A652DB /* ProfileViewController.swift */,
+				C492A0DC1DFC89750063AB0F /* DogRunViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -228,6 +232,78 @@
 				C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */,
 			);
 			name = Entitlements;
+			sourceTree = "<group>";
+		};
+		C492A0DE1DFC95B10063AB0F /* Onboard */ = {
+			isa = PBXGroup;
+			children = (
+				C4DECFD01DE2FDB3001CE1A2 /* LoginView.swift */,
+				C4DECFD41DE33840001CE1A2 /* CreateAccountView.swift */,
+			);
+			name = Onboard;
+			sourceTree = "<group>";
+		};
+		C492A0DF1DFC95BD0063AB0F /* Home View */ = {
+			isa = PBXGroup;
+			children = (
+				C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */,
+				C4B6ED7E1DEDEB8D00F28C04 /* ListView.swift */,
+				C4F09A831DFB188200C47F9F /* FilterView.swift */,
+			);
+			name = "Home View";
+			sourceTree = "<group>";
+		};
+		C492A0E01DFC95D60063AB0F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C4EAE2D11DDF65E20069C15E /* AppDelegate.swift */,
+				C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		C492A0E11DFC95EF0063AB0F /* Onboard */ = {
+			isa = PBXGroup;
+			children = (
+				C413C4401DDF9A140020F10F /* LoginViewController.swift */,
+				C4DECFD21DE3381B001CE1A2 /* CreateAccountViewController.swift */,
+			);
+			name = Onboard;
+			sourceTree = "<group>";
+		};
+		C492A0E21DFC95FD0063AB0F /* Main App */ = {
+			isa = PBXGroup;
+			children = (
+				C49C67801DE77D6D00163CD9 /* MainTabBarController.swift */,
+				C492A0E31DFC96120063AB0F /* Tab Bar View Controllers */,
+			);
+			name = "Main App";
+			sourceTree = "<group>";
+		};
+		C492A0E31DFC96120063AB0F /* Tab Bar View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C4DECFD71DE34E8C001CE1A2 /* HomeViewController.swift */,
+				C49C67821DE77E0800163CD9 /* FeedViewController.swift */,
+				C4810D1C1DE36EE600A652DB /* UserProfileViewController.swift */,
+				C49CB6331DFC9C2700D6DCBF /* AnyonymousUserViewController.swift */,
+			);
+			name = "Tab Bar View Controllers";
+			sourceTree = "<group>";
+		};
+		C492A0E41DFC963D0063AB0F /* Custom Elements */ = {
+			isa = PBXGroup;
+			children = (
+				C4283EB41DF10C570052580A /* CustomAnnotation.swift */,
+				C4129E9D1DF577E6009706E6 /* CustomAnnotationView.swift */,
+				C4129EA01DF57B66009706E6 /* CustomCalloutView.swift */,
+				C49C6AE01DFCB433007D98AC /* CustomBorder.swift */,
+				C4DECFCA1DE2CCDF001CE1A2 /* CustomTextField.swift */,
+				C43CB5BE1DFE6C1D00FEF719 /* ListViewTableViewCell.swift */,
+				B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */,
+				E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */,
+			);
+			name = "Custom Elements";
 			sourceTree = "<group>";
 		};
 		C4DECFD61DE3474C001CE1A2 /* Property List */ = {
@@ -273,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				E84199C51DE37E8F00522C8A /* FirebaseData.swift */,
+				C43CB5BC1DFE2D0F00FEF719 /* FIRClient.swift */,
 				C405AE121DF0BCD30044D9C8 /* GeoFireMethods.swift */,
 				C4F09A851DFB813C00C47F9F /* DataStore.swift */,
 				E84199C91DE37EB000522C8A /* LocationsDataStore.swift */,
@@ -415,14 +492,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C413C4411DDF9A140020F10F /* LoginViewController.swift in Sources */,
+				C492A0D91DFC88CA0063AB0F /* DogRunProfileView.swift in Sources */,
 				B5CB82ED1DF8714D00B373B5 /* ReviewViewController.swift in Sources */,
 				E84199D11DE38FE400522C8A /* Reviews.swift in Sources */,
-				C4810D1F1DE36F9E00A652DB /* ProfileView.swift in Sources */,
+				C4810D1F1DE36F9E00A652DB /* UserProfileView.swift in Sources */,
 				E813A3A81DECA4BA006D9725 /* LocationsProfileViewController.swift in Sources */,
 				C405AE131DF0BCD30044D9C8 /* GeoFireMethods.swift in Sources */,
 				E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */,
 				C4F09A821DFB0F3700C47F9F /* CustomAnimations.swift in Sources */,
+				C49CB6341DFC9C2700D6DCBF /* AnyonymousUserViewController.swift in Sources */,
+				C49CB6311DFC996B00D6DCBF /* AnonymousUserView.swift in Sources */,
 				E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */,
+				C43CB5BF1DFE6C1D00FEF719 /* ListViewTableViewCell.swift in Sources */,
 				C4283EB51DF10C570052580A /* CustomAnnotation.swift in Sources */,
 				C4DECFD11DE2FDB3001CE1A2 /* LoginView.swift in Sources */,
 				C4129EA11DF57B66009706E6 /* CustomCalloutView.swift in Sources */,
@@ -434,13 +515,15 @@
 				C49C67811DE77D6D00163CD9 /* MainTabBarController.swift in Sources */,
 				E84199CA1DE37EB000522C8A /* Locations.swift in Sources */,
 				C4AEC6211DEDD47E0095DC47 /* FeedView.swift in Sources */,
+				C492A0DD1DFC89750063AB0F /* DogRunViewController.swift in Sources */,
 				E809BA111DE4FF9D00E7BF03 /* User.swift in Sources */,
 				C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
+				C43CB5BD1DFE2D0F00FEF719 /* FIRClient.swift in Sources */,
 				B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */,
-				C4810D1D1DE36EE600A652DB /* ProfileViewController.swift in Sources */,
+				C4810D1D1DE36EE600A652DB /* UserProfileViewController.swift in Sources */,
 				C4129E9E1DF577E6009706E6 /* CustomAnnotationView.swift in Sources */,
 				C4F09A841DFB188200C47F9F /* FilterView.swift in Sources */,
 				C4DECFD81DE34E8C001CE1A2 /* HomeViewController.swift in Sources */,
@@ -454,6 +537,7 @@
 				C49C67831DE77E0800163CD9 /* FeedViewController.swift in Sources */,
 				C4EAE2DA1DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld in Sources */,
 				E813A3AA1DECA4E4006D9725 /* LocationsProfileView.swift in Sources */,
+				C49C6AE11DFCB433007D98AC /* CustomBorder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -42,7 +42,7 @@ class ContainerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.backgroundColor = UIColor.themeMediumBlue
+    view.backgroundColor = UIColor.themeMarine
   }
   
   // MARK: Setup
@@ -141,7 +141,10 @@ class ContainerViewController: UIViewController {
           
           self.view.layoutIfNeeded()
         }
-    }) { _ in self.removePreviousChild() }
+    }) { _ in
+      self.previousChildVC?.view.subviews.last?.removeFromSuperview()
+      self.removePreviousChild()
+    }
   }
   
   // MARK: Remove Previous Child

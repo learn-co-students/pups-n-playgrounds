@@ -13,85 +13,90 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 
 final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
-
-    // MARK: Properties
-    let loginView = LoginView()
-    let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
+  
+  // MARK: Properties
+  let loginView = LoginView()
+  let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
+  
+  // MARK: Override Methods
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    // MARK: Override Methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        loginView.emailField.delegate = self
-        loginView.passwordField.delegate = self
-        
-        loginView.loginButton.addTarget(self, action: #selector(loginButtonTouched), for: .touchUpInside)
-        
-        loginView.facebookButton.delegate = self
-        loginView.facebookButton.readPermissions = ["email"]
-        
-        loginView.createAccountButton.addTarget(self, action: #selector(createAccountButtonTouched), for: .touchUpInside)
-        loginView.skipButton.addTarget(self, action: #selector(skipButtonTouched), for: .touchUpInside)
-        
-        view.addSubview(loginView)
-        loginView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
+    loginView.emailField.delegate = self
+    loginView.passwordField.delegate = self
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        _ = view.endEditing(true)
-    }
+    loginView.loginButton.addTarget(self, action: #selector(loginButtonTouched), for: .touchUpInside)
     
-    // MARK: Action Methods
-    func loginButtonTouched() {
-        guard let email = loginView.emailField.text else { print("error unwrapping user email"); return }
-        guard let password = loginView.passwordField.text else { print("error unwrapping user password"); return }
-        
-        FIRAuth.auth()?.signIn(withEmail: email, password: password) { user, error in
-            guard error == nil else { print("error signing user in via email"); return }
-            
-            let mainTBC = MainTabBarController()
-            self.containerVC?.childVC = mainTBC
-            self.containerVC?.setup(forAnimation: .slideDown)
-        }
-    }
+    loginView.createAccountButton.addTarget(self, action: #selector(createAccountButtonTouched), for: .touchUpInside)
+    loginView.skipButton.addTarget(self, action: #selector(skipButtonTouched), for: .touchUpInside)
     
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        
-        FIRAuth.auth()?.signIn(with: credential) { user, error in
-            guard error == nil else { print("error logging using in via facebook"); return }
-            
-            let mainTBC = MainTabBarController()
-            self.containerVC?.childVC = mainTBC
-            self.containerVC?.setup(forAnimation: .slideDown)    }
+    view.addSubview(loginView)
+    loginView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
     }
+  }
+  
+  override func viewDidLayoutSubviews() {
+    loginView.topView.layer.addSublayer(CustomBorder(.bottom, UIColor.white, 3, loginView.topView.frame))
+    loginView.middleView.layer.addSublayer(CustomBorder(.bottom, UIColor.white, 3, loginView.middleView.frame))
     
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        print("logged out of facebook")
-    }
+    loginView.emailField.layer.addSublayer(CustomBorder(.bottom, UIColor.white, 1, loginView.emailField.frame))
+    loginView.passwordField.layer.addSublayer(CustomBorder(.bottom, UIColor.white, 1, loginView.passwordField.frame))
+  }
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    _ = view.endEditing(true)
+  }
+  
+  // MARK: Action Methods
+  func loginButtonTouched() {
+    guard let email = loginView.emailField.text else { print("error unwrapping user email"); return }
+    guard let password = loginView.passwordField.text else { print("error unwrapping user password"); return }
     
-    func createAccountButtonTouched() {
-        let createAccountVC = CreateAccountViewController()
-        self.containerVC?.childVC = createAccountVC
-        self.containerVC?.setup(forAnimation: .slideLeft)
+    FIRAuth.auth()?.signIn(withEmail: email, password: password) { user, error in
+      guard error == nil else { print("error signing user in via email"); return }
+      
+      let mainTBC = MainTabBarController()
+      self.containerVC?.childVC = mainTBC
+      self.containerVC?.setup(forAnimation: .slideDown)
     }
+  }
+  
+  func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+    let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
     
-    func skipButtonTouched() {
-        FIRAuth.auth()?.signInAnonymously { user, error in
-            guard error == nil else  { print("error signing user in anonymously"); return }
-            
-            let mainTBC = MainTabBarController()
-            self.containerVC?.childVC = mainTBC
-            self.containerVC?.setup(forAnimation: .slideDown)
-        }
+    FIRAuth.auth()?.signIn(with: credential) { user, error in
+      guard error == nil else { print("error logging using in via facebook"); return }
+      
+      let mainTBC = MainTabBarController()
+      self.containerVC?.childVC = mainTBC
+      self.containerVC?.setup(forAnimation: .slideDown)    }
+  }
+  
+  func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+    print("logged out of facebook")
+  }
+  
+  func createAccountButtonTouched() {
+    let createAccountVC = CreateAccountViewController()
+    self.containerVC?.childVC = createAccountVC
+    self.containerVC?.setup(forAnimation: .slideUp)
+  }
+  
+  func skipButtonTouched() {
+    FIRAuth.auth()?.signInAnonymously { user, error in
+      guard error == nil else  { print("error signing user in anonymously"); return }
+      
+      let mainTBC = MainTabBarController()
+      self.containerVC?.childVC = mainTBC
+      self.containerVC?.setup(forAnimation: .slideDown)
     }
+  }
 }
 
 // MARK: - UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return textField.resignFirstResponder()
-    }
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    return textField.resignFirstResponder()
+  }
 }

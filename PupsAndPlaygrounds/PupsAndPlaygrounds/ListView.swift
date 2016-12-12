@@ -32,14 +32,19 @@ class ListView: UIView {
   
   // MARK: View Configuration
   func configure() {
-    locationsTableView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+    let gradient = CAGradientLayer([UIColor.themeTeal, UIColor.themeSunshine])
+    gradient.frame = UIScreen.main.bounds
+    layer.addSublayer(gradient)
+    
+    locationsTableView.backgroundColor = UIColor.clear
   }
   
   // MARK: View Constraints
   func constrain() {
     addSubview(locationsTableView)
     locationsTableView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
+      $0.leading.trailing.top.equalToSuperview()
+      $0.bottom.equalToSuperview().offset(-49)
     }
   }
 }

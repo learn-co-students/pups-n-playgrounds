@@ -10,10 +10,10 @@ import UIKit
 
 class CustomTextField: UITextField {
   override func textRect(forBounds bounds: CGRect) -> CGRect {
-    return super.textRect(forBounds: UIEdgeInsetsInsetRect(bounds, UIEdgeInsetsMake(12, 18, 12, 18)))
+    return super.textRect(forBounds: UIEdgeInsetsInsetRect(bounds, UIEdgeInsetsMake(0, 0, 6, 0)))
   }
   
   override func editingRect(forBounds bounds: CGRect) -> CGRect {
-    return super.textRect(forBounds: UIEdgeInsetsInsetRect(bounds, UIEdgeInsetsMake(12, 18, 12, 18)))
+    return super.textRect(forBounds: UIEdgeInsetsInsetRect(bounds, UIEdgeInsetsMake(0, 0, 6, 0)))
   }
 }

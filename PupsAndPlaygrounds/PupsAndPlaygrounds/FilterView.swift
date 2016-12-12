@@ -19,15 +19,26 @@ class FilterView: UIView {
   lazy var playgroundsButton = UIButton()
   
   // MARK: Initialization
-  required init?(coder aDecoder: NSCoder) { super.init(coder: aDecoder) }
-  override init(frame: CGRect) { super.init(frame: frame) }
-  convenience init() { self.init(frame: CGRect.zero); configure(); constrain() }
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+  }
+  
+  convenience init() {
+    self.init(frame: CGRect.zero)
+    
+    configure()
+    constrain()
+  }
   
   // MARK: View Configuration
   func configure() {
     
     // View
-    backgroundColor = UIColor.white.withAlphaComponent(0.9)
+    backgroundColor = UIColor.white
     
     // Stack view
     stackView.distribution = .fillEqually
@@ -44,22 +55,20 @@ class FilterView: UIView {
     radiusValueLabel.textColor = UIColor.themeMarine
     
     // Dog parks button
+    dogParksButton.backgroundColor = UIColor.themeCoral
     dogParksButton.setTitle("Dog Parks", for: .normal)
     dogParksButton.titleLabel?.font = UIFont.themeTinyBold
-    dogParksButton.setTitleColor(UIColor.themeMarine, for: .normal)
+    dogParksButton.setTitleColor(UIColor.white, for: .normal)
     dogParksButton.contentEdgeInsets = UIEdgeInsetsMake(5, 8, 5, 8)
     dogParksButton.layer.cornerRadius = 12
-    dogParksButton.layer.borderWidth = 2
-    dogParksButton.layer.borderColor = UIColor.themeMarine.cgColor
     
     // Playgrounds button
+    playgroundsButton.backgroundColor = UIColor.themeCoral
     playgroundsButton.setTitle("Playground", for: .normal)
     playgroundsButton.titleLabel?.font = UIFont.themeTinyBold
-    playgroundsButton.setTitleColor(UIColor.themeMarine, for: .normal)
+    playgroundsButton.setTitleColor(UIColor.white, for: .normal)
     playgroundsButton.contentEdgeInsets = UIEdgeInsetsMake(5, 8, 5, 8)
     playgroundsButton.layer.cornerRadius = 12
-    playgroundsButton.layer.borderWidth = 2
-    playgroundsButton.layer.borderColor = UIColor.themeMarine.cgColor
   }
   
   // MARK: View Constraints

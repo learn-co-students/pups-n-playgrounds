@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 
 final class WSRDataStore {
+  var user: User?
   var dogRuns: [Dogrun]?
   var playgrounds: [Playground]?
   private let ref = FIRDatabase.database().reference()

@@ -21,24 +21,29 @@ class CreateAccountView: UIView {
   lazy var emailField = UITextField()
   lazy var passwordField = UITextField()
   
-  lazy var finalView = UIView()
-  lazy var allSetLabel = UILabel()
-  lazy var checkButton = UIButton()
-  
   // MARK: Initialization
-  required init?(coder aDecoder: NSCoder) { super.init(coder: aDecoder) }
-  override init(frame: CGRect) { super.init(frame: frame) }
-  convenience init() { self.init(frame: CGRect.zero); configure(); constrain() }
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+  }
+  
+  convenience init() { self.init(frame: CGRect.zero)
+    configure()
+    constrain()
+  }
   
   // MARK: Setup
   private func configure() {
-    backgroundColor = UIColor.themeLightBlue
+    layer.addSublayer(CAGradientLayer([UIColor.themeMarine, UIColor.themeTeal, UIColor.themeGrass]))
     
     scrollView.isPagingEnabled = true
     scrollView.showsHorizontalScrollIndicator = false
-    scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 5, height: UIScreen.main.bounds.height)
+    scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 4, height: UIScreen.main.bounds.height)
     
-    pageControl.numberOfPages = 5
+    pageControl.numberOfPages = 4
     
     cancelButton.setImage(#imageLiteral(resourceName: "Close"), for: .normal)
     cancelButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -66,13 +71,6 @@ class CreateAccountView: UIView {
     passwordField.font = UIFont.themeOversizeThin
     passwordField.textColor = UIColor.white
     passwordField.textAlignment = .center
-    
-    allSetLabel.text = "You're all set."
-    allSetLabel.font = UIFont.themeSmallBold
-    allSetLabel.textColor = UIColor.white
-    allSetLabel.textAlignment = .center
-    
-    checkButton.setImage(#imageLiteral(resourceName: "White Check"), for: .normal)
   }
   
   private func constrain() {
@@ -89,8 +87,8 @@ class CreateAccountView: UIView {
     
     addSubview(cancelButton)
     cancelButton.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(16)
-      $0.trailing.equalToSuperview().offset(-6)
+      $0.top.equalToSuperview().offset(30)
+      $0.trailing.equalToSuperview().offset(-10)
     }
     
     scrollView.addSubview(stackView)
@@ -98,19 +96,5 @@ class CreateAccountView: UIView {
     stackView.addArrangedSubview(lastNameField)
     stackView.addArrangedSubview(emailField)
     stackView.addArrangedSubview(passwordField)
-    stackView.addArrangedSubview(finalView)
-    
-    finalView.addSubview(checkButton)
-    checkButton.snp.makeConstraints {
-      $0.top.equalToSuperview()
-      $0.centerX.equalToSuperview()
-    }
-    
-    finalView.addSubview(allSetLabel)
-    allSetLabel.snp.makeConstraints {
-      $0.top.equalTo(checkButton.snp.bottom).offset(50)
-      $0.bottom.equalToSuperview()
-      $0.centerX.equalToSuperview()
-    }
   }
 }

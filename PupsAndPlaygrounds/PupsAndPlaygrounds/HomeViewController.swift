@@ -137,6 +137,8 @@ class HomeViewController: UIViewController {
   
   // MARK: Properties
   lazy var filterView = FilterView()
+  var filterViewBottomConstraint: Constraint?
+  var showFilter = false
   lazy var mapView = MapView()
   lazy var listView = ListView()
   var isMapView = true
@@ -145,7 +147,7 @@ class HomeViewController: UIViewController {
   
   var dogParks = [Dogrun]()
   var dogParkAnnotations = [CustomAnnotation]()
-  var dogParksVisible = false
+  var dogParksVisible = true
   
   var playgrounds = [Playground]()
   var playgroundAnnotations = [CustomAnnotation]()
@@ -167,21 +169,12 @@ class HomeViewController: UIViewController {
         self.listView.locationsTableView.reloadData()
       }
     }
-    
-    print("HOMEVIEW CONTROLLER ")
   }
   
   private func configure() {
-    navigationItem.title = "Map View"
+    navigationItem.title = "Map"
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filter))
     navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: .plain, target: self, action: #selector(switchView))
-    
-    let color1 = UIColor(red: 34/255.0, green: 91/255.0, blue: 102/255.0, alpha: 1.0)
-    let color2 = UIColor(red: 141/255.0, green: 191/255.9, blue: 103/255.0, alpha: 1.0)
-    
-    let backgroundGradient = CALayer.makeGradient(firstColor: color1, secondColor: color2)
-    backgroundGradient.frame = view.frame
-    self.view.layer.insertSublayer(backgroundGradient, at: 0)
     
     mapView.map.delegate = self
     mapView.map.showsUserLocation = true
@@ -189,13 +182,13 @@ class HomeViewController: UIViewController {
     
     listView.locationsTableView.delegate = self
     listView.locationsTableView.dataSource = self
-    listView.locationsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
-    
+    listView.locationsTableView.register(ListViewTableViewCell.self, forCellReuseIdentifier: "listCell")
+    listView.locationsTableView.separatorStyle = .none
+    listView.locationsTableView.rowHeight = 180
     listView.isHidden = true
     
     filterView.dogParksButton.addTarget(self, action: #selector(toggleDogParks), for: .touchUpInside)
     filterView.playgroundsButton.addTarget(self, action: #selector(togglePlaygrounds), for: .touchUpInside)
-    filterView.isHidden = true
     
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -215,12 +208,14 @@ class HomeViewController: UIViewController {
   private func constrain() {
     view.addSubview(filterView)
     filterView.snp.makeConstraints {
-      $0.leading.trailing.top.equalToSuperview()
+      $0.leading.trailing.equalToSuperview()
+      filterViewBottomConstraint = $0.bottom.equalTo(view.snp.top).constraint
     }
     
     view.addSubview(mapView)
     mapView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
+      $0.leading.trailing.bottom.equalToSuperview()
+      $0.top.equalTo(filterView.snp.bottom)
     }
     
     view.addSubview(listView)
@@ -252,16 +247,30 @@ class HomeViewController: UIViewController {
   }
   
   func filter() {
-    filterView.isHidden = !filterView.isHidden
+    showFilter = !showFilter
+    
+    view.layoutIfNeeded()
+    if showFilter {
+      UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { 
+        self.filterViewBottomConstraint?.update(offset: self.filterView.frame.height)
+        self.view.layoutIfNeeded()
+      }, completion: nil)
+    } else {
+      UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+        self.filterViewBottomConstraint?.update(offset: 0)
+        self.view.layoutIfNeeded()
+      }, completion: nil)
+    }
   }
   
   func switchView() {
     if isMapView {
-      navigationItem.title = "List View"
+      navigationItem.title = "List"
       navigationItem.rightBarButtonItem?.image = #imageLiteral(resourceName: "Map")
       listView.locationsTableView.reloadData()
+      
     } else {
-      navigationItem.title = "Map View"
+      navigationItem.title = "Map"
       navigationItem.rightBarButtonItem?.image = #imageLiteral(resourceName: "List")
     }
     
@@ -277,22 +286,29 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     return locations.count
   }
   
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if let dogRun = locations[indexPath.row] as? Dogrun {
-      return
-    } else if let playground = locations[indexPath.row] as? Playground {
-      let locationProfileVC = LocationProfileViewController()
-      locationProfileVC.playground = playground
-      
-      navigationController?.pushViewController(locationProfileVC, animated: true)
-    } else { print("error downcasting location") }
-  }
-  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath)
-    cell.textLabel?.text = locations[indexPath.row].name
-    cell.backgroundColor = UIColor.clear
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as? ListViewTableViewCell else {
+      print("error unwrapping list table view cell")
+      return UITableViewCell()
+    }
+    
+    let location = locations[indexPath.row]
+    
+    cell.titleLabel.text = location.name
+    cell.addressLabel.text = location.address
+    
+    if location is Dogrun {
+      cell.locationType = .dogPark
+    } else if locations[indexPath.row] is Playground {
+      cell.locationType = .playground
+    }
+    
+    if indexPath.row == locations.count - 1 {
+      cell.visibleView.snp.makeConstraints {
+        $0.bottom.equalToSuperview().offset(-10)
+      }
+    }
+    
     return cell
   }
   
@@ -307,9 +323,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
       locationProfileVC.playgroundID = playground.playgroundID
       
       navigationController?.pushViewController(locationProfileVC, animated: true)
-    } else {
-      print("error downcasting location")
-    }
+    } else { print("error downcasting location") }
   }
 }
 
@@ -331,10 +345,10 @@ extension HomeViewController: MKMapViewDelegate {
     switch annotation.location {
     case is Dogrun:
       view?.annotationType = .dogRun
-      view?.pinTintColor = UIColor.themeSunshine
+      view?.image = #imageLiteral(resourceName: "DogPark")
     case is Playground:
       view?.annotationType = .playground
-      view?.pinTintColor = UIColor.themeTeal
+      view?.image = #imageLiteral(resourceName: "Playground")
     default:
       print("annotation location type error")
     }
@@ -356,33 +370,6 @@ extension HomeViewController: MKMapViewDelegate {
     callout.ratingLabel.text = "Rating: \(annotation.location.rating)"
     callout.center = CGPoint(x: view.bounds.width / 2 - 8, y: -callout.frame.height / 1.6)
     
-    view.pinTintColor = UIColor.themeRed
-    view.addSubview(callout)
-    
-    view.layoutIfNeeded()
-    UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-      self.mapView.goToLocationButtonTopConstraint?.update(offset: -self.view.bounds.height / 4)
-      self.view.layoutIfNeeded()
-    }, completion: nil)
-    
-    return view
-  }
-  
-  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-    guard let annotation = view.annotation as? CustomAnnotation else { print("error unwrapping custom annotation"); return }
-    selectedAnnotation = annotation
-    
-    guard let view = view as? CustomAnnotationView else { print("error unwrapping custom annotation view"); return }
-    
-    centerMap(on: annotation.coordinate)
-    
-    let callout = CustomCalloutView()
-    callout.nameLabel.text = annotation.location.name
-    callout.addressLabel.text = annotation.location.address
-    callout.ratingLabel.text = "Rating: \(annotation.location.rating)"
-    callout.center = CGPoint(x: view.bounds.width / 2 - 8, y: -callout.frame.height / 1.6)
-    
-    view.pinTintColor = UIColor.themeCoral
     view.addSubview(callout)
     
     var tabBarHeight: CGFloat = 49
@@ -398,46 +385,10 @@ extension HomeViewController: MKMapViewDelegate {
     }, completion: nil)
   }
   
-  func goToLocation() {
-    guard let playground = selectedAnnotation?.location as? Playground else { print("error unwrapping playground from selected location"); return }
-    
-    let locationProfileVC = LocationProfileViewController()
-    locationProfileVC.playground = playground
-    
-    navigationController?.pushViewController(locationProfileVC, animated: true)
-  }
-  
   func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
     guard let view = view as? CustomAnnotationView else { print("error unwrapping custom annotation view during deselect"); return }
     guard let annotationType = view.annotationType else { print("error unwrapping annotationType"); return }
     
-    switch annotationType {
-    case .dogRun:
-      view.pinTintColor = UIColor.themeMediumBlue
-    case .playground:
-      view.pinTintColor = UIColor.themeLightBlue
-    }
-  }
-  
-  func goToLocation() {
-    guard let playground = selectedAnnotation?.location as? Playground else { print("error unwrapping playground from selected location"); return }
-    
-    let locationProfileVC = LocationProfileViewController()
-    locationProfileVC.playgroundID = playground.playgroundID
-    
-    navigationController?.pushViewController(locationProfileVC, animated: true)
-  }
-  
-  func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-    guard let view = view as? CustomAnnotationView else { print("error unwrapping custom annotation view during deselect"); return }
-    guard let annotationType = view.annotationType else { print("error unwrapping annotationType"); return }
-    
-    switch annotationType {
-    case .dogRun:
-      view.pinTintColor = UIColor.themeMediumBlue
-    case .playground:
-      view.pinTintColor = UIColor.themeLightBlue
-    }
     
     for subview in view.subviews {
       subview.removeFromSuperview()
@@ -448,6 +399,15 @@ extension HomeViewController: MKMapViewDelegate {
       self.mapView.goToLocationButtonTopConstraint?.update(offset: 0)
       self.view.layoutIfNeeded()
     }, completion: nil)
+  }
+  
+  func goToLocation() {
+    guard let playground = selectedAnnotation?.location as? Playground else { print("error unwrapping playground from selected location"); return }
+    
+    let locationProfileVC = LocationProfileViewController()
+    locationProfileVC.playground = playground
+    
+    navigationController?.pushViewController(locationProfileVC, animated: true)
   }
   
   func centerMap(on coordinate: CLLocationCoordinate2D) {
@@ -472,13 +432,11 @@ extension HomeViewController {
     dogParksVisible = !dogParksVisible
     
     if dogParksVisible {
-      filterView.dogParksButton.setTitleColor(UIColor.themeMarine, for: .normal)
-      filterView.dogParksButton.layer.borderColor = UIColor.themeMarine.cgColor
+      filterView.dogParksButton.backgroundColor = UIColor.themeCoral
       mapView.map.addAnnotations(dogParkAnnotations)
       locations.append(contentsOf: dogParks as [Location])
     } else {
-      filterView.dogParksButton.setTitleColor(UIColor.lightGray, for: .normal)
-      filterView.dogParksButton.layer.borderColor = UIColor.lightGray.cgColor
+      filterView.dogParksButton.backgroundColor = UIColor.lightGray
       mapView.map.removeAnnotations(dogParkAnnotations)
       locations = playgroundsVisible ? playgrounds as [Location] : [Location]()
     }
@@ -490,13 +448,12 @@ extension HomeViewController {
     playgroundsVisible = !playgroundsVisible
     
     if playgroundsVisible {
-      filterView.playgroundsButton.setTitleColor(UIColor.themeMarine, for: .normal)
-      filterView.playgroundsButton.layer.borderColor = UIColor.themeMarine.cgColor
+      filterView.playgroundsButton.backgroundColor = UIColor.themeCoral
       mapView.map.addAnnotations(playgroundAnnotations)
       locations.append(contentsOf: playgrounds as [Location])
     } else {
-      filterView.playgroundsButton.setTitleColor(UIColor.lightGray, for: .normal)
-      filterView.playgroundsButton.layer.borderColor = UIColor.lightGray.cgColor
+      
+      filterView.playgroundsButton.backgroundColor = UIColor.lightGray
       mapView.map.removeAnnotations(playgroundAnnotations)
       locations = dogParksVisible ? dogParks as [Location] : [Location]()
     }

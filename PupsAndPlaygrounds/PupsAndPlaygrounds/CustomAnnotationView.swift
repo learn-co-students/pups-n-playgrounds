@@ -8,7 +8,7 @@
 
 import MapKit
 
-class CustomAnnotationView: MKPinAnnotationView {
+class CustomAnnotationView: MKAnnotationView {
   
   // MARK: Annotation Type
   enum AnnotationType {
