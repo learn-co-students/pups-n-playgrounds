@@ -15,6 +15,7 @@ class CreateAccountViewController: UIViewController {
   // MARK: Properties
   lazy var createAccountView = CreateAccountView()
   let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
+  let store = WSRDataStore.shared
   
   // MARK: Override Methods
   override func viewDidLoad() {
@@ -56,10 +57,6 @@ extension CreateAccountViewController: UIScrollViewDelegate {
 
 // MARK: - UITextFieldDelegate
 extension CreateAccountViewController: UITextFieldDelegate {
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    return textField.resignFirstResponder()
-  }
-  
   func textFieldDidBeginEditing(_ textField: UITextField) {
     switch textField {
     case createAccountView.firstNameField:
@@ -77,10 +74,25 @@ extension CreateAccountViewController: UITextFieldDelegate {
   
   func textFieldDidEndEditing(_ textField: UITextField) {
     if createAccountView.pageControl.currentPage == 3 {
-      guard let firstName = createAccountView.firstNameField.text else { print("error unwrapping first name"); return }
-      guard let lastName = createAccountView.lastNameField.text else { print("error unwrapping last name"); return }
-      guard let email = createAccountView.emailField.text else { print("error unwrapping email"); return }
-      guard let password = createAccountView.passwordField.text else { print("error unwrapping password"); return }
+      guard let firstName = createAccountView.firstNameField.text else {
+        print("error unwrapping first name")
+        return
+      }
+      
+      guard let lastName = createAccountView.lastNameField.text else {
+        print("error unwrapping last name")
+        return
+      }
+      
+      guard let email = createAccountView.emailField.text else {
+        print("error unwrapping email")
+        return
+      }
+      
+      guard let password = createAccountView.passwordField.text else {
+        print("error unwrapping password")
+        return
+      }
       
       FIRClient.createAccount(firstName: firstName, lastName: lastName, email: email, password: password) {
         self.containerVC?.childVC = MainTabBarController()

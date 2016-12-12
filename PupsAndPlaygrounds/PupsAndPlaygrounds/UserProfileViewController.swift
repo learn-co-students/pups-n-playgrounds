@@ -15,7 +15,6 @@ class UserProfileViewController: UIViewController {
   // MARK: Properties
   lazy var userProfileView = UserProfileView()
   lazy var imagePicker = UIImagePickerController()
-  var reviewsArray = [Review?]()
   
   let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
   let store = WSRDataStore.shared
@@ -23,6 +22,17 @@ class UserProfileViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    configure()
+    constrain()
+  }
+  
+  override func viewDidLayoutSubviews() {
+    userProfileView.layer.sublayers?.first?.frame = userProfileView.bounds
+    userProfileView.profileButton.layer.cornerRadius = userProfileView.profileButton.frame.width / 2
+  }
+  
+  // MARK: Setup
+  private func configure() {
     navigationItem.title = "Profile"
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logOutButtonTouched))
     
@@ -32,103 +42,49 @@ class UserProfileViewController: UIViewController {
     userProfileView.reviewsTableView.dataSource = self
     userProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
     
-    if let profilePhoto = store.user?.profilePhoto {
-      self.userProfileView.profileButton.setImage(profilePhoto, for: .normal)
-    } else {
-      self.userProfileView.profileButton.setImage(#imageLiteral(resourceName: "AddPhoto"), for: .normal)
-    }
-    
-    guard let firstName = store.user?.firstName, let lastName = store.user?.lastName else {
-      print("error unwrapping user name on profile")
-      return
-    }
-    
-    userProfileView.userNameLabel.text = "\(firstName) \(lastName)"
-      
+    NotificationCenter.default.addObserver(self, selector: #selector(finishedSaving), name: Notification.Name("savedProfilePhoto"), object: nil)
+  }
+  
+  private func constrain() {
     view.addSubview(userProfileView)
     userProfileView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
+    
+    view.layoutIfNeeded()
   }
   
-  
-  //    retrieveUserPhoto {
-  //      DispatchQueue.main.async {
-  //        self.view.addSubview(self.userProfileView)
-  //        self.userProfileView.snp.makeConstraints {
-  //          $0.edges.equalToSuperview()
-  //        }
-  //      }
-  //    }
-  
-  //    guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { print("trouble unwrapping user id"); return }
-  //
-  //    FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
-  //      self.currentUser = currentFirebaseUser
-  //      print("user first name is \(self.currentUser?.firstName)")
-  //      self.configure()
-  //
-  //      if let userReviewsIDs = self.currentUser?.reviewsID {
-  //        for reviewID in userReviewsIDs {
-  //          guard let unwrappedReviewID = reviewID else { print("trouble unwrapping IDS"); return }
-  //
-  //          FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
-  //
-  //            self.reviewsArray.append(firebaseReview)
-  //            print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS")
-  //            self.userProfileView.reviewsTableView.reloadData()
-  //          })
-  //
-  //        }
-  //      }
-  //
-  //      //            self.retrieveUserPhoto {
-  //      //                DispatchQueue.main.async {
-  //      //
-  //      //                    self.view.addSubview(self.profileView)
-  //      //                    self.profileView.snp.makeConstraints {
-  //      //                        $0.edges.equalToSuperview()
-  //      //                    }
-  //      //
-  //      //                }
-  //      //            }
-  //    }
-  //
-  //    configure()
-  
-  override func viewDidLayoutSubviews() {
-    userProfileView.layer.sublayers?.first?.frame = userProfileView.bounds
-    userProfileView.profileButton.layer.cornerRadius = userProfileView.profileButton.frame.width / 2
+  // MARK: Display User Information
+  func displayUserInfo() {
+    DispatchQueue.main.async {
+      if let profilePhoto = self.store.user?.profilePhoto {
+        self.userProfileView.profileButton.setImage(profilePhoto, for: .normal)
+      } else {
+        self.userProfileView.profileButton.setImage(#imageLiteral(resourceName: "AddPhoto"), for: .normal)
+      }
+      
+      if let firstName = self.store.user?.firstName, let lastName = self.store.user?.lastName {
+        self.userProfileView.userNameLabel.text = "\(firstName) \(lastName)"
+      }
+      
+      self.view.layoutIfNeeded()
+    }
   }
   
+  // MARK: Display User Reviews
+  func displayUserReviews() {
+    DispatchQueue.main.async {
+      self.userProfileView.reviewsTableView.reloadData()
+    }
+  }
   
-  // MARK: Retrieve User Information from Firebase
-  // TODO: Factor Into FirebaseData File
-  //  private func retrieveUserPhoto(completion: @escaping () -> Void) {
-  //    guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else { print("could not fetch firebase userID");return }
-  //
-  //    let userRef = FIRDatabase.database().reference().child("users").child(firebaseUserID)
-  //
-  //    userRef.observeSingleEvent(of: .value, with: { snapshot in
-  //      guard let userInfo = snapshot.value as? [String : Any] else { print("could not return snapshot \(snapshot.value)");return }
-  //
-  //      if let profilePhotoURL = URL(string: userInfo["profilePicURL"] as? String ?? "") {
-  //        URLSession.shared.dataTask(with: profilePhotoURL) { data, response, error in
-  //          guard let data = data else { print("error unwrapping data"); return }
-  //          self.profileImage = UIImage(data: data)
-  //
-  //          DispatchQueue.main.async {
-  //            self.userProfileView.profileButton.setImage(self.profileImage, for: .normal)
-  //          }
-  //
-  //          }.resume()
-  //      } else {
-  //        self.profileImage = #imageLiteral(resourceName: "AddPhoto")
-  //        self.userProfileView.profileButton.setImage(self.profileImage, for: .normal)
-  //      }
-  //      completion()
-  //    })
-  //  }
+  // MARK: Photo Saved Successfully
+  func finishedSaving() {
+    DispatchQueue.main.async {
+      self.userProfileView.savingView.isHidden = true
+      self.userProfileView.savingActivityIndicator.stopAnimating()
+    }
+  }
   
   // MARK: Action Methods
   func profileButtonTouched() {
@@ -180,27 +136,33 @@ class UserProfileViewController: UIViewController {
 // MARK: UIImagePickerControllerDelegate and UINavigationControllerDelegate
 extension UserProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-    //    profileImage = info[UIImagePickerControllerEditedImage] as? UIImage
-    //    userProfileView.profileButton.setImage(profileImage, for: .normal)
-    //
-    //    handleSavingPic()
-    //
-    //    dismiss(animated: true, completion: nil)
+    store.user?.profilePhoto = info[UIImagePickerControllerEditedImage] as? UIImage
+    
+    if let profilePhoto = store.user?.profilePhoto {
+      userProfileView.profileButton.setImage(profilePhoto, for: .normal)
+    }
+    
+    userProfileView.savingActivityIndicator.startAnimating()
+    userProfileView.savingView.isHidden = false
+    
+    self.dismiss(animated: true, completion: nil)
+    
+    FIRClient.saveProfilePhoto {
+      NotificationCenter.default.post(name: Notification.Name("savedProfilePhoto"), object: nil)
+    }
   }
 }
 
 // MARK: UITableViewDelegate and UITableViewDataSource
 extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return reviewsArray.count
+    return store.userReviews.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewsTableViewCell
+    cell.review = store.userReviews[indexPath.row]
     
-    if let currentReview = reviewsArray[indexPath.row] {
-      cell.review = currentReview
-    }
     return cell
   }
   
@@ -260,28 +222,6 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
   
   
 }
-
-// MARK: Save User Photos to Firebase
-extension UserProfileViewController {
-  func handleSavingPic() {
-    //    guard let user = currentUser else { print("error unrwapping current user"); return }
-    //
-    //    let imageName = NSUUID().uuidString
-    //    let storageRef = FIRStorage.storage().reference().child("profilePics").child("\(imageName).png")
-    //    guard let imageToUpload = profileImage else { print("no image"); return }
-    //
-    //    if let uploadData = UIImagePNGRepresentation(imageToUpload) {
-    //      storageRef.put(uploadData, metadata: nil) { (metadata, error) in
-    //        if let error = error { print(error); return }
-    //
-    //        guard let metaDataURL = metadata?.downloadURL()?.absoluteString else { print("no profile image URL"); return }
-    //
-    //        FIRDatabase.database().reference().child("users").child(user.uid).updateChildValues(["profilePicURL" : metaDataURL])
-    //      }
-    //    }
-  }
-}
-
 
 
 

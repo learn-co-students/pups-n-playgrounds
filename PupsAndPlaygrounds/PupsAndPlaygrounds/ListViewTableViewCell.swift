@@ -27,9 +27,11 @@ class ListViewTableViewCell: UITableViewCell {
     }
   }
   lazy var visibleView = UIView()
+  lazy var innerView = UIView()
   lazy var titleLabel = UILabel()
   lazy var addressLabel = UILabel()
   lazy var circleView = UIView()
+  let circleViewWidth = #imageLiteral(resourceName: "DogParkWhite").size.width * 1.5
   lazy var locationTypeImageView = UIImageView()
   
   required init?(coder aDecoder: NSCoder) {
@@ -38,7 +40,13 @@ class ListViewTableViewCell: UITableViewCell {
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    
+  
+    configure()
+    constrain()
+  }
+  
+  // MARK: Setup
+  private func configure() {
     backgroundColor = UIColor.clear
     selectionStyle = .none
     
@@ -53,22 +61,27 @@ class ListViewTableViewCell: UITableViewCell {
     addressLabel.textColor = UIColor.white
     addressLabel.font = UIFont.themeTinyBold
     
-    let circleViewWidth = #imageLiteral(resourceName: "DogParkWhite").size.width * 1.5
     circleView.layer.cornerRadius = circleViewWidth / 2
     circleView.layer.borderWidth = 2
     circleView.layer.borderColor = UIColor.white.cgColor
     
     locationTypeImageView.contentMode = .scaleAspectFit
-    
+  }
+  
+  private func constrain() {
     contentView.addSubview(visibleView)
     visibleView.snp.makeConstraints {
       $0.edges.equalTo(UIEdgeInsetsMake(10, 10, 0, 10))
     }
     
-    visibleView.addSubview(circleView)
+    visibleView.addSubview(innerView)
+    innerView.snp.makeConstraints {
+      $0.edges.equalTo(UIEdgeInsetsMake(20, 20, 20, 20))
+    }
+    
+    innerView.addSubview(circleView)
     circleView.snp.makeConstraints {
-      $0.trailing.equalToSuperview().offset(-25)
-      $0.top.equalToSuperview().offset(25)
+      $0.trailing.top.equalToSuperview()
       $0.width.height.equalTo(circleViewWidth)
     }
     
@@ -78,16 +91,16 @@ class ListViewTableViewCell: UITableViewCell {
       $0.width.height.equalTo(#imageLiteral(resourceName: "DogParkWhite").size.width)
     }
     
-    visibleView.addSubview(titleLabel)
+    innerView.addSubview(titleLabel)
     titleLabel.snp.makeConstraints {
-      $0.leading.top.equalToSuperview().offset(25)
-      $0.trailing.equalTo(circleView.snp.leading).offset(-50)
+      $0.leading.top.equalToSuperview()
+      $0.trailing.equalTo(circleView.snp.leading).offset(-40)
     }
     
-    visibleView.addSubview(addressLabel)
+    innerView.addSubview(addressLabel)
     addressLabel.snp.makeConstraints {
-      $0.leading.equalToSuperview().offset(25)
-      $0.trailing.equalTo(circleView.snp.leading).offset(-50)
+      $0.leading.equalToSuperview()
+      $0.trailing.equalTo(circleView.snp.leading).offset(-40)
       $0.top.equalTo(titleLabel.snp.bottom)
     }
   }

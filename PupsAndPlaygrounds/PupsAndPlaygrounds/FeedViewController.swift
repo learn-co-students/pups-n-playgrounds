@@ -18,7 +18,6 @@ class FeedViewController: UIViewController {
     var reviews = [Review]()
     var backgroundGradient: CAGradientLayer!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

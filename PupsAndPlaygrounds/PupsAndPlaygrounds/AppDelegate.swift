@@ -28,11 +28,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Google Maps setup
     GMSServices.provideAPIKey(googleMapsAPIKey)
     
-    // Keyboard Manager setup
+    // Keyboard manager setup
     IQKeyboardManager.sharedManager().enable = true
     
-    // ContainerViewController setup
-    containerViewController.childVC = FIRAuth.auth()?.currentUser != nil ? MainTabBarController() : LoginViewController()
+    // Container view vontroller setup
+    if let uid = FIRAuth.auth()?.currentUser?.uid {
+      containerViewController.childVC = MainTabBarController()
+    } else {
+      containerViewController.childVC = LoginViewController()
+    }
+    
     containerViewController.setup(forAnimation: .slideUp)
     
     // Window setup
@@ -44,7 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   // MARK: Save data on app termination
-  func applicationWillTerminate(_ application: UIApplication) { self.saveContext() }
+  func applicationWillTerminate(_ application: UIApplication) {
+    saveContext()
+  }
   
   // MARK: Core Data stack
   lazy var persistentContainer: NSPersistentContainer = {

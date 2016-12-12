@@ -32,13 +32,13 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
       for reviewID in dogrunReviewsID {
         guard let unwrappedReviewID = reviewID else { print("error unwrapping review id"); return }
         
-        FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
-          
-          self.reviewsArray.append(firebaseReview)
-          print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS.")
-          self.dogRunProfileView.dogReviewsTableView.reloadData()
-          
-        })
+//        FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
+//          
+//          self.reviewsArray.append(firebaseReview)
+//          print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS.")
+//          self.dogRunProfileView.dogReviewsTableView.reloadData()
+//          
+//        })
       }
       
     }

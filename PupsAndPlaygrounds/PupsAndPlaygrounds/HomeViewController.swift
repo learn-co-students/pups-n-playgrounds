@@ -303,12 +303,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
       cell.locationType = .playground
     }
     
-    if indexPath.row == locations.count - 1 {
-      cell.visibleView.snp.makeConstraints {
-        $0.bottom.equalToSuperview().offset(-10)
-      }
-    }
-    
     return cell
   }
   
@@ -368,7 +362,7 @@ extension HomeViewController: MKMapViewDelegate {
     callout.nameLabel.text = annotation.location.name
     callout.addressLabel.text = annotation.location.address
     callout.ratingLabel.text = "Rating: \(annotation.location.rating)"
-    callout.center = CGPoint(x: view.bounds.width / 2 - 8, y: -callout.frame.height / 1.6)
+    callout.center = CGPoint(x: view.bounds.width / 2, y: -callout.frame.height / 1.6)
     
     view.addSubview(callout)
     
@@ -388,7 +382,6 @@ extension HomeViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
     guard let view = view as? CustomAnnotationView else { print("error unwrapping custom annotation view during deselect"); return }
     guard let annotationType = view.annotationType else { print("error unwrapping annotationType"); return }
-    
     
     for subview in view.subviews {
       subview.removeFromSuperview()

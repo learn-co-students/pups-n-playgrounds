@@ -10,7 +10,6 @@ import Foundation
 import Firebase
 import GeoFire
 
-
 class GeoFireMethods {
   
   static func sendLocationToGeoFireWith(locations playground: Playground) {

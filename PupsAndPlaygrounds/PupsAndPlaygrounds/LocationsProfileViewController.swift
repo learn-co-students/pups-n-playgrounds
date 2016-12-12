@@ -25,26 +25,26 @@ class LocationProfileViewController: UIViewController {
         super.viewDidLoad()
         guard let unwrappedLocationID = playgroundID else { print("trouble unwrapping location ID"); return }
         
-        FirebaseData.getLocation(with: unwrappedLocationID) { (firebaseLocation) in
-            self.playground = firebaseLocation
-            self.configure()
-            
-            if let playgroundReviewsIDs = self.playground?.reviewsID {
-                for reviewID in playgroundReviewsIDs {
-                    guard let unwrappedReviewID = reviewID else { return }
-                    
-                    FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
-                        
-                        self.reviewsArray.append(firebaseReview)
-                        print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS")
-                        self.locationProfileView.reviewsTableView.reloadData()
-                        
-                    })
-                    
-                }
-            }
-            print("THIS PLAYGROUND IS \(self.playground?.name) and has \(self.playground?.reviewsID) reviewIDs")
-        }
+//        FirebaseData.getLocation(with: unwrappedLocationID) { (firebaseLocation) in
+//            self.playground = firebaseLocation
+//            self.configure()
+//            
+//            if let playgroundReviewsIDs = self.playground?.reviewsID {
+//                for reviewID in playgroundReviewsIDs {
+//                    guard let unwrappedReviewID = reviewID else { return }
+//                    
+//                    FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
+//                        
+//                        self.reviewsArray.append(firebaseReview)
+//                        print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS")
+//                        self.locationProfileView.reviewsTableView.reloadData()
+//                        
+//                    })
+//                    
+//                }
+//            }
+//            print("THIS PLAYGROUND IS \(self.playground?.name) and has \(self.playground?.reviewsID) reviewIDs")
+//        }
         
     }
     

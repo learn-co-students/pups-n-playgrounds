@@ -9,14 +9,13 @@
 import UIKit
 import SnapKit
 import Firebase
-import FBSDKCoreKit
-import FBSDKLoginKit
 
-final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+final class LoginViewController: UIViewController {
   
   // MARK: Properties
   let loginView = LoginView()
   let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
+  let store = WSRDataStore.shared
   
   // MARK: Override Methods
   override func viewDidLoad() {
@@ -53,33 +52,14 @@ final class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     guard let email = loginView.emailField.text else { print("error unwrapping user email"); return }
     guard let password = loginView.passwordField.text else { print("error unwrapping user password"); return }
     
-    FIRAuth.auth()?.signIn(withEmail: email, password: password) { user, error in
-      guard error == nil else { print("error signing user in via email"); return }
-      
-      let mainTBC = MainTabBarController()
-      self.containerVC?.childVC = mainTBC
+    FIRClient.login(email: email, password: password) {
+      self.containerVC?.childVC = MainTabBarController()
       self.containerVC?.setup(forAnimation: .slideDown)
     }
   }
   
-  func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-    let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-    
-    FIRAuth.auth()?.signIn(with: credential) { user, error in
-      guard error == nil else { print("error logging using in via facebook"); return }
-      
-      let mainTBC = MainTabBarController()
-      self.containerVC?.childVC = mainTBC
-      self.containerVC?.setup(forAnimation: .slideDown)    }
-  }
-  
-  func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-    print("logged out of facebook")
-  }
-  
   func createAccountButtonTouched() {
-    let createAccountVC = CreateAccountViewController()
-    self.containerVC?.childVC = createAccountVC
+    self.containerVC?.childVC = CreateAccountViewController()
     self.containerVC?.setup(forAnimation: .slideUp)
   }
   

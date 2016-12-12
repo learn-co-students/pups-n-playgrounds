@@ -34,13 +34,27 @@ class MainTabBarController: UITabBarController {
     feedNC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
     feedNC.tabBarItem = UITabBarItem(title: "Live Feed", image: #imageLiteral(resourceName: "Feed Tab Bar"), tag: 1)
     
-    if let anonymousUser = FIRAuth.auth()?.currentUser?.isAnonymous, !anonymousUser {
-      profileNC = UINavigationController(rootViewController: UserProfileViewController())
+    if let anonymous = FIRAuth.auth()?.currentUser?.isAnonymous {
+      if anonymous {
+        self.profileNC = UINavigationController(rootViewController: AnyonymousUserViewController())
+      } else {
+        let userProfileVC = UserProfileViewController()
+        
+        NotificationCenter.default.addObserver(userProfileVC, selector: #selector(userProfileVC.displayUserInfo), name: Notification.Name("userStored"), object: nil)
+        NotificationCenter.default.addObserver(userProfileVC, selector: #selector(userProfileVC.displayUserReviews), name: Notification.Name("reviewsStored"), object: nil)
+        WSRDataStore.shared.storeUser()
+        
+        self.profileNC = UINavigationController(rootViewController: userProfileVC)
+      }
     } else {
-      profileNC = UINavigationController(rootViewController: AnyonymousUserViewController())
+      self.profileNC = UINavigationController(rootViewController: AnyonymousUserViewController())
     }
-  
-    guard let profileNC = profileNC else { print("error unwrapping profileNC"); return }
+    
+    guard let profileNC = self.profileNC else {
+      print("error unwrapping profileNC")
+      return
+    }
+    
     profileNC.navigationBar.isTranslucent = false
     profileNC.navigationBar.barTintColor = UIColor.themeMarine
     profileNC.navigationBar.tintColor = UIColor.white

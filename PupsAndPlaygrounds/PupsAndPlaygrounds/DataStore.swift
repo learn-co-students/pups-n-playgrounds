@@ -10,13 +10,31 @@ import Foundation
 import Firebase
 
 final class WSRDataStore {
-  var user: User?
+  var user: User? {
+    didSet {
+      NotificationCenter.default.post(name: Notification.Name("userStored"), object: nil)
+      FIRClient.getReviews(forUser: user) { userReviews in
+        self.userReviews = userReviews
+      }
+    }
+  }
+  var userReviews = [Review]() {
+    didSet {
+      NotificationCenter.default.post(name: Notification.Name("reviewsStored"), object: nil)
+    }
+  }
   var dogRuns: [Dogrun]?
   var playgrounds: [Playground]?
   private let ref = FIRDatabase.database().reference()
   static let shared = WSRDataStore()
   
   private init() {}
+  
+  func storeUser() {
+    FIRClient.getUser(user: FIRAuth.auth()?.currentUser) { user in
+      self.user = user
+    }
+  }
   
   func getLocations(completion: @escaping () -> Void) {
     getDogruns { self.getPlaygrounds { completion() } }

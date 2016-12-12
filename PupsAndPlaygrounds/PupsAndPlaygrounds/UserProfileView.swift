@@ -15,6 +15,8 @@ final class UserProfileView: UIView {
   lazy var profileButton = UIButton()
   lazy var userNameLabel = UILabel()
   lazy var reviewsTableView = UITableView()
+  lazy var savingView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+  lazy var savingActivityIndicator = UIActivityIndicatorView()
   
   // MARK: Initialization
   required init?(coder aDecoder: NSCoder) {
@@ -36,18 +38,19 @@ final class UserProfileView: UIView {
   private func configure() {
     layer.addSublayer(CAGradientLayer([UIColor.themeTeal, UIColor.themeGrass]))
   
+    profileButton.clipsToBounds = true
     profileButton.imageView?.contentMode = .scaleAspectFill
     profileButton.layer.borderWidth = 4
     profileButton.layer.borderColor = UIColor.themeWhite.cgColor
     
-    // User name label
     userNameLabel.font = UIFont.themeMediumLight
     userNameLabel.textColor = UIColor.themeWhite
     
-    // User reviews table view
     reviewsTableView.rowHeight = 40
     reviewsTableView.layer.cornerRadius = 5
     reviewsTableView.backgroundColor = UIColor.clear
+    
+    savingView.isHidden = true
   }
   
   private func constrain() {
@@ -69,6 +72,16 @@ final class UserProfileView: UIView {
     reviewsTableView.snp.makeConstraints {
       $0.leading.trailing.bottom.equalToSuperview()
       $0.top.equalTo(userNameLabel.snp.bottom)
+    }
+    
+    addSubview(savingView)
+    savingView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+    
+    savingView.addSubview(savingActivityIndicator)
+    savingActivityIndicator.snp.makeConstraints {
+      $0.center.equalToSuperview()
     }
   }
 }

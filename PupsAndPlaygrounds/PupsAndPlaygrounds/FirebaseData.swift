@@ -73,23 +73,23 @@ class FirebaseData {
         })
     }
     
-    static func getReview(with reviewID: String, completion: @escaping (Review) -> ()) {
-        let ref = FIRDatabase.database().reference().root
-        
-        let userKey = ref.child("reviews").child("visible").child(reviewID)
-        
-        userKey.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICTIONARY = \(snapshot.value as? [String : Any]): review was flagged"); return }
-            guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
-            guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
-            guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
-            
-            let newReview = Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
-            
-            completion(newReview)
-        })
-    }
-    
+//    static func getReview(with reviewID: String, completion: @escaping (Review) -> ()) {
+//        let ref = FIRDatabase.database().reference().root
+//        
+//        let userKey = ref.child("reviews").child("visible").child(reviewID)
+//        
+//        userKey.observeSingleEvent(of: .value, with: { (snapshot) in
+//            guard let reviewDict = snapshot.value as? [String : Any] else { print("REVIEWDICTIONARY = \(snapshot.value as? [String : Any]): review was flagged"); return }
+//            guard let comment = reviewDict["comment"] as? String else { print("ERROR #2 \(reviewDict["comment"])"); return }
+//            guard let userID = reviewDict["userID"] as? String else { print("ERROR #3"); return }
+//            guard let locationID = reviewDict["locationID"] as? String else { print("ERROR #4"); return }
+//            
+//            let newReview = Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
+//            
+//            completion(newReview)
+//        })
+//    }
+  
     
     static func getLocation(with locationID: String, completion: @escaping (Location?) -> ()) {
         
@@ -327,7 +327,7 @@ class FirebaseData {
                     let userID = reviewInfo["userID"] as? String
                     else { print("no review data"); return }
                 
-                let reviewToAdd = Review(userID: userID, locationID: locationID, comment: comment, photos: [], reviewID: reviewID)
+                let reviewToAdd = Review(reviewID: reviewID, userID: userID, locationID: locationID, rating: 5, comment: comment)
                 
                 reviewsArray.append(reviewToAdd)
             }
