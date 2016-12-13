@@ -67,14 +67,9 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         starReviews.starBackgroundColor = UIColor.lightGray
         starReviews.starMarginScale = 0.3
         starReviews.contentMode = .scaleAspectFit
-        
-        FIRClient.calcAverageStarFor(location: location.id) { (averageStarValue) in
-            print("AVERAGE STAR VALUE \(averageStarValue)")
-            self.starReviews.value = averageStarValue
-            self.starReviews.allowEdit = false
-
-
-        }
+        starReviews.allowEdit = false
+        starReviews.value = FIRClient.calcAverageStarFor(location: location.id)
+  
         
         scrollView = UIScrollView()
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 1.5)
