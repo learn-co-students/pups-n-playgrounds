@@ -286,6 +286,10 @@ extension HomeViewController: MKMapViewDelegate {
       view.image = #imageLiteral(resourceName: "PlaygroundColor")
     }
     
+    if let coordinate = view.annotation?.coordinate {
+      centerMap(on: coordinate, with: midRadius)
+    }
+    
     for subview in view.subviews {
       subview.removeFromSuperview()
     }
