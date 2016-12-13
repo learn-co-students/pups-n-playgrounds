@@ -67,6 +67,15 @@ final class DataStore {
         guard let isHandicap = dogrunInfo["isHandicap"] as? Bool else { print("error unwrapping dogrun isHandicap"); return }
         guard let isFlagged = dogrunInfo["isFlagged"] as? String else { print("error unwrapping dogrun isFlagged"); return }
         
+        var reviewsIDArray = [String]()
+        if let reviewsDictionary = dogrunInfo["reviews"] as? [String : Any] {
+            for iterReview in reviewsDictionary {
+                let reviewID = iterReview.key
+                reviewsIDArray.append(reviewID)
+                
+            }
+        }
+        
         var rating: Int
         if let averageRating = dogrunInfo["rating"] as? Int {
           rating = averageRating
@@ -74,7 +83,7 @@ final class DataStore {
           rating = 0
         }
     
-        dogRuns.append(Dogrun(id: dogRunID, name: name, latitude: latitude, longitude: longitude, address: address, isOffLeash: isOffLeash, notes: notes, isHandicap: isHandicap, isFlagged: isFlagged, rating: rating))
+        dogRuns.append(Dogrun(id: dogRunID, name: name, latitude: latitude, longitude: longitude, address: address, isOffLeash: isOffLeash, notes: notes, isHandicap: isHandicap, isFlagged: isFlagged, reviewIDs: reviewsIDArray, rating: rating))
       }
       
       self.dogRuns = dogRuns

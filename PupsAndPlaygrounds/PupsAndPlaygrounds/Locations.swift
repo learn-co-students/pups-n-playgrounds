@@ -61,7 +61,7 @@ class Dogrun: Location {
   var reviewIDs = [String]()
   var photos: [UIImage]?
   
-  init(id: String, name: String, latitude: Double, longitude: Double, address: String, isOffLeash: Bool, notes: String, isHandicap: Bool, isFlagged: String, rating: Int) {
+    init(id: String, name: String, latitude: Double, longitude: Double, address: String, isOffLeash: Bool, notes: String, isHandicap: Bool, isFlagged: String, reviewIDs: [String], rating: Int) {
     self.id = id
     self.name = name
     self.latitude = latitude
@@ -72,6 +72,7 @@ class Dogrun: Location {
     self.isHandicap = isHandicap
     self.isFlagged = isFlagged
     self.rating = rating
+        self.reviewIDs = reviewIDs
   }
 }
 

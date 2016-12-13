@@ -212,7 +212,6 @@ final class FIRClient {
                 guard let latitude = Double(latitudeString) else { return }
                 guard let longitude = Double(longitudeString) else { return }
                 
-                let newestPlayground = Playground(id: locationID, name: name, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewIDs: reviewsIDArray, rating: rating, photos: [], isFlagged: isFlagged)
                 
                 if let reviewsDictionary = locationDict["reviews"] as? [String : Any] {
                     for iterReview in reviewsDictionary {
@@ -221,7 +220,7 @@ final class FIRClient {
                         
                     }
                 }
-                print("COMPETION REVIEW COUNT IS \(newestPlayground.reviewIDs.count)")
+                let newestPlayground = Playground(id: locationID, name: name, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewIDs: reviewsIDArray, rating: rating, photos: [], isFlagged: isFlagged)
                 completion(newestPlayground)
             })
         } else {
@@ -250,8 +249,7 @@ final class FIRClient {
                 
                 var reviewsIDArray = [String]()
                 
-                
-                let newestDogRun = Dogrun(id: locationID, name: name, latitude: latitude, longitude: longitude, address: address, isOffLeash: isOffLeash, notes: notes, isHandicap: isHandicap, isFlagged: isFlagged, rating: rating)
+       
                 
                 if let reviewsDictionary = locationDict["reviews"] as? [String : Any] {
                     for iterReview in reviewsDictionary {
@@ -259,9 +257,11 @@ final class FIRClient {
                         reviewsIDArray.append(reviewID)
                         print("iter count is \(reviewsIDArray.count)")
                     }
-                    print("COMPETION REVIEW COUNT IS \(newestDogRun.reviewIDs.count)")
-                    completion(newestDogRun)
                 }
+                let newestDogRun = Dogrun(id: locationID, name: name, latitude: latitude, longitude: longitude, address: address, isOffLeash: isOffLeash, notes: notes, isHandicap: isHandicap, isFlagged: isFlagged, reviewIDs: reviewsIDArray, rating: rating)
+                print("reviews array = \(reviewsIDArray.count)")
+                print("COMPETION REVIEW COUNT IS \(newestDogRun.reviewIDs.count)")
+                completion(newestDogRun)
             })
 
         }
