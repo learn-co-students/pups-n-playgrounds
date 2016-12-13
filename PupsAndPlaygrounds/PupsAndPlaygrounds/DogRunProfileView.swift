@@ -108,10 +108,11 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         
         //configure dogNotesView
         dogNotesView = UIView()
+//        dogNotesView.backgroundColor = UIColor.magenta
         
         //configure dogNotesLabel
         dogNotesLabel = UILabel()
-        dogNotesLabel.font = UIFont.themeSmallRegular
+        dogNotesLabel.font = UIFont.themeSmallThin
         dogNotesLabel.textColor = UIColor.themeWhite
         dogNotesLabel.adjustsFontSizeToFitWidth = true
         dogNotesLabel.numberOfLines = 0
@@ -119,7 +120,8 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         
         //configre dogTypeView
         dogTypeView = UIView()
-        //        dogTypeView.backgroundColor = UIColor.themeWhite
+        dogTypeView.layer.cornerRadius = 20
+
         
         dogTypeLabel = UILabel()
         dogTypeLabel.font = UIFont.themeMediumBold
@@ -130,22 +132,23 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         
         //configure dogReviewView
         dogrunReviewView = UIView()
-        dogrunReviewView.backgroundColor = UIColor.themeCoral
         
         
         //configure dogReviews tableview
         dogReviewsTableView = UITableView()
         dogReviewsTableView.rowHeight = 40
-        //        dogReviewsTableView.backgroundColor = UIColor.themeWhite
         dogReviewsTableView.layer.cornerRadius = 20
         
         
         //configure submitReviewButton
-        submitReviewButton = UIButton(frame: CGRect(x: 0, y: 0, width:700 , height: 120))
-        submitReviewButton.setTitle("Review this dogrun!", for: .normal)
-        submitReviewButton.layer.cornerRadius = 2
-        submitReviewButton.titleLabel?.font = UIFont.themeSmallBold
-        submitReviewButton.backgroundColor = UIColor.themeCoral
+        submitReviewButton = UIButton()
+        submitReviewButton.contentEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10)
+        submitReviewButton.setTitle("Review This Dogrun!", for: .normal)
+        submitReviewButton.layer.cornerRadius = 10
+        submitReviewButton.titleLabel?.font = UIFont.themeMediumRegular
+        submitReviewButton.backgroundColor = UIColor.themeTeal.withAlphaComponent(0.3)
+        submitReviewButton.layer.borderColor = UIColor.themeWhite.cgColor
+        submitReviewButton.layer.borderWidth = 4
         submitReviewButton.setTitleColor(UIColor.themeWhite , for: .normal)
         
     }
@@ -158,8 +161,6 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
-//        scrollView.addSubview(contentView)
         
         scrollView.addSubview(dogStreetView)
         dogStreetView.snp.makeConstraints {
@@ -176,11 +177,11 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         
         scrollView.addSubview(dogDetailView)
         dogDetailView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(dogStreetView.snp.bottom)
+            $0.width.equalToSuperview()
             $0.height.equalToSuperview().dividedBy(6)
         }
-        
+
         dogDetailView.addSubview(dogRunNameLabel)
         dogRunNameLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
@@ -203,7 +204,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
             $0.width.equalToSuperview()
             $0.height.equalTo(dogDetailView).offset(-20)
         }
-        
+
         dogNotesView.addSubview(dogNotesLabel)
         dogNotesLabel.snp.makeConstraints {
             $0.edges.equalTo(UIEdgeInsetsMake(10, 10, 10, 10))
@@ -211,34 +212,32 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         
         scrollView.addSubview(dogTypeView)
         dogTypeView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.width.equalToSuperview()
             $0.top.equalTo(dogNotesView.snp.bottom)
-            $0.height.equalTo(dogDetailView).multipliedBy(0.4)
+            $0.height.equalTo(dogNotesView)
+            $0.width.equalToSuperview()
         }
-        
+
         dogTypeView.addSubview(dogTypeLabel)
         dogTypeLabel.snp.makeConstraints {
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.top.equalToSuperview().offset(15)
+            $0.top.equalToSuperview().offset(20)
             $0.leading.equalToSuperview().offset(20)
-            
+            $0.width.equalToSuperview().multipliedBy(0.4)
         }
 
         dogTypeView.addSubview(starReviews)
         starReviews.snp.makeConstraints {
-            $0.trailing.equalToSuperview().offset(-10)
+            $0.leading.equalTo(dogTypeLabel.snp.trailing)
             $0.top.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.5)
             $0.height.equalTo(starReviews.frame.height)
-            $0.width.equalToSuperview().dividedBy(2)
             
         }
         
         scrollView.addSubview(submitReviewButton)
         submitReviewButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(dogTypeView.snp.bottom).offset(20)
-            $0.width.equalToSuperview().dividedBy(2)
+            $0.top.equalTo(dogTypeView.snp.bottom).offset(5)
+            $0.width.equalToSuperview().dividedBy(1.5)
         }
 
         scrollView.addSubview(dogrunReviewView)
@@ -246,7 +245,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(submitReviewButton.snp.bottom).offset(5)
             $0.width.equalTo(scrollView.snp.width)
-            $0.height.equalToSuperview().multipliedBy(2)
+            $0.height.equalTo(dogStreetView.snp.height).multipliedBy(3)
         }
 
         dogrunReviewView.addSubview(dogReviewsTableView)
