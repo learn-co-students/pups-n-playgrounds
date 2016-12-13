@@ -1,16 +1,4 @@
 PODS:
-  - Bolts (1.8.4):
-    - Bolts/AppLinks (= 1.8.4)
-    - Bolts/Tasks (= 1.8.4)
-  - Bolts/AppLinks (1.8.4):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.8.4)
-  - FBSDKCoreKit (4.17.0):
-    - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.17.0):
-    - FBSDKCoreKit
-  - FBSDKShareKit (4.17.0):
-    - FBSDKCoreKit
   - Firebase/Auth (3.10.0):
     - Firebase/Core
     - FirebaseAuth (= 3.0.6)
@@ -67,9 +55,6 @@ PODS:
   - SnapKit (3.0.2)
 
 DEPENDENCIES:
-  - FBSDKCoreKit
-  - FBSDKLoginKit
-  - FBSDKShareKit
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -89,10 +74,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/firebase/geofire-objc.git
 
 SPEC CHECKSUMS:
-  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  FBSDKCoreKit: 30a21d2d7b92984b3d80497113433c00824c35e9
-  FBSDKLoginKit: 42b7129ac0373ca99eaf4cbebf4d07bd42371f59
-  FBSDKShareKit: 9b573d03fbee36cbaf42d5bb1f2bc019e0d72347
   Firebase: 387f37c7dca894a02708da9ff35ba147040eae9e
   FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
   FirebaseAuth: 96e9674ff31d6e1f826d53e26aa003a57cab0295
@@ -109,6 +90,6 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 58bbcf46b5cf9fd4ed625d28a60cb2fbae4ab0f4
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
 
-PODFILE CHECKSUM: 9f8864d95f6f1d5ea77248cdb2d496b3dcf7040a
+PODFILE CHECKSUM: d6e8c664057845d019f5e5aacaa1a71915df46ed
 
 COCOAPODS: 1.1.1

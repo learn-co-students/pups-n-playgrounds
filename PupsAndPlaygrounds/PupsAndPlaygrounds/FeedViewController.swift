@@ -58,7 +58,7 @@ class FeedViewController: UIViewController {
         FIRClient.flagReviewWith(unique: flaggedReview.reviewID, locationID: flaggedReview.locationID, comment: flaggedReview.comment, userID: flaggedReview.userID) {
             let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
-                FIRClient.getVisibleReviewsForFeed { reviews in
+                FIRClient.getVisibleReviews { reviews in
                     self.reviews = reviews
                     self.feedView.feedTableView.reloadData()
                 }

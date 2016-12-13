@@ -9,45 +9,44 @@
 import UIKit
 
 class ReviewsTableViewCell: UITableViewCell {
-    
-    let deleteReviewButton = UIButton()
-    let flagButton = UIButton()
-    let reviewLabel = UILabel()
-    
-    weak var review: Review! {
-        didSet {
-            reviewLabel.text = review.comment
-            reviewLabel.textColor = UIColor.themeMarine
-            reviewLabel.font = UIFont.themeTinyRegular
-            reviewLabel.numberOfLines = 3
-            reviewLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        }
+  
+  let deleteReviewButton = UIButton()
+  let flagButton = UIButton()
+  let reviewLabel = UILabel()
+  
+  weak var review: Review! {
+    didSet {
+      reviewLabel.text = review.comment
+      reviewLabel.textColor = UIColor.themeMarine
+      reviewLabel.font = UIFont.themeTinyRegular
+      reviewLabel.numberOfLines = 3
+      reviewLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     }
+  }
+  
+  
+  override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
+    cellConfig()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func setSelected(_ selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
     
+    // Configure the view for the selected state
+  }
+  
+  func cellConfig() {
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        cellConfig()
+    contentView.addSubview(reviewLabel)
+    reviewLabel.snp.makeConstraints {
+      $0.leading.trailing.equalToSuperview().offset(5)
+      $0.top.bottom.equalToSuperview()
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
-    func cellConfig() {
-
-        contentView.addSubview(reviewLabel)
-        reviewLabel.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().offset(5)
-            $0.top.bottom.equalToSuperview()
-        }
-    }
-    
+  }
 }
 

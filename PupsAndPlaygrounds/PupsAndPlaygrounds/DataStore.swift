@@ -12,14 +12,17 @@ import Firebase
 final class DataStore {
   var user: User? {
     didSet {
+      print("stored user")
       NotificationCenter.default.post(name: Notification.Name("userStored"), object: nil)
-      FIRClient.getReviews(forUser: user) { userReviews in
-        self.userReviews = userReviews
-      }
+      storeReviews()
     }
   }
-  var userReviews = [Review]() {
+  var userReviews: [Review]? {
     didSet {
+      print("stored reviews")
+      print(userReviews!.count)
+      print(user!.uid)
+      print(user!.reviewIDs)
       NotificationCenter.default.post(name: Notification.Name("reviewsStored"), object: nil)
     }
   }
@@ -33,6 +36,12 @@ final class DataStore {
   func storeUser() {
     FIRClient.getUser(user: FIRAuth.auth()?.currentUser) { user in
       self.user = user
+    }
+  }
+  
+  func storeReviews() {
+    FIRClient.getReviews(forUser: user) { reviews in
+      self.userReviews = reviews
     }
   }
   
@@ -57,8 +66,14 @@ final class DataStore {
         guard let notes = dogrunInfo["notes"] as? String else { print("error unwrapping dogrun notes"); return }
         guard let isHandicap = dogrunInfo["isHandicap"] as? Bool else { print("error unwrapping dogrun isHandicap"); return }
         guard let isFlagged = dogrunInfo["isFlagged"] as? String else { print("error unwrapping dogrun isFlagged"); return }
-        let rating = 0
         
+        var rating: Int
+        if let averageRating = dogrunInfo["rating"] as? Int {
+          rating = averageRating
+        } else {
+          rating = 0
+        }
+    
         dogRuns.append(Dogrun(id: dogRunID, name: name, latitude: latitude, longitude: longitude, address: address, isOffLeash: isOffLeash, notes: notes, isHandicap: isHandicap, isFlagged: isFlagged, rating: rating))
       }
       
@@ -84,7 +99,15 @@ final class DataStore {
           let longitude = Double(longitudeString) else { print("error unwrapping playground longitude"); return }
         guard let isHandicap = playgroundInfo["isHandicap"] as? String else { print("error unwrapping playground isHandicap"); return }
         guard let isFlagged = playgroundInfo["isFlagged"] as? String else { print("error unwrapping playground isFlagged"); return }
-        let newPlayground = Playground(id: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewIDs: [], photos: [], isFlagged: isFlagged)
+        
+        var rating: Int
+        if let averageRating = playgroundInfo["rating"] as? Int {
+          rating = averageRating
+        } else {
+          rating = 0
+        }
+        
+        let newPlayground = Playground(id: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewIDs: [], rating: rating, photos: [], isFlagged: isFlagged)
         
         var reviewsIDArray = [String]()
         

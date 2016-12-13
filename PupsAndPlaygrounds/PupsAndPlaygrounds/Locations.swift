@@ -33,7 +33,7 @@ class Playground: Location {
   var isHandicap: String
   var rating = 0
   
-  init(id: String, name: String, address: String, isHandicap: String, latitude: Double, longitude: Double, reviewIDs: [String], photos: [UIImage]?, isFlagged: String) {
+  init(id: String, name: String, address: String, isHandicap: String, latitude: Double, longitude: Double, reviewIDs: [String], rating: Int, photos: [UIImage]?, isFlagged: String) {
     self.id = id
     self.name = name
     self.address = address
@@ -43,6 +43,7 @@ class Playground: Location {
     self.photos = photos
     self.isFlagged = isFlagged
     self.isHandicap = isHandicap
+    self.rating = rating
   }
 }
 

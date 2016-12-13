@@ -26,6 +26,12 @@ class UserProfileViewController: UIViewController {
     constrain()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+  
+    userProfileView.reviewsTableView.reloadData()
+  }
+  
   override func viewDidLayoutSubviews() {
     userProfileView.layer.sublayers?.first?.frame = userProfileView.bounds
     userProfileView.profileButton.layer.cornerRadius = userProfileView.profileButton.frame.width / 2
@@ -40,7 +46,7 @@ class UserProfileViewController: UIViewController {
     
     userProfileView.reviewsTableView.delegate = self
     userProfileView.reviewsTableView.dataSource = self
-    userProfileView.reviewsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
+    userProfileView.reviewsTableView.register(UserReviewTableViewCell.self, forCellReuseIdentifier: "userReviewCell")
     
     NotificationCenter.default.addObserver(self, selector: #selector(finishedSaving), name: Notification.Name("savedProfilePhoto"), object: nil)
   }
@@ -88,7 +94,17 @@ class UserProfileViewController: UIViewController {
   
   // MARK: Action Methods
   func profileButtonTouched() {
-    let alert = UIAlertController(title: "Update Profile Photo", message: nil, preferredStyle: .alert)
+    let alert = UIAlertController(title: "Update Profile Photo", message: nil, preferredStyle: .actionSheet)
+    
+    let cameraRoll = UIAlertAction(title: "Camera roll", style: .default) { _ in
+      if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+        self.imagePicker.delegate = self
+        self.imagePicker.sourceType = .photoLibrary
+        self.imagePicker.allowsEditing = true
+        
+        self.present(self.imagePicker, animated: true, completion: nil)
+      }
+    }
     
     let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { _ in
       if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -101,20 +117,10 @@ class UserProfileViewController: UIViewController {
       }
     }
     
-    let cameraRoll = UIAlertAction(title: "Camera roll", style: .default) { _ in
-      if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-        self.imagePicker.delegate = self
-        self.imagePicker.sourceType = .photoLibrary
-        self.imagePicker.allowsEditing = true
-        
-        self.present(self.imagePicker, animated: true, completion: nil)
-      }
-    }
-    
     let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
     
-    alert.addAction(takePhoto)
     alert.addAction(cameraRoll)
+    alert.addAction(takePhoto)
     alert.addAction(cancel)
     
     present(alert, animated: true, completion: nil)
@@ -156,72 +162,74 @@ extension UserProfileViewController: UIImagePickerControllerDelegate, UINavigati
 // MARK: UITableViewDelegate and UITableViewDataSource
 extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return store.userReviews.count
+    guard let count = store.userReviews?.count else {
+      return 0
+    }
+    
+    return count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewsTableViewCell
-    cell.review = store.userReviews[indexPath.row]
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "userReviewCell", for: indexPath) as? UserReviewTableViewCell else {
+      print("error unwrapping cell in user review table view")
+      return UITableViewCell()
+    }
+  
+    cell.review = store.userReviews?[indexPath.row]
     
+    if let locationID = store.userReviews?[indexPath.row].locationID {
+      FIRClient.getLocation(with: locationID) {
+        cell.locationNameLabel.text = $0?.name
+      }
+    }
+
     return cell
   }
   
-  //  func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-  //
-  //    guard let userID = reviewsArray[indexPath.row]?.userID else { print("trouble casting userID");return [] }
-  //    guard let reviewID = reviewsArray[indexPath.row]?.reviewID else { print("trouble casting reviewID");return [] }
-  //    guard let locationID = reviewsArray[indexPath.row]?.locationID else { print("trouble casting locationID");return [] }
-  //    guard let reviewComment = reviewsArray[indexPath.row]?.comment else { print("trouble casting reviewComment"); return [] }
-  //
-  //
-  //    if userID == currentUser?.userID {
-  //
-  //
-  //      let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-  //
-  //        self.reviewsArray.remove(at: indexPath.row)
-  //        tableView.deleteRows(at: [indexPath], with: .fade)
-  //
-  //        FirebaseData.deleteUsersOwnReview(userID: userID, reviewID: reviewID, locationID: locationID) {
-  //
-  //          let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
-  //          alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
-  //            FirebaseData.getVisibleReviewsForFeed { reviews in
-  //              self.reviewsArray = reviews
-  //              self.userProfileView.reviewsTableView.reloadData()
-  //            }
-  //          })
-  //        }
-  //      }
-  //      delete.backgroundColor = UIColor.themeCoral
-  //      return [delete]
-  //
-  //    } else {
-  //
-  //      let flag = UITableViewRowAction(style: .destructive, title: "Flag") { (action, indexPath) in
-  //
-  //        self.reviewsArray.remove(at: indexPath.row)
-  //        tableView.deleteRows(at: [indexPath], with: .fade)
-  //
-  //        FirebaseData.flagReviewWith(unique: reviewID, locationID: locationID, comment: reviewComment, userID: userID) {
-  //          let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
-  //          alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
-  //            FirebaseData.getVisibleReviewsForFeed { reviews in
-  //              self.reviewsArray = reviews
-  //              self.userProfileView.reviewsTableView.reloadData()
-  //            }
-  //          })
-  //
-  //          self.present(alert, animated: true, completion: nil)
-  //        }
-  //      }
-  //      flag.backgroundColor = UIColor.themeSunshine
-  //      return [flag]
-  //    }
-  //  }
-  
-  
+  func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    guard let userID = store.userReviews?[indexPath.row].userID,
+      let reviewID = store.userReviews?[indexPath.row].reviewID,
+      let locationID = store.userReviews?[indexPath.row].locationID,
+      let reviewComment = store.userReviews?[indexPath.row].comment else {
+        print("trouble casting reviewComment")
+        return nil
+    }
+    
+    if userID == store.user?.uid {
+      let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, indexPath in
+        self.store.userReviews?.remove(at: indexPath.row)
+        
+        FIRClient.deleteReview(userID: userID, reviewID: reviewID, locationID: locationID) {
+          let alert = UIAlertController(title: "Success", message: "You have deleted this comment", preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+          
+          self.present(alert, animated: true, completion: nil)
+        }
+      }
+      
+      delete.backgroundColor = UIColor.themeCoral
+      
+      return [delete]
+    }
+    
+    let flag = UITableViewRowAction(style: .destructive, title: "Flag") { action, indexPath in
+      self.store.userReviews?.remove(at: indexPath.row)
+      tableView.deleteRows(at: [indexPath], with: .fade)
+      
+      FIRClient.flagReviewWith(unique: reviewID, locationID: locationID, comment: reviewComment, userID: userID) {
+        let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+      }
+    }
+    
+    flag.backgroundColor = UIColor.themeSunshine
+    
+    return [flag]
+  }
 }
+
 
 
 

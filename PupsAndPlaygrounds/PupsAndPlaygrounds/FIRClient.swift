@@ -13,6 +13,7 @@ final class FIRClient {
   
   // Firebase Root Reference
   static let ref = FIRDatabase.database().reference()
+  static let store = DataStore.shared
   
   // MARK: Create new user account
   static func createAccount(firstName: String, lastName: String, email: String, password: String, completion: @escaping () -> Void) {
@@ -28,7 +29,7 @@ final class FIRClient {
       }
       
       ref.child("users").updateChildValues([user.uid : ["firstName" : firstName, "lastName": lastName]])
-    
+      
       completion()
     }
   }
@@ -70,8 +71,10 @@ final class FIRClient {
       
       let user = User(uid: uid, firstName: firstName, lastName: lastName)
       
-      if let reviewIDs = userInfo["reviewIDs"] as? [String] {
-        user.reviewIDs = reviewIDs
+      if let reviewIDs = userInfo["reviews"] as? [String : Any] {
+        for reviewID in reviewIDs.keys {
+          user.reviewIDs.append(reviewID)
+        }
       }
       
       if let profilePhotoURL = URL(string: userInfo["profilePhotoURLString"] as? String ?? "") {
@@ -96,13 +99,13 @@ final class FIRClient {
       return
     }
     
-    var reviews = [Review]()
-    
     ref.child("reviews").child("visible").observe(.value, with: { snapshot in
       guard let reviewsDict = snapshot.value as? [String : [String : Any]] else {
         print("error unwrapping user reviews dict")
         return
       }
+      
+      var reviews = [Review]()
       
       for (reviewID, reviewInfo) in reviewsDict {
         guard user.reviewIDs.contains(reviewID) else { continue }
@@ -192,10 +195,17 @@ final class FIRClient {
       guard let longitudeString = locationDict["longitude"] as? String else { print("ERROR #5"); return }
       guard let isHandicap = locationDict["isHandicap"] as? String else { print("ERROR #6"); return }
       guard let isFlagged = locationDict["isFlagged"] as? String else { print("ERROR #7"); return }
+      
+      var rating: Int
+      if let averageRating = locationDict["rating"] as? Int {
+        rating = averageRating
+      } else {
+        rating = 0
+      }
+    
       //            guard let photos = locationDict["photos"] as? [UIImage] else { return }
       
       var reviewsIDArray = [String]()
-      
       
       guard let latitude = Double(latitudeString) else { return }
       guard let longitude = Double(longitudeString) else { return }
@@ -208,14 +218,14 @@ final class FIRClient {
         }
       }
       
-      let newestPlayground = Playground(id: locationID, name: name, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewIDs: reviewsIDArray, photos: [], isFlagged:isFlagged)
+      let newestPlayground = Playground(id: locationID, name: name, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewIDs: reviewsIDArray, rating: rating, photos: [], isFlagged: isFlagged)
       
       completion(newestPlayground)
     })
     
   }
   
-  static func addReview(comment: String, locationID: String, rating: String) -> Review? {
+  static func addReview(comment: String, locationID: String, rating: Int) -> Review? {
     let ref = FIRDatabase.database().reference().root
     
     let uniqueReviewKey = FIRDatabase.database().reference().childByAutoId().key
@@ -233,37 +243,35 @@ final class FIRClient {
     
     ref.child("users").child("\(userUniqueID)").child("reviews").updateChildValues([uniqueReviewKey: ["flagged": "false"]])
     
-    ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey: ["comment": comment, "userID": userUniqueID, "locationID": locationID, "flagged": "false", "reviewID": uniqueReviewKey]])
+    ref.child("reviews").child("visible").updateChildValues([uniqueReviewKey : ["comment" : comment,
+                                                                                "userID" : userUniqueID,
+                                                                                "locationID" : locationID,
+                                                                                "rating" : rating,
+                                                                                "flagged" : "false",
+                                                                                "reviewID" : uniqueReviewKey]])
     
-    let newReview = Review(reviewID: uniqueReviewKey, userID: userUniqueID, locationID: locationID, rating: 5, comment: comment)
+    let newReview = Review(reviewID: uniqueReviewKey, userID: userUniqueID, locationID: locationID, rating: rating, comment: comment)
     
     return newReview
   }
   
-  static func deleteUsersOwnReview(userID: String, reviewID: String, locationID: String, completion: () -> ()) {
-    let ref = FIRDatabase.database().reference().root
+  static func deleteReview(userID: String, reviewID: String, locationID: String, completion: () -> Void) {
+    guard let uid = store.user?.uid else {
+      print("error unwrapping uid for user review deletion")
+      return
+    }
     
-    guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else { return }
-    
-    print("CURRENT USER ID IS \(userUniqueID)")
-    
-    if userID == userUniqueID {
-      
+    if userID == uid {
       if locationID.hasPrefix("PG") {
-        
         ref.child("locations").child("playgrounds").child("\(locationID)").child("reviews").child(reviewID).removeValue()
-        
       } else if locationID.hasPrefix("DR") {
-        
         ref.child("locations").child("dogruns").child("\(locationID)").child("reviews").child(reviewID).removeValue()
       }
       
-      ref.child("users").child("\(userUniqueID)").child("reviews").child(reviewID).removeValue()
-      
-      
+      ref.child("users").child("\(uid)").child("reviews").child(reviewID).removeValue()
       ref.child("reviews").child("visible").child(reviewID).removeValue()
-      
     }
+    
     completion()
   }
   
@@ -292,34 +300,48 @@ final class FIRClient {
     completion()
   }
   
-  static func getVisibleReviewsForFeed(with completion: @escaping ([Review]) -> Void) {
-    
-    let reviewRef = FIRDatabase.database().reference().child("reviews").child("visible")
-    var reviewsArray = [Review]()
-    
-    reviewRef.observeSingleEvent(of: .value, with: { (snapshot) in
-      guard let snapshotValue = snapshot.value as? [String: Any] else {print("no reviews"); return}
-      
-      for review in snapshotValue {
-        guard let reviewInfo = review.value as? [String: Any],
-          let comment = reviewInfo["comment"] as? String,
-          let flagged = reviewInfo["flagged"] as? Bool,
-          let locationID = reviewInfo["locationID"] as? String,
-          let reviewID = reviewInfo["reviewID"] as? String,
-          let userID = reviewInfo["userID"] as? String
-          else { print("no review data"); return }
-        
-        let reviewToAdd = Review(reviewID: reviewID, userID: userID, locationID: locationID, rating: 5, comment: comment)
-        
-        reviewsArray.append(reviewToAdd)
+  static func getVisibleReviews(completion: @escaping ([Review]) -> Void) {
+    let reviewsRef = ref.child("reviews").child("visible")
+    reviewsRef.observe(.value, with: { snapshot in
+      guard let reviewsDict = snapshot.value as? [String : [String : Any]] else {
+        print("no user reviews")
+        return
       }
       
-      completion(reviewsArray)
+      guard let uid = store.user?.uid else {
+        print("error unwrapping user while retrieving reviews")
+        return
+      }
       
+      guard let reviewIDs = store.user?.reviewIDs else {
+        print("error unwrapping review idea while retrieving reviews")
+        return
+      }
+      
+      var reviews = [Review]()
+      
+      for (reviewID, review) in reviewsDict {
+        if reviewIDs.contains(reviewID) {
+          guard let locationID = review["locationID"] as? String,
+            let comment = review["comment"] as? String else {
+              print("error unwrapping user review data")
+              continue
+          }
+          let rating = review["rating"] as? Int ?? 4
+          
+          reviews.append(Review(reviewID: reviewID,
+                                userID: uid,
+                                locationID: locationID,
+                                rating: rating,
+                                comment: comment))
+        }
+      }
+      
+      completion(reviews)
     })
   }
   
-  static func calcAverageStarFor(location uniqueID: String, completion: @escaping (Float) -> Void) {
+  static func calcAverageStarFor(location uniqueID: String) {
     
     let ref = FIRDatabase.database().reference().child("locations")
     
@@ -336,10 +358,12 @@ final class FIRClient {
         
         for snap in snapshotValue {
           guard let playgroundInfo = snap.value as? [String: Any] else {print("error returning playground info"); return}
-          guard let ratingString = playgroundInfo["rating"] as? String,
-            let rating = Double(ratingString) else { print("error returning rating string values"); return }
           
-          playgroundRatings.append(rating)
+          if let rating = playgroundInfo["rating"] as? Int {
+            playgroundRatings.append(Double(rating))
+          } else {
+            playgroundRatings.append(0)
+          }
         }
         
         for value in playgroundRatings {
@@ -351,34 +375,38 @@ final class FIRClient {
         
         averageStarValueToReturn = Float(playgroundRatingsSum / Double(playgroundRatings.count))
         print("AVERAGE STARS: \(averageStarValueToReturn)")
-        completion(averageStarValueToReturn)
+        
+        ref.child("playgrounds").child(uniqueID).updateChildValues(["rating" : averageStarValueToReturn])
       })
-      
     } else if uniqueID.hasPrefix("DR") {
       
       ref.child("dogruns").child("\(uniqueID)").child("reviews").observeSingleEvent(of: .value, with: { (snapshot) in
         guard let snapshotValue = snapshot.value as? [String: Any] else { print("error returning playground reviews"); return}
         
         for snap in snapshotValue {
-          guard let playgroundInfo = snap.value as? [String: Any] else {print("error returning playground info"); return}
-          guard let ratingString = playgroundInfo["rating"] as? String,
-            let rating = Double(ratingString) else { print("error returning rating string values"); return }
-          
-          playgroundRatings.append(rating)
-          
-          if playgroundRatings.count == snapshotValue.count {
-            for value in playgroundRatings {
-              playgroundRatingsSum += value
-            }
-            print("PLAYGROUND RATING SUM =\(playgroundRatingsSum)")
-            print("PLAYGROUND RATING count =\(playgroundRatings.count)")
-            
-            averageStarValueToReturn = Float(playgroundRatingsSum / Double(playgroundRatings.count))
+          guard let dogRunInfo = snap.value as? [String : Any] else {
+            print("error returning playground info")
+            return
           }
           
+          if let rating = dogRunInfo["rating"] as? Int {
+            dogrunRatings.append(Double(rating))
+          } else {
+            dogrunRatings.append(0)
+          }
+          
+          if dogrunRatings.count == snapshotValue.count {
+            for value in dogrunRatings {
+              dogrunRatingsSum += value
+            }
+            print("DOGRUN RATING SUM =\(dogrunRatingsSum)")
+            print("DOGRUN RATING count =\(dogrunRatings.count)")
+            
+            averageStarValueToReturn = Float(dogrunRatingsSum / Double(dogrunRatings.count))
+          }
         }
         
-        completion(averageStarValueToReturn)
+        ref.child("dogruns").child(uniqueID).updateChildValues(["rating" : averageStarValueToReturn])
       })
     }
   }

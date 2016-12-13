@@ -36,6 +36,8 @@ class ListView: UIView {
     gradient.frame = UIScreen.main.bounds
     layer.addSublayer(gradient)
     
+    locationsTableView.separatorStyle = .none
+    locationsTableView.rowHeight = 180
     locationsTableView.backgroundColor = UIColor.clear
   }
   

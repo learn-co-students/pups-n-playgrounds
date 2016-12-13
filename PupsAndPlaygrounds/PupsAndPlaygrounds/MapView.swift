@@ -31,9 +31,14 @@ class MapView: UIView {
     goToLocationButtonLabel.text = "Go to location"
     goToLocationButtonLabel.font = UIFont.themeSmallBold
     goToLocationButtonLabel.textColor = UIColor.white
+    
     goToLocationButtonImageView.contentMode = .scaleAspectFit
+    
     goToLocationButtonView.isUserInteractionEnabled = false
+    
     goToLocationButton.backgroundColor = UIColor.themeCoral
+    
+    map.mapType = .satellite
   }
   
   // MARK: View Constraints

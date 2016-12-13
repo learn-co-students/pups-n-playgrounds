@@ -12,10 +12,10 @@ import SnapKit
 class CustomCalloutView: UIView {
   
   // MARK: Properties
-  lazy var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+  lazy var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
   lazy var nameLabel = UILabel()
   lazy var addressLabel = UILabel()
-  lazy var ratingLabel = UILabel()
+  lazy var starReview = StarReview()
   lazy var distanceLabel = UILabel()
   
   // MARK: Initialization
@@ -34,7 +34,7 @@ class CustomCalloutView: UIView {
   func configure() {
     layer.cornerRadius = 20
     clipsToBounds = true
-  
+    
     nameLabel.font = UIFont.themeMediumLight
     nameLabel.textColor = UIColor.white
     nameLabel.numberOfLines = 0
@@ -43,16 +43,22 @@ class CustomCalloutView: UIView {
     addressLabel.textColor = UIColor.white
     addressLabel.numberOfLines = 0
     
-    ratingLabel.font = UIFont.themeTinyBold
-    ratingLabel.textColor = UIColor.white
-    ratingLabel.numberOfLines = 0
-    
     distanceLabel.font = UIFont.themeTinyBold
     distanceLabel.textColor = UIColor.white
+    
+    starReview.starCount = 5
+    starReview.starBackgroundColor = UIColor.lightGray
+    starReview.starFillColor = UIColor.white
+    starReview.isUserInteractionEnabled = false
+    starReview.starMarginScale = 0.3
+    starReview.contentMode = .scaleAspectFit
   }
   
   // MARK: Constrain
   func constrain() {
+    let leadingTopOffset = 20
+    let trailingBottomOffset = -leadingTopOffset
+    
     addSubview(blurView)
     blurView.snp.makeConstraints {
       $0.edges.equalToSuperview()
@@ -60,29 +66,23 @@ class CustomCalloutView: UIView {
     
     blurView.addSubview(nameLabel)
     nameLabel.snp.makeConstraints {
-      $0.leading.top.equalToSuperview().offset(20)
-      $0.trailing.equalToSuperview().offset(-20)
+      $0.leading.top.equalToSuperview().offset(leadingTopOffset)
+      $0.trailing.equalToSuperview().offset(trailingBottomOffset)
     }
     
     blurView.addSubview(addressLabel)
     addressLabel.snp.makeConstraints {
-      $0.leading.equalToSuperview().offset(20)
-      $0.trailing.equalToSuperview().offset(-20)
+      $0.leading.equalToSuperview().offset(leadingTopOffset)
+      $0.trailing.equalToSuperview().offset(trailingBottomOffset)
       $0.top.equalTo(nameLabel.snp.bottom)
     }
     
-    blurView.addSubview(ratingLabel)
-    ratingLabel.snp.makeConstraints {
-      $0.leading.equalToSuperview().offset(20)
-      $0.trailing.equalToSuperview().offset(-20)
+    blurView.addSubview(starReview)
+    starReview.snp.makeConstraints {
+      $0.leading.equalToSuperview().offset(leadingTopOffset)
       $0.top.equalTo(addressLabel.snp.bottom)
-    }
-    
-    blurView.addSubview(distanceLabel)
-    distanceLabel.snp.makeConstraints {
-      $0.leading.equalToSuperview().offset(20)
-      $0.trailing.equalToSuperview().offset(-20)
-      $0.top.equalTo(ratingLabel.snp.bottom)
+      $0.bottom.equalToSuperview().offset(trailingBottomOffset)
+      $0.width.equalToSuperview().dividedBy(3)
     }
   }
 }

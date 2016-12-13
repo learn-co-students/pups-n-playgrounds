@@ -45,8 +45,8 @@ class ReviewViewController: UIViewController {
   
   func submitReview() {
     print("LOCATION ID \(location?.id)")
-    let newReview = FirebaseData.addReview(comment: reviewView.reviewTextView.text!, locationID: reviewView.location.id, rating: String(reviewView.starReviews.value))
-    
+    let newReview = FIRClient.addReview(comment: reviewView.reviewTextView.text!, locationID: reviewView.location.id, rating: Int(reviewView.starReviews.value))
+    FIRClient.calcAverageStarFor(location: reviewView.location.id)
     
     reviewDelegate?.addReview(with: newReview)
     

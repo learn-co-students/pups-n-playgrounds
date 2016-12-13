@@ -95,6 +95,7 @@ class FirebaseData {
         guard let longitudeString = value["longitude"] as? String else { print("longitude = \(value["longitude"])"); return }
         guard let isHandicap = value["isHandicap"] as? String else { print("isHandicap = \(value["isHandicap"])"); return }
         guard let isFlagged = value["isFlagged"] as? String else { print("isFlagged = \(value["isFlagged"])"); return }
+        guard let rating = value["rating"] as? Int else { print("rating = \(value["rating"])"); return }
         
         var reviewsIDArray = [String]()
         
@@ -109,9 +110,10 @@ class FirebaseData {
           }
         }
         
-        let newestPlayground = Playground(id: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewIDs: reviewsIDArray, photos: [], isFlagged:isFlagged)
+        let newestPlayground = Playground(id: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewIDs: reviewsIDArray, rating: rating, photos: [], isFlagged:isFlagged)
         playgroundArray.append(newestPlayground)
       }
+      
       completion(playgroundArray)
       
     })

@@ -126,24 +126,24 @@ class LocationProfileViewController: UIViewController {
   }
   
   func flagButtonTouched(sender: UIButton) {
-    let cellContent = sender.superview!
-    let cell = cellContent.superview! as! UITableViewCell
-    let indexPath = locationProfileView.reviewsTableView.indexPath(for: cell)
-    
-    if let flaggedReview = reviewsArray[(indexPath?.row)!] {
-      
-      FIRClient.flagReviewWith(unique: flaggedReview.reviewID, locationID: flaggedReview.locationID, comment: flaggedReview.comment, userID: flaggedReview.userID) {
-        let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
-          FIRClient.getVisibleReviewsForFeed { reviews in
-            self.reviewsArray = reviews
-            self.locationProfileView.reviewsTableView.reloadData()
-          }
-        })
-        
-        self.present(alert, animated: true, completion: nil)
-      }
-    }
+//    let cellContent = sender.superview!
+//    let cell = cellContent.superview! as! UITableViewCell
+//    let indexPath = locationProfileView.reviewsTableView.indexPath(for: cell)
+//    
+//    if let flaggedReview = reviewsArray[(indexPath?.row)!] {
+//      
+//      FIRClient.flagReviewWith(unique: flaggedReview.reviewID, locationID: flaggedReview.locationID, comment: flaggedReview.comment, userID: flaggedReview.userID) {
+//        let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+//          FIRClient.getVisibleReviewsForFeed { reviews in
+//            self.reviewsArray = reviews
+//            self.locationProfileView.reviewsTableView.reloadData()
+//          }
+//        })
+//        
+//        self.present(alert, animated: true, completion: nil)
+//      }
+//    }
   }
 }
 

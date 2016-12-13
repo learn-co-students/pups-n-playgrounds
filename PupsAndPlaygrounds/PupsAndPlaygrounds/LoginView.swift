@@ -8,7 +8,6 @@
 
 import UIKit
 import SnapKit
-import FBSDKLoginKit
 
 class LoginView: UIView {
   
