@@ -57,6 +57,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
     }
     
     
+    
     func configure() {
         starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
         starReviews.starCount = 5

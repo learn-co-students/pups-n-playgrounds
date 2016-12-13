@@ -144,6 +144,7 @@ class LocationProfileViewController: UIViewController {
     }
 }
 
+
 extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

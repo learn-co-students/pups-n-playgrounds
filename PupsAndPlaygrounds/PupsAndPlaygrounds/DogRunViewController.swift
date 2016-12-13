@@ -149,7 +149,6 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
         }
         
         
-        
     }
     
     func anonymousReviewerAlert() {
