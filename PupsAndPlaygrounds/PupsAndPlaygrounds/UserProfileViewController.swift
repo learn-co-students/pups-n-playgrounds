@@ -17,7 +17,7 @@ class UserProfileViewController: UIViewController {
   lazy var imagePicker = UIImagePickerController()
   
   let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
-  let store = WSRDataStore.shared
+  let store = DataStore.shared
   
   override func viewDidLoad() {
     super.viewDidLoad()

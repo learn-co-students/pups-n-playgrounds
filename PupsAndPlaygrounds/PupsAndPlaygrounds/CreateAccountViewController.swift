@@ -15,7 +15,7 @@ class CreateAccountViewController: UIViewController {
   // MARK: Properties
   lazy var createAccountView = CreateAccountView()
   let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
-  let store = WSRDataStore.shared
+  let store = DataStore.shared
   
   // MARK: Override Methods
   override func viewDidLoad() {

@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     IQKeyboardManager.sharedManager().enable = true
     
     // Container view vontroller setup
-    if let uid = FIRAuth.auth()?.currentUser?.uid {
+    if FIRAuth.auth()?.currentUser != nil {
       containerViewController.childVC = MainTabBarController()
     } else {
       containerViewController.childVC = LoginViewController()

@@ -57,7 +57,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         self.starReviews.starMarginScale = 0.3
         self.starReviews.contentMode = .scaleAspectFit
         
-        FirebaseData.calcAverageStarFor(location: location.playgroundID) { (averageStarValue) in
+        FIRClient.calcAverageStarFor(location: location.id) { (averageStarValue) in
             print("AVERAGE STAR VALUE \(averageStarValue)")
             self.starReviews.value = averageStarValue
             self.starReviews.isHidden = false

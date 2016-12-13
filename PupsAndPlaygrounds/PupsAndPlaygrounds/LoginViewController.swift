@@ -15,7 +15,7 @@ final class LoginViewController: UIViewController {
   // MARK: Properties
   let loginView = LoginView()
   let containerVC = (UIApplication.shared.delegate as? AppDelegate)?.containerViewController
-  let store = WSRDataStore.shared
+  let store = DataStore.shared
   
   // MARK: Override Methods
   override func viewDidLoad() {

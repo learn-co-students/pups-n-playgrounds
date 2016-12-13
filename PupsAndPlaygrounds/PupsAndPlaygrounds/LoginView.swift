@@ -60,6 +60,7 @@ class LoginView: UIView {
     emailField.textColor = UIColor.white
     
     passwordField.placeholder = "Password"
+    passwordField.isSecureTextEntry = true
     passwordField.font = UIFont.themeMediumThin
     passwordField.textColor = UIColor.white
     

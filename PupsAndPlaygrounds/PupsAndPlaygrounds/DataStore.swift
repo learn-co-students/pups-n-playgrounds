@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-final class WSRDataStore {
+final class DataStore {
   var user: User? {
     didSet {
       NotificationCenter.default.post(name: Notification.Name("userStored"), object: nil)
@@ -26,7 +26,7 @@ final class WSRDataStore {
   var dogRuns: [Dogrun]?
   var playgrounds: [Playground]?
   private let ref = FIRDatabase.database().reference()
-  static let shared = WSRDataStore()
+  static let shared = DataStore()
   
   private init() {}
   
@@ -57,9 +57,9 @@ final class WSRDataStore {
         guard let notes = dogrunInfo["notes"] as? String else { print("error unwrapping dogrun notes"); return }
         guard let isHandicap = dogrunInfo["isHandicap"] as? Bool else { print("error unwrapping dogrun isHandicap"); return }
         guard let isFlagged = dogrunInfo["isFlagged"] as? String else { print("error unwrapping dogrun isFlagged"); return }
-        let rating = "10"
+        let rating = 0
         
-        dogRuns.append(Dogrun(dogRunID: dogRunID, name: name, latitude: latitude, longitude: longitude, address: address, isOffLeash: isOffLeash, notes: notes, isHandicap: isHandicap, isFlagged: isFlagged, rating: rating))
+        dogRuns.append(Dogrun(id: dogRunID, name: name, latitude: latitude, longitude: longitude, address: address, isOffLeash: isOffLeash, notes: notes, isHandicap: isHandicap, isFlagged: isFlagged, rating: rating))
       }
       
       self.dogRuns = dogRuns
@@ -84,11 +84,11 @@ final class WSRDataStore {
           let longitude = Double(longitudeString) else { print("error unwrapping playground longitude"); return }
         guard let isHandicap = playgroundInfo["isHandicap"] as? String else { print("error unwrapping playground isHandicap"); return }
         guard let isFlagged = playgroundInfo["isFlagged"] as? String else { print("error unwrapping playground isFlagged"); return }
-        let newPlayground = Playground(ID: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewsID: [], photos: [], isFlagged: isFlagged)
+        let newPlayground = Playground(id: ID, name: locationName, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewIDs: [], photos: [], isFlagged: isFlagged)
         
-        var reviewsIDArray = [String?]()
+        var reviewsIDArray = [String]()
         
-        if let reviewsDictionary = playgroundInfo["reviews"] as? [String:Any] {
+        if let reviewsDictionary = playgroundInfo["reviews"] as? [String : Any] {
           for iterReview in reviewsDictionary {
             let reviewID = iterReview.key
             reviewsIDArray.append(reviewID)

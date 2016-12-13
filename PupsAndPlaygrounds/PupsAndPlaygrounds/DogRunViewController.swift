@@ -11,7 +11,10 @@ import SnapKit
 import Firebase
 import GoogleMaps
 
+
 class DogRunViewController: UIViewController, GMSMapViewDelegate {
+  
+  
   var dogrun: Dogrun?
   var dogRunProfileView: DogRunProfileView!
   var dogReviewsTableView: UITableView!
@@ -27,18 +30,16 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
     
     self.dogRunProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
     
-    if let dogrunReviewsID = dogrun?.reviewsID {
+    if let dogrunReviewsID = dogrun?.reviewIDs {
       
       for reviewID in dogrunReviewsID {
-        guard let unwrappedReviewID = reviewID else { print("error unwrapping review id"); return }
-        
-//        FirebaseData.getReview(with: unwrappedReviewID, completion: { (firebaseReview) in
-//          
-//          self.reviewsArray.append(firebaseReview)
-//          print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS.")
-//          self.dogRunProfileView.dogReviewsTableView.reloadData()
-//          
-//        })
+        FIRClient.getReview(with: reviewID, completion: { (firebaseReview) in
+          
+          self.reviewsArray.append(firebaseReview)
+          print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS.")
+          self.dogRunProfileView.dogReviewsTableView.reloadData()
+          
+        })
       }
       
     }
@@ -47,9 +48,27 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
       self.currentUser = currentFirebaseUser
     }
     
-    print("THIS DOGRUN HAS \(dogrun?.reviewsID.count) REVIEWS")
+    print("THIS DOGRUN HAS \(dogrun?.reviewIDs.count) REVIEWS")
+    view.layoutIfNeeded()
+  }
+  
+  override func viewDidLayoutSubviews() {
+    
+    dogRunProfileView.dogDetailView.layer.addSublayer(CustomBorder(.bottom, UIColor.lightGray, 0.5, dogRunProfileView.dogDetailView.frame))
+    
+    dogRunProfileView.dogNotesView.layer.addSublayer(CustomBorder(.bottom, UIColor.lightGray, 0.5, dogRunProfileView.dogNotesView.frame))
+    
+    dogRunProfileView.dogTypeView.layer.addSublayer(CustomBorder(.trailing, UIColor.lightGray, 0.5, dogRunProfileView.dogTypeView.frame))
+    
+    view.layoutIfNeeded()
     
   }
+  
+  
+  
+  
+  
+  
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -64,6 +83,19 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
     tabBarController?.tabBar.isUserInteractionEnabled = false
     
     print("CLICKED REVIEW BUTTON")
+    let childVC = ReviewViewController()
+    childVC.location = dogrun
+    childVC.reviewDelegate = self
+    
+    addChildViewController(childVC)
+    
+    view.addSubview(childVC.view)
+    childVC.view.snp.makeConstraints {
+      childVC.edgesConstraint = $0.edges.equalToSuperview().constraint
+    }
+    childVC.didMove(toParentViewController: self)
+    
+    view.layoutIfNeeded()
   }
   
   
@@ -71,14 +103,6 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
     
     guard let unwrappedDogRun = dogrun else { print("error unwrapping dogrun"); return }
     self.dogRunProfileView = DogRunProfileView(dogrun: unwrappedDogRun)
-    
-    let color1 = UIColor(red: 34/255.0, green: 91/255.0, blue: 102/255.0, alpha: 1.0)
-    let color2 = UIColor(red: 141/255.0, green: 191/255.9, blue: 103/255.0, alpha: 1.0)
-    
-    let backgroundGradient = CALayer.makeGradient(firstColor: color1, secondColor: color2)
-    
-    backgroundGradient.frame = view.frame
-    self.view.layer.insertSublayer(backgroundGradient, at: 0)
     
     dogReviewsTableView = dogRunProfileView.dogReviewsTableView
     dogRunProfileView.dogReviewsTableView.delegate = self
@@ -92,7 +116,25 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
     
     dogRunProfileView.dogRunNameLabel.text = dogrun?.name
     dogRunProfileView.dogRunAddressLabel.text = dogrun?.address
+    
+    
     dogRunProfileView.dogNotesLabel.text = dogrun?.notes
+    
+    if dogrun?.notes == "" {
+      dogRunProfileView.dogNotesLabel.text = "This dogrun has no notes yet."
+    }
+    
+    
+    if dogrun?.isOffLeash == true {
+      dogRunProfileView.dogTypeLabel.text = "Off-Leash"
+    }else{
+      dogRunProfileView.dogTypeLabel.text = "Run"
+    }
+    
+    
+    
+    
+    
   }
   
   func flagButtonTouched(sender: UIButton) {
@@ -103,10 +145,10 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
     
     if let flaggedReview = reviewsArray[(indexPath?.row)!] {
       
-      FirebaseData.flagReviewWith(unique: flaggedReview.reviewID, locationID: flaggedReview.locationID, comment: flaggedReview.comment, userID: flaggedReview.userID) {
+      FIRClient.flagReviewWith(unique: flaggedReview.reviewID, locationID: flaggedReview.locationID, comment: flaggedReview.comment, userID: flaggedReview.userID) {
         let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
-          FirebaseData.getVisibleReviewsForFeed { reviews in
+          FIRClient.getVisibleReviewsForFeed { reviews in
             self.reviewsArray = reviews
             self.dogRunProfileView.dogReviewsTableView.reloadData()
           }
@@ -140,4 +182,12 @@ extension DogRunViewController: UITableViewDelegate, UITableViewDataSource {
     return cell
   }
 }
+
+extension DogRunViewController: AddReviewProtocol {
+  func addReview(with newReview: Review?) {
+    reviewsArray.append(newReview)
+  }
+}
+
+
 

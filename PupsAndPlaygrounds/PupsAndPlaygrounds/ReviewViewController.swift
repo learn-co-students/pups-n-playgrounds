@@ -11,60 +11,65 @@ import SnapKit
 
 
 class ReviewViewController: UIViewController {
-    
-    var reviewDelegate: AddReviewProtocol?
-    var reviewView: ReviewView!
-    var location: Playground? {
-        didSet {
-            configReviewView()
-        }
+  
+  var reviewDelegate: AddReviewProtocol?
+  var reviewView: ReviewView!
+  var location: Location? {
+    didSet {
+      configReviewView()
     }
-    var edgesConstraint: Constraint?
+  }
+  var edgesConstraint: Constraint?
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func configReviewView() {
-        guard let location = location else { print("problem getting location"); return }
-        reviewView = ReviewView(playground: location)
-        view.addSubview(reviewView)
-        reviewView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        reviewView.submitReviewButton.addTarget(self, action: #selector(submitReview), for: .touchUpInside)
-        reviewView.cancelButton.addTarget(self, action: #selector(closeReviewWindow), for: .touchUpInside)
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  func configReviewView() {
+    guard let location = location else { print("problem getting location"); return }
+    reviewView = ReviewView(location: location)
+    view.addSubview(reviewView)
+    reviewView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
     }
     
-    func submitReview() {
-        print("LOCATION ID \(location?.playgroundID)")
-        let newReview = FirebaseData.addReview(comment: reviewView.reviewTextView.text!, locationID: reviewView.location.playgroundID, rating: String(reviewView.starReviews.value))
-        
-        
-        reviewDelegate?.addReview(with: newReview)
-        
-        closeReviewWindow()
+    reviewView.submitReviewButton.addTarget(self, action: #selector(submitReview), for: .touchUpInside)
+    reviewView.cancelButton.addTarget(self, action: #selector(closeReviewWindow), for: .touchUpInside)
+  }
+  
+  func submitReview() {
+    print("LOCATION ID \(location?.id)")
+    let newReview = FirebaseData.addReview(comment: reviewView.reviewTextView.text!, locationID: reviewView.location.id, rating: String(reviewView.starReviews.value))
+    
+    
+    reviewDelegate?.addReview(with: newReview)
+    
+    closeReviewWindow()
+  }
+  
+  func closeReviewWindow() {
+    if let parent = parent as? LocationProfileViewController {
+      parent.locationProfileView.reviewsTableView.reloadData()
+      parent.navigationController?.navigationBar.isUserInteractionEnabled = true
+      parent.tabBarController?.tabBar.isUserInteractionEnabled = true
+    } else if let parent = parent as? DogRunViewController {
+      parent.dogRunProfileView.dogReviewsTableView.reloadData()
+      parent.navigationController?.navigationBar.isUserInteractionEnabled = true
+      parent.tabBarController?.tabBar.isUserInteractionEnabled = true
     }
     
-    func closeReviewWindow() {
-        guard let parent = parent as? LocationProfileViewController else { print("problem with parent VC as Location Prof VC"); return }
-        parent.locationProfileView.reviewsTableView.reloadData()
-        // Remove from ContainerVC
-        willMove(toParentViewController: nil)
-        
-        edgesConstraint = nil
-        
-        view.removeFromSuperview()
-        removeFromParentViewController()
-        
-        parent.navigationController?.navigationBar.isUserInteractionEnabled = true
-        parent.tabBarController?.tabBar.isUserInteractionEnabled = true
-    }
+    // Remove from ContainerVC
+    willMove(toParentViewController: nil)
+    
+    edgesConstraint = nil
+    
+    view.removeFromSuperview()
+    removeFromParentViewController()
+  }
 }

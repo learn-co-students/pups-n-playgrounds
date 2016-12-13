@@ -14,9 +14,9 @@ class User {
   let uid: String
   var firstName: String
   var lastName: String
+  var reviewIDs = [String]()
   var profilePhoto: UIImage?
   var photos: [UIImage]?
-  var reviewIDs = [String]()
   
   init(uid: String, firstName: String, lastName: String) {
     self.uid = uid

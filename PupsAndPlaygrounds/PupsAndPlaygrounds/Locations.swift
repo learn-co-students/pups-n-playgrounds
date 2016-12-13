@@ -11,63 +11,43 @@ import UIKit
 import MapKit
 
 protocol Location: class {
+  var id: String { get }
   var name: String { get }
   var address: String { get }
-//  var isHandicap: String { get }
-  
-  var reviewsID: [String?] { get }
-  //  var coordinates: CLLocationCoordinate2D {get set}
-  //    var photos: [UIImage] { get }
-  
+  var reviewIDs: [String] { get }
   var isFlagged: String { get }
-  var photos: [UIImage?] { get }
-  var rating: String { get }
-  
-  
+  var photos: [UIImage]? { get }
+  var rating: Int { get }
 }
 
 class Playground: Location {
-  
-  let playgroundID: String
+  let id: String
   let name: String
-  let address: String
-  var isHandicap = "false"
   let latitude: Double
   let longitude: Double
+  let address: String
   var profileImage: UIImage = #imageLiteral(resourceName: "playgroundTemplate")
-  var reviewsID = [String?]()
-  var photos = [UIImage?]()
+  var reviewIDs = [String]()
+  var photos: [UIImage]?
   var isFlagged = "false"
-  var rating = String(1)
+  var isHandicap: String
+  var rating = 0
   
-  init(citydata: [String : Any]) {
-    
-    self.playgroundID = citydata["Playground_ID"] as! String
-    self.name = citydata["Name"] as! String
-    self.address = citydata["Location"] as! String
-    self.latitude = citydata["lat"] as! Double
-    self.longitude = citydata["lon"] as! Double
-    self.isFlagged = citydata["isFlagged"] as! String
-    self.isHandicap = citydata["isHandicap"] as! String
-    
-  }
-  
-  init(ID: String, name: String, address: String, isHandicap: String, latitude: Double, longitude: Double, reviewsID: [String?], photos: [UIImage?], isFlagged: String) {
-    self.playgroundID = ID
+  init(id: String, name: String, address: String, isHandicap: String, latitude: Double, longitude: Double, reviewIDs: [String], photos: [UIImage]?, isFlagged: String) {
+    self.id = id
     self.name = name
     self.address = address
     self.latitude = latitude
     self.longitude = longitude
-    self.reviewsID = reviewsID
+    self.reviewIDs = reviewIDs
     self.photos = photos
     self.isFlagged = isFlagged
     self.isHandicap = isHandicap
   }
-  
 }
 
 class Dogrun: Location {
-  let dogRunID: String
+  let id: String
   let name: String
   let latitude: Double
   let longitude: Double
@@ -76,12 +56,12 @@ class Dogrun: Location {
   let notes: String
   let isHandicap: Bool
   var isFlagged: String
-  var rating: String
-  lazy var reviewsID = [String?]()
-  lazy var photos = [UIImage?]()
+  var rating = 0
+  var reviewIDs = [String]()
+  var photos: [UIImage]?
   
-  init(dogRunID: String, name: String, latitude: Double, longitude: Double, address: String, isOffLeash: Bool, notes: String, isHandicap: Bool, isFlagged: String, rating: String) {
-    self.dogRunID = dogRunID
+  init(id: String, name: String, latitude: Double, longitude: Double, address: String, isOffLeash: Bool, notes: String, isHandicap: Bool, isFlagged: String, rating: Int) {
+    self.id = id
     self.name = name
     self.latitude = latitude
     self.longitude = longitude

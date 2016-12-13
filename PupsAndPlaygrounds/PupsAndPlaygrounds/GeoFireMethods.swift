@@ -16,7 +16,7 @@ class GeoFireMethods {
     let geofireRef = FIRDatabase.database().reference().child("geoFireLocation")
     
     let geoFire = GeoFire(firebaseRef: geofireRef)
-    let unqiueKey = playground.playgroundID
+    let unqiueKey = playground.id
     
     geoFire?.setLocation(CLLocation(latitude: playground.latitude, longitude: playground.longitude), forKey: unqiueKey) { (error) in
       if (error != nil) {

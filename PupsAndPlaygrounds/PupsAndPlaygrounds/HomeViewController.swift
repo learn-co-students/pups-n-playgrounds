@@ -228,12 +228,12 @@ class HomeViewController: UIViewController {
   }
   
   private func presentLocations(completion: @escaping () -> Void) {
-    WSRDataStore.shared.getLocations {
-      if let dogParks = WSRDataStore.shared.dogRuns {
+    DataStore.shared.getLocations {
+      if let dogParks = DataStore.shared.dogRuns {
         self.dogParks = dogParks
       } else { print("error retrieving dogParks") }
       
-      if let playgrounds = WSRDataStore.shared.playgrounds {
+      if let playgrounds = DataStore.shared.playgrounds {
         self.playgrounds = playgrounds
       } else { print("error retrieving playgrounds") }
       
@@ -314,7 +314,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
       navigationController?.pushViewController(dogRunVC, animated: true)
     } else if let playground = locations[indexPath.row] as? Playground {
       let locationProfileVC = LocationProfileViewController()
-      locationProfileVC.playgroundID = playground.playgroundID
+      locationProfileVC.playgroundID = playground.id
       
       navigationController?.pushViewController(locationProfileVC, animated: true)
     } else { print("error downcasting location") }
@@ -398,7 +398,7 @@ extension HomeViewController: MKMapViewDelegate {
     guard let playground = selectedAnnotation?.location as? Playground else { print("error unwrapping playground from selected location"); return }
     
     let locationProfileVC = LocationProfileViewController()
-    locationProfileVC.playgroundID = playground.playgroundID
+    locationProfileVC.playgroundID = playground.id
     
     navigationController?.pushViewController(locationProfileVC, animated: true)
   }

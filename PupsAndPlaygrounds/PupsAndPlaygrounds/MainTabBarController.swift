@@ -42,7 +42,7 @@ class MainTabBarController: UITabBarController {
         
         NotificationCenter.default.addObserver(userProfileVC, selector: #selector(userProfileVC.displayUserInfo), name: Notification.Name("userStored"), object: nil)
         NotificationCenter.default.addObserver(userProfileVC, selector: #selector(userProfileVC.displayUserReviews), name: Notification.Name("reviewsStored"), object: nil)
-        WSRDataStore.shared.storeUser()
+        DataStore.shared.storeUser()
         
         self.profileNC = UINavigationController(rootViewController: userProfileVC)
       }
