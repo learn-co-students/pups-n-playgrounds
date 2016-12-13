@@ -22,6 +22,7 @@
 		C4283EB51DF10C570052580A /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4283EB41DF10C570052580A /* CustomAnnotation.swift */; };
 		C4283EB71DF1DD8E0052580A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */; };
 		C43CB5BF1DFE6C1D00FEF719 /* ListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43CB5BE1DFE6C1D00FEF719 /* ListViewTableViewCell.swift */; };
+		C45AB53E1DFF76B3005D3A44 /* JSONSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45AB53D1DFF76B3005D3A44 /* JSONSerializer.swift */; };
 		C4608D331DFF10E500415903 /* FIRClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4608D321DFF10E500415903 /* FIRClient.swift */; };
 		C4810D1D1DE36EE600A652DB /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1C1DE36EE600A652DB /* UserProfileViewController.swift */; };
 		C4810D1F1DE36F9E00A652DB /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4810D1E1DE36F9E00A652DB /* UserProfileView.swift */; };
@@ -51,11 +52,9 @@
 		E813A3A81DECA4BA006D9725 /* LocationsProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */; };
 		E813A3AA1DECA4E4006D9725 /* LocationsProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E813A3A91DECA4E4006D9725 /* LocationsProfileView.swift */; };
 		E84199C21DE37E7800522C8A /* dogrunsnyc.json in Resources */ = {isa = PBXBuildFile; fileRef = E84199BF1DE37E7800522C8A /* dogrunsnyc.json */; };
-		E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C01DE37E7800522C8A /* JSONParser.swift */; };
 		E84199C41DE37E7800522C8A /* playgroundsnyc.json in Resources */ = {isa = PBXBuildFile; fileRef = E84199C11DE37E7800522C8A /* playgroundsnyc.json */; };
 		E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C51DE37E8F00522C8A /* FirebaseData.swift */; };
 		E84199CA1DE37EB000522C8A /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C81DE37EB000522C8A /* Locations.swift */; };
-		E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C91DE37EB000522C8A /* LocationsDataStore.swift */; };
 		E84199D11DE38FE400522C8A /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Review.swift */; };
 		E87758A21DF8701200823089 /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */; };
 		E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EE2131DEE141B00CAEACF /* Secrets.swift */; };
@@ -80,6 +79,7 @@
 		C4283EB61DF1DD8E0052580A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		C432CCA91DEC849F003C0686 /* PupsAndPlaygrounds.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PupsAndPlaygrounds.entitlements; sourceTree = "<group>"; };
 		C43CB5BE1DFE6C1D00FEF719 /* ListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewTableViewCell.swift; sourceTree = "<group>"; };
+		C45AB53D1DFF76B3005D3A44 /* JSONSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSerializer.swift; sourceTree = "<group>"; };
 		C4608D321DFF10E500415903 /* FIRClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FIRClient.swift; path = PupsAndPlaygrounds/FIRClient.swift; sourceTree = "<group>"; };
 		C4810D1C1DE36EE600A652DB /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		C4810D1E1DE36F9E00A652DB /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
@@ -112,11 +112,9 @@
 		E813A3A71DECA4BA006D9725 /* LocationsProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsProfileViewController.swift; sourceTree = "<group>"; };
 		E813A3A91DECA4E4006D9725 /* LocationsProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsProfileView.swift; sourceTree = "<group>"; };
 		E84199BF1DE37E7800522C8A /* dogrunsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = dogrunsnyc.json; path = PupsAndPlaygrounds/dogrunsnyc.json; sourceTree = "<group>"; };
-		E84199C01DE37E7800522C8A /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONParser.swift; path = PupsAndPlaygrounds/JSONParser.swift; sourceTree = "<group>"; };
 		E84199C11DE37E7800522C8A /* playgroundsnyc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = playgroundsnyc.json; path = PupsAndPlaygrounds/playgroundsnyc.json; sourceTree = "<group>"; };
 		E84199C51DE37E8F00522C8A /* FirebaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseData.swift; path = PupsAndPlaygrounds/FirebaseData.swift; sourceTree = "<group>"; };
 		E84199C81DE37EB000522C8A /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
-		E84199C91DE37EB000522C8A /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationsDataStore.swift; path = PupsAndPlaygrounds/LocationsDataStore.swift; sourceTree = "<group>"; };
 		E84199D01DE38FE400522C8A /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		E89EE2131DEE141B00CAEACF /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -375,9 +373,8 @@
 				E84199C51DE37E8F00522C8A /* FirebaseData.swift */,
 				C405AE121DF0BCD30044D9C8 /* GeoFireMethods.swift */,
 				C4608D321DFF10E500415903 /* FIRClient.swift */,
+				C45AB53D1DFF76B3005D3A44 /* JSONSerializer.swift */,
 				C4F09A851DFB813C00C47F9F /* DataStore.swift */,
-				E84199C91DE37EB000522C8A /* LocationsDataStore.swift */,
-				E84199C01DE37E7800522C8A /* JSONParser.swift */,
 				E84199BF1DE37E7800522C8A /* dogrunsnyc.json */,
 				E84199C11DE37E7800522C8A /* playgroundsnyc.json */,
 			);
@@ -522,7 +519,6 @@
 				C4810D1F1DE36F9E00A652DB /* UserProfileView.swift in Sources */,
 				E813A3A81DECA4BA006D9725 /* LocationsProfileViewController.swift in Sources */,
 				C405AE131DF0BCD30044D9C8 /* GeoFireMethods.swift in Sources */,
-				E84199C31DE37E7800522C8A /* JSONParser.swift in Sources */,
 				C4F09A821DFB0F3700C47F9F /* CustomAnimations.swift in Sources */,
 				C49CB6341DFC9C2700D6DCBF /* AnyonymousUserViewController.swift in Sources */,
 				C4608D331DFF10E500415903 /* FIRClient.swift in Sources */,
@@ -534,6 +530,7 @@
 				C4129EA11DF57B66009706E6 /* CustomCalloutView.swift in Sources */,
 				E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */,
 				C4B6ED7D1DEDDF8700F28C04 /* MapView.swift in Sources */,
+				C45AB53E1DFF76B3005D3A44 /* JSONSerializer.swift in Sources */,
 				C4EAE2D21DDF65E20069C15E /* AppDelegate.swift in Sources */,
 				C4F09A861DFB813C00C47F9F /* DataStore.swift in Sources */,
 				E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */,
@@ -544,7 +541,6 @@
 				E809BA111DE4FF9D00E7BF03 /* User.swift in Sources */,
 				C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
-				E84199CB1DE37EB000522C8A /* LocationsDataStore.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
 				B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* UserProfileViewController.swift in Sources */,
