@@ -11,6 +11,7 @@ import SnapKit
 import GoogleMaps
 
 class LocationProfileView: UIView, GMSMapViewDelegate {
+  
     
     var location: Playground!
     var locationProfileImage: UIImageView!
