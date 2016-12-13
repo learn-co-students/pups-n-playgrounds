@@ -14,55 +14,52 @@ import GoogleMaps
 
 class DogRunViewController: UIViewController, GMSMapViewDelegate {
     
-    
-    var dogrun: Dogrun?
+    let currentUser = DataStore.shared.user
+    var dogrunID: String?
+    var dogrun: Location?
     var dogRunProfileView: DogRunProfileView!
     var dogReviewsTableView: UITableView!
-    var currentUser: User?
     var reviewsArray: [Review?] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configure()
+        guard let unwrappedLocationID = dogrunID else { print("trouble unwrapping location ID"); return }
+        print("location ID is \(dogrunID)")
+        print("DOG RUN REVIEWS ARRAY START = \(reviewsArray.count)")
         
-        guard let firebaseUserID = FIRAuth.auth()?.currentUser?.uid else {print("error retrieving current user"); return }
-        
-        self.dogRunProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
-        
-        if let dogrunReviewsID = dogrun?.reviewIDs {
-            
-            for reviewID in dogrunReviewsID {
-                FIRClient.getReview(with: reviewID, completion: { (firebaseReview) in
-                    
-                    self.reviewsArray.append(firebaseReview)
-                    print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS.")
-                    self.dogRunProfileView.dogReviewsTableView.reloadData()
-                    
-                })
+        FIRClient.getLocation(with: unwrappedLocationID) { (firebaseLocation) in
+            self.dogrun = firebaseLocation
+            print("DOG RUN REVIEWS ARRAY IDS FIREBASE = \(self.dogrun?.reviewIDs.count)")
+
+            if let dogrunReviewsIDs = self.dogrun?.reviewIDs {
+                for reviewID in dogrunReviewsIDs {
+                    FIRClient.getReview(with: reviewID, completion: { (firebaseReview) in
+                        
+                        self.reviewsArray.append(firebaseReview)
+                        self.dogRunProfileView.dogReviewsTableView.reloadData()
+                        
+                    })
+                }
             }
-            
+            self.configure()
+
         }
-        
-        FirebaseData.getUser(with: firebaseUserID) { (currentFirebaseUser) in
-            self.currentUser = currentFirebaseUser
-        }
-        
-        print("THIS DOGRUN HAS \(dogrun?.reviewIDs.count) REVIEWS")
-        view.layoutIfNeeded()
+
     }
-    
-    override func viewDidLayoutSubviews() {
-        
-        dogRunProfileView.dogDetailView.layer.addSublayer(CustomBorder(.bottom, UIColor.lightGray, 0.5, dogRunProfileView.dogDetailView.frame))
-        
-        dogRunProfileView.dogNotesView.layer.addSublayer(CustomBorder(.bottom, UIColor.lightGray, 0.5, dogRunProfileView.dogNotesView.frame))
-        
-        dogRunProfileView.dogTypeView.layer.addSublayer(CustomBorder(.trailing, UIColor.lightGray, 0.5, dogRunProfileView.dogTypeView.frame))
-        
-        view.layoutIfNeeded()
-        
-    }
+//
+//
+//    override func viewDidLayoutSubviews() {
+//        
+//        dogRunProfileView.dogDetailView.layer.addSublayer(CustomBorder(.bottom, UIColor.lightGray, 0.5, dogRunProfileView.dogDetailView.frame))
+//        
+//        dogRunProfileView.dogNotesView.layer.addSublayer(CustomBorder(.bottom, UIColor.lightGray, 0.5, dogRunProfileView.dogNotesView.frame))
+//        
+//        dogRunProfileView.dogTypeView.layer.addSublayer(CustomBorder(.trailing, UIColor.lightGray, 0.5, dogRunProfileView.dogTypeView.frame))
+//        
+//        view.layoutIfNeeded()
+//        
+//    }
     
     
     
@@ -102,7 +99,7 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
     func configure() {
     
         
-        guard let unwrappedDogRun = dogrun else { print("error unwrapping dogrun"); return }
+        guard let unwrappedDogRun = dogrun as? Dogrun else { print("error unwrapping dogrun"); return }
         self.dogRunProfileView = DogRunProfileView(dogrun: unwrappedDogRun)
         
         let color1 = UIColor(red: 34/255.0, green: 91/255.0, blue: 102/255.0, alpha: 1.0)
@@ -129,14 +126,14 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
         dogRunProfileView.dogRunAddressLabel.text = dogrun?.address
         
         
-        dogRunProfileView.dogNotesLabel.text = dogrun?.notes
+        dogRunProfileView.dogNotesLabel.text = unwrappedDogRun.notes
         
-        if dogrun?.notes == "" {
+        if unwrappedDogRun.notes == "" {
             dogRunProfileView.dogNotesLabel.text = "This dogrun has no notes yet."
         }
         
         
-        if dogrun?.isOffLeash == true {
+        if unwrappedDogRun.isOffLeash == true {
             dogRunProfileView.dogTypeLabel.text = "Off-Leash"
         }else{
             dogRunProfileView.dogTypeLabel.text = "Run"
@@ -206,7 +203,7 @@ extension DogRunViewController: UITableViewDelegate, UITableViewDataSource {
         guard let locationID = reviewsArray[indexPath.row]?.locationID else { print("trouble casting locationID");return [] }
         guard let reviewComment = reviewsArray[indexPath.row]?.comment else { print("trouble casting reviewComment"); return [] }
         
-        
+                print("REVIEW USER ID = \(userID) AND CURRENT USER UID = \(currentUser?.uid)")
         if userID == currentUser?.uid {
             
             

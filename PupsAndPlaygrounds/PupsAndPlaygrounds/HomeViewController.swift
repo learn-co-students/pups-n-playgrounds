@@ -306,7 +306,7 @@ extension HomeViewController: MKMapViewDelegate {
             
             if let dogRun = selectedAnnotation?.location as? Dogrun {
                 let dogRunVC = DogRunViewController()
-                dogRunVC.dogrun = dogRun
+                dogRunVC.dogrunID = dogRun.id
                 
                 navigationController?.pushViewController(dogRunVC, animated: true)
             } else if let playground = selectedAnnotation?.location as? Playground {

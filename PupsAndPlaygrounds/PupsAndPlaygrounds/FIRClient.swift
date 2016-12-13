@@ -185,43 +185,86 @@ final class FIRClient {
         
         let ref = FIRDatabase.database().reference().root
         
-        let locationKey = ref.child("locations").child("playgrounds").child(locationID)
-        
-        locationKey.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let locationDict = snapshot.value as? [String : Any] else { print("ERROR #1"); return }
-            guard let name = locationDict["name"] as? String else { print("ERROR #2"); return }
-            guard let address = locationDict["address"] as? String else { print("ERROR #3"); return }
-            guard let latitudeString = locationDict["latitude"] as? String else { print("ERROR #4"); return }
-            guard let longitudeString = locationDict["longitude"] as? String else { print("ERROR #5"); return }
-            guard let isHandicap = locationDict["isHandicap"] as? String else { print("ERROR #6"); return }
-            guard let isFlagged = locationDict["isFlagged"] as? String else { print("ERROR #7"); return }
+        if locationID.hasPrefix("PG") {
             
-            var rating: Int
-            if let averageRating = locationDict["rating"] as? Int {
-                rating = averageRating
-            } else {
-                rating = 0
-            }
+            let locationKey = ref.child("locations").child("playgrounds").child(locationID)
             
-            //            guard let photos = locationDict["photos"] as? [UIImage] else { return }
-            
-            var reviewsIDArray = [String]()
-            
-            guard let latitude = Double(latitudeString) else { return }
-            guard let longitude = Double(longitudeString) else { return }
-            
-            
-            if let reviewsDictionary = locationDict["reviews"] as? [String : Any] {
-                for iterReview in reviewsDictionary {
-                    let reviewID = iterReview.key
-                    reviewsIDArray.append(reviewID)
+            locationKey.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let locationDict = snapshot.value as? [String : Any] else { print("ERROR #1"); return }
+                guard let name = locationDict["name"] as? String else { print("ERROR #2"); return }
+                guard let address = locationDict["address"] as? String else { print("ERROR #3"); return }
+                guard let latitudeString = locationDict["latitude"] as? String else { print("ERROR #4"); return }
+                guard let longitudeString = locationDict["longitude"] as? String else { print("ERROR #5"); return }
+                guard let isHandicap = locationDict["isHandicap"] as? String else { print("ERROR #6"); return }
+                guard let isFlagged = locationDict["isFlagged"] as? String else { print("ERROR #7"); return }
+                
+                var rating: Int
+                if let averageRating = locationDict["rating"] as? Int {
+                    rating = averageRating
+                } else {
+                    rating = 0
                 }
-            }
+                
+                //            guard let photos = locationDict["photos"] as? [UIImage] else { return }
+                
+                var reviewsIDArray = [String]()
+                
+                guard let latitude = Double(latitudeString) else { return }
+                guard let longitude = Double(longitudeString) else { return }
+                
+                let newestPlayground = Playground(id: locationID, name: name, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewIDs: reviewsIDArray, rating: rating, photos: [], isFlagged: isFlagged)
+                
+                if let reviewsDictionary = locationDict["reviews"] as? [String : Any] {
+                    for iterReview in reviewsDictionary {
+                        let reviewID = iterReview.key
+                        reviewsIDArray.append(reviewID)
+                        
+                    }
+                }
+                print("COMPETION REVIEW COUNT IS \(newestPlayground.reviewIDs.count)")
+                completion(newestPlayground)
+            })
+        } else {
+            let locationKey = ref.child("locations").child("dogruns").child(locationID)
             
-            let newestPlayground = Playground(id: locationID, name: name, address: address, isHandicap: isHandicap, latitude: latitude, longitude: longitude, reviewIDs: reviewsIDArray, rating: rating, photos: [], isFlagged: isFlagged)
             
-            completion(newestPlayground)
-        })
+            locationKey.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let locationDict = snapshot.value as? [String : Any] else { print("ERROR #1"); return }
+                guard let name = locationDict["name"] as? String else { print("ERROR #2"); return }
+                guard let address = locationDict["address"] as? String else { print("ERROR #3"); return }
+                guard let latitude = locationDict["latitude"] as? Double else { print("ERROR #4"); return }
+                guard let longitude = locationDict["longitude"] as? Double else { print("ERROR #5"); return }
+                guard let isHandicap = locationDict["isHandicap"] as? Bool else { print("ERROR #6"); return }
+                guard let isOffLeash = locationDict["dogRunType"] as? Bool else { print("error off leash"); return }
+                guard let notes = locationDict["notes"] as? String else { print("error notes"); return }
+                guard let isFlagged = locationDict["isFlagged"] as? String else { print("ERROR #7"); return }
+                
+                var rating: Int
+                if let averageRating = locationDict["rating"] as? Int {
+                    rating = averageRating
+                } else {
+                    rating = 0
+                }
+                
+                //            guard let photos = locationDict["photos"] as? [UIImage] else { return }
+                
+                var reviewsIDArray = [String]()
+                
+                
+                let newestDogRun = Dogrun(id: locationID, name: name, latitude: latitude, longitude: longitude, address: address, isOffLeash: isOffLeash, notes: notes, isHandicap: isHandicap, isFlagged: isFlagged, rating: rating)
+                
+                if let reviewsDictionary = locationDict["reviews"] as? [String : Any] {
+                    for iterReview in reviewsDictionary {
+                        let reviewID = iterReview.key
+                        reviewsIDArray.append(reviewID)
+                        print("iter count is \(reviewsIDArray.count)")
+                    }
+                    print("COMPETION REVIEW COUNT IS \(newestDogRun.reviewIDs.count)")
+                    completion(newestDogRun)
+                }
+            })
+
+        }
         
     }
     

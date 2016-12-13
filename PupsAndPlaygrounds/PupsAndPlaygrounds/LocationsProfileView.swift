@@ -11,7 +11,7 @@ import SnapKit
 import GoogleMaps
 
 class LocationProfileView: UIView, GMSMapViewDelegate {
-  
+    
     
     var location: Playground!
     var locationProfileImage: UIImageView!
@@ -49,16 +49,17 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     
     func configure() {
         
-        self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
-        self.starReviews.starCount = 5
-        self.starReviews.allowAccruteStars = false
-        self.starReviews.allowEdit = false
-        self.starReviews.starFillColor = UIColor.themeSunshine
-        self.starReviews.starBackgroundColor = UIColor.lightGray
-        self.starReviews.starMarginScale = 0.3
-        self.starReviews.contentMode = .scaleAspectFit
-        self.starReviews.value = Float(location.rating)
-      
+        starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
+        starReviews.starCount = 5
+        starReviews.allowAccruteStars = false
+        starReviews.starFillColor = UIColor.themeSunshine
+        starReviews.starBackgroundColor = UIColor.lightGray
+        starReviews.starMarginScale = 0.3
+        starReviews.contentMode = .scaleAspectFit
+        
+        starReviews.allowEdit = false
+        starReviews.value = FIRClient.calcAverageStarFor(location: location.id)
+        
         scrollView = UIScrollView()
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 1.5)
         
@@ -136,20 +137,19 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         
         scrollView.addSubview(locationNameLabel)
         locationNameLabel.snp.makeConstraints {
+            $0.top.equalTo(streetView.snp.bottom).offset(10)
             $0.leading.equalTo(locationProfileImage.snp.trailing).offset(10)
-            $0.top.equalTo(streetView.snp.bottom).offset(12)
             $0.height.equalTo(locationProfileImage).dividedBy(2)
-            $0.width.equalToSuperview().multipliedBy(0.66)
+            $0.width.equalTo(streetView.snp.width).multipliedBy(0.6)
         }
         
         
         scrollView.addSubview(locationAddressLabel)
         locationAddressLabel.snp.makeConstraints {
-            $0.leading.equalTo(locationProfileImage.snp.trailing).offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
             $0.top.equalTo(locationNameLabel.snp.bottom).offset(10)
+            $0.leading.equalTo(locationProfileImage.snp.trailing).offset(10)
             $0.height.equalTo(locationNameLabel.snp.height)
-            $0.width.equalToSuperview().multipliedBy(0.60)
+            $0.width.equalTo(locationNameLabel.snp.width)
         }
         
         scrollView.addSubview(starReviews)

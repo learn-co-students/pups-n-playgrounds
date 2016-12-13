@@ -35,7 +35,6 @@ class LocationProfileViewController: UIViewController {
                     FIRClient.getReview(with: reviewID, completion: { (firebaseReview) in
                         
                         self.reviewsArray.append(firebaseReview)
-                        print("REVIEWS ARRAY NOW HAS \(self.reviewsArray.count) REVIEWS")
                         self.locationProfileView.reviewsTableView.reloadData()
                         
                     })
@@ -170,7 +169,7 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         guard let locationID = reviewsArray[indexPath.row]?.locationID else { print("trouble casting locationID");return [] }
         guard let reviewComment = reviewsArray[indexPath.row]?.comment else { print("trouble casting reviewComment"); return [] }
         
-        
+        print("REVIEW USER ID = \(userID) AND CURRENT USER UID = \(currentUser?.uid)")
         if userID == currentUser?.uid {
             
             
