@@ -139,20 +139,19 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         
         scrollView.addSubview(locationNameLabel)
         locationNameLabel.snp.makeConstraints {
+            $0.top.equalTo(streetView.snp.bottom).offset(10)
             $0.leading.equalTo(locationProfileImage.snp.trailing).offset(10)
-            $0.top.equalTo(streetView.snp.bottom).offset(12)
             $0.height.equalTo(locationProfileImage).dividedBy(2)
-            $0.width.equalToSuperview().multipliedBy(0.66)
+            $0.width.equalTo(streetView.snp.width).multipliedBy(0.6)
         }
-        
+
         
         scrollView.addSubview(locationAddressLabel)
         locationAddressLabel.snp.makeConstraints {
-            $0.leading.equalTo(locationProfileImage.snp.trailing).offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
             $0.top.equalTo(locationNameLabel.snp.bottom).offset(10)
+            $0.leading.equalTo(locationProfileImage.snp.trailing).offset(10)
             $0.height.equalTo(locationNameLabel.snp.height)
-            $0.width.equalToSuperview().multipliedBy(0.60)
+            $0.width.equalTo(locationNameLabel.snp.width)
         }
         
         scrollView.addSubview(starReviews)
