@@ -142,10 +142,21 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
             dogRunProfileView.dogTypeLabel.text = "Run"
         }
         
+        if FIRAuth.auth()?.currentUser?.isAnonymous == false {
+            self.dogRunProfileView.submitReviewButton.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
+        } else {
+            self.dogRunProfileView.submitReviewButton.addTarget(self, action: #selector(anonymousReviewerAlert), for: .touchUpInside)
+        }
         
         
         
-        
+    }
+    
+    func anonymousReviewerAlert() {
+        let alert = UIAlertController(title: "Woof! Only users can submit reviews 🐶", message: "Head to profile to set one up!", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func flagButtonTouched(sender: UIButton) {

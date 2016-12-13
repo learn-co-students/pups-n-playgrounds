@@ -48,20 +48,21 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     
     func configure() {
         
-        self.starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
-        self.starReviews.starCount = 5
-        self.starReviews.allowAccruteStars = false
-        self.starReviews.allowEdit = false
-        self.starReviews.starFillColor = UIColor.themeSunshine
-        self.starReviews.starBackgroundColor = UIColor.lightGray
-        self.starReviews.starMarginScale = 0.3
-        self.starReviews.contentMode = .scaleAspectFit
+        starReviews = StarReview(frame: CGRect(x: 15, y: 250, width: 150, height: 70))
+        starReviews.starCount = 5
+        starReviews.allowAccruteStars = false
+        starReviews.starFillColor = UIColor.themeSunshine
+        starReviews.starBackgroundColor = UIColor.lightGray
+        starReviews.starMarginScale = 0.3
+        starReviews.contentMode = .scaleAspectFit
         
         FIRClient.calcAverageStarFor(location: location.id) { (averageStarValue) in
             print("AVERAGE STAR VALUE \(averageStarValue)")
             self.starReviews.value = averageStarValue
-            self.starReviews.isHidden = false
+            self.starReviews.allowEdit = false
+
         }
+        
         scrollView = UIScrollView()
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 1.5)
         
