@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		111C1FA245D020DB75ADC880 /* Pods_PupsAndPlaygrounds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58642D101BE829F81A703E2A /* Pods_PupsAndPlaygrounds.framework */; };
+		5B215BA11E008F51005FAB1E /* TheLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B215BA01E008F51005FAB1E /* TheLaunchScreen.storyboard */; };
 		6EA3EE3560F8D7CCF450E2B4 /* Pods_PupsAndPlaygrounds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */; };
 		B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */; };
 		B5CB82EB1DF86B4800B373B5 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */; };
@@ -66,6 +67,7 @@
 		06127B45D1FA197E42D189AB /* Pods-PupsAndPlaygrounds.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PupsAndPlaygrounds.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PupsAndPlaygrounds/Pods-PupsAndPlaygrounds.debug.xcconfig"; sourceTree = "<group>"; };
 		4A9D9D55D8F7A0A1D4605204 /* Pods_PupsAndPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PupsAndPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58642D101BE829F81A703E2A /* Pods_PupsAndPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PupsAndPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B215BA01E008F51005FAB1E /* TheLaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TheLaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		B5CB82EC1DF8714D00B373B5 /* ReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				E809BA101DE4FF9D00E7BF03 /* User.swift */,
 				C4283EB41DF10C570052580A /* CustomAnnotation.swift */,
 				C4EAE2D81DDF65E20069C15E /* PupsAndPlaygrounds.xcdatamodeld */,
+				5B215BA01E008F51005FAB1E /* TheLaunchScreen.storyboard */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -428,7 +431,7 @@
 				TargetAttributes = {
 					C4EAE2CD1DDF65E20069C15E = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = TWPE6ND5AF;
+						DevelopmentTeam = KXY9EDFTF5;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -462,6 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E84199C41DE37E7800522C8A /* playgroundsnyc.json in Resources */,
+				5B215BA11E008F51005FAB1E /* TheLaunchScreen.storyboard in Resources */,
 				C411BBB21DDF706E0090335B /* GoogleService-Info.plist in Resources */,
 				C4EAE2DC1DDF65E20069C15E /* Assets.xcassets in Resources */,
 				E84199C21DE37E7800522C8A /* dogrunsnyc.json in Resources */,
@@ -513,7 +517,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -675,12 +679,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = PupsAndPlaygrounds/PupsAndPlaygrounds.entitlements;
-				DEVELOPMENT_TEAM = TWPE6ND5AF;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = KXY9EDFTF5;
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.FlatironSchool.PupsAndPlaygrounds;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-potato-cruise";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -692,12 +696,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = PupsAndPlaygrounds/PupsAndPlaygrounds.entitlements;
-				DEVELOPMENT_TEAM = TWPE6ND5AF;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = KXY9EDFTF5;
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.FlatironSchool.PupsAndPlaygrounds;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-potato-cruise";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
