@@ -10,29 +10,7 @@ import Foundation
 import Firebase
 
 class FirebaseData {
-  static func getUser(with userID: String, completion: @escaping (User?) -> ()) {
-    let ref = FIRDatabase.database().reference().root
-    
-    let userKey = ref.child("users").child(userID)
-    
-    userKey.observeSingleEvent(of: .value, with: { (snapshot) in
-      guard let userDict = snapshot.value as? [String : Any] else { return }
-      
-      guard let firstName = userDict["firstName"] as? String else { return }
-      guard let lastName = userDict["lastName"] as? String else { return }
-      
-      var reviewsArray = [String]()
-      
-      if let reviewsDictionary = userDict["reviews"] as? [String:Any] {
-        for iterReview in reviewsDictionary {
-          guard let reviewID = iterReview.key as? String else { return }
-          reviewsArray.append(reviewID)
-        }
-      }
-      //            let newestUser = User(userID: userID, firstName: firstName, lastName: lastName, reviewsID: reviewsArray)
-      //            completion(newestUser)
-    })
-  }
+
   
   
     
@@ -139,21 +117,7 @@ class FirebaseData {
     ref.child("locations").child("dogruns").updateChildValues( ["DR-\(uniqueLocationKey)":["name": name, "location": address, "isHandicap": isHandicap, "dogRunType": dogRunType, "notes": notes, "isFlagged": "false"]])
   }
   
-  
-  // MARK: Get reviews exluding current users
-  
-  
-  // MARK: Firebase real-time observer
-  
-  static func realtimeFirebaseObserver() {
-    let ref = FIRDatabase.database().reference().child("reviews")
-    
-    ref.observe(FIRDataEventType.value, with: { (snapshot) in
-      let postDict = snapshot.value as? [String : Any] ?? [:]
-      
-    })
-  }
-  
+
   
 }
 

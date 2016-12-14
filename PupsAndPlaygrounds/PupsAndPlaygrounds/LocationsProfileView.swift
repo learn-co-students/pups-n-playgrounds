@@ -23,7 +23,6 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
     var streetView: UIView!
     var panoView: GMSPanoramaView!
     var starReviews: StarReview!
-    var rating: String?
     var scrollView: UIScrollView!
     var contentView: UIView!
     

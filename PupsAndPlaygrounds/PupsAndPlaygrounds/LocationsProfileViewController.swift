@@ -224,11 +224,16 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
 
 protocol AddReviewProtocol {
     func addReview(with newReview: Review?)
+    func updateRating(with newRating: Float)
 }
 
 extension LocationProfileViewController: AddReviewProtocol {
     func addReview(with newReview: Review?) {
         reviewsArray.append(newReview)
+    }
+    
+    func updateRating(with newRating: Float) {
+        locationProfileView.starReviews.value = newRating
     }
 }
 

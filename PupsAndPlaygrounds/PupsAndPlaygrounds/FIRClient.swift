@@ -456,6 +456,16 @@ final class FIRClient {
         }
         return averageStarValueToReturn
     }
+
+    static func sendFeedbackToPP(with comment: String) {
+        
+        let ref = FIRDatabase.database().reference().root.child("userFeedback")
+        let commentUniqueID = FIRDatabase.database().reference().childByAutoId().key
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        ref.updateChildValues([commentUniqueID: ["userUniqueID": currentUser, "comment": comment]])
+    }
+
 }
 
 

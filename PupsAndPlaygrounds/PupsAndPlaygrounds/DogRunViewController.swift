@@ -263,6 +263,10 @@ extension DogRunViewController: AddReviewProtocol {
     func addReview(with newReview: Review?) {
         reviewsArray.append(newReview)
     }
+    
+    func updateRating(with newRating: Float) {
+        dogRunProfileView.starReviews.value = newRating
+    }
 }
 
 
