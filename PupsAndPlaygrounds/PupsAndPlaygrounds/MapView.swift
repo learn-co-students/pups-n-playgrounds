@@ -38,7 +38,7 @@ class MapView: UIView {
     
     goToLocationButton.backgroundColor = UIColor.themeCoral
     
-    map.mapType = .standard
+    map.mapType = .hybrid
   }
   
   // MARK: View Constraints
