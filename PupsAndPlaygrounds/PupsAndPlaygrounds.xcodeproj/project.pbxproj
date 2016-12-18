@@ -60,6 +60,7 @@
 		E84199D11DE38FE400522C8A /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Review.swift */; };
 		E87758A21DF8701200823089 /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */; };
 		E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EE2131DEE141B00CAEACF /* Secrets.swift */; };
+		E8D63AF31E074757002614CA /* SettingsDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D63AF21E074757002614CA /* SettingsDropDownView.swift */; };
 		E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +123,7 @@
 		E84199D01DE38FE400522C8A /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		E89EE2131DEE141B00CAEACF /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		E8D63AF21E074757002614CA /* SettingsDropDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDropDownView.swift; sourceTree = "<group>"; };
 		E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -280,6 +282,7 @@
 		C492A0DF1DFC95BD0063AB0F /* Home View */ = {
 			isa = PBXGroup;
 			children = (
+				E8D63AF21E074757002614CA /* SettingsDropDownView.swift */,
 				C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */,
 				C4B6ED7E1DEDEB8D00F28C04 /* ListView.swift */,
 				C4F09A831DFB188200C47F9F /* FilterView.swift */,
@@ -557,6 +560,7 @@
 				C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
+				E8D63AF31E074757002614CA /* SettingsDropDownView.swift in Sources */,
 				B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* UserProfileViewController.swift in Sources */,
 				C4129E9E1DF577E6009706E6 /* CustomAnnotationView.swift in Sources */,
