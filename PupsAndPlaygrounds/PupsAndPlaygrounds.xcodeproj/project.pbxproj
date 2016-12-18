@@ -58,7 +58,7 @@
 		E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C51DE37E8F00522C8A /* FirebaseData.swift */; };
 		E84199CA1DE37EB000522C8A /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C81DE37EB000522C8A /* Locations.swift */; };
 		E84199D11DE38FE400522C8A /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Review.swift */; };
-		E87758A21DF8701200823089 /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */; };
+		E87758A21DF8701200823089 /* LocationReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87758A11DF8701200823089 /* LocationReviewTableViewCell.swift */; };
 		E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EE2131DEE141B00CAEACF /* Secrets.swift */; };
 		E8D63AF31E074757002614CA /* SettingsDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D63AF21E074757002614CA /* SettingsDropDownView.swift */; };
 		E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */; };
@@ -121,7 +121,7 @@
 		E84199C51DE37E8F00522C8A /* FirebaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseData.swift; path = PupsAndPlaygrounds/FirebaseData.swift; sourceTree = "<group>"; };
 		E84199C81DE37EB000522C8A /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		E84199D01DE38FE400522C8A /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
-		E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
+		E87758A11DF8701200823089 /* LocationReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationReviewTableViewCell.swift; sourceTree = "<group>"; };
 		E89EE2131DEE141B00CAEACF /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E8D63AF21E074757002614CA /* SettingsDropDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDropDownView.swift; sourceTree = "<group>"; };
 		E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
@@ -193,7 +193,6 @@
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
 				C492A0E41DFC963D0063AB0F /* Custom Elements */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
-				C4A148DE1DFFAEC900597914 /* New Group */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -256,7 +255,7 @@
 			children = (
 				C43CB5BE1DFE6C1D00FEF719 /* ListViewTableViewCell.swift */,
 				B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */,
-				E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */,
+				E87758A11DF8701200823089 /* LocationReviewTableViewCell.swift */,
 				C4A148DF1DFFB8DF00597914 /* UserReviewTableViewCell.swift */,
 			);
 			name = "Table View Cells";
@@ -336,13 +335,6 @@
 				C4608D361DFF507400415903 /* Table View Cells */,
 			);
 			name = "Custom Elements";
-			sourceTree = "<group>";
-		};
-		C4A148DE1DFFAEC900597914 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
 			sourceTree = "<group>";
 		};
 		C4DECFD61DE3474C001CE1A2 /* Property List */ = {
@@ -569,7 +561,7 @@
 				C4283EB71DF1DD8E0052580A /* ContainerViewController.swift in Sources */,
 				B5CB82EB1DF86B4800B373B5 /* ReviewView.swift in Sources */,
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
-				E87758A21DF8701200823089 /* ReviewsTableViewCell.swift in Sources */,
+				E87758A21DF8701200823089 /* LocationReviewTableViewCell.swift in Sources */,
 				C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */,
 				C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */,
 				C4B6ED7F1DEDEB8D00F28C04 /* ListView.swift in Sources */,

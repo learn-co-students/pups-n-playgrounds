@@ -34,7 +34,7 @@ final class DataStore {
   private init() {}
   
   func storeUser() {
-    FIRClient.getUser(user: FIRAuth.auth()?.currentUser) { user in
+    FIRClient.getCurrentUser(user: FIRAuth.auth()?.currentUser) { user in
       self.user = user
     }
   }

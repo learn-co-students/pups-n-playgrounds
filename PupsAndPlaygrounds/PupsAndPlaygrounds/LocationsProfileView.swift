@@ -101,7 +101,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         
         reviewsView = UIView()
         reviewsTableView = UITableView()
-        reviewsTableView.rowHeight = 40
+        reviewsTableView.rowHeight = 80
         reviewsTableView.layer.cornerRadius = 20
         
     }

@@ -114,7 +114,7 @@ class DogRunViewController: UIViewController, GMSMapViewDelegate {
         dogReviewsTableView = dogRunProfileView.dogReviewsTableView
         dogRunProfileView.dogReviewsTableView.delegate = self
         dogRunProfileView.dogReviewsTableView.dataSource = self
-        dogRunProfileView.dogReviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "dogReviewCell")
+        dogRunProfileView.dogReviewsTableView.register(LocationReviewTableViewCell.self, forCellReuseIdentifier: "dogReviewCell")
         dogRunProfileView.dogReviewsTableView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         
         self.view.addSubview(dogRunProfileView)
@@ -186,7 +186,7 @@ extension DogRunViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "dogReviewCell", for: indexPath) as! ReviewsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "dogReviewCell", for: indexPath) as! LocationReviewTableViewCell
         
         if let currentReview = reviewsArray[indexPath.row] {
             cell.review = currentReview

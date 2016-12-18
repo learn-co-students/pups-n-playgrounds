@@ -52,7 +52,7 @@ final class UserProfileView: UIView {
         reviewsView = UIView()
         reviewsTableView = UITableView()
         reviewsTableView.separatorStyle = .none
-        reviewsTableView.rowHeight = 40
+        reviewsTableView.rowHeight = 80
         reviewsTableView.layer.cornerRadius = 20
         
         savingView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
