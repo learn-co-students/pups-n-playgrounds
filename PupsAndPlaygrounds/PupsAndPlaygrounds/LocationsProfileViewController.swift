@@ -40,8 +40,6 @@ class LocationProfileViewController: UIViewController {
                     })
                 }
             }
-            
-            print("THIS PLAYGROUND IS \(self.playground?.name) and has \(self.playground?.reviewIDs) reviewIDs")
         }
         
     }
@@ -59,10 +57,7 @@ class LocationProfileViewController: UIViewController {
     func writeReview() {
         navigationController?.navigationBar.isUserInteractionEnabled = false
         tabBarController?.tabBar.isUserInteractionEnabled = false
-        
-        
-        
-        print("CLICKED REVIEW BUTTON")
+
         let childVC = ReviewViewController()
         childVC.reviewDelegate = self
         
@@ -82,8 +77,8 @@ class LocationProfileViewController: UIViewController {
     }
     
     func configure() {
-        guard let unwrappedPlayground = playground as? Playground else { print("trouble casting location as playground"); return }
-        self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
+        guard let downcastPlayground = playground as? Playground else { print("trouble casting location as playground"); return }
+        self.locationProfileView = LocationProfileView(playground: downcastPlayground)
         
         
         if FIRAuth.auth()?.currentUser?.isAnonymous == false {
@@ -169,7 +164,7 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         guard let locationID = reviewsArray[indexPath.row]?.locationID else { print("trouble casting locationID");return [] }
         guard let reviewComment = reviewsArray[indexPath.row]?.comment else { print("trouble casting reviewComment"); return [] }
         
-        print("REVIEW USER ID = \(userID) AND CURRENT USER UID = \(currentUser?.uid)")
+
         if userID == currentUser?.uid {
             
             
