@@ -98,6 +98,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         submitReviewButton.layer.borderWidth = 2
         submitReviewButton.layer.cornerRadius = 10
         submitReviewButton.layer.borderColor = UIColor.themeWhite.cgColor
+        submitReviewButton.titleLabel?.adjustsFontSizeToFitWidth = true
         
         reviewsView = UIView()
         reviewsTableView = UITableView()
@@ -165,7 +166,7 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
             $0.centerX.equalTo(locationNameLabel.snp.centerX)
             $0.top.equalTo(locationAddressLabel.snp.bottom).offset(2)
             $0.height.lessThanOrEqualTo(60)
-            $0.width.equalTo(locationNameLabel.snp.width).multipliedBy(0.75)
+            $0.width.equalTo(locationNameLabel.snp.width).multipliedBy(0.9)
         }
         
         scrollView.addSubview(reviewsView)
