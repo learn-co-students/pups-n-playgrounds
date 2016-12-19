@@ -48,8 +48,23 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.async {
                 self.mapView.map.removeAnnotations(self.mapView.map.annotations)
                 self.mapView.map.addAnnotations(self.dogParkAnnotations + self.playgroundAnnotations)
-                self.listView.locationsTableView.reloadData()
+                
+                if let userCoordinate = self.locationManager.location?.coordinate {
+                    let userLat = userCoordinate.latitude
+                    let userLon = userCoordinate.longitude
+                    
+                    let userCoordinateCL = CLLocation(latitude: userLat, longitude: userLon)
+                    self.locations = self.locations.sorted(by: { ($0.coordinate.distance(from: userCoordinateCL) < $1.coordinate.distance(from: userCoordinateCL))
+                    })
+                } else {
+                    let centralParkLat = self.centralParkCoordinate.latitude
+                    let centralParkLon = self.centralParkCoordinate.longitude
+                    let centralParkCoordinateCL = CLLocation(latitude: centralParkLat, longitude: centralParkLon)
+                    self.locations = self.locations.sorted(by: { ($0.coordinate.distance(from: centralParkCoordinateCL) < $1.coordinate.distance(from: centralParkCoordinateCL))
+                    })
+                }
             }
+            self.listView.locationsTableView.reloadData()
         }
     }
     
@@ -303,19 +318,19 @@ extension HomeViewController: MKMapViewDelegate {
     }
     
     func goToLocation() {
+        
+        if let dogRun = selectedAnnotation?.location as? Dogrun {
+            let dogRunVC = DogRunViewController()
+            dogRunVC.dogrunID = dogRun.id
             
-            if let dogRun = selectedAnnotation?.location as? Dogrun {
-                let dogRunVC = DogRunViewController()
-                dogRunVC.dogrunID = dogRun.id
-                
-                navigationController?.pushViewController(dogRunVC, animated: true)
-            } else if let playground = selectedAnnotation?.location as? Playground {
-                let locationProfileVC = LocationProfileViewController()
-                locationProfileVC.playgroundID = playground.id
-                
-                navigationController?.pushViewController(locationProfileVC, animated: true)
-            } else { print("error downcasting location") }
+            navigationController?.pushViewController(dogRunVC, animated: true)
+        } else if let playground = selectedAnnotation?.location as? Playground {
+            let locationProfileVC = LocationProfileViewController()
+            locationProfileVC.playgroundID = playground.id
             
+            navigationController?.pushViewController(locationProfileVC, animated: true)
+        } else { print("error downcasting location") }
+        
         
     }
     
