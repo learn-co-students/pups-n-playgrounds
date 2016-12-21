@@ -97,17 +97,16 @@ class ReviewView: UIView {
       $0.trailing.equalToSuperview().offset(-10)
       
     }
-    
-    
+
     innerView.addSubview(submitReviewButton)
     submitReviewButton.snp.makeConstraints {
-      $0.bottom.equalToSuperview().offset(-40)
-      $0.centerX.equalToSuperview()
+        $0.bottom.equalToSuperview().offset(-20)
+        $0.centerX.equalToSuperview()
     }
     
     innerView.addSubview(starReviews)
     starReviews.snp.makeConstraints {
-      $0.top.equalTo(reviewTextView.snp.bottom).offset(20)
+      $0.top.equalTo(reviewTextView.snp.bottom).offset(5)
       $0.width.height.equalTo(submitReviewButton)
       $0.centerX.equalToSuperview()
     }
@@ -117,6 +116,7 @@ class ReviewView: UIView {
       $0.top.equalToSuperview().offset(10)
       $0.trailing.equalToSuperview().offset(-10)
     }
+    
     
   }
 }

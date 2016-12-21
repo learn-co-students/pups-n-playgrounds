@@ -81,7 +81,8 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
         locationNameLabel.adjustsFontSizeToFitWidth = true
         locationNameLabel.numberOfLines = 0
         locationNameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        
+        locationNameLabel.textAlignment = .center
+
         locationAddressLabel = UILabel()
         locationAddressLabel.font = UIFont.themeSmallLight
         locationAddressLabel.textColor = UIColor.themeWhite
@@ -126,57 +127,54 @@ class LocationProfileView: UIView, GMSMapViewDelegate {
             $0.edges.equalTo(UIEdgeInsetsMake(10, 10, 10, 10))
         }
         
+        scrollView.addSubview(locationNameLabel)
+        locationNameLabel.snp.makeConstraints {
+            $0.top.equalTo(streetView.snp.bottom)
+            $0.width.equalToSuperview()
+        }
+        
         scrollView.addSubview(locationProfileImage)
         locationProfileImage.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(10)
-            $0.top.equalTo(streetView.snp.bottom).offset(10)
+            $0.top.equalTo(locationNameLabel.snp.bottom).offset(10)
             $0.width.equalToSuperview().dividedBy(3)
             $0.height.equalTo(locationProfileImage.snp.width)
-            scrollView.addSubview(streetView)
         }
-        
-        scrollView.addSubview(locationNameLabel)
-        locationNameLabel.snp.makeConstraints {
-            $0.top.equalTo(streetView.snp.bottom).offset(10)
-            $0.leading.equalTo(locationProfileImage.snp.trailing).offset(10)
-            $0.height.equalTo(locationProfileImage).dividedBy(2)
-            $0.width.equalTo(streetView.snp.width).multipliedBy(0.6)
-        }
-        
-        
+
         scrollView.addSubview(locationAddressLabel)
         locationAddressLabel.snp.makeConstraints {
-            $0.top.equalTo(locationNameLabel.snp.bottom).offset(10)
+            $0.top.equalTo(locationNameLabel.snp.bottom).offset(13)
             $0.leading.equalTo(locationProfileImage.snp.trailing).offset(10)
-            $0.height.equalTo(locationNameLabel.snp.height)
-            $0.width.equalTo(locationNameLabel.snp.width)
+            $0.width.equalToSuperview().multipliedBy(0.66)
         }
         
         scrollView.addSubview(starReviews)
         starReviews.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(10)
-            $0.top.equalTo(locationProfileImage.snp.bottom).offset(2)
-            $0.width.equalTo(locationProfileImage.snp.width)
+            $0.leading.equalTo(locationProfileImage.snp.trailing).offset(10)
+            $0.bottom.equalTo(locationProfileImage.snp.bottom)
+            $0.width.equalToSuperview().multipliedBy(0.5)
             $0.height.equalTo(starReviews.frame.height)
         }
+
+
         
         
         scrollView.addSubview(submitReviewButton)
         submitReviewButton.snp.makeConstraints {
-            $0.centerX.equalTo(locationNameLabel.snp.centerX)
-            $0.top.equalTo(locationAddressLabel.snp.bottom).offset(2)
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(locationProfileImage.snp.bottom).offset(5)
             $0.height.lessThanOrEqualTo(60)
-            $0.width.equalTo(locationNameLabel.snp.width).multipliedBy(0.9)
+            $0.width.equalToSuperview().multipliedBy(0.6)
         }
         
         scrollView.addSubview(reviewsView)
         reviewsView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(starReviews.snp.bottom)
+            $0.top.equalTo(submitReviewButton.snp.bottom)
             $0.width.equalTo(scrollView.snp.width)
             $0.height.equalTo(locationProfileImage.snp.height).multipliedBy(5)
         }
-        
+
         reviewsView.addSubview(reviewsTableView)
         reviewsTableView.snp.makeConstraints {
             $0.edges.equalTo(UIEdgeInsetsMake(10, 10, 10, 10))
