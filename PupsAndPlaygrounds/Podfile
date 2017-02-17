@@ -12,6 +12,7 @@ target 'PupsAndPlaygrounds' do
 
   # Google Maps
   pod 'GoogleMaps'
+  pod 'GooglePlacePicker'
 
   # XML Parser
   # pod 'SWXMLHash'

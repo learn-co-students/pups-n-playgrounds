@@ -61,6 +61,7 @@
 		E87758A21DF8701200823089 /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */; };
 		E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EE2131DEE141B00CAEACF /* Secrets.swift */; };
 		E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */; };
+		F61FF9CF1E03193F0015881D /* SettingsDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61FF9CE1E03193F0015881D /* SettingsDropDownView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +124,7 @@
 		E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		E89EE2131DEE141B00CAEACF /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
+		F61FF9CE1E03193F0015881D /* SettingsDropDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDropDownView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 				E813A3A91DECA4E4006D9725 /* LocationsProfileView.swift */,
 				C492A0D81DFC88CA0063AB0F /* DogRunProfileView.swift */,
 				C4AEC6201DEDD47E0095DC47 /* FeedView.swift */,
+				F61FF9CE1E03193F0015881D /* SettingsDropDownView.swift */,
 				C4810D1E1DE36F9E00A652DB /* UserProfileView.swift */,
 				C49CB6301DFC996B00D6DCBF /* AnonymousUserView.swift */,
 				B5CB82EA1DF86B4800B373B5 /* ReviewView.swift */,
@@ -557,6 +560,7 @@
 				C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
+				F61FF9CF1E03193F0015881D /* SettingsDropDownView.swift in Sources */,
 				B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* UserProfileViewController.swift in Sources */,
 				C4129E9E1DF577E6009706E6 /* CustomAnnotationView.swift in Sources */,
