@@ -58,8 +58,9 @@
 		E84199C61DE37E8F00522C8A /* FirebaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C51DE37E8F00522C8A /* FirebaseData.swift */; };
 		E84199CA1DE37EB000522C8A /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199C81DE37EB000522C8A /* Locations.swift */; };
 		E84199D11DE38FE400522C8A /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84199D01DE38FE400522C8A /* Review.swift */; };
-		E87758A21DF8701200823089 /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */; };
+		E87758A21DF8701200823089 /* LocationReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87758A11DF8701200823089 /* LocationReviewTableViewCell.swift */; };
 		E89EE2141DEE141B00CAEACF /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EE2131DEE141B00CAEACF /* Secrets.swift */; };
+		E8D63AF31E074757002614CA /* SettingsDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D63AF21E074757002614CA /* SettingsDropDownView.swift */; };
 		E8F00C8F1DF0B7E800013BF0 /* StarReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */; };
 		F61FF9CF1E03193F0015881D /* SettingsDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61FF9CE1E03193F0015881D /* SettingsDropDownView.swift */; };
 /* End PBXBuildFile section */
@@ -121,8 +122,9 @@
 		E84199C51DE37E8F00522C8A /* FirebaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseData.swift; path = PupsAndPlaygrounds/FirebaseData.swift; sourceTree = "<group>"; };
 		E84199C81DE37EB000522C8A /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		E84199D01DE38FE400522C8A /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
-		E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
+		E87758A11DF8701200823089 /* LocationReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationReviewTableViewCell.swift; sourceTree = "<group>"; };
 		E89EE2131DEE141B00CAEACF /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		E8D63AF21E074757002614CA /* SettingsDropDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDropDownView.swift; sourceTree = "<group>"; };
 		E8F00C8E1DF0B7E800013BF0 /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
 		F61FF9CE1E03193F0015881D /* SettingsDropDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDropDownView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,7 +196,6 @@
 				C48AA8F11DE4CEFD00646B61 /* ImagePickerView.swift */,
 				C492A0E41DFC963D0063AB0F /* Custom Elements */,
 				C4EAE2DB1DDF65E20069C15E /* Assets.xcassets */,
-				C4A148DE1DFFAEC900597914 /* New Group */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -257,7 +258,7 @@
 			children = (
 				C43CB5BE1DFE6C1D00FEF719 /* ListViewTableViewCell.swift */,
 				B5B71FD11DEF705A00CF93B3 /* FeedTableViewCell.swift */,
-				E87758A11DF8701200823089 /* ReviewsTableViewCell.swift */,
+				E87758A11DF8701200823089 /* LocationReviewTableViewCell.swift */,
 				C4A148DF1DFFB8DF00597914 /* UserReviewTableViewCell.swift */,
 			);
 			name = "Table View Cells";
@@ -283,6 +284,7 @@
 		C492A0DF1DFC95BD0063AB0F /* Home View */ = {
 			isa = PBXGroup;
 			children = (
+				E8D63AF21E074757002614CA /* SettingsDropDownView.swift */,
 				C4B6ED7C1DEDDF8700F28C04 /* MapView.swift */,
 				C4B6ED7E1DEDEB8D00F28C04 /* ListView.swift */,
 				C4F09A831DFB188200C47F9F /* FilterView.swift */,
@@ -336,13 +338,6 @@
 				C4608D361DFF507400415903 /* Table View Cells */,
 			);
 			name = "Custom Elements";
-			sourceTree = "<group>";
-		};
-		C4A148DE1DFFAEC900597914 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
 			sourceTree = "<group>";
 		};
 		C4DECFD61DE3474C001CE1A2 /* Property List */ = {
@@ -434,7 +429,6 @@
 				TargetAttributes = {
 					C4EAE2CD1DDF65E20069C15E = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = KXY9EDFTF5;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -560,7 +554,11 @@
 				C48AA8F21DE4CEFD00646B61 /* ImagePickerView.swift in Sources */,
 				C4DECFD51DE33840001CE1A2 /* CreateAccountView.swift in Sources */,
 				C4DECFCB1DE2CCDF001CE1A2 /* CustomTextField.swift in Sources */,
+<<<<<<< HEAD
 				F61FF9CF1E03193F0015881D /* SettingsDropDownView.swift in Sources */,
+=======
+				E8D63AF31E074757002614CA /* SettingsDropDownView.swift in Sources */,
+>>>>>>> 7a110fb90dc1d11aab674222f4423a7b6e01f838
 				B5B71FD21DEF705B00CF93B3 /* FeedTableViewCell.swift in Sources */,
 				C4810D1D1DE36EE600A652DB /* UserProfileViewController.swift in Sources */,
 				C4129E9E1DF577E6009706E6 /* CustomAnnotationView.swift in Sources */,
@@ -569,7 +567,7 @@
 				C4283EB71DF1DD8E0052580A /* ContainerViewController.swift in Sources */,
 				B5CB82EB1DF86B4800B373B5 /* ReviewView.swift in Sources */,
 				C4DECFD31DE3381B001CE1A2 /* CreateAccountViewController.swift in Sources */,
-				E87758A21DF8701200823089 /* ReviewsTableViewCell.swift in Sources */,
+				E87758A21DF8701200823089 /* LocationReviewTableViewCell.swift in Sources */,
 				C413C44C1DDFC4660020F10F /* CustomFonts.swift in Sources */,
 				C413C4431DDFB69F0020F10F /* CustomColors.swift in Sources */,
 				C4B6ED7F1DEDEB8D00F28C04 /* ListView.swift in Sources */,
@@ -609,6 +607,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -659,6 +658,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -685,7 +685,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PupsAndPlaygrounds/PupsAndPlaygrounds.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = KXY9EDFTF5;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-potato-cruise";
@@ -702,7 +702,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PupsAndPlaygrounds/PupsAndPlaygrounds.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = KXY9EDFTF5;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PupsAndPlaygrounds/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-potato-cruise";

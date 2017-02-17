@@ -47,7 +47,7 @@ final class FIRClient {
     }
     
     // MARK: Retrieve existing user
-    static func getUser(user: FIRUser?, completion: @escaping(User) -> Void) {
+    static func getCurrentUser(user: FIRUser?, completion: @escaping(User) -> Void) {
         guard let uid = user?.uid else {
             print("error unwrapping uid from user in FIRClient")
             return
@@ -70,6 +70,47 @@ final class FIRClient {
             }
             
             let user = User(uid: uid, firstName: firstName, lastName: lastName)
+            
+            if let reviewIDs = userInfo["reviews"] as? [String : Any] {
+                for reviewID in reviewIDs.keys {
+                    user.reviewIDs.append(reviewID)
+                }
+            }
+            
+            if let profilePhotoURL = URL(string: userInfo["profilePhotoURLString"] as? String ?? "") {
+                URLSession.shared.dataTask(with: profilePhotoURL) { data, response, error in
+                    guard let data = data else {
+                        print("error unwrapping data")
+                        return
+                    }
+                    
+                    user.profilePhoto = UIImage(data: data)
+                    completion(user)
+                    }.resume()
+            } else {
+                completion(user)
+            }
+        })
+    }
+    
+    static func getAnyUser(userID: String, completion: @escaping(User?) -> Void) {
+        ref.child("users").child(userID).observe(.value, with: { snapshot in
+            guard let userInfo = snapshot.value as? [String : Any] else {
+                print("error unwrapping user information")
+                return
+            }
+            
+            guard let firstName = userInfo["firstName"] as? String else {
+                print("error unwrapping first name")
+                return
+            }
+            
+            guard let lastName = userInfo["lastName"] as? String else {
+                print("error unwrapping last name")
+                return
+            }
+            
+            let user = User(uid: userID, firstName: firstName, lastName: lastName)
             
             if let reviewIDs = userInfo["reviews"] as? [String : Any] {
                 for reviewID in reviewIDs.keys {
@@ -249,7 +290,7 @@ final class FIRClient {
                 
                 var reviewsIDArray = [String]()
                 
-       
+                
                 
                 if let reviewsDictionary = locationDict["reviews"] as? [String : Any] {
                     for iterReview in reviewsDictionary {
@@ -263,7 +304,7 @@ final class FIRClient {
                 print("COMPETION REVIEW COUNT IS \(newestDogRun.reviewIDs.count)")
                 completion(newestDogRun)
             })
-
+            
         }
         
     }
@@ -456,7 +497,7 @@ final class FIRClient {
         }
         return averageStarValueToReturn
     }
-
+    
     static func sendFeedbackToPP(with comment: String) {
         
         let ref = FIRDatabase.database().reference().root.child("userFeedback")
@@ -465,7 +506,7 @@ final class FIRClient {
         
         ref.updateChildValues([commentUniqueID: ["userUniqueID": currentUser, "comment": comment]])
     }
-
+    
 }
 
 

@@ -147,6 +147,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         submitReviewButton.layer.borderColor = UIColor.themeWhite.cgColor
         submitReviewButton.layer.borderWidth = 4
         submitReviewButton.setTitleColor(UIColor.themeWhite , for: .normal)
+        submitReviewButton.titleLabel?.adjustsFontSizeToFitWidth = true
         
     }
     
@@ -176,7 +177,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
         dogDetailView.snp.makeConstraints {
             $0.top.equalTo(dogStreetView.snp.bottom)
             $0.width.equalToSuperview()
-            $0.height.equalToSuperview().dividedBy(6)
+            $0.height.equalToSuperview().dividedBy(5)
         }
 
         dogDetailView.addSubview(dogRunNameLabel)
@@ -184,6 +185,7 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(leadingTopOffset)
             $0.trailing.equalToSuperview().offset(trailingBottomOffset)
+            $0.height.equalToSuperview().dividedBy(2)
         }
         
         dogDetailView.addSubview(dogRunAddressLabel)
@@ -191,26 +193,28 @@ class DogRunProfileView: UIView, GMSMapViewDelegate {
             $0.leading.equalToSuperview().offset(leadingTopOffset)
             $0.trailing.equalToSuperview().offset(trailingBottomOffset)
             $0.top.equalTo(dogRunNameLabel.snp.bottom).offset(leadingTopOffset)
-            $0.bottom.equalToSuperview().offset(-10)
-            
+            $0.height.equalTo(dogRunNameLabel.snp.height).dividedBy(2)
         }
         
-        scrollView.addSubview(dogNotesView)
-        dogNotesView.snp.makeConstraints {
-            $0.top.equalTo(dogDetailView.snp.bottom)
-            $0.width.equalToSuperview()
-            $0.height.equalTo(dogDetailView).offset(-20)
-        }
+//        scrollView.addSubview(dogNotesView)
+//        dogNotesView.snp.makeConstraints {
+//            $0.top.equalTo(dogDetailView.snp.bottom)
+//            $0.width.equalToSuperview()
+//            $0.height.equalTo(dogDetailView).offset(-20)
+//        }
 
-        dogNotesView.addSubview(dogNotesLabel)
+        dogDetailView.addSubview(dogNotesLabel)
         dogNotesLabel.snp.makeConstraints {
-            $0.edges.equalTo(UIEdgeInsetsMake(10, 10, 10, 10))
+            $0.leading.equalToSuperview().offset(leadingTopOffset)
+            $0.trailing.equalToSuperview().offset(trailingBottomOffset)
+            $0.top.equalTo(dogRunAddressLabel.snp.bottom).offset(leadingTopOffset)
+            $0.bottom.equalToSuperview().offset(trailingBottomOffset)
         }
         
         scrollView.addSubview(dogTypeView)
         dogTypeView.snp.makeConstraints {
-            $0.top.equalTo(dogNotesView.snp.bottom)
-            $0.height.equalTo(dogNotesView)
+            $0.top.equalTo(dogDetailView.snp.bottom)
+            $0.height.equalTo(dogRunAddressLabel.snp.height)
             $0.width.equalToSuperview()
         }
 

@@ -1,20 +1,21 @@
 //
-//  UserReviewTableViewCell.swift
+//  ReviewsTableViewCell.swift
 //  PupsAndPlaygrounds
 //
-//  Created by William Robinson on 12/13/16.
+//  Created by Robert Deans on 12/6/16.
 //  Copyright © 2016 Flatiron School. All rights reserved.
 //
 
 import UIKit
-import SnapKit
 
-class UserReviewTableViewCell: UITableViewCell {
+class LocationReviewTableViewCell: UITableViewCell {
+  
     lazy var visibleView = UIView()
     lazy var innerView = UIView()
-    lazy var locationNameLabel = UILabel()
+    lazy var userNameLabel = UILabel()
     lazy var commentsLabel = UILabel()
     lazy var starReview = StarReview()
+    
     
     var review: Review? {
         didSet {
@@ -34,8 +35,8 @@ class UserReviewTableViewCell: UITableViewCell {
             return
         }
         
-        locationNameLabel.textColor = UIColor.white
-        locationNameLabel.font = UIFont.themeSmallBold
+        userNameLabel.textColor = UIColor.white
+        userNameLabel.font = UIFont.themeSmallBold
         
         commentsLabel.text = review.comment
         commentsLabel.textColor = UIColor.white
@@ -63,22 +64,24 @@ class UserReviewTableViewCell: UITableViewCell {
             $0.edges.equalTo(UIEdgeInsetsMake(15, 15, 15, 15))
         }
         
-        innerView.addSubview(locationNameLabel)
-        locationNameLabel.snp.makeConstraints {
+        innerView.addSubview(userNameLabel)
+        userNameLabel.snp.makeConstraints {
             $0.leading.top.equalToSuperview()
         }
         
         innerView.addSubview(commentsLabel)
         commentsLabel.snp.makeConstraints {
             $0.leading.equalToSuperview()
-            $0.top.equalTo(locationNameLabel.snp.bottom).offset(5)
+            $0.top.equalTo(userNameLabel.snp.bottom).offset(5)
         }
         
         innerView.addSubview(starReview)
         starReview.snp.makeConstraints {
             $0.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(locationNameLabel.snp.bottom).offset(5)
+            $0.top.equalTo(userNameLabel.snp.bottom).offset(5)
             $0.width.equalToSuperview().dividedBy(3)
         }
     }
+
 }
+

@@ -51,7 +51,7 @@ class UserProfileViewController: UIViewController {
     // MARK: Setup
     private func configure() {
         settingsDropDownView = SettingsDropDownView()
-
+        
         settingsDropDownView.settingsDropDownStackView.isHidden = true
         settingsDropDownView.changePasswordButton.addTarget(self, action: #selector(changePassword), for: .touchUpInside)
         settingsDropDownView.logoutButton.addTarget(self, action: #selector(logOutButtonTouched), for: .touchUpInside)
@@ -162,8 +162,8 @@ class UserProfileViewController: UIViewController {
         self.settingsDropDownView.settingsDropDownStackView.isHidden = true
         
     }
-
-
+    
+    
     
     // MARK: Display User Information
     func displayUserInfo() {
@@ -268,7 +268,7 @@ extension UserProfileViewController: UIImagePickerControllerDelegate, UINavigati
 extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         return userReviews.count
     }
     
@@ -295,7 +295,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         guard let reviewID = userReviews[indexPath.row]?.reviewID else { print("trouble casting reviewID");return [] }
         guard let locationID = userReviews[indexPath.row]?.locationID else { print("trouble casting locationID");return [] }
         guard let reviewComment = userReviews[indexPath.row]?.comment else { print("trouble casting reviewComment"); return [] }
-
+        
         
         if userID == store.user?.uid {
             

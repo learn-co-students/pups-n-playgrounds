@@ -40,8 +40,6 @@ class LocationProfileViewController: UIViewController {
                     })
                 }
             }
-            
-            print("THIS PLAYGROUND IS \(self.playground?.name) and has \(self.playground?.reviewIDs) reviewIDs")
         }
         
     }
@@ -60,9 +58,6 @@ class LocationProfileViewController: UIViewController {
         navigationController?.navigationBar.isUserInteractionEnabled = false
         tabBarController?.tabBar.isUserInteractionEnabled = false
         
-        
-        
-        print("CLICKED REVIEW BUTTON")
         let childVC = ReviewViewController()
         childVC.reviewDelegate = self
         
@@ -82,8 +77,8 @@ class LocationProfileViewController: UIViewController {
     }
     
     func configure() {
-        guard let unwrappedPlayground = playground as? Playground else { print("trouble casting location as playground"); return }
-        self.locationProfileView = LocationProfileView(playground: unwrappedPlayground)
+        guard let downcastPlayground = playground as? Playground else { print("trouble casting location as playground"); return }
+        self.locationProfileView = LocationProfileView(playground: downcastPlayground)
         
         
         if FIRAuth.auth()?.currentUser?.isAnonymous == false {
@@ -104,7 +99,7 @@ class LocationProfileViewController: UIViewController {
         reviewsTableView = locationProfileView.reviewsTableView
         locationProfileView.reviewsTableView.delegate = self
         locationProfileView.reviewsTableView.dataSource = self
-        locationProfileView.reviewsTableView.register(ReviewsTableViewCell.self, forCellReuseIdentifier: "reviewCell")
+        locationProfileView.reviewsTableView.register(LocationReviewTableViewCell.self, forCellReuseIdentifier: "reviewCell")
         locationProfileView.reviewsTableView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         
         
@@ -151,11 +146,15 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewsTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as? LocationReviewTableViewCell else { print("error unwrapping cell in user review table view"); return UITableViewCell()}
         
-        if let currentReview = reviewsArray[indexPath.row] {
-            cell.review = currentReview
-            cell.backgroundColor = UIColor.clear
+        cell.review = reviewsArray[indexPath.row]
+        cell.backgroundColor = UIColor.clear
+        
+        if let userID = reviewsArray[indexPath.row]?.userID {
+            FIRClient.getAnyUser(userID: userID, completion: { (firebaseUser) in
+                cell.userNameLabel.text = firebaseUser?.firstName
+            })
             
         }
         return cell
@@ -169,7 +168,7 @@ extension LocationProfileViewController: UITableViewDelegate, UITableViewDataSou
         guard let locationID = reviewsArray[indexPath.row]?.locationID else { print("trouble casting locationID");return [] }
         guard let reviewComment = reviewsArray[indexPath.row]?.comment else { print("trouble casting reviewComment"); return [] }
         
-        print("REVIEW USER ID = \(userID) AND CURRENT USER UID = \(currentUser?.uid)")
+        
         if userID == currentUser?.uid {
             
             
